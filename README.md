@@ -1,3 +1,3 @@
-# CAMX
+# EDCA
 
-Implementación del estándar de contrataciones abiertas Open Contracting Data Standard (OCDS).
+Estandar de Datos de Contrataciones Abiertas (EDCA).
