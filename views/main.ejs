@@ -60,8 +60,30 @@
 </nav>
 
 
+
+
 <div class="container">
 
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                <i class="fa fa-pencil"></i> Nuevo proceso</button>
+
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">
+                <i class="fa fa-search"></i> Buscar proceso</button>
+</div>
+                <div class="col-sm-6">
+            <input type="text" class="form-control" disabled placeholder="ocid">
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
 <ul class="nav nav-pills nav-justified">
     <li role="presentation" class="active"><a data-toggle="pill" href="#home">1. PLANEACIÓN</a></li>
     <li role="presentation"><a data-toggle="pill" href="#menu1">2. LICITACIÓN</a></li>
@@ -75,30 +97,7 @@
 <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
 
-        <div class="row">
 
-            <div class="col-sm-3">
-
-            <div class="well well-lg" align="center">
-                <h3>HERRAMIENTAS</h3>
-
-
-
-                <div class="btn-group btn-group-vertical">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-<i class="fa fa-pencil"></i> Nuevo proceso</button>
-
-
-
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">
-                    <i class="fa fa-search"></i> Buscar proceso</button>
-
-</div>
-            </div>
-
-            </div>
-
-            <div class="col-sm-9">
         <div class="well well-lg">
 
         <h3>1. PLANEACIÓN</h3>
@@ -106,8 +105,7 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
         </div>
-</div>
-            </div>
+
 
     </div>
     <div id="menu1" class="tab-pane fade">
@@ -156,7 +154,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Registrar un proceso de contratación abierta</h4>
+                <h4 class="modal-title" id="myModalLabel">Crear un proceso de contratación abierta</h4>
             </div>
             <div class="modal-body">
                 ...
