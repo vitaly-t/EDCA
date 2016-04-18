@@ -7,7 +7,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-   <!--  <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+    <!--  <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet"> -->
     <link rel='stylesheet' href='/stylesheets/navbar-fixed-top.css' />
     <title><%= title %></title>
     <!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
@@ -94,7 +94,10 @@
 
                 <h3>1. PLANEACIÓN</h3>
 
-
+                <p>
+                    <button class="btn btn-success">Document</button>
+                    <button class="btn btn-success">Budget document</button>
+                </p>
                 <form role = "form">
                     <p> <input class="form-control" placeholder="budget source"></p>
                     <p><input class="form-control" placeholder="budget id"></p>
@@ -108,6 +111,7 @@
 
 
                     <button  type="submit" class="btn btn-success">Guardar</button>
+
                 </form>
 
 
@@ -117,7 +121,13 @@
             <div class="well well-lg">
 
                 <h3>2. LICITACIÓN</h3>
-
+                <p>
+                    <button class="btn btn-success">Milestones</button>
+                    <button class="btn btn-success">Documents</button>
+                    <button class="btn btn-success">Amendments</button>
+                    <button class="btn btn-success">Items</button>
+                    <button class="btn btn-success">Tenderers</button>
+                </p>
                 <form role="form">
 
                     <p><input type="text" class="form-control" placeholder="title"></p>
@@ -138,9 +148,9 @@
                     <p><input type="datetime" class="form-control" placeholder="enquiry period start date"></p>
                     <p><input type="datetime" class="form-control" placeholder="enquiry period end date"></p>
                     <p><select class="form-control">
-                        <option value="0">Si</option>
-                        <option value="1">No</option>
-                    </select></p>
+                            <option value="0">Si</option>
+                            <option value="1">No</option>
+                        </select></p>
                     <p><input type="text" class="form-control" placeholder="eligibility criteria"></p>
                     <p><input type="datetime" class="form-control" placeholder="award period start date"></p>
                     <p><input type="datetime" class="form-control" placeholder="award period end date"></p>
@@ -150,12 +160,10 @@
                     <p><input type="number" class="form-control" placeholder="procuring entity identifier id"></p>
                     <p><input type="number" class="form-control" placeholder="procuring entity identifier legal name"></p>
                     <p><input type="number" class="form-control" placeholder="procuring entity identifier uri"></p>
-
-
-
-
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
+
+
             </div>
         </div>
 
@@ -163,8 +171,11 @@
             <div class="well well-lg">
 
                 <h3>3. ADJUDICACIÓN</h3>
-
-
+                <p>
+                    <button class="btn btn-success">Items</button>
+                    <button class="btn btn-success">Documents</button>
+                    <button class="btn btn-success">Suppliers</button>
+                </p>
                 <form role="form">
                     <p><input type="text" class="form-control" placeholder="title"></p>
                     <p><input type="text" class="form-control" placeholder="description"></p>
@@ -178,6 +189,7 @@
 
                     <button type="submit" class="btn btn-success">Guardar</button>
 
+
                 </form>
             </div>
         </div>
@@ -186,6 +198,11 @@
             <div class="well well-lg">
 
                 <h3>4. CONTRATACIÓN</h3>
+                <p>
+                    <button class="btn btn-success">Documents</button>
+                    <button class="btn btn-success">Items</button>
+                </p>
+
                 <form role="form">
 
                     <p><input type="text" class="form-control" placeholder="title"></p>
@@ -198,6 +215,7 @@
                     <p><input type="text" class="form-control" placeholder="date signed"></p>
 
                     <button type="submit" class="btn btn-success">Guardar</button>
+
 
                 </form>
             </div>
@@ -212,13 +230,11 @@
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </form> -->
 
-                <p>
 
-                    <button class="btn btn-success">Transactions</button>
-                    <button class="btn btn-success">Milestones</button>
-                    <button class="btn btn-success">Documents</button>
 
-                </p>
+                <button class="btn btn-success">Transactions</button>
+                <button class="btn btn-success">Milestones</button>
+                <button class="btn btn-success">Documents</button>
 
             </div>
 
