@@ -28,23 +28,6 @@
             <a class="navbar-brand" href="#">datos.gob.mx</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <!-- <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul> -->
 
 
             <ul class="nav navbar-nav navbar-right">
@@ -76,6 +59,9 @@
 
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal3">
                         <i class="fa fa-file-text-o"></i> Publicar</button>
+
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal4">
+                        <i class="fa fa-gears"></i> Comprador</button>
                 </div>
 
 
@@ -180,6 +166,15 @@
 
 
                 <form role="form">
+                    <p><input type="text" class="form-control" placeholder="title"></p>
+                    <p><input type="text" class="form-control" placeholder="description"></p>
+                    <p><input type="text" class="form-control" placeholder="status"></p>
+                    <p><input type="datetime" class="form-control" placeholder="date"></p>
+                    <p><input type="text" class="form-control" placeholder="value amount"></p>
+                    <p><input type="text" class="form-control" placeholder="value currency"></p>
+                    <p><input type="datetime" class="form-control" placeholder="contract period start date"></p>
+                    <p><input type="datetime" class="form-control" placeholder="contract period end date"></p>
+
 
                     <button type="submit" class="btn btn-success">Guardar</button>
 
@@ -193,6 +188,15 @@
                 <h3>4. CONTRATACIÓN</h3>
                 <form role="form">
 
+                    <p><input type="text" class="form-control" placeholder="title"></p>
+                    <p><input type="text" class="form-control" placeholder="description"></p>
+                    <p><input type="text" class="form-control" placeholder="status"></p>
+                    <p><input type="text" class="form-control" placeholder="period start date"></p>
+                    <p><input type="text" class="form-control" placeholder="period end date"></p>
+                    <p><input type="text" class="form-control" placeholder="value amount"></p>
+                    <p><input type="text" class="form-control" placeholder="value currency"></p>
+                    <p><input type="text" class="form-control" placeholder="date signed"></p>
+
                     <button type="submit" class="btn btn-success">Guardar</button>
 
                 </form>
@@ -203,11 +207,19 @@
             <div class="well well-lg">
 
                 <h3>5. IMPLEMENTACIÓN</h3>
+                <!--
                 <form role="form">
-
                     <button type="submit" class="btn btn-success">Guardar</button>
+                </form> -->
 
-                </form>
+                <p>
+
+                    <button class="btn btn-success">Transactions</button>
+                    <button class="btn btn-success">Milestones</button>
+                    <button class="btn btn-success">Documents</button>
+
+                </p>
+
             </div>
 
         </div>
@@ -276,6 +288,27 @@
         </div>
     </div>
 </div>
+
+
+<!-- modal para el comprador -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel4">Editar datos del comprador</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
