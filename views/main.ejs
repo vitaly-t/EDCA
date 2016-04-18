@@ -56,8 +56,7 @@
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal3">
                         <i class="fa fa-file-text-o"></i> Publicar</button>
 
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal4">
-                        <i class="fa fa-gears"></i> Comprador</button>
+
                 </div>
 
 
@@ -78,6 +77,7 @@
         <li role="presentation"><a data-toggle="pill" href="#menu2">3. ADJUDICACIÓN</a></li>
         <li role="presentation"><a data-toggle="pill" href="#menu3">4. CONTRATACIÓN</a></li>
         <li role="presentation"><a data-toggle="pill" href="#menu4">5. IMPLEMENTACIÓN</a></li>
+        <li role="presentation"><a data-toggle="pill" href="#menu5">COMPRADOR</a></li>
     </ul>
 
     <br>
@@ -112,6 +112,7 @@
 
             </div>
         </div>
+
         <div id="menu1" class="tab-pane fade">
             <div class="well well-lg">
 
@@ -122,6 +123,8 @@
                     <button class="btn btn-success">Amendment changes</button>
                     <button class="btn btn-success">Items</button>
                     <button class="btn btn-success">Tenderers</button>
+
+
                 </p>
                 <form role="form">
 
@@ -244,6 +247,41 @@
             </div>
 
         </div>
+
+
+        <div id="menu5" class="tab-pane fade">
+            <div class="well well-lg">
+
+                <h3>COMPRADOR</h3>
+
+                <p><button class="btn btn-success">Additional identifiers</button></p>
+
+                <form role="form">
+                    <p><input type="text" class="form-control" placeholder="identifier scheme"></p>
+                    <p><input type="text" class="form-control" placeholder="identifier id"></p>
+                    <p><input type="text" class="form-control" placeholder="identifier legal name"></p>
+                    <p><input type="text" class="form-control" placeholder="identifier uri"></p>
+                    <p><input type="text" class="form-control" placeholder="name"></p>
+                    <p><input type="text" class="form-control" placeholder="address street address"></p>
+                    <p><input type="text" class="form-control" placeholder="address locality"></p>
+                    <p><input type="text" class="form-control" placeholder="address region"></p>
+                    <p><input type="text" class="form-control" placeholder="address postal code"></p>
+                    <p><input type="text" class="form-control" placeholder="address country name"></p>
+                    <p><input type="text" class="form-control" placeholder="contact point name"></p>
+                    <p><input type="text" class="form-control" placeholder="contact point email"></p>
+                    <p><input type="text" class="form-control" placeholder="contact point telephone"></p>
+                    <p><input type="text" class="form-control" placeholder="contact point fax number"></p>
+                    <p><input type="text" class="form-control" placeholder="contact point url"></p>
+
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+
     </div>
 
 </div>
@@ -309,24 +347,7 @@
 </div>
 
 
-<!-- modal para el comprador -->
-<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel4">Editar datos del comprador</h4>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
