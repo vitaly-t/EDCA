@@ -34,11 +34,8 @@ var bCrypt = require('bcrypt-nodejs');
       function(req, username, password, done) {
         // check in mongo if a user with username exists or not
 
-        //console.log("probando");
         User.findOne({ 'username' :  username },
             function(err, user) {
-
-              //return done(null, user);// forza el loggeo
 
               // In case of any error, return using the done method
               if (err)
@@ -60,9 +57,7 @@ var bCrypt = require('bcrypt-nodejs');
         );
 
       }
-
-  )
-  );
+  ));
 
 
   var isValidPassword = function(user, password){
@@ -150,7 +145,7 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/');
 }
 
-/*************************/
+/* * * * * * * * * * * RUTAS * * * * * * * * * * * * * */
   /* GET home page. */
   router.get('/', function (req, res, next) {
     res.render('index', {title: 'Contrataciones abiertas', message: req.flash('message')});
@@ -176,8 +171,5 @@ router.get('/signout', function(req, res) {
 router.get('/main', isAuthenticated, function(req, res, next) {
   res.render('main', { user:req.user,title: 'Contrataciones abiertas' });
 });
-
-
-
 
   module.exports = router;
