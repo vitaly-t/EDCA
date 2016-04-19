@@ -22,11 +22,14 @@
     <p><%= title %></p>
 
 
-    <input type="text" class="form-control" placeholder="Usuario" maxlength="3">
+        <form action="/login" method="POST">
+
+    <input type="text" class="form-control" placeholder="Usuario" >
         <br>
     <input type="password" class="form-control" placeholder="Contraseña">
     <br>
-        <a href="/main" class="btn btn-success" role="button">Enviar</a>
+        <button type="submit" class="btn btn-success">Enviar</button>
+            </form>
 </div>
 </div>
 
