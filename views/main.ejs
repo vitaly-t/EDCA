@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-sm-6">
 
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                    <button id="nuevo" type="button" class="btn btn-success" >
                         <i class="fa fa-pencil"></i> Nuevo proceso</button>
 
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">
@@ -63,7 +63,7 @@
 
 
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" disabled placeholder="ocid">
+                    <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled>
                 </div>
 
             </div>
@@ -71,7 +71,14 @@
 
         </div>
     </div>
+<!--
+    <div id="alerta" class="alert alert-warning alert-dismissible" role="alert" hidden>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Alerta</strong> se ha creado un nuevo proceso de contratación con ocid ...
+    </div>
+    -->
     <br>
+
 
     <ul class="nav nav-pills nav-justified">
         <li role="presentation" class="active"><a data-toggle="pill" href="#home">1. PLANEACIÓN</a></li>
@@ -290,26 +297,6 @@
 
 
 
-<!-- modal para nuevo proceso -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Crear un proceso de contratación abierta</h4>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <!-- modal para buscar -->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -319,11 +306,13 @@
                 <h4 class="modal-title" id="myModalLabel2">Buscar proceso de contratación existente</h4>
             </div>
             <div class="modal-body">
-                ...
+
+
+                <input type="text" class="form-control" placeholder="ocid">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
     </div>
@@ -338,11 +327,18 @@
                 <h4 class="modal-title" id="myModalLabel3">Publicar proceso de contratación</h4>
             </div>
             <div class="modal-body">
-                ...
+                <div class="radio">
+                    <label><input type="radio" name="optradio">Release</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="optradio">Record</label>
+                </div>
+
+                <button class="btn btn-success">Publicar</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
     </div>
@@ -354,6 +350,7 @@
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="javascript/main.js"></script>
 
 </body>
 </html>
