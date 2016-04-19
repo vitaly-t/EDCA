@@ -4,6 +4,8 @@
 
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
 
 
 
@@ -24,12 +26,16 @@
 
         <form action="/login" method="post">
 
-    <input type="text" class="form-control" placeholder="Usuario" >
+    <input name="username" type="text" class="form-control" placeholder="Usuario" required>
         <br>
-    <input type="password" class="form-control" placeholder="Contraseña">
+    <input name="password" type="password" class="form-control" placeholder="Contraseña" required>
     <br>
-        <button type="submit" class="btn btn-success">Enviar</button>
+        <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Enviar</button>
             </form>
+
+        <% if (message !=""){%>
+        <p><div class="alert alert-danger"> <%= message %> </div></p>
+        <%}%>
 </div>
 </div>
 
