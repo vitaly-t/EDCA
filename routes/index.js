@@ -188,5 +188,14 @@ edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion) valu
 });
 
 
+router.get('/organization_type', function (req, res) {
+edca_db.many("select id, name from OrganizationType").then(function (data) {
+    res.send(data);
+}).catch(function (error) {
+    res.send({id: 0, name: "Error"});
+console.log("ERROR: ", error);
+});
+});
+
 
   module.exports = router;
