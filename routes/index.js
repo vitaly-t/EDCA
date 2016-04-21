@@ -172,4 +172,21 @@ router.get('/main', isAuthenticated, function(req, res, next) {
   res.render('main', { user:req.user,title: 'Contrataciones abiertas' });
 });
 
+
+/************* API ****************/
+var pgp = require("pg-promise")();
+var edca_db  = pgp("postgres://tester:test@localhost/edca");
+
+router.get('/nuevo_proceso', function(req,res){
+edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id").then(function (data) {
+    res.send(data);
+    console.log("Se ha creado un nuevo proceso de contratación, id: ", data.id);
+    }).catch(function (error) {
+    res.send({"id":0});
+    console.log("ERROR: ", error);
+});
+});
+
+
+
   module.exports = router;
