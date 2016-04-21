@@ -145,9 +145,16 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/');
 }
 
+var isNotAuthenticated = function (req, res, next) {
+    if (req.isUnauthenticated())
+        return next();
+    // if the user is authenticated then redirect him to the main page
+    res.redirect('/main');
+}
+
 /* * * * * * * * * * * RUTAS * * * * * * * * * * * * * */
   /* GET home page. */
-  router.get('/', function (req, res, next) {
+  router.get('/', isNotAuthenticated,function (req, res, next) {
     res.render('index', {title: 'Contrataciones abiertas', message: req.flash('message')});
   });
 
