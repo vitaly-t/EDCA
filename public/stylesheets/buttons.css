@@ -39,7 +39,7 @@
     color: #FFFFFF;
 }
 
-.container {
+.panel .panel-default .pill-container{
     margin-top:20px;
 }
 
