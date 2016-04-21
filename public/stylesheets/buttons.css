@@ -1,3 +1,6 @@
+
+
+
 .btn {
     padding: 4px 14px;
     border: 0 none;
@@ -8,8 +11,14 @@
     color: #FFFFFF;
 }
  
+
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
+                               }
+
+.title{
+    color: #FFFFFF;
+    font-weight:bold;
 }
 
 .navbar-inverse .navbar-brand {
@@ -29,18 +38,25 @@
 }
 
 .top-buffer {
-    margin-top:20px;
     background: #00cc99;
     color: #FFFFFF;
     margin-top:-20px;
+}
+
+.login-buffer{
+    margin-top:100px;
 }
 
 .top-buffer .navbar-brand {
     color: #FFFFFF;
 }
 
-.panel .panel-default .pill-container{
+.pill-container{
     margin-top:20px;
+}
+
+.all-container{
+        max-width: 1070px;
 }
 
 

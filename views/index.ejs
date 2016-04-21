@@ -5,33 +5,64 @@
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-
+    <link rel='stylesheet' href='/stylesheets/login.css'/>
     <title><%= title %></title>
 </head>
 
 <body>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">datos.gob.mx</a>
+        </div>
 
-<div class="container" align="center">
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Datos</a></li>
+                <li><a href="#">Herramientas</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Acerca</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
 
+
+<nav class="row top-buffer">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand login-text" href="#">Contrataciones abiertas</a>
+        </div>
+    </div>
+</nav>
+
+
+  <div class="container login-buffer" align="center">
     <div class="col-sm-6 col-md-offset-3">
 
-    <h1><%= title %></h1>
-    <p><%= title %></p>
+      <h1 class="title"><%= title %></h1>
+      <p class="title"><%= title %></p>
 
 
-        <form action="/login" method="post">
+    <form action="/login" method="post">
+      <input name="username" type="text" class="form-control" placeholder="Usuario" required>
+      <br>
+      <input name="password" type="password" class="form-control" placeholder="Contraseña" required>
+      <br>
+      <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Enviar</button>
+    </form>
 
-    <input name="username" type="text" class="form-control" placeholder="Usuario" required>
-        <br>
-    <input name="password" type="password" class="form-control" placeholder="Contraseña" required>
-    <br>
-        <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Enviar</button>
-            </form>
-
-        <% if (message !=""){%>
-        <p><div class="alert alert-danger"> <%= message %> </div></p>
-        <%}%>
-</div>
+    <% if (message !=""){%>
+    <p><div class="alert alert-danger"> <%= message %> </div></p>
+    <%}%>
+    </div>
 </div>
 
 
