@@ -5,16 +5,26 @@
 
 /* Date picker */
 $(function () {
-    $('#date1, #date2, #date3, #date4, #date5, #date6, #date7').datetimepicker();
+    $('#lici_date1, #lici_date2, #lici_date3, #lici_date4, #lici_date5, #lici_date6, #lici_date7').datetimepicker();
+    $('#adju_date1, #adju_date2, #adju_date3, #adju_date4').datetimepicker();
+    $('#cont_date1, #cont_date2, #cont_date3, #cont_date4').datetimepicker();
 
 });
 
 
-var nuevoProceso = $('#nuevo');
-
-nuevoProceso.click(function(){
+$('#nuevo').click(function(){
     if ( confirm("¿Está seguro de crear un nuevo proceso de contratación?") == true ){
-      
+      $.get("/nuevo_proceso",function(data){
+          $("#ocid").val(data.id);
+      });
     }
 });
 
+
+$(function () {
+    $.get("/organization_type",function(data){
+        $.each(data, function (key, value) {
+          $('#OrganizationType').append($('<option></option>').attr("value", value.id).text(value.name));
+        });
+    });
+});
