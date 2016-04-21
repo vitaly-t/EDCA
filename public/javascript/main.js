@@ -22,3 +22,9 @@ nuevoProceso.click(function(){
     }
 });
 
+/*
+$(function () {
+    $.get("/organization_type",function(data){
+        //$("OrganizationType").
+    });
+});*/
