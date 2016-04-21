@@ -156,19 +156,19 @@
 
                     <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="date1" placeholder="tender period start date">
+                        <input type="text" class="form-control" id="lici_date1" placeholder="tender period start date">
                     </div>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control" id="date2" placeholder="tender period end date">
+                        <input type="text" class="form-control" id="lici_date2" placeholder="tender period end date">
                         </div>
                    </div>
     <br>
                     <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="date3" placeholder="enquiry period start date">
+                        <input type="text" class="form-control" id="lici_date3" placeholder="enquiry period start date">
                         </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="date4" placeholder="enquiry period end date"></div>
+                        <input type="text" class="form-control" id="lici_date4" placeholder="enquiry period end date"></div>
                     </div>
 <br>
                     <p><select class="form-control">
@@ -180,10 +180,10 @@
 
                     <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="date5" placeholder="award period start date">
+                        <input type="text" class="form-control" id="lici_date5" placeholder="award period start date">
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="date6"placeholder="award period end date">
+                        <input type="text" class="form-control" id="lici_date6"placeholder="award period end date">
                     </div>
                     </div>
 </br>
@@ -195,7 +195,7 @@
                     <p><input type="text" class="form-control" placeholder="procuring entity identifier uri"></p>
 
                     <p><div style="position: relative">
-                        <input type="text" class="form-control" id="date7" placeholder="amendment date"></div></p>
+                        <input type="text" class="form-control" id="lici_date7" placeholder="amendment date"></div></p>
                     <p><input type="text" class="form-control" placeholder="amendment rationale"></p>
 
 
@@ -224,10 +224,20 @@
                     <p><input type="datetime" class="form-control" placeholder="date"></p>
                     <p><input type="text" class="form-control" placeholder="value amount"></p>
                     <p><input type="text" class="form-control" placeholder="value currency"></p>
-                    <p><input type="datetime" name="contract_period_start_date" class="form-control" placeholder="contract period start date"></p>
-                    <p><input type="datetime" class="form-control" placeholder="contract period end date"></p>
 
-                    <p><input type="text" class="form-control" placeholder="amendment date"></p>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input type="datetime" id ="adju_date1" name="contract_period_start_date" class="form-control" placeholder="contract period start date">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="datetime" id = "adju_date2" class="form-control" placeholder="contract period end date">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" id= "adju_date3" class="form-control" placeholder="amendment date">
+                        </div>
+                    </div>
+                    <br>
                     <p><input type="text" class="form-control" placeholder="amendment rationale"></p>
 
                     <button type="submit" class="btn btn-success">Guardar</button>
@@ -252,13 +262,26 @@
                     <p><input type="text" class="form-control" placeholder="title"></p>
                     <p><input type="text" class="form-control" placeholder="description"></p>
                     <p><input type="text" class="form-control" placeholder="status"></p>
-                    <p><input type="text" class="form-control" placeholder="period start date"></p>
-                    <p><input type="text" class="form-control" placeholder="period end date"></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" id= "cont_date1" class="form-control" placeholder="period start date">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" id= "cont_date2" class="form-control" placeholder="period end date">
+                        </div>
+                    </div>
+
                     <p><input type="text" class="form-control" placeholder="value amount"></p>
                     <p><input type="text" class="form-control" placeholder="value currency"></p>
-                    <p><input type="text" class="form-control" placeholder="date signed"></p>
 
-                    <p><input type="datetime" class="form-control" placeholder="amendment date"></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" id="cont_date3" class="form-control" placeholder="date signed">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" id="cont_date4" class="form-control" placeholder="amendment date">
+                        </div>
+                    </div>
                     <p><input type="text" class="form-control" placeholder="amendment rationale"></p>
 
                     <button type="submit" class="btn btn-success">Guardar</button>

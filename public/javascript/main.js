@@ -5,7 +5,9 @@
 
 /* Date picker */
 $(function () {
-    $('#date1, #date2, #date3, #date4, #date5, #date6, #date7').datetimepicker();
+    $('#lici_date1, #lici_date2, #lici_date3, #lici_date4, #lici_date5, #lici_date6, #lici_date7').datetimepicker();
+    $('#adju_date1, #adju_date2, #adju_date3').datetimepicker();
+    $('#cont_date1, #cont_date2, #cont_date3, #cont_date4').datetimepicker();
 
 });
 
