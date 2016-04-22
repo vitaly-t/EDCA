@@ -14,5 +14,5 @@ create table BudgetDocument (id serial primary key, contractingprocess_id int re
 
 
 /* BUYER */
-
-create table buyer (id serial primary key, contractingprocess_id int references ContractingProcess(id), )
+create table buyer (id serial primary key, contractingprocess_id int references ContractingProcess(id), identifier_scheme text, identifier_legalname text, identifier_uri text, name text, address_streetaddres text, address_locality text, address_region text, address_postalcode text, address_contryname text,
+contactpoint_name text, contactpoint_email text, contactpoint_telephone text, contactpoint_faxnumber text, contactpoint_url text) ;
