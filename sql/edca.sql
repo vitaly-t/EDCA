@@ -139,6 +139,15 @@ create table Tenderer(
 	contactpoint_url text
 	);
 
+create table TendererAdditionalIdentifiers(
+	id serial primary key,
+	contractingprocess_id int references ContractingProcess(id),
+	tenderer_id int references Tenderer(id),
+	scheme text, 
+	legalname text, 
+	uri text
+);
+
 /* ProcuringEntity (organization) */
 create table ProcuringEntity(
 	id serial primary key, 
@@ -160,5 +169,12 @@ create table ProcuringEntity(
 	contactpoint_url text
 	);
 
-
+create table ProcuringEntityAdditionalIdentifiers(
+	id serial primary key,
+	contractingprocess_id int references ContractingProcess(id),
+	prcuringentity_id int references ProcuringEntity(id),
+	scheme text, 
+	legalname text, 
+	uri text
+);
 
