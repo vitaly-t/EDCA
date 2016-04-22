@@ -74,12 +74,7 @@
             </div>
         </div>
     </div>
-<!--
-    <div id="alerta" class="alert alert-warning alert-dismissible" role="alert" hidden>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Alerta</strong> se ha creado un nuevo proceso de contratación con ocid ...
-    </div>
-    -->
+
     <br>
 
 
@@ -106,7 +101,6 @@
                     <button class="btn btn-primary">Document</button>
 
                 </p>
-                <hr>
 
                 <h3>1.1 BUDGET</h3>
                 <p><button class="btn btn-primary">Budget document</button></p>
@@ -138,7 +132,8 @@
                     <button class="btn btn-primary">Documents</button>
                     <button class="btn btn-primary">Amendment changes</button>
                     <button class="btn btn-primary">Items</button>
-                    <button class="btn btn-primary">Tenderers</button>
+                    <!-- <button class="btn btn-primary">Procuring Entity</button> -->
+                    <!-- <button class="btn btn-primary">Tenderers</button> -->
 
 
                 </p>
@@ -218,7 +213,7 @@
                 <p>
                     <button class="btn btn-primary ">Items</button>
                     <button class="btn btn-primary ">Documents</button>
-                    <button class="btn btn-primary ">Suppliers</button>
+                    <!-- <button class="btn btn-primary ">Suppliers</button> -->
                     <button class="btn btn-primary ">Amendment changes</button>
                 </p>
                 <form role="form">
@@ -324,6 +319,13 @@
                 <h3>ORGANIZACIÓN</h3>
 
                 <form role="form">
+                    <!--
+                    Restricciones:
+                    Organización Buyer es independiente
+                    Organización Procuring Entity depende de Licitación (solo es una por licitación)
+                    Organización Tenderer depende de Licitación
+                    Organización Supplier depende de Adjudicación
+                    -->
                     <p><select class="form-control" id =  "OrganizationType">
                     </select></p>
                     <p><input type="text" class="form-control" placeholder="identifier scheme"></p>
@@ -398,9 +400,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
