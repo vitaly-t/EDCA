@@ -30,28 +30,38 @@ create table PlanningDocument (
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id),
 	planning_id int references planning(id), 
-	document_type text, title text, 
-	description text, url text, 
+	document_type text,
+	title text, 
+	description text, 
+	url text, 
 	date_published timestamp, 
 	date_modified timestamp, 
-	format text, language text 
+	format text, 
+	language text 
 	);
 
 create table budget (
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id), 
-	planning_id int references planning(id), budget_source text, 
-	budget_description text, budget_amount decimal, 
-	budget_currency text, budget_project text, 
-	budget_projectID text, budget_uri text, rationale text 
+	planning_id int references planning(id), 
+	budget_source text, 
+	budget_description text, 
+	budget_amount decimal, 
+	budget_currency text, 
+	budget_project text, 
+	budget_projectID text, 
+	budget_uri text, 
+	rationale text 
 	);
 
 create table BudgetDocument (
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id), 
 	budget_id int references budget(id), 
-	document_type text, title text, 
-	description text, url text, 
+	document_type text, 
+	title text, 
+	description text, 
+	url text, 
 	date_published timestamp, 
 	date_modified timestamp, 
 	format text, 
@@ -88,7 +98,7 @@ create table BuyerAdditionalIdentifiers(
 	uri text
 );
 
-/* TENDER */
+/* TENDER (licitación) */
 create table Tender(
 	id serial primary key,
 	ContractingProcess_id int references ContractingProcess(id),
@@ -116,6 +126,20 @@ create table Tender(
 	numberoftenderers int, 
 	amendment_date timestamp,
 	amendment_rationale text
+	);
+
+create table TenderDocument (
+	id serial primary key, 
+	contractingprocess_id int references contractingprocess(id), 
+	tender_id int references Tender(id), 
+	document_type text, 
+	title text, 
+	description text, 
+	url text, 
+	date_published timestamp, 
+	date_modified timestamp, 
+	format text, 
+	language text 
 	);
 
 /* Tenderer (Organization) */
@@ -178,3 +202,36 @@ create table ProcuringEntityAdditionalIdentifiers(
 	uri text
 );
 
+create table TenderMilestone(
+	id serial primary key,
+	contractingprocess_id int references ContractingProcess(id),
+	tender_id int references Tender(id),
+	title text,
+	description text,
+	duedate timestamp, 
+	date_modified timestamp,
+	status text
+);
+
+create table TenderMilestoneDocument(
+	id serial primary key, 
+	contractingprocess_id int references contractingprocess(id), 
+	tender_id int references Tender(id), 
+	milestone_id int references TenderMilestone(id),
+	document_type text, 
+	title text, 
+	description text, 
+	url text, 
+	date_published timestamp, 
+	date_modified timestamp, 
+	format text, 
+	language text 
+);
+
+/* Continúa tender ... Amendment, Item */
+
+/* AWARD (Adjudicación) */
+
+/* CONTRACT (Contratación) */
+
+/* IMPLEMENTATION (Implementación)*/
