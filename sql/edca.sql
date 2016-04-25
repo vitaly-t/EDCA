@@ -1,5 +1,6 @@
 
 /* CONTRATING PROCESS */
+drop table if exists ContractingProcess cascade;
 create table ContractingProcess (
 	id serial primary key, 
 	fecha_creacion date, 
@@ -8,6 +9,7 @@ create table ContractingProcess (
 
 
 /* ORGANIZATION TYPE */
+drop table if exists OrganizationType cascade;
 CREATE TABLE OrganizationType (
     id serial primary key,
     name character varying(50)
@@ -20,12 +22,13 @@ insert into organizationtype (name) values ('Procuring Entity');
 
 
 /* PLANNING */
+drop table if exists Planning cascade;
 create table Planning (
 	id serial primary key, 
 	ContractingProcess_id int references ContractingProcess(id)
 	);
 
-
+drop table if exists PlanningDocuments cascade;
 create table PlanningDocuments (
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id),
@@ -40,6 +43,7 @@ create table PlanningDocuments (
 	language text 
 	);
 
+drop table if exists Budget cascade;
 create table Budget (
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id), 
@@ -54,6 +58,7 @@ create table Budget (
 	rationale text 
 	);
 
+drop table if exists BudgetDocuments cascade;
 create table BudgetDocuments (
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id), 
@@ -69,6 +74,7 @@ create table BudgetDocuments (
 	);
 
 /* BUYER (organization) */
+drop table if exists Buyer cascade;
 create table Buyer (
 	id serial primary key, 
 	contractingprocess_id int references ContractingProcess(id),
@@ -89,7 +95,7 @@ create table Buyer (
 	contactpoint_url text
 	);
 
-
+drop table if exists BuyerAdditionalIdentifiers cascade;
 create table BuyerAdditionalIdentifiers(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -100,6 +106,7 @@ create table BuyerAdditionalIdentifiers(
 );
 
 /* TENDER (licitación) */
+drop table if exists Tender cascade;
 create table Tender(
 	id serial primary key,
 	ContractingProcess_id int references ContractingProcess(id),
@@ -130,6 +137,7 @@ create table Tender(
 	amendment_rationale text*/
 	);
 
+drop table if exists TenderDocuments cascade;
 create table TenderDocuments (
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id), 
@@ -145,6 +153,7 @@ create table TenderDocuments (
 	);
 
 /* Tenderer (Organization) */
+drop table if exists Tenderer cascade;
 create table Tenderer(
 	id serial primary key,
 	ContractingProcess_id int references ContractingProcess(id),
@@ -165,6 +174,7 @@ create table Tenderer(
 	contactpoint_url text
 	);
 
+drop table if exists TendererAdditionalIdentifiers cascade;
 create table TendererAdditionalIdentifiers(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -175,6 +185,7 @@ create table TendererAdditionalIdentifiers(
 );
 
 /* ProcuringEntity (organization) */
+drop table if exists ProcuringEntity cascade;
 create table ProcuringEntity(
 	id serial primary key, 
 	ContractingProcess_id int references ContractingProcess(id),
@@ -195,6 +206,7 @@ create table ProcuringEntity(
 	contactpoint_url text
 	);
 
+drop table if exists ProcuringEntityAdditionalIdentifiers cascade;
 create table ProcuringEntityAdditionalIdentifiers(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -204,6 +216,7 @@ create table ProcuringEntityAdditionalIdentifiers(
 	uri text
 );
 
+drop table if exists TenderMilestone cascade;
 create table TenderMilestone(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -215,6 +228,7 @@ create table TenderMilestone(
 	status text
 );
 
+drop table if exists TenderMilestoneDocuments cascade;
 create table TenderMilestoneDocuments(
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id), 
@@ -230,7 +244,7 @@ create table TenderMilestoneDocuments(
 	language text 
 );
 
-
+drop table if exists TenderItem cascade;
 create table TenderItem(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -242,6 +256,7 @@ create table TenderItem(
 	unit_value_currency text
 );
 
+drop table if exists TenderItemAdditionalClassifications cascade;
 create table TenderItemAdditionalClassifications(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -251,7 +266,7 @@ create table TenderItemAdditionalClassifications(
 	uri text
 );
 
-
+drop table if exists TenderAmendment cascade;
 create table TenderAmendment(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -260,6 +275,7 @@ create table TenderAmendment(
 	rationale text
 ); 
 
+drop table if exists TenderAmendmentChanges cascade;
 create table TenderAmendmentChanges(
 	id serial primary key, 
 	contractingprocess_id int references ContractingProcess(id), 
@@ -270,6 +286,7 @@ create table TenderAmendmentChanges(
 
 
 /* AWARD (Adjudicación) */
+drop table if exists Award cascade;
 create table Award(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -283,6 +300,7 @@ create table Award(
 	contractperiod_enddate timestamp
 ); /*remover -> amendment*/
 
+drop table if exists AwardDocument cascade;
 create table AwardDocument(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -299,6 +317,7 @@ create table AwardDocument(
 
 
 /* Supplier (Organization) */
+drop table if exists Supplier cascade;
 create table Supplier(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -320,7 +339,7 @@ create table Supplier(
 );
 
 
-
+drop table if exists SupplierAdditionalIdentifiers cascade;
 create table SupplierAdditionalIdentifiers(
 	id serial primary key, 
 	contractingprocess int references ContractingProcess(id),
@@ -331,7 +350,7 @@ create table SupplierAdditionalIdentifiers(
 	uri text
 );
 
-
+drop table if exists AwardAmendment cascade;
 create table AwardAmendment(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -340,6 +359,7 @@ create table AwardAmendment(
 	rationale text
 );
 
+drop table if exists AwardAmendmentChanges cascade;
 create table AwardAmendmentChanges(
 	id serial primary key, 
 	contractingprocess_id int references ContractingProcess(id),
@@ -349,6 +369,7 @@ create table AwardAmendmentChanges(
 	former_value text
 );
 
+drop table if exists AwardItem cascade;
 create table AwardItem(
 	id serial primary key, 
 	award_id int references Award(id),
@@ -360,6 +381,7 @@ create table AwardItem(
 	unit_value_currency text
 );
 
+drop table if exists AwardItemAdditionalClassifications cascade;
 create table AwardItemAdditionalClassifications(
 	id serial primary key,
 	award_id int references Award(id),
@@ -371,6 +393,7 @@ create table AwardItemAdditionalClassifications(
 
 
 /* CONTRACT (Contratación) */
+drop table if exists Contract cascade;
 create table Contract(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id),
@@ -385,6 +408,7 @@ create table Contract(
 	/* amendment ...*/
 );
 
+drop table if exists ContractDocuments cascade;
 create table ContractDocuments(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -399,6 +423,7 @@ create table ContractDocuments(
 	language text 
 ); 
 
+drop table if exists ContractItem cascade;
 create table ContractItem(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -412,6 +437,7 @@ create table ContractItem(
 
 );
 
+drop table if exists ContractItemAdditionalClasifications cascade;
 create table ContractItemAdditionalClasifications(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -422,6 +448,7 @@ create table ContractItemAdditionalClasifications(
 	uri text
 );
 
+drop table if exists ContractAmendment cascade;
 create table ContractAmendment(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -430,6 +457,7 @@ create table ContractAmendment(
 	rationale text
 );
 
+drop table if exists ContractAmendmentChanges cascade;
 create table ContractAmendmentChanges(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -440,13 +468,14 @@ create table ContractAmendmentChanges(
 );
 
 /* IMPLEMENTATION (Implementación)*/
-
+drop table if exists Implementation cascade;
 create table Implementation(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
 	contract_id int references Contract(id)
 );
 
+drop table if exists ImplementationDocuments cascade;
 create table ImplementationDocuments(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -462,7 +491,7 @@ create table ImplementationDocuments(
 	language text 
 );
 
-
+drop table if exists ImplementationTransactions cascade;
 create table ImplementationTransactions(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -475,6 +504,7 @@ create table ImplementationTransactions(
 	uri text
 );
 	
+drop table if exists ProviderOrganization cascade;
 create table ProviderOrganization(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -486,6 +516,7 @@ create table ProviderOrganization(
 	uri text
 	);
 	
+drop table if exists ReceiverOrganization cascade;
 create table ReceiverOrganization(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -497,6 +528,7 @@ create table ReceiverOrganization(
 	uri text
 	);
 
+drop table if exists ImplementationMilestones cascade;
 create table ImplementationMilestones(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
@@ -509,6 +541,7 @@ create table ImplementationMilestones(
 	status text
 );
 
+drop table if exists ImplementationMilestoneDocuments cascade;
 create table ImplementationMilestoneDocuments(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id), 
