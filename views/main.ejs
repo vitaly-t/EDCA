@@ -69,7 +69,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
                         Publicar <i class="fa fa-file-text-o"></i></button>
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#orgModal">
                         Organización <i class="fa fa-users"></i></button>
                 </div>
 
@@ -333,25 +333,32 @@
 
         </div>
 
+    </div>
+</div>
 
-        <!--
-        Restricciones:
-        Organización Buyer es independiente
-        Organización Procuring Entity depende de Licitación (solo es una por licitación)
-        Organización Tenderer depende de Licitación
-        Organización Supplier depende de Adjudicación
-        -->
 
-        <!--
-        <div id="menu5" class="tab-pane fade">
-            <div class="well well-lg">
+<!--
+Modal de organización
 
-                <h3>ORGANIZACIÓN</h3>
+Restricciones:
+Organización Buyer es independiente
+Organización Procuring Entity depende de Licitación (solo es una por licitación)
+Organización Tenderer depende de Licitación
+Organización Supplier depende de Adjudicación
+-->
+<div class="modal fade" id="orgModal" tabindex="-1" role="dialog" aria-labelledby="orgModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="orgModalLabel">Registrar nueva organización</h4>
+            </div>
+            <div class="modal-body">
 
                 <form role="form">
 
                     <p><select class="form-control" id =  "OrganizationType">
-                    </select></p>
+                        </select></p>
                     <p><input type="text" class="form-control" placeholder="identifier scheme"></p>
                     <p><input type="text" class="form-control" placeholder="identifier id"></p>
                     <p><input type="text" class="form-control" placeholder="identifier legal name"></p>
@@ -368,20 +375,24 @@
                     <p><input type="text" class="form-control" placeholder="contact point fax number"></p>
                     <p><input type="text" class="form-control" placeholder="contact point url"></p>
 
-        <p><button class="btn btn-primary">Guardar</button> </p>
+                    <p><button class="btn btn-primary">Guardar</button> </p>
                 </form>
                 <p><button class="btn  btn-primary">Additional identifiers</button></p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
--->
-
     </div>
 </div>
 
 
 
+
 <!-- modal para buscar -->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -402,7 +413,7 @@
 </div>
 
 <!-- modal para publicar -->
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
