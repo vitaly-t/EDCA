@@ -53,21 +53,28 @@
 
 <div class="container all-container">
   <div class="panel panel-default pill-container">
+      <div class="panel-heading">
+          Proceso de contratación
+      </div>
         <div class="panel-body">
+
             <div class="row">
                 <div class="col-sm-8">
                     <button id="nuevo" type="button" class="btn btn-primary" >
-                        Nuevo proceso <i class="fa fa-pencil"></i></button>
+                        Nuevo <i class="fa fa-pencil"></i></button>
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
-                        Buscar proceso <i class="fa fa-search"></i></button>
+                        Buscar <i class="fa fa-search"></i></button>
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
                         Publicar <i class="fa fa-file-text-o"></i></button>
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="">
+                        Organización <i class="fa fa-users"></i></button>
                 </div>
 
 
-                <div class="col-sm-3 col-md-offset-1">
+                <div class="col-sm-4 ">
                     <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled>
                 </div>
 
@@ -84,7 +91,7 @@
         <li role="presentation"><a data-toggle="pill" href="#menu2">3. ADJUDICACIÓN</a></li>
         <li role="presentation"><a data-toggle="pill" href="#menu3">4. CONTRATACIÓN</a></li>
         <li role="presentation"><a data-toggle="pill" href="#menu4">5. IMPLEMENTACIÓN</a></li>
-        <li role="presentation"><a data-toggle="pill" href="#menu5">   ORGANIZACIÓN</a></li>
+        <!-- <li role="presentation"><a data-toggle="pill" href="#menu5">   ORGANIZACIÓN</a></li> -->
     </ul>
 
     <br>
@@ -129,7 +136,7 @@
                 <p>
                     <button class="btn btn-primary">Milestones</button>
                     <button class="btn btn-primary">Documents</button>
-                    <button class="btn btn-primary">Amendment changes</button>
+                    <button class="btn btn-primary">Amendment </button> <!-- Le sigue Amendment Changes-->
                     <button class="btn btn-primary">Items</button>
                     <!-- <button class="btn btn-primary">Procuring Entity</button> -->
                     <!-- <button class="btn btn-primary">Tenderers</button> -->
@@ -192,9 +199,14 @@
                     <p><input type="text" class="form-control" placeholder="procuring entity identifier legal name"></p>
                     <p><input type="text" class="form-control" placeholder="procuring entity identifier uri"></p>
 
+
+
+                    <!-- amendment-->
+                    <!--
                     <p><div style="position: relative">
                         <input type="text" class="form-control" id="lici_date7" placeholder="amendment date"></div></p>
                     <p><input type="text" class="form-control" placeholder="amendment rationale"></p>
+                    -->
 
 
 
@@ -213,7 +225,7 @@
                     <button class="btn btn-primary ">Items</button>
                     <button class="btn btn-primary ">Documents</button>
                     <!-- <button class="btn btn-primary ">Suppliers</button> -->
-                    <button class="btn btn-primary ">Amendment changes</button>
+                    <button class="btn btn-primary ">Amendment </button> <!-- Le sigue amendment changes-->
                 </p>
                 <form role="form">
                     <p><input type="text" class="form-control" placeholder="title"></p>
@@ -237,12 +249,18 @@
                         <div class="col-sm-4">
                             <input type="text" id = "adju_date3" class="form-control" placeholder="contract period end date">
                         </div>
+                    </div>
+
+
+                        <!--
                         <div class="col-sm-4">
                             <input type="text" id= "adju_date4" class="form-control" placeholder="amendment date">
                         </div>
                     </div>
                     <br>
                     <p><input type="text" class="form-control" placeholder="amendment rationale"></p>
+                    -->
+
 
                     <button type="submit" class="btn">Guardar</button>
 
@@ -258,7 +276,7 @@
                 <p>
                     <button class="btn btn-primary">Documents</button>
                     <button class="btn btn-primary">Items</button>
-                    <button class="btn btn-primary">Amendment changes</button>
+                    <button class="btn btn-primary">Amendment</button> <!-- le sigue amendment changes -->
                 </p>
 
                 <form role="form">
@@ -282,12 +300,16 @@
                         <div class="col-sm-6">
                             <input type="text" id="cont_date3" class="form-control" placeholder="date signed">
                         </div>
+
+                    </div>
+
+                        <!--
                         <div class="col-sm-6">
                             <input type="text" id="cont_date4" class="form-control" placeholder="amendment date">
                         </div>
                     </div>
                     <p><input type="text" class="form-control" placeholder="amendment rationale"></p>
-
+                    -->
                     <button type="submit" class="btn">Guardar</button>
 
                 </form>
@@ -312,19 +334,22 @@
         </div>
 
 
+        <!--
+        Restricciones:
+        Organización Buyer es independiente
+        Organización Procuring Entity depende de Licitación (solo es una por licitación)
+        Organización Tenderer depende de Licitación
+        Organización Supplier depende de Adjudicación
+        -->
+
+        <!--
         <div id="menu5" class="tab-pane fade">
             <div class="well well-lg">
 
                 <h3>ORGANIZACIÓN</h3>
 
                 <form role="form">
-                    <!--
-                    Restricciones:
-                    Organización Buyer es independiente
-                    Organización Procuring Entity depende de Licitación (solo es una por licitación)
-                    Organización Tenderer depende de Licitación
-                    Organización Supplier depende de Adjudicación
-                    -->
+
                     <p><select class="form-control" id =  "OrganizationType">
                     </select></p>
                     <p><input type="text" class="form-control" placeholder="identifier scheme"></p>
@@ -348,6 +373,8 @@
                 <p><button class="btn  btn-primary">Additional identifiers</button></p>
             </div>
         </div>
+-->
+
     </div>
 </div>
 
