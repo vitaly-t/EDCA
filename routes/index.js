@@ -185,9 +185,54 @@ var pgp = require("pg-promise")();
 var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
 router.get('/nuevo_proceso', function(req,res){
-edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id").then(function (data) {
+edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id").then(
+    function (data) {
     res.send(data);
-    console.log("Se ha creado un nuevo proceso de contratación, id: ", data.id);
+    console.log("Se ha creado un nuevo proceso de contratación con id: ", data.id);
+
+        //planning
+        edca_db.one("insert into Planning (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (planning) {
+            console.log("Se ha creado una nueva etapa de planeación con id: ", planning.id);
+            }
+        ).catch(function (error) {
+            console.log("ERROR: ", error);
+        });
+
+        //tender
+        edca_db.one("insert into Tender (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (tender) {
+                console.log("Se ha creado una nueva etapa de licitación con id: ", tender.id);
+            }
+        ).catch(function (error) {
+            console.log("ERROR: ", error);
+        });
+
+        //Award
+        edca_db.one("insert into Planning (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (award) {
+                console.log("Se ha creado una nueva etapa de adjudicación con id: ", award.id);
+            }
+        ).catch(function (error) {
+            console.log("ERROR: ", error);
+        });
+
+
+        //Contract
+        edca_db.one("insert into Contract (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (contract) {
+
+            console.log("Se ha creado una nueva etapa de planeación id: ", contract.id);
+
+            //Implementation
+            edca_db.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id",
+                [data.id, contract.id]).then(function(imple){
+                    console.log("Se ha creado una nueva etapa de implementación con id: ",imple.id);
+                }).catch(function(error){
+                console.log("ERROR: ", error);
+            });
+
+        }).catch(function (error) {
+            console.log("ERROR: ", error);
+        });
+
+
     }).catch(function (error) {
     res.send({"id":0});
     console.log("ERROR: ", error);
