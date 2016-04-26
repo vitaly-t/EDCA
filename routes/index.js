@@ -232,13 +232,6 @@ edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion) valu
             console.log("ERROR: ", error);
         });
 
-        //buyer
-        edca_db.one("insert into buyer (ContractingProcess_id) values ($1) returning id", data.id).then(function (buyer) {
-            console.log("Se ha creado un nuevo comprador", buyer.id);
-        }).catch(function (error) {
-            console.log("ERROR: ",error);
-        });
-
 
     }).catch(function (error) {
     res.send({"id":0});
@@ -246,6 +239,20 @@ edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion) valu
 });
 });
 
+
+// Buyer
+router.get('/new_buyer/:ContractingProcess_id', function (req,res) {
+var cpid = req.params.ContractingProcess_id;
+
+     edca_db.one("insert into buyer (ContractingProcess_id) values ($1) returning id", cpid).then(function (buyer) {
+     console.log("Se ha creado un nuevo comprador", buyer.id);
+         res.send(buyer);
+     }).catch(function (error) {
+         res.send({"id" : 0});
+     console.log("ERROR: ",error);
+     });
+
+});
 
 router.get('/organization_type', function (req, res) {
 edca_db.many("select id, name from OrganizationType").then(function (data) {
