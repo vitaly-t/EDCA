@@ -207,7 +207,7 @@ edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion) valu
         });
 
         //Award
-        edca_db.one("insert into Planning (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (award) {
+        edca_db.one("insert into Award (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (award) {
                 console.log("Se ha creado una nueva etapa de adjudicación con id: ", award.id);
             }
         ).catch(function (error) {
