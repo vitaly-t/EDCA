@@ -232,6 +232,13 @@ edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion) valu
             console.log("ERROR: ", error);
         });
 
+        //buyer
+        edca_db.one("insert into buyer (ContractingProcess_id) values ($1) returning id", data.id).then(function (buyer) {
+            console.log("Se ha creado un nuevo comprador", buyer.id);
+        }).catch(function (error) {
+            console.log("ERROR: ",error);
+        });
+
 
     }).catch(function (error) {
     res.send({"id":0});
