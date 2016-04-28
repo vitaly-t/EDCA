@@ -46,3 +46,8 @@ $(function () {
     });
 });
 
+$( "#budget_form" ).submit(function( event ) {
+    
+    $.post('/update_budget', $(this).serialize());
+    event.preventDefault();
+});

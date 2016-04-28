@@ -15,7 +15,6 @@
     <link rel='stylesheet' href='/stylesheets/buttons.css'/>
 </head>
 <body>
-
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -110,12 +109,12 @@
                 </p>
 
                 <h3>1.1 BUDGET</h3>
-                <form role = "form" method="POST" action="/update_budget">
+                <form id="budget_form" >
                     <p> <input class="form-control" name="source" placeholder="budget source"></p>
                     <p><input class="form-control" name="description" placeholder="budget description"></p>
                     <p><input class="form-control" name="amount" placeholder="budget amount"></p>
                     <p><input class="form-control" name="currency" placeholder="budget currency"></p>
-                    <p><input class="form-control" name="poidject" placeholder="budget project"></p>
+                    <p><input class="form-control" name="project" placeholder="budget project"></p>
                     <p><input class="form-control" name="projectID" placeholder="budget projectID"></p>
                     <p><input class="form-control" name="uri" placeholder="budget uri"></p>
                     <p><input class="form-control" name="rationale" placeholder="rationale"></p>

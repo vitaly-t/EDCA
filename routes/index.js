@@ -250,6 +250,8 @@ router.post('/update_budget', function (req, res) {
     for (var x in req.body){
         console.log(x ," : ", req.body[x]);
     }
+    
+    res.json({id: '0'});
 });
 
 
