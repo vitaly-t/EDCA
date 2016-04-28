@@ -195,13 +195,25 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
       console.log("Se ha creado un nuevo proceso de contratación con id: ", data.id);
 
 
-      //planning
+        //planning
         edca_db.one("insert into Planning (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (planning) {
             console.log("Se ha creado una nueva etapa de planeación con id: ", planning.id);
-            }
+
+            //budget
+            edca_db.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id", [data.id, planning.id] ).then(
+                function (budget) {
+                    console.log('Se ha creado un nuevo elemento Planning -> budget con id: ', budget.id);
+                }).catch(function (error) {
+                console.log('ERROR: ', error);
+            });
+
+        }
         ).catch(function (error) {
             console.log("ERROR: ", error);
         });
+
+
+
 
         //tender
         edca_db.one("insert into Tender (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (tender) {
@@ -223,7 +235,7 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
         //Contract
         edca_db.one("insert into Contract (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (contract) {
 
-            console.log("Se ha creado una nueva etapa de planeación id: ", contract.id);
+            console.log("Se ha creado una nueva etapa de contracación id: ", contract.id);
 
             //Implementation
             edca_db.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id",
@@ -246,13 +258,15 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
 
 
 /* */
-router.post('/update_budget', function (req, res) {
-    console.log('ok!');
+router.post('/update_budget/:ocid', function (req, res) {
     //var desc = req.body.description;
     for (var x in req.body){
         console.log(x ," : ", req.body[x]);
     }
-    
+
+    var ocid = req.params.ocid;
+    console.log(ocid);
+
     res.json({id: '0'});
 });
 

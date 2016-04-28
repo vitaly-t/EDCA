@@ -3,8 +3,8 @@
  */
 
 var process = {
-  ocid: "",
-  publisher: ""
+  ocid: 1,
+  publisher: 0
 };
 
 
@@ -40,9 +40,9 @@ $('#crear').click(function(){
 // Crear organización
 $('#crear-org').click(function(){
   if (confirm("¿Está seguro de crear una nueva organización" +
-              ($('#ocid').val()==""?
+              (process.ocid==0?
                "?":"?, perdera los cambios hechos al proceso actual")) == true ){
-                 if(process.publisher != ""){
+                 if(process.publisher != 0){
                    $.get("/nuevo_proceso/" + process.pulisher, function(data){
                      $("#ocid").val(data.id);
                      currentocid = value.id;
@@ -62,8 +62,8 @@ $(function () {
 });
 
 $( "#budget_form" ).submit(function( event ) {
-    if (process.ocid != "") {
-        $.post('/update_budget', $(this).serialize());
+    if (process.ocid != 0) {
+        $.post('/update_budget/'+process.ocid, $(this).serialize());
         event.preventDefault();
     }else{
         alert("Debes crear un nuevo proceso de contratación");
