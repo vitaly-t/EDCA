@@ -22,14 +22,14 @@ router.use(flash());
 
 
 // Initialize Passport
-/**********************/
+/* ******************* */
 var LocalStrategy   = require('passport-local').Strategy;
 var User = require('../models/user');
 var bCrypt = require('bcrypt-nodejs');
 
 
 
- passport.use('login', new LocalStrategy(
+passport.use('login', new LocalStrategy(
       {     passReqToCallback : true      },
       function(req, username, password, done) {
         // check in mongo if a user with username exists or not
@@ -60,12 +60,12 @@ var bCrypt = require('bcrypt-nodejs');
   ));
 
 
-  var isValidPassword = function(user, password){
+var isValidPassword = function(user, password){
     return bCrypt.compareSync(password, user.password);
-  }
+};
 
 
-  passport.use('signup', new LocalStrategy({
+passport.use('signup', new LocalStrategy({
         passReqToCallback : true // allows us to pass back the entire request to the callback
       },
       function(req, username, password, done) {
@@ -112,26 +112,26 @@ var bCrypt = require('bcrypt-nodejs');
       })
   );
 
-  // Generates hash using bCrypt
-  var createHash = function(password){
+// Generates hash using bCrypt
+var createHash = function(password){
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
-  }
+};
 
 
 
-  // Passport needs to be able to serialize and deserialize users to support persistent login sessions
-  passport.serializeUser(function(user, done) {
-    console.log('serializing user: ');
-    console.log(user);
-    done(null, user._id);
+// Passport needs to be able to serialize and deserialize users to support persistent login sessions
+passport.serializeUser(function(user, done) {
+  console.log('serializing user: ');
+  console.log(user);
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    console.log('deserializing user:',user);
+    done(err, user);
   });
-
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-      console.log('deserializing user:',user);
-      done(err, user);
-    });
-  });
+});
 
 
 
@@ -154,9 +154,9 @@ var isNotAuthenticated = function (req, res, next) {
 
 /* * * * * * * * * * * RUTAS * * * * * * * * * * * * * */
   /* GET home page. */
-  router.get('/', isNotAuthenticated,function (req, res, next) {
+router.get('/', isNotAuthenticated, function (req, res, next) {
     res.render('index', {title: 'Contrataciones abiertas', message: req.flash('message')});
-  });
+});
 
 
 /* Handle Login POST */
@@ -165,7 +165,6 @@ router.post('/login', passport.authenticate('login', {
   failureRedirect: '/',
   failureFlash : true
 }));
-
 
 /* Handle Logout */
 router.get('/signout', function(req, res) {
