@@ -62,7 +62,10 @@ $(function () {
 });
 
 $( "#budget_form" ).submit(function( event ) {
-    
-    $.post('/update_budget', $(this).serialize());
-    event.preventDefault();
+    if (process.ocid != "") {
+        $.post('/update_budget', $(this).serialize());
+        event.preventDefault();
+    }else{
+        alert("Debes crear un nuevo proceso de contratación");
+    }
 });
