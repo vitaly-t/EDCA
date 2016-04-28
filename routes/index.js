@@ -192,9 +192,10 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
               pid).then(
     function (data) {
     res.send(data);
-    console.log("Se ha creado un nuevo proceso de contratación con id: ", data.id);
+      console.log("Se ha creado un nuevo proceso de contratación con id: ", data.id);
 
-        //planning
+
+      //planning
         edca_db.one("insert into Planning (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (planning) {
             console.log("Se ha creado una nueva etapa de planeación con id: ", planning.id);
             }
