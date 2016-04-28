@@ -2,18 +2,18 @@
 /* CONTRATING PROCESS */
 drop table if exists ContractingProcess cascade;
 create table ContractingProcess (
-	id serial primary key, 
-        Publisher_id int references Publisher(id) on delet cascade,
-	fecha_creacion date, 
+	id serial primary key,
+        Publisher_id int references Publisher(id),
+	fecha_creacion date,
 	hora_creacion time
 	);
 
 drop table if exists Publisher cascade;
 create table Publisher (
 	id serial primary key, 
-        scheme varchar(30);
-        name   varchar(15);
-        uri    varchar(30);
+        scheme varchar(30),
+        name   text,
+        uri    text
 	);
 
 
