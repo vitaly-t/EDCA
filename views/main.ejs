@@ -397,14 +397,40 @@ Organización Supplier depende de Adjudicación
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">Buscar proceso de contratación existente</h4>
+                <h4 class="modal-title" id="myModalLabel2">Buscar proceso de contratación</h4>
             </div>
             <div class="modal-body">
-
-
-                <input type="text" class="form-control" placeholder="ocid">
+              <h5>Id proceso</h5>
+              <input type="text" class="form-control" placeholder="ocid">
+              <h5>Dependencia</h5>
+              <input type="text" class="form-control" placeholder="dep">
+              <div class="row">
+                <div class='col-sm-5'>
+                  <h5>Fecha inicio</h5>
+                  <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                      <input type='text' class="form-control" />
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class='col-sm-5 col-sm-offset-2'>
+                  <h5>Fecha fin</h5>
+                  <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                      <input type='text' class="form-control" />
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Buscar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
@@ -431,7 +457,7 @@ Organización Supplier depende de Adjudicación
                 <button class="btn">Publicar</button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
@@ -444,6 +470,19 @@ Organización Supplier depende de Adjudicación
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script src="javascript/main.js"></script>
-
+<script type="text/javascript">
+    $(function () {
+    $('#datetimepicker1').datetimepicker({});
+    $('#datetimepicker2').datetimepicker({
+    useCurrent: false
+    });
+    $("#datetimepicker1").on("dp.change", function (e) {
+    $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datetimepicker2").on("dp.change", function (e) {
+    $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+    });
+    });
+</script>
 </body>
 </html>
