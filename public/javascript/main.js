@@ -2,7 +2,10 @@
  * Created by mtorres on 19/04/16.
  */
 
-var currentocid = "";
+var process = {
+  ocid: "",
+  publisher: ""
+};
 
 
 window.onbeforeunload = function() {
@@ -20,13 +23,18 @@ $(function () {
 
 
 $('#crear').click(function(){
-    if (confirm("¿Está seguro de crear un nuevo proceso de contratación"+($('#ocid').val()==""?
-                "?":"?, perdera los cambios hechos al proceso actual")) == true ){
-      $.get("/nuevo_proceso",function(data){
-          $("#ocid").val(data.id);
-          currentocid = value.id;
-      });
-    }
+  if (confirm("¿Está seguro de crear un nuevo proceso de contratación"+
+              ($('#ocid').val()==""?
+               "?":"?, perdera los cambios hechos al proceso actual")) == true ){
+                 if(process.publisher != ""){
+                   $.get("/nuevo_proceso/" + process.pulisher, function(data){
+                     $("#ocid").val(data.id);
+                     currentocid = value.id;
+                   });
+                 }else{
+                   alert("Debe registrar la dependencia que publica");
+                 }
+               }
 });
 
 
