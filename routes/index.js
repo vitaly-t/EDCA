@@ -9,6 +9,8 @@ mongoose.connect(dbConfig.url);
 // Configuring Passport
 var passport = require('passport');
 var expressSession = require('express-session');
+
+
 router.use(expressSession({secret: 'mySecretKey', resave : false , saveUninitialized: false}));
 router.use(passport.initialize());
 router.use(passport.session());
@@ -236,16 +238,22 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
 
 
     }).catch(function (error) {
-    res.send({"id":0});
+    res.json({"id":0});
     console.log("ERROR: ", error);
 });
 });
 
-/*
-router.put('/update_planning/:ocid', function (req,res) {
-    router.send('ok!');
+
+/* */
+router.post('/update_budget', function (req, res) {
+    console.log('ok!');
+    //var desc = req.body.description;
+    for (var x in req.body){
+        console.log(x ," : ", req.body[x]);
+    }
 });
-*/
+
+
 
 // Buyer
 router.get('/new_buyer/:ContractingProcess_id', function (req,res) {
@@ -255,7 +263,7 @@ var cpid = req.params.ContractingProcess_id;
      console.log("Se ha creado un nuevo comprador", buyer.id);
          res.send(buyer);
      }).catch(function (error) {
-         res.send({"id" : 0});
+         res.json({"id" : 0});
      console.log("ERROR: ",error);
      });
 
@@ -265,7 +273,7 @@ router.get('/organization_type', function (req, res) {
 edca_db.many("select id, name from OrganizationType").then(function (data) {
     res.send(data);
 }).catch(function (error) {
-    res.send({id: 0, name: "Error"});
+    res.json({id: 0, name: "Error"});
 console.log("ERROR: ", error);
 });
 });

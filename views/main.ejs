@@ -110,15 +110,15 @@
                 </p>
 
                 <h3>1.1 BUDGET</h3>
-                <form role = "form">
-                    <p> <input class="form-control" placeholder="budget source"></p>
-                    <p><input class="form-control" placeholder="budget description"></p>
-                    <p><input class="form-control" placeholder="budget amount"></p>
-                    <p><input class="form-control" placeholder="budget currency"></p>
-                    <p><input class="form-control" placeholder="budget project"></p>
-                    <p><input class="form-control" placeholder="budget projectID"></p>
-                    <p><input class="form-control" placeholder="budget uri"></p>
-                    <p><input class="form-control" placeholder="rationale"></p>
+                <form role = "form" method="POST" action="/update_budget">
+                    <p> <input class="form-control" name="source" placeholder="budget source"></p>
+                    <p><input class="form-control" name="description" placeholder="budget description"></p>
+                    <p><input class="form-control" name="amount" placeholder="budget amount"></p>
+                    <p><input class="form-control" name="currency" placeholder="budget currency"></p>
+                    <p><input class="form-control" name="poidject" placeholder="budget project"></p>
+                    <p><input class="form-control" name="projectID" placeholder="budget projectID"></p>
+                    <p><input class="form-control" name="uri" placeholder="budget uri"></p>
+                    <p><input class="form-control" name="rationale" placeholder="rationale"></p>
                     <p><button  type="submit" class="btn">Guardar</button></p>
 
                     <p><button class="btn btn-primary">Budget document</button></p>
@@ -143,7 +143,7 @@
 
 
                 </p>
-                <form role="form">
+                <form role="form" >
 
                     <p><input type="text" class="form-control" placeholder="title"></p>
                     <p><input type="text" class="form-control" placeholder="description"></p>
