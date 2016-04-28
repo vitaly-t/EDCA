@@ -7,7 +7,7 @@ var currentocid = "";
 
 window.onbeforeunload = function() {
         return "Si recarga la página perdera sus últimos cambios";
-    }
+};
 
 
 /* Date picker */
@@ -19,8 +19,8 @@ $(function () {
 });
 
 
-$('#nuevo').click(function(){
-    if ( confirm("¿Está seguro de crear un nuevo proceso de contratación"+($('#ocid').val()==""?
+$('#crear').click(function(){
+    if (confirm("¿Está seguro de crear un nuevo proceso de contratación"+($('#ocid').val()==""?
                 "?":"?, perdera los cambios hechos al proceso actual")) == true ){
       $.get("/nuevo_proceso",function(data){
           $("#ocid").val(data.id);

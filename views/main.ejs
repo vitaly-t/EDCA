@@ -54,13 +54,13 @@
 <div class="container all-container">
   <div class="panel panel-default pill-container">
       <div class="panel-heading">
-          Proceso de contratación
+          <h5>Proceso de contratación</h4>
       </div>
         <div class="panel-body">
 
             <div class="row">
                 <div class="col-sm-8">
-                    <button id="nuevo" type="button" class="btn btn-primary" >
+                    <button id="nuevo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalCrea">
                         Nuevo <i class="fa fa-pencil"></i></button>
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
@@ -388,6 +388,30 @@ Organización Supplier depende de Adjudicación
     </div>
 </div>
 
+<!-- modal para crear -->
+<div class="modal fade" id="myModalCrea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel3">Dependencia que publica</h4>
+            </div>
+            <div class="modal-body">
+              <h5>Id dependencia</h5>
+              <input type="text" class="form-control" placeholder="ocid">
+              <h5>Dependencia</h5>
+              <input type="text" class="form-control" placeholder="dep">
+              <br>
+              <button class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="modal-footer">
+              <button id="crear" class="btn btn-primary">Crear</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -463,6 +487,7 @@ Organización Supplier depende de Adjudicación
         </div>
     </div>
 </div>
+
 
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>

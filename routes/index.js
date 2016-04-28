@@ -183,8 +183,10 @@ router.get('/main', isAuthenticated, function(req, res, next) {
 var pgp = require("pg-promise")();
 var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
-router.get('/nuevo_proceso', function(req,res){
-edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id").then(
+router.get('/nuevo_proceso/:pubid', function(req,res){
+  var pid = req.params.pubid;
+  console.log("Publisher id: ",pid);
+  edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion, publisher_id) values (current_date, current_time, $1) returning id", pid).then(
     function (data) {
     res.send(data);
     console.log("Se ha creado un nuevo proceso de contratación con id: ", data.id);
