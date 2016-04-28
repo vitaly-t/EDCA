@@ -69,7 +69,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
                         Publicar <i class="fa fa-file-text-o"></i></button>
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#orgModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
                         Organización <i class="fa fa-users"></i></button>
                 </div>
 
@@ -343,7 +343,89 @@ Organización Buyer es independiente
 Organización Procuring Entity depende de Licitación (solo es una por licitación)
 Organización Tenderer depende de Licitación
 Organización Supplier depende de Adjudicación
--->
+  -->
+<div class="modal fade" id="myModalorg" tabindex="-1" role="dialog" aria-labelledby="orgModalLabel5">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class='col-sm-12'>
+              <!-- Different organizations -->
+              <div class="panel-group">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title menu-org text-center">
+                      <a data-toggle="collapse" href="#collapse1">Buyer</a>
+                    </h4>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title menu-org text-center">
+                      <a data-toggle="collapse" href="#collapse1">Tenderer</a>
+                    </h4>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title menu-org text-center">
+                      <a data-toggle="collapse" href="#collapse1">Supplier</a>
+                    </h4>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title menu-org text-center">
+                      <a data-toggle="collapse" href="#collapse1">Procuring entity</a>
+                    </h4>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title menu-org text-center">
+                      <a data-toggle="collapse" href="#collapse2">Publisher</a>
+                    </h4>
+                  </div>
+                  </div>
+                  </div>
+                  <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <p><input type="text" class="form-control" placeholder="name"></p>
+                      <p><input type="text" class="form-control" placeholder="address street address"></p>
+                      <p><input type="text" class="form-control" placeholder="address locality"></p>
+                      <p><input type="text" class="form-control" placeholder="address region"></p>
+                      <p><input type="text" class="form-control" placeholder="address postal code"></p>
+                      <p><input type="text" class="form-control" placeholder="address country name"></p>
+                      <p><input type="text" class="form-control" placeholder="contact point name"></p>
+                      <p><input type="text" class="form-control" placeholder="contact point email"></p>
+                      <p><input type="text" class="form-control" placeholder="contact point telephone"></p>
+                      <p><input type="text" class="form-control" placeholder="contact point fax number"></p>
+                      <p><input type="text" class="form-control" placeholder="contact point url"></p>
+                    </div>
+                    <div class="panel-footer">
+                      <p><button class="btn  btn-primary">Identifiers</button></p>
+                    </div>
+                  </div>
+                  <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <p><input type="text" class="form-control" placeholder="Name"></p>
+                      <p><input type="text" class="form-control" placeholder="Id"></p>
+                      <p><input type="text" class="form-control" placeholder="Scheme"></p>
+                      <p><input type="text" class="form-control" placeholder="Url"></p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          <div class="modal-footer">
+              <button id="crear" class="btn btn-primary">Crear organización</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal organización template -->
 <div class="modal fade" id="orgModal" tabindex="-1" role="dialog" aria-labelledby="orgModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -397,15 +479,23 @@ Organización Supplier depende de Adjudicación
                 <h4 class="modal-title" id="myModalLabel3">Dependencia que publica</h4>
             </div>
             <div class="modal-body">
-              <h5>Id dependencia</h5>
-              <input type="text" class="form-control" placeholder="ocid">
-              <h5>Dependencia</h5>
-              <input type="text" class="form-control" placeholder="dep">
+              <div class="row">
+                <div class='col-sm-12'>
+                  <h5>Id dependencia</h5>
+                  <input type="text" class="form-control" placeholder="ocid">
+                </div>
+              </div>
+              <div class="row">
+                <div class='col-sm-12'>
+                  <h5>Nombre dependencia</h5>
+                  <input type="text" class="form-control" placeholder="dep">
+                </div>
+              </div>
               <br>
               <button class="btn btn-primary">Buscar</button>
             </div>
             <div class="modal-footer">
-              <button id="crear" class="btn btn-primary">Crear</button>
+              <button id="crear" class="btn btn-primary">Crear proceso</button>
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
               <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
