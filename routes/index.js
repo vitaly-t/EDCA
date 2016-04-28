@@ -241,6 +241,10 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
 });
 
 
+router.put('/update_planning', function (req,res) {
+    router.send('ok!');
+});
+
 // Buyer
 router.get('/new_buyer/:ContractingProcess_id', function (req,res) {
 var cpid = req.params.ContractingProcess_id;
