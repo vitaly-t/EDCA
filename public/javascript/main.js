@@ -20,9 +20,11 @@ $(function () {
 
 
 $('#nuevo').click(function(){
-    if ( confirm("¿Está seguro de crear un nuevo proceso de contratación?") == true ){
+    if ( confirm("¿Está seguro de crear un nuevo proceso de contratación"+($('#ocid').val()==""?
+                "?":"?, perdera los cambios hechos al proceso actual")) == true ){
       $.get("/nuevo_proceso",function(data){
           $("#ocid").val(data.id);
+          currentocid = value.id;
       });
     }
 });
@@ -32,7 +34,6 @@ $(function () {
     $.get("/organization_type",function(data){
         $.each(data, function (key, value) {
           $('#OrganizationType').append($('<option></option>').attr("value", value.id).text(value.name));
-            currentocid = value.id;
         });
     });
 });
