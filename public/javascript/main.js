@@ -2,6 +2,13 @@
  * Created by mtorres on 19/04/16.
  */
 
+var currentocid = "";
+
+
+window.onbeforeunload = function() {
+        return "Si recarga la página perdera sus últimos cambios";
+    }
+
 
 /* Date picker */
 $(function () {
@@ -25,6 +32,7 @@ $(function () {
     $.get("/organization_type",function(data){
         $.each(data, function (key, value) {
           $('#OrganizationType').append($('<option></option>').attr("value", value.id).text(value.name));
+            currentocid = value.id;
         });
     });
 });
