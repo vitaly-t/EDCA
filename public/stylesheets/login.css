@@ -14,10 +14,14 @@ body::before {
   -moz-filter: blur(5px);
   -o-filter: blur(5px);
   -ms-filter: blur(5px);
-  filter: grayscale(50%);
+  filter: grayscale(100%);
   filter: contrast(70%);
+  opacity:.2;
 }
 
+body{
+    background-color:#000000;
+}
 
 .btn {
     padding: 4px 14px;
