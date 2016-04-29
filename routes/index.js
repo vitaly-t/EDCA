@@ -260,13 +260,33 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
 /* */
 router.post('/update_budget/:ocid', function (req, res) {
     //var desc = req.body.description;
-    for (var x in req.body){
+    /*for (var x in req.body){
         console.log(x ," : ", req.body[x]);
+    }*/
+
+
+    /*
+    var source = req.body.source;
+    var desc = req.body.description;
+    var amount = req.body.amount;
+    var curr = req.body.curr;
+    var project = req.body.project;
+    var projectid = req.body.projectid;
+    var uri = req.body.uri;
+*/
+    var ocid = req.params.ocid;
+
+    for (var campo in req.body) {
+
+        edca_db.one("update budget set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo],ocid]).then(
+            function (ub) {
+            console.log("Update budget ...");
+        }).catch(function (error) {
+            console.log("ERROR: ",error);
+        });
     }
 
-    var ocid = req.params.ocid;
-    console.log(ocid);
-
+    // ¿?
     res.json({id: '0'});
 });
 
