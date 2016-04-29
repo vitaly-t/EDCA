@@ -183,22 +183,34 @@ router.get('/main', isAuthenticated, function(req, res, next) {
 
 
 
+
+
+
 /* devuelve un objeto con datos */
 router.get('/main/:ocid', isAuthenticated, function (req,res) {
 
     var ocid = req.params.ocid;
-    var budgetdata;
-
-    /*asýnchronous*/
-    edca_db.one("select * from budget where ContractingProcess_id = $1", ocid ).then(function (bd) {
-        budgetdata = bd;
-        res.render('main', { user: req.user, title: 'Contrataciones abiertas', budget: bd});
-
-    }).catch(function (error) {
-        console.log("Error",error);
-    });
 
 
+    edca_db.tx(function (t) {
+            // this = t = transaction protocol context;
+            // this.ctx = transaction config + state context;
+            return t.batch([
+                t.one( "select * from contractingprocess where id = $1", ocid ),
+                t.one( "select * from budget where ContractingProcess_id = $1", ocid )
+            ]);
+        })
+        // using .spread(function(user, event)) is best here, if supported;
+        .then(function (data) {
+            console.log(data[0].id);
+            console.log(data[1].id);
+
+            res.render('main', { user: req.user, title: 'Contrataciones abiertas', cp: data[0], budget: data[1]});
+        })
+        .catch(function (error) {
+            console.log("Error",error);
+        });
+    
 
 });
 
