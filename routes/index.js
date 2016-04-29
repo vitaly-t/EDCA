@@ -66,8 +66,8 @@ var isValidPassword = function(user, password){
     return bCrypt.compareSync(password, user.password);
 };
 
-
-passport.use('signup', new LocalStrategy({
+// No usamos este código
+/* passport.use('signup', new LocalStrategy({
         passReqToCallback : true // allows us to pass back the entire request to the callback
       },
       function(req, username, password, done) {
@@ -118,7 +118,7 @@ passport.use('signup', new LocalStrategy({
 var createHash = function(password){
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 };
-
+*/
 
 
 // Passport needs to be able to serialize and deserialize users to support persistent login sessions
@@ -155,6 +155,7 @@ var isNotAuthenticated = function (req, res, next) {
 }
 
 /* * * * * * * * * * * RUTAS * * * * * * * * * * * * * */
+
   /* GET home page. */
 router.get('/', isNotAuthenticated, function (req, res, next) {
     res.render('index', {title: 'Contrataciones abiertas', message: req.flash('message')});
@@ -206,6 +207,8 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
 var pgp      = require("pg-promise")();
 var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
+
+// NUEVO PROCESO DE CONTRATACIÓN
 router.get('/nuevo_proceso/:pubid', function(req,res){
   var pid = req.params.pubid;
   console.log("Publisher id: ",pid);
@@ -232,7 +235,6 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
         ).catch(function (error) {
             console.log("ERROR: ", error);
         });
-
 
 
 
@@ -276,6 +278,7 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
     console.log("ERROR: ", error);
 });
 });
+
 
 /* Update Planning -> Budget */
 router.post('/update_budget/:ocid', function (req, res) {
