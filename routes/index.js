@@ -182,15 +182,9 @@ router.get('/main', isAuthenticated, function(req, res, next) {
 });
 
 
-
-
-
-
-/* devuelve un objeto con datos */
+/* GET main page with data */
 router.get('/main/:ocid', isAuthenticated, function (req,res) {
-
     var ocid = req.params.ocid;
-
 
     edca_db.tx(function (t) {
             // this = t = transaction protocol context;
@@ -210,7 +204,6 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
         .catch(function (error) {
             console.log("Error",error);
         });
-    
 
 });
 
