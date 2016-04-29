@@ -8,9 +8,11 @@ var process = {
 };
 
 
+
 /*window.onbeforeunload = function() {
         return "Si recarga la página perdera sus últimos cambios";
 };*/
+
 
 
 /* Date picker */

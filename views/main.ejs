@@ -3,9 +3,9 @@
 <head>
 
 
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--  <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet"> -->
     <link rel='stylesheet' href='/stylesheets/navbar-fixed-top.css' />
     <title><%= title %></title>
@@ -15,6 +15,7 @@
     <link rel='stylesheet' href='/stylesheets/buttons.css'/>
 </head>
 <body>
+
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -74,7 +75,8 @@
 
 
                 <div class="col-sm-4 ">
-                    <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled>
+                    <input id="ocid" type="number" class="form-control"  placeholder="ocid" disabled
+                    value=<%= (typeof cp != "undefined" )? cp : ""%>>
                 </div>
 
             </div>
@@ -82,7 +84,6 @@
     </div>
 
     <br>
-
 
     <ul class="nav nav-pills nav-justified">
         <li role="presentation" class="active"><a data-toggle="pill" href="#home">1. PLANEACIÓN</a></li>
@@ -110,14 +111,22 @@
 
                 <h3>1.1 BUDGET</h3>
                 <form id="budget_form" >
-                    <p> <input class="form-control" name="budget_source" placeholder="budget source"></p>
-                    <p><input class="form-control" name="budget_description" placeholder="budget description"></p>
-                    <p><input class="form-control" type="number" name="budget_amount" placeholder="budget amount"></p>
-                    <p><input class="form-control" name="budget_currency" placeholder="budget currency"></p>
-                    <p><input class="form-control" name="budget_project" placeholder="budget project"></p>
-                    <p><input class="form-control" name="budget_projectid" placeholder="budget projectID"></p>
-                    <p><input class="form-control" name="budget_uri" placeholder="budget uri"></p>
-                    <p><input class="form-control" name="rationale" placeholder="rationale"></p>
+                    <p> <input class="form-control" name="budget_source" placeholder="budget source"
+                    value= <%= (typeof budget != "undefined")? budget.budget_source:''%>></p>
+                    <p><input class="form-control" name="budget_description" placeholder="budget description"
+                    value= <%= (typeof budget != "undefined")? budget.budget_description:''%>></p>
+                    <p><input class="form-control" type="number" name="budget_amount" placeholder="budget amount"
+                        value=<%= (typeof budget != "undefined")? budget.budget_amount:'' %>></p>
+                    <p><input class="form-control" name="budget_currency" placeholder="budget currency"
+                        value=<%= (typeof budget != "undefined")? budget.budget_currency:'' %>></p>
+                    <p><input class="form-control" name="budget_project" placeholder="budget project"
+                        value=<%= (typeof budget != "undefined")? budget.budget_project:'' %>></p>
+                    <p><input class="form-control" name="budget_projectid" placeholder="budget projectID"
+                        value=<%= (typeof budget != "undefined")? budget.budget_projectid:0 %>></p>
+                    <p><input class="form-control" name="budget_uri" placeholder="budget uri"
+                        value=<%= (typeof budget != "undefined")? budget.budget_uri:'' %>></p>
+                    <p><input class="form-control" name="rationale" placeholder="rationale"
+                        value=<%= (typeof budget != "undefined")? budget.rationale:'' %>></p>
                     <p><button  type="submit" class="btn">Guardar</button></p>
 
                     <p><button class="btn btn-primary">Budget document</button></p>
@@ -579,11 +588,11 @@ Organización Supplier depende de Adjudicación
 
 
 
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-<script src="javascript/main.js"></script>
+<script src="/javascript/main.js"></script>
 <script type="text/javascript">
     $(function () {
     $('#datetimepicker1').datetimepicker({});

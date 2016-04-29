@@ -177,7 +177,28 @@ router.get('/signout', function(req, res) {
 
 /* GET main page. */
 router.get('/main', isAuthenticated, function(req, res, next) {
-  res.render('main', { user:req.user,title: 'Contrataciones abiertas' });
+  res.render('main', { user: req.user, title: 'Contrataciones abiertas' });
+});
+
+
+
+/* devuelve un objeto con datos */
+router.get('/main/:ocid', isAuthenticated, function (req,res) {
+
+    var ocid = req.params.ocid;
+    var budgetdata;
+
+    /*asýnchronous*/
+    edca_db.one("select * from budget where ContractingProcess_id = $1", ocid ).then(function (bd) {
+        budgetdata = bd;
+        res.render('main', { user: req.user, title: 'Contrataciones abiertas', budget: bd});
+
+    }).catch(function (error) {
+        console.log("Error",error);
+    });
+
+
+
 });
 
 
@@ -256,15 +277,8 @@ router.get('/nuevo_proceso/:pubid', function(req,res){
 });
 });
 
-
-/* */
+/* Update Planning -> Budget */
 router.post('/update_budget/:ocid', function (req, res) {
-    //var desc = req.body.description;
-    /*for (var x in req.body){
-        console.log(x ," : ", req.body[x]);
-    }*/
-
-
     /*
     var source = req.body.source;
     var desc = req.body.description;
