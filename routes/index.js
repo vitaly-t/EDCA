@@ -10,7 +10,6 @@ mongoose.connect(dbConfig.url);
 var passport = require('passport');
 var expressSession = require('express-session');
 
-
 router.use(expressSession({secret: 'mySecretKey', resave : false , saveUninitialized: false}));
 router.use(passport.initialize());
 router.use(passport.session());
@@ -21,15 +20,11 @@ var flash = require('connect-flash');
 router.use(flash());
 
 
-
-
 // Initialize Passport
 /* ******************* */
 var LocalStrategy   = require('passport-local').Strategy;
 var User = require('../models/user');
 var bCrypt = require('bcrypt-nodejs');
-
-
 
 passport.use('login', new LocalStrategy(
       {     passReqToCallback : true      },
@@ -186,7 +181,7 @@ router.get('/main', isAuthenticated, function(req, res, next) {
 router.get('/main/:ocid', isAuthenticated, function (req,res) {
     var ocid = req.params.ocid;
 
-    edca_db.tx(function (t) {
+    edca_db.task(function (t) {
             // this = t = transaction protocol context;
             // this.ctx = transaction config + state context;
             return t.batch([
@@ -224,76 +219,45 @@ var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
 
 // NUEVO PROCESO DE CONTRATACIÓN
-router.get('/nuevo_proceso/:pubid', function(req,res){
-  var pid = req.params.pubid;
-  console.log("Publisher id: ",pid);
-  edca_db.one("insert into ContractingProcess (fecha_creacion, hora_creacion, publisher_id) values (current_date, current_time, $1) returning id",
-              pid).then(
-    function (data) {
-    res.send(data);
-      console.log("Se ha creado un nuevo proceso de contratación con id: ", data.id);
-
-
-        //planning
-        edca_db.one("insert into Planning (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (planning) {
-            console.log("Se ha creado una nueva etapa de planeación con id: ", planning.id);
-
-            //budget
-            edca_db.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id", [data.id, planning.id] ).then(
-                function (budget) {
-                    console.log('Se ha creado un nuevo elemento Planning -> budget con id: ', budget.id);
-                }).catch(function (error) {
-                console.log('ERROR: ', error);
-            });
-
-        }
-        ).catch(function (error) {
+router.get('/nuevo_proceso/:pubid', function (req, res) {
+    var pid = req.params.pubid;
+    console.log("Publisher id: ", pid);
+    edca_db.tx(function (t) {
+            return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, publisher_id) values (current_date, current_time, $1) returning id", pid)
+                .then(function (process) {
+                    return t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id)
+                        .then(function (planning) {
+                            return {
+                                planning: planning,
+                                process: process
+                            };
+                        })
+                })
+                .then(function (info) {
+                    var last = t.one("insert into Contract (ContractingProcess_id) values ($1) returning id", [info.process.id])
+                        .then(function (contract) {
+                            return t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id", [info.process.id, contract.id])
+                        });
+                    return t.batch([
+                        t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id", [info.process.id, info.planning.id]),
+                        t.one("insert into Tender (ContractingProcess_id) values ($1) returning id", [info.process.id]),
+                        t.one("insert into Award (ContractingProcess_id) values ($1) returning id", [info.process.id]),
+                        last
+                    ]);
+                });
+        })
+        .then(function (data) {
+            // data[0] = Budget object;
+            // data[1] = Tender object;
+            // data[2] = Award object;
+            // data[3] = Implementation object;
+            res.send(process);
+        })
+        .catch(function (error) {
+            res.json({"id": 0});
             console.log("ERROR: ", error);
         });
-
-
-
-        //tender
-        edca_db.one("insert into Tender (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (tender) {
-                console.log("Se ha creado una nueva etapa de licitación con id: ", tender.id);
-            }
-        ).catch(function (error) {
-            console.log("ERROR: ", error);
-        });
-
-        //Award
-        edca_db.one("insert into Award (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (award) {
-                console.log("Se ha creado una nueva etapa de adjudicación con id: ", award.id);
-            }
-        ).catch(function (error) {
-            console.log("ERROR: ", error);
-        });
-
-
-        //Contract
-        edca_db.one("insert into Contract (ContractingProcess_id) values ($1) returning id", [data.id]).then(function (contract) {
-
-            console.log("Se ha creado una nueva etapa de contracación id: ", contract.id);
-
-            //Implementation
-            edca_db.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id",
-                [data.id, contract.id]).then(function(imple){
-                    console.log("Se ha creado una nueva etapa de implementación con id: ",imple.id);
-                }).catch(function(error){
-                console.log("ERROR: ", error);
-            });
-
-        }).catch(function (error) {
-            console.log("ERROR: ", error);
-        });
-
-
-    }).catch(function (error) {
-    res.json({"id":0});
-    console.log("ERROR: ", error);
 });
-});
-
 
 /* Update Planning -> Budget */
 router.post('/update_budget/:ocid', function (req, res) {
