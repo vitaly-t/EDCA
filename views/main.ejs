@@ -118,28 +118,43 @@
 
                 <h3>1.1 BUDGET</h3>
                 <form id="budget_form" >
-                    <p> <input class="form-control" name="budget_source" placeholder="budget source"
+                    <p>
+                        <label>Budget source</label>
+                        <input class="form-control" name="budget_source" placeholder="budget source"
                     value = "<%= (typeof budget != "undefined")? budget.budget_source:''%>"
                         ></p>
-                    <p><input class="form-control" name="budget_description" placeholder="budget description"
+                    <p>
+                        <label>Budget description</label>
+                        <input class="form-control" name="budget_description" placeholder="budget description"
                     value = "<%= (typeof budget != "undefined")? budget.budget_description:''%>"
                         ></p>
-                    <p><input class="form-control" type="number" name="budget_amount" placeholder="budget amount"
+                    <p>
+                        <label>Budget amount</label>
+                        <input class="form-control" type="number" name="budget_amount" placeholder="budget amount"
                         value = "<%= (typeof budget != "undefined")? budget.budget_amount:'' %>"
                         ></p>
-                    <p><input class="form-control" name="budget_currency" placeholder="budget currency"
+                    <p>
+                        <label>Budget currency</label>
+                        <input class="form-control" name="budget_currency" placeholder="budget currency"
                         value = "<%= (typeof budget != "undefined")? budget.budget_currency:'' %>"
                         ></p>
-                    <p><input class="form-control" name="budget_project" placeholder="budget project"
+                    <p>
+                        <label>Budget project</label>
+                        <input class="form-control" name="budget_project" placeholder="budget project"
                         value = "<%= (typeof budget != "undefined")? budget.budget_project:'' %>"
                         ></p>
-                    <p><input class="form-control" name="budget_projectid" placeholder="budget projectID"
+                    <p>
+                        <label>Budget projectID</label>
+                        <input class="form-control" name="budget_projectid" placeholder="budget projectID"
                         value = "<%= (typeof budget != "undefined")? budget.budget_projectid:"" %>"
                         ></p>
-                    <p><input class="form-control" name="budget_uri" placeholder="budget uri"
+                    <p>
+                        <label>Budget URI</label>
+                        <input class="form-control" name="budget_uri" placeholder="budget uri"
                         value = "<%= (typeof budget != "undefined")? budget.budget_uri:'' %>"
                         ></p>
-                    <p><input class="form-control" name="rationale" placeholder="rationale"
+                    <p><label>Budget rationale</label>
+                        <input class="form-control" name="rationale" placeholder="rationale"
                         value = "<%= (typeof budget != "undefined")? budget.rationale:'' %>"
                         ></p>
                     <p><button  type="submit" class="btn">Guardar</button></p>
@@ -168,73 +183,111 @@
                 </p>
                 <form role="form" >
 
-                    <p><input type="text" class="form-control" name="title" placeholder="title"
+                    <p>
+                        <label>Title</label>
+                        <input type="text" class="form-control" name="title" placeholder="title"
                               value = "<%= (typeof tender != "undefined")? tender.title:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name = "description" placeholder="description"
+                    <p>
+                        <label>Description</label>
+                        <input type="text" class="form-control" name = "description" placeholder="description"
                               value = "<%= (typeof tender != "undefined")? tender.description:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name = "status" placeholder="status"
+                    <p>
+                        <label>Status</label>
+                        <input type="text" class="form-control" name = "status" placeholder="status"
                               value = "<%= (typeof tender != "undefined")? tender.status:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name = "minvalue_amount" placeholder="minValue amount"
+                    <p>
+                        <label>Min value amount</label>
+                        <input type="text" class="form-control" name = "minvalue_amount" placeholder="minValue amount"
                               value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name="minvalue_currency" placeholder="minValue currency"
+                    <p>
+                        <label>Min value currency</label>
+                        <input type="text" class="form-control" name="minvalue_currency" placeholder="minValue currency"
                               value = "<%= (typeof tender != "undefined")? tender.minvalue_currency:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name= "value_amount" placeholder="value amount"
+                    <p>
+                        <label>Value amount</label>
+                        <input type="text" class="form-control" name= "value_amount" placeholder="value amount"
                               value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name = "value_currency" placeholder="value currency"
+                    <p>
+                        <label>Value currency</label>
+                        <input type="text" class="form-control" name = "value_currency" placeholder="value currency"
                               value = "<%= (typeof tender != "undefined")? tender.value_currency:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name= "procurementmethod" placeholder="procurement method"
+                    <p>
+                        <label>Procurement method</label>
+                        <input type="text" class="form-control" name= "procurementmethod" placeholder="procurement method"
                               value = "<%= (typeof tender != "undefined")? tender.procurementmethod:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name= "procurementmethod_rationale" placeholder="procurement method rationale"
+                    <p>
+                        <label>Procurement method rationale</label>
+                        <input type="text" class="form-control" name= "procurementmethod_rationale" placeholder="procurement method rationale"
                               value = "<%= (typeof tender != "undefined")? tender.procurementmethod_rationale:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name = "awardcriteria" placeholder="award criteria"
+                    <p>
+                        <label>Award criteria</label>
+                        <input type="text" class="form-control" name = "awardcriteria" placeholder="award criteria"
                               value = "<%= (typeof tender != "undefined")? tender.awardcriteria:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name = "awardcriteria_details" placeholder="award criteria details"
+                    <p>
+                        <label>Award criteria details</label>
+                        <input type="text" class="form-control" name = "awardcriteria_details" placeholder="award criteria details"
                               value = "<%= (typeof tender != "undefined")? tender.awardcriteria_details:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name="submissionmethod" placeholder="submission method"
+                    <p>
+                        <label>Submission method</label>
+                        <input type="text" class="form-control" name="submissionmethod" placeholder="submission method"
                               value = "<%= (typeof tender != "undefined")? tender.submissionmethod:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name="submissionmethod_details" placeholder="submission method details"
+                    <p>
+                        <label>Submission method details</label>
+                        <input type="text" class="form-control" name="submissionmethod_details" placeholder="submission method details"
                               value = "<%= (typeof tender != "undefined")? tender.submissionmethod_details:''%>"
                         ></p>
 
+                    <p>
                     <div class="row">
                     <div class="col-sm-6">
+                        <label>Tender period start date</label>
                         <input type="text" class="form-control" id="lici_date1" name="tenderperiod_statdate" placeholder="tender period start date"
                                value = "<%= (typeof tender != "undefined")? tender.tenderperiod_starddate:''%>"
                         >
                     </div>
                         <div class="col-sm-6">
+                            <label>Tender period end date</label>
                         <input type="text" class="form-control" id="lici_date2" name="tenderperiod_enddate" placeholder="tender period end date"
                                value = "<%= (typeof tender != "undefined")? tender.tenderperiod_enddate:''%>"
                         >
                         </div>
                    </div>
-    <br>
+                    </p>
+
+
+                    <p>
                     <div class="row">
                     <div class="col-sm-6">
+                        <label>Enquiry period stat date</label>
                         <input type="text" class="form-control" id="lici_date3" name= "enquiryperiod_starddate" placeholder="enquiry period start date"
                                value = "<%= (typeof tender != "undefined")? tender.enquiryperiod_stardate:''%>"
                         >
                         </div>
                     <div class="col-sm-6">
+                        <label>Enquiry period end date</label>
                         <input type="text" class="form-control" id="lici_date4" name= "enquiryperiod_enddate" placeholder="enquiry period end date"
                                value = "<%= (typeof tender != "undefined")? tender.enquiryperiod_enddate:''%>"
                         ></div>
                     </div>
-<br>
+                    </p>
 
-                    <p><select class="form-control" name="hasenquiries">
+
+
+                    <p>
+                        <label>Has enquiries</label>
+                        <select class="form-control" name="hasenquiries">
                             <option value="0"
                                     <% if (typeof tender != "undefined") {%>
                                     <%=(tender.hasenquiries==1) ?'selected':'';%>
@@ -247,25 +300,33 @@
                             >No</option>
                         </select></p>
 
-                    <p><input type="text" class="form-control" name="eligibility_criteria" placeholder="eligibility criteria"
+                    <p>
+                        <label>Elegibility criteria</label>
+                        <input type="text" class="form-control" name="eligibility_criteria" placeholder="eligibility criteria"
                               value = "<%= (typeof tender != "undefined")? tender.eligibility_criteria:''%>"
                         ></p>
 
 
+                    <p>
                     <div class="row">
                     <div class="col-sm-6">
+                        <label>Award period start date</label>
                         <input type="text" class="form-control" id="lici_date5" name="awardperiod_startdate" placeholder="award period start date"
                                value = "<%= (typeof tender != "undefined")? tender.awardperiod_startdate:''%>"
                         >
                     </div>
                     <div class="col-sm-6">
+                        <label>Award period end date</label>
                         <input type="text" class="form-control" id="lici_date6" name="awardperiod_enddate" placeholder="award period end date"
                                value = "<%= (typeof tender != "undefined")? tender.awardperiod_enddate:''%>"
                         >
                     </div>
                     </div>
-</br>
-                    <p><input type="number" class="form-control" name="numberoftenderers" placeholder="number of tenderers"
+                    </p>
+
+                    <p>
+                        <label>Number of tenderers</label>
+                        <input type="number" class="form-control" name="numberoftenderers" placeholder="number of tenderers"
                               value = "<%= (typeof tender != "undefined")? tender.numberoftenderers:''%>"
                         ></p>
 
@@ -301,43 +362,55 @@
                     <button class="btn btn-primary ">Amendment </button> <!-- Le sigue amendment changes-->
                 </p>
                 <form role="form">
-                    <p><input type="text" name="title" class="form-control" placeholder="title"
+                    <p>
+                        <label>Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="title"
                                 value = "<%= (typeof award != "undefined")? award.title:''%>"
                         ></p>
-                    <p><input type="text" name="description" class="form-control" placeholder="description"
+                    <p>
+                        <label>Description</label>
+                        <input type="text" name="description" class="form-control" placeholder="description"
                                 value = "<%= (typeof award != "undefined")? award.description:''%>"
                         ></p>
-                    <p><input type="text" name="status" class="form-control" placeholder="status"
+                    <p>
+                        <label>Status</label>
+                        <input type="text" name="status" class="form-control" placeholder="status"
                                 value = "<%= (typeof award != "undefined")? award.status:''%>"
                         ></p>
-                    <div class="row">
-                    <div class="col-sm-6">
+
+                    <p> <div style="position: relative">
+                        <label>Date</label>
                         <input type="text" id ="adju_date1" name="award_date" class="form-control" placeholder="date"
                                value = "<%= (typeof award != "undefined")? award.award_date:''%>"
                         >
-                    </div>
-                    </div>
-                    <br>
-                    <p><input type="text" class="form-control" name="value_amount" placeholder="value amount"
+                        </div> </p>
+
+                    <p>
+                        <label>Value amount</label>
+                        <input type="text" class="form-control" name="value_amount" placeholder="value amount"
                                 value = "<%= (typeof award != "undefined")? award.value_amount:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name="value_currency" placeholder="value currency"
+                    <p>
+                        <label>Value description</label>
+                        <input type="text" class="form-control" name="value_currency" placeholder="value currency"
                               value = "<%= (typeof award != "undefined")? award.value_currency:''%>"
                         ></p>
-
+<p>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
+                            <label>Contract period start date</label>
                             <input type="text" id ="adju_date2" name="contractperiod_startdate" class="form-control" placeholder="contract period start date"
                                    value = "<%= (typeof award != "undefined")? award.contractperiod_starddate:''%>"
                             >
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
+                            <label>Contract period end date</label>
                             <input type="text" id = "adju_date3" name="contractperiod_enddate" class="form-control" placeholder="contract period end date"
                                    value = "<%= (typeof award != "undefined")? award.contractperiod_enddate:''%>"
                             >
                         </div>
                     </div>
-
+</p>
 
                         <!--
                         <div class="col-sm-4">
@@ -368,38 +441,55 @@
 
                 <form role="form">
 
-                    <p><input type="text" class="form-control" name = "title" placeholder="title"
+                    <p>
+                        <label>Title</label>
+                        <input type="text" class="form-control" name = "title" placeholder="title"
                               value = "<%= (typeof contract != "undefined")? contract.title:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name = "description" placeholder="description"
+                    <p>
+                        <label>Description</label>
+                        <input type="text" class="form-control" name = "description" placeholder="description"
                               value = "<%= (typeof contract != "undefined")? contract.description:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" name = "status" placeholder="status"
+                    <p>
+                        <label>Status</label>
+                        <input type="text" class="form-control" name = "status" placeholder="status"
                               value = "<%= (typeof contract != "undefined")? contract.status:''%>"
                         ></p>
+                    <p>
                     <div class="row">
                         <div class="col-sm-6">
+                            <label>Period start date</label>
                             <input type="text" id= "cont_date1" name  = "period_startdate" class="form-control" placeholder="period start date"
                                    value = "<%= (typeof contract != "undefined")? contract.period_startdate:''%>"
                             >
                         </div>
                         <div class="col-sm-6">
+                            <label>Period end date</label>
                             <input type="text" id= "cont_date2" class="form-control" name= "period_enddate" placeholder="period end date"
                                    value = "<%= (typeof contract != "undefined")? contract.period_enddate:''%>"
                             >
                         </div>
                     </div>
-
-                    <p><input type="text" class="form-control" placeholder="value amount"
+            </p>
+                    <p>
+                        <label>Value amount</label>
+                        <input type="text" class="form-control" placeholder="value amount"
                               value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>"
                         ></p>
-                    <p><input type="text" class="form-control" placeholder="value currency"
+                    <p>
+                        <label>Value currency</label>
+                        <input type="text" class="form-control" placeholder="value currency"
                               value = "<%= (typeof contract != "undefined")? contract.value_currency:''%>"
                         ></p>
 
-                    <div style="position: relative"><input type="text" id="cont_date3" class="form-control" placeholder="date signed"
+                    <p>
+                    <div style="position: relative">
+                        <label>Date signed</label>
+                        <input type="text" id="cont_date3" class="form-control" placeholder="date signed"
                                                            value = "<%= (typeof contract != "undefined")? contract.datesigned:''%>"
                         ></div>
+                    </p>
 
 
                         <!--

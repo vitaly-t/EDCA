@@ -260,11 +260,6 @@ router.get('/nuevo_proceso/:pubid', function (req, res) {
                 });
         })
         .then(function (data) {
-            // data[0] = Budget object;
-            // data[1] = Tender object;
-            // data[2] = Award object;
-            // data[3] = Implementation object;
-            //res.json(process);
             console.log(data);
             res.json(data);
         })
