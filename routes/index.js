@@ -222,28 +222,41 @@ var edca_db  = pgp("postgres://tester:test@localhost/edca");
 router.get('/nuevo_proceso/:pubid', function (req, res) {
     var pid = req.params.pubid;
     console.log("Publisher id: ", pid);
+
     edca_db.tx(function (t) {
+
             return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, publisher_id) values (current_date, current_time, $1) returning id", pid)
                 .then(function (process) {
+
                     return t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id)
                         .then(function (planning) {
                             return {
-                                planning: planning,
-                                process: process
+                                process: process,
+                                planning: planning
                             };
                         })
+
                 })
                 .then(function (info) {
+
                     var last = t.one("insert into Contract (ContractingProcess_id) values ($1) returning id", [info.process.id])
                         .then(function (contract) {
-                            return t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id", [info.process.id, contract.id])
+
+                            return t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id as implementation_id", [info.process.id, contract.id])
+
                         });
+
+                    var process= {process_id : info.process.id}
+                    var planning = {planning_id : info.planning.id}
+
                     return t.batch([
-                        t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id", [info.process.id, info.planning.id]),
-                        t.one("insert into Tender (ContractingProcess_id) values ($1) returning id", [info.process.id]),
-                        t.one("insert into Award (ContractingProcess_id) values ($1) returning id", [info.process.id]),
-                        last
-                    ]);
+                        process, planning,
+                            t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id as budget_id", [info.process.id, info.planning.id]),
+                            t.one("insert into Tender (ContractingProcess_id) values ($1) returning id as tender_id", [info.process.id]),
+                            t.one("insert into Award (ContractingProcess_id) values ($1) returning id as award_id", [info.process.id]),
+                            last
+                        ])
+
                 });
         })
         .then(function (data) {
@@ -251,7 +264,9 @@ router.get('/nuevo_proceso/:pubid', function (req, res) {
             // data[1] = Tender object;
             // data[2] = Award object;
             // data[3] = Implementation object;
-            res.send(process);
+            //res.json(process);
+            console.log(data);
+            res.json(data);
         })
         .catch(function (error) {
             res.json({"id": 0});
