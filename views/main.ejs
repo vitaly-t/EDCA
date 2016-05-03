@@ -118,6 +118,11 @@
 
                 <h3>1.1 BUDGET</h3>
                 <form id="budget_form" >
+
+                    <input type="text" name="contractingprocess_id" hidden
+                    value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
+                    >
+                    <!-- Falta el id de planning -->
                     <p>
                         <label>Budget source</label>
                         <input class="form-control" name="budget_source" placeholder="budget source"
@@ -181,7 +186,11 @@
 
 
                 </p>
-                <form role="form" >
+                <form id="tender_form" role="form" >
+
+                    <input type="text" name="contractingprocess_id" hidden
+                           value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
+                    >
 
                     <p>
                         <label>Title</label>
@@ -355,13 +364,16 @@
             <div class="well well-lg">
 
                 <h3>3. ADJUDICACIÓN</h3>
+                <input type="text" name="contractingprocess_id" hidden
+                       value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
+                >
                 <p>
                     <button class="btn btn-primary ">Items</button>
                     <button class="btn btn-primary ">Documents</button>
                     <!-- <button class="btn btn-primary ">Suppliers</button> -->
                     <button class="btn btn-primary ">Amendment </button> <!-- Le sigue amendment changes-->
                 </p>
-                <form role="form">
+                <form id="award_form" role="form">
                     <p>
                         <label>Title</label>
                         <input type="text" name="title" class="form-control" placeholder="title"
@@ -439,8 +451,11 @@
                     <button class="btn btn-primary">Amendment</button> <!-- le sigue amendment changes -->
                 </p>
 
-                <form role="form">
+                <form id="contract_form" role="form">
 
+                    <input type="text" name="contractingprocess_id" hidden
+                           value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
+                    >
                     <p>
                         <label>Title</label>
                         <input type="text" class="form-control" name = "title" placeholder="title"
@@ -456,6 +471,7 @@
                         <input type="text" class="form-control" name = "status" placeholder="status"
                               value = "<%= (typeof contract != "undefined")? contract.status:''%>"
                         ></p>
+
                     <p>
                     <div class="row">
                         <div class="col-sm-6">
@@ -471,7 +487,8 @@
                             >
                         </div>
                     </div>
-            </p>
+                    </p>
+
                     <p>
                         <label>Value amount</label>
                         <input type="text" class="form-control" placeholder="value amount"
@@ -613,7 +630,7 @@ Organización Supplier depende de Adjudicación
           </div>
         </div>
     </div>
-</div>
+
 
 
 <!-- modal organización template -->

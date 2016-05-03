@@ -45,7 +45,7 @@ $('#crear-org').click(function(){
               (process.ocid==0?
                "?":"?, perdera los cambios hechos al proceso actual")) == true ){
                  if(process.publisher != 0){
-                   $.get("/nuevo_proceso/" + process.pulisher, function(data){
+                   $.get("/new-process/" + process.pulisher, function(data){
                      $("#ocid").val(data.id);
                      currentocid = value.id;
                    });
@@ -63,11 +63,49 @@ $(function () {
     });
 });
 
+
+/* UPDATE */
 $( "#budget_form" ).submit(function( event ) {
-    if (process.ocid != 0) {
-        $.post('/update_budget/'+process.ocid, $(this).serialize());
-        event.preventDefault();
+    if ($('#ocid').val() != "") {
+        $.post('/update-budget/', $(this).serialize()).done(function (data) {
+            alert(data);
+        });
     }else{
         alert("Debes crear un nuevo proceso de contratación");
     }
+    event.preventDefault();
+});
+
+$("#tender_form").submit(function(event){
+    if ( $('#ocid').val() !="") {
+        $.post('/update-tender/', $(this).serialize()).done(function(data){
+            alert(data);
+        });
+    }else{
+        alert("Debes crear un nuevo proceso de contratación");
+    }
+    event.preventDefault();
+});
+
+
+$("#award_form").submit(function(event){
+    if ( $('#ocid').val()!= "") {
+        $.post('/update-award/', $(this).serialize()).done(function (data) {
+            alert(data);
+        });
+    }else{
+        alert("Debes crear un nuevo proceso de contratación");
+    }
+    event.preventDefault();
+});
+
+$("#contract_form").submit(function(event){
+    if ( $('#ocid').val()!="") {
+        $.post('/update-contract/', $(this).serialize()).done(function (data) {
+            alert(data);
+        });
+    }else{
+        alert("Debes crear un nuevo proceso de contratación");
+    }
+    event.preventDefault();
 });

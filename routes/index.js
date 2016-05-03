@@ -219,7 +219,7 @@ var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
 
 // NUEVO PROCESO DE CONTRATACIÓN
-router.get('/nuevo_proceso/:pubid', function (req, res) {
+router.get('/new-process/:pubid', function (req, res) {
     var pid = req.params.pubid;
     console.log("Publisher id: ", pid);
 
@@ -270,21 +270,10 @@ router.get('/nuevo_proceso/:pubid', function (req, res) {
 });
 
 /* Update Planning -> Budget */
-router.post('/update_budget/:ocid', function (req, res) {
-    /*
-    var source = req.body.source;
-    var desc = req.body.description;
-    var amount = req.body.amount;
-    var curr = req.body.curr;
-    var project = req.body.project;
-    var projectid = req.body.projectid;
-    var uri = req.body.uri;
-*/
-    var ocid = req.params.ocid;
-
+router.post('/update-budget', function (req, res) {
     for (var campo in req.body) {
 
-        edca_db.one("update budget set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo],ocid]).then(
+        edca_db.one("update budget set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
             function (ub) {
             console.log("Update budget ...");
         }).catch(function (error) {
@@ -296,6 +285,56 @@ router.post('/update_budget/:ocid', function (req, res) {
     res.json({id: '0'});
 });
 
+
+/* Update Tender*/
+router.post('/update-tender', function (req, res) {
+    for (var campo in req.body) {
+
+        edca_db.one("update tender set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
+            function (ub) {
+                console.log("Update tender ...");
+            }).catch(function (error) {
+            console.log("ERROR: ",error);
+        });
+    }
+
+    // ¿?
+    res.send({id: '0'}); // envía la respuesta y presentala en un modal
+});
+
+
+/* Update Award */
+router.post('/update-award', function (req, res) {
+    for (var campo in req.body) {
+
+        edca_db.one("update award set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
+            function (ub) {
+                console.log("Update award ...");
+            }).catch(function (error) {
+            console.log("ERROR: ",error);
+        });
+    }
+
+    // ¿?
+    res.json({id: '0'});
+});
+
+
+/* Update Contract */
+router.post('/update-contract', function (req, res) {
+    for (var campo in req.body) {
+
+        edca_db.one("update contract set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
+            function (ub) {
+                console.log("Update contract ...");
+            }).catch(function (error) {
+            console.log("ERROR: ",error);
+        });
+    }
+
+    // ¿?
+    res.json({id: '0'});
+});
 
 
 // Buyer
