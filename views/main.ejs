@@ -189,7 +189,7 @@
                 <form id="tender_form" role="form" >
 
                     <input type="text" name="contractingprocess_id" hidden
-                           value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
+                           value ="<%= (typeof tender != "undefined")? tender.contractingprocess_id:''%>"
                     >
 
                     <p>
@@ -209,7 +209,7 @@
                         ></p>
                     <p>
                         <label>Min value amount</label>
-                        <input type="text" class="form-control" name = "minvalue_amount" placeholder="minValue amount"
+                        <input type="number" class="form-control" name = "minvalue_amount" placeholder="minValue amount"
                               value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>"
                         ></p>
                     <p>
@@ -219,7 +219,7 @@
                         ></p>
                     <p>
                         <label>Value amount</label>
-                        <input type="text" class="form-control" name= "value_amount" placeholder="value amount"
+                        <input type="number" class="form-control" name= "value_amount" placeholder="value amount"
                               value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>"
                         ></p>
                     <p>
@@ -262,7 +262,7 @@
                     <div class="row">
                     <div class="col-sm-6">
                         <label>Tender period start date</label>
-                        <input type="text" class="form-control" id="lici_date1" name="tenderperiod_statdate" placeholder="tender period start date"
+                        <input type="text" class="form-control" id="lici_date1" name="tenderperiod_startdate" placeholder="tender period start date"
                                value = "<%= (typeof tender != "undefined")? tender.tenderperiod_starddate:''%>"
                         >
                     </div>
@@ -280,7 +280,7 @@
                     <div class="row">
                     <div class="col-sm-6">
                         <label>Enquiry period stat date</label>
-                        <input type="text" class="form-control" id="lici_date3" name= "enquiryperiod_starddate" placeholder="enquiry period start date"
+                        <input type="text" class="form-control" id="lici_date3" name= "enquiryperiod_startdate" placeholder="enquiry period start date"
                                value = "<%= (typeof tender != "undefined")? tender.enquiryperiod_stardate:''%>"
                         >
                         </div>
@@ -311,7 +311,7 @@
 
                     <p>
                         <label>Elegibility criteria</label>
-                        <input type="text" class="form-control" name="eligibility_criteria" placeholder="eligibility criteria"
+                        <input type="text" class="form-control" name="eligibilitycriteria" placeholder="eligibility criteria"
                               value = "<%= (typeof tender != "undefined")? tender.eligibility_criteria:''%>"
                         ></p>
 
@@ -365,7 +365,7 @@
 
                 <h3>3. ADJUDICACIÓN</h3>
                 <input type="text" name="contractingprocess_id" hidden
-                       value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
+                       value ="<%= (typeof award != "undefined")? award.contractingprocess_id:''%>"
                 >
                 <p>
                     <button class="btn btn-primary ">Items</button>
@@ -374,6 +374,13 @@
                     <button class="btn btn-primary ">Amendment </button> <!-- Le sigue amendment changes-->
                 </p>
                 <form id="award_form" role="form">
+
+
+                    <input type="text" name="contractingprocess_id" hidden
+                           value ="<%= (typeof award != "undefined")? award.contractingprocess_id :''%>"
+                    >
+
+
                     <p>
                         <label>Title</label>
                         <input type="text" name="title" class="form-control" placeholder="title"
@@ -399,7 +406,7 @@
 
                     <p>
                         <label>Value amount</label>
-                        <input type="text" class="form-control" name="value_amount" placeholder="value amount"
+                        <input type="number" class="form-control" name="value_amount" placeholder="value amount"
                                 value = "<%= (typeof award != "undefined")? award.value_amount:''%>"
                         ></p>
                     <p>
@@ -454,7 +461,7 @@
                 <form id="contract_form" role="form">
 
                     <input type="text" name="contractingprocess_id" hidden
-                           value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
+                           value ="<%= (typeof contract != "undefined")? contract.contractingprocess_id :''%>"
                     >
                     <p>
                         <label>Title</label>
@@ -491,7 +498,7 @@
 
                     <p>
                         <label>Value amount</label>
-                        <input type="text" class="form-control" placeholder="value amount"
+                        <input type="number" class="form-control" placeholder="value amount"
                               value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>"
                         ></p>
                     <p>
