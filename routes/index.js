@@ -230,6 +230,18 @@ var pgp      = require("pg-promise")();
 var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
 
+
+router.get('/luis',function (req,res) {
+    edca_db.one("select * from contractingprocess where id=1").then(function (data) {
+
+        edca_db.one("select * from tender where contractingprocess_id=$1", data.id).then(function (tenderdata) {
+            res.json( { cp: data, tender: tenderdata});
+        });
+    }).catch(function (error) {
+        res.json(error);
+    });
+});
+
 // NUEVO PROCESO DE CONTRATACIÓN
 router.get('/new-process/:pubid', function (req, res) {
     var pid = req.params.pubid;
@@ -343,7 +355,7 @@ router.post('/update-contract', function (req, res) {
             console.log("ERROR: ",error);
         });
     }
-    
+
     res.send('La etapa de contrato ha sido actualizada');
 });
 
