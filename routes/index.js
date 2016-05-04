@@ -181,34 +181,46 @@ router.get('/main', isAuthenticated, function(req, res, next) {
 router.get('/main/:ocid', isAuthenticated, function (req,res) {
     var ocid = req.params.ocid;
 
-    edca_db.task(function (t) {
-            // this = t = transaction protocol context;
-            // this.ctx = transaction config + state context;
-            return t.batch([
-                t.one( "select * from contractingprocess where id = $1", ocid ),
-                t.one( "select * from budget where ContractingProcess_id = $1", ocid ),
-                t.one( "select * from Tender where ContractingProcess_id = $1", ocid),
-                t.one( "select * from Award where ContractingProcess_id = $1", ocid),
-                t.one( "select * from Contract where ContractingProcess_id = $1", ocid )
-            ]);
-        })
-        // using .spread(function(user, event)) is best here, if supported;
-        .then(function (data) {
-            console.log(data[0].id); //CP
-            console.log(data[1].id); //budget
-            console.log(data[2].id); //Tender
-            console.log(data[3].id); //Award
-            console.log(data[4].id); //Contract
 
-            res.render('main', { user: req.user, title: 'Contrataciones abiertas', cp: data[0], budget: data[1], tender: data[2],
-                award: data[3], contract: data[4]
+
+        edca_db.task(function (t) {
+                // this = t = transaction protocol context;
+                // this.ctx = transaction config + state context;
+                return t.batch([
+                    t.one("select * from contractingprocess where id = $1", ocid),
+                    t.one("select * from budget where ContractingProcess_id = $1", ocid),
+                    t.one("select * from Tender where ContractingProcess_id = $1", ocid),
+                    t.one("select * from Award where ContractingProcess_id = $1", ocid),
+                    t.one("select * from Contract where ContractingProcess_id = $1", ocid)
+                ]);
+            })
+            // using .spread(function(user, event)) is best here, if supported;
+            .then(function (data) {
+                console.log(data[0].id); //CP
+                console.log(data[1].id); //budget
+                console.log(data[2].id); //Tender
+                console.log(data[3].id); //Award
+                console.log(data[4].id); //Contract
+
+                res.render('main', {
+                    user: req.user,
+                    title: 'Contrataciones abiertas',
+                    cp: data[0],
+                    budget: data[1],
+                    tender: data[2],
+                    award: data[3],
+                    contract: data[4]
+                });
+            })
+            .catch(function (error) {
+                console.log("Error", error);
+
+                res.render('main', {
+                    user: req.user,
+                    title: 'Contrataciones abiertas',
+                    error: 'Proceso de contratación ' + ocid + ' no encontrado'
+                });
             });
-        })
-        .catch(function (error) {
-            console.log("Error",error);
-
-            res.render('main', {user: req.user, title: 'Contrataciones abiertas', error:'Proceso de contratación '+ocid+' no encontrado'});
-        });
 
 });
 
@@ -261,7 +273,9 @@ router.get('/new-process/:pubid', function (req, res) {
         })
         .then(function (data) {
             console.log(data);
-            res.json(data);
+            //res.json(data);
+            res.redirect('/main/'+data[0].process_id);
+
         })
         .catch(function (error) {
             res.json({"id": 0});
