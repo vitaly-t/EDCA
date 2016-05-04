@@ -92,7 +92,7 @@
     </div>
     <%}%>
 
-    <ul class="nav nav-pills nav-justified">
+    <ul id="pills" class="nav nav-pills nav-justified">
         <li role="presentation" class="active"><a data-toggle="pill" href="#home">1. PLANEACIÓN</a></li>
         <li role="presentation"><a data-toggle="pill" href="#menu1">2. LICITACIÓN</a></li>
         <li role="presentation"><a data-toggle="pill" href="#menu2">3. ADJUDICACIÓN</a></li>
@@ -103,7 +103,21 @@
 
     <br>
 
-    <div class="tab-content">
+    <div id="jumbotron" class="jumbotron">
+      <h1 class="display-3">Contrataciones abiertas!</h1>
+      <br>
+      <p class="lead">Con la plataforma habilitadora de contrataciones abiertas el proceso de apertura es más sencillo.</p>
+      <hr class="m-y-2">
+      <p>Para obtener más información con respecto al formato que esta herramienta te proporcionará, presiona <b>saber más</b></p>
+      <p class="lead">
+       <a class="btn btn-primary btn-lg" href="http://standard.open-contracting.org/latest/en/schema/release/#id1" role="button">Saber más</a>
+      </p>
+    </div>
+
+    <div id="all-contents" class="tab-content"
+         <!--<%if(typeof cp == "undefined"){%>
+         <%="hidden"%>
+         <%}%>-->
         <div id="home" class="tab-pane fade in active">
 
             <div class="well well-lg">
@@ -842,5 +856,19 @@ Organización Supplier depende de Adjudicación
     });
     });
 </script>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $("#all-contents").hide();
+  $("#pills").hide();
+  });
+  $(document).ready(function(){
+  if($("#ocid").val() != ""){
+  $("#jumbotron").hide();
+  $("#all-contents").show(1000);
+  $("#pills").show(1000);
+  }
+  })
+</script>
+
 </body>
 </html>

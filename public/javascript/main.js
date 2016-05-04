@@ -2,17 +2,18 @@
  * Created by mtorres on 19/04/16.
  */
 
-var process = {
+/*
+ var process = {
   ocid: 1,
   publisher: 0
-};
+ };
+*/
 
 
 
 /*window.onbeforeunload = function() {
         return "Si recarga la página perdera sus últimos cambios";
 };*/
-
 
 
 /* Date picker */
@@ -50,17 +51,10 @@ $('#crear').click(function(){
 
 // Crear organización
 $('#crear-org').click(function(){
-  if (confirm("¿Está seguro de crear una nueva organización" +
-              (process.ocid==0?
-               "?":"?, perdera los cambios hechos al proceso actual")) == true ){
-                 if(process.publisher != 0){
-                   $.get("/new-process/" + process.pulisher, function(data){
-                     $("#ocid").val(data.id);
-                     currentocid = value.id;
+  if (confirm("¿Está seguro de crear una nueva organización") == true ){
+                   $.get("/new-org/" + process.pulisher, function(data){
+                     $("#org-id").val(data.id);
                    });
-                 }else{
-                   alert("Debe registrar la dependencia que publica");
-                 }
                }
 });
 

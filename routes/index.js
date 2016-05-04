@@ -231,9 +231,8 @@ var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
 
 
-router.get('/luis',function (req,res) {
+router.get('/schema', function (req,res) {
     edca_db.one("select * from contractingprocess where id=1").then(function (data) {
-
         edca_db.one("select * from tender where contractingprocess_id=$1", data.id).then(function (tenderdata) {
             res.json( { cp: data, tender: tenderdata});
         });
@@ -246,9 +245,7 @@ router.get('/luis',function (req,res) {
 router.get('/new-process/:pubid', function (req, res) {
     var pid = req.params.pubid;
     console.log("Publisher id: ", pid);
-
     edca_db.tx(function (t) {
-
             return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, publisher_id) values (current_date, current_time, $1) returning id", pid)
                 .then(function (process) {
 
@@ -258,8 +255,7 @@ router.get('/new-process/:pubid', function (req, res) {
                                 process: process,
                                 planning: planning
                             };
-                        })
-
+                        });
                 })
                 .then(function (info) {
 
