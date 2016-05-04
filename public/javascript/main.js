@@ -38,8 +38,8 @@ $('#crear').click(function(){
   if (confirm("¿Está seguro de crear un nuevo proceso de contratación"+
               ($('#ocid').val()==""?
                "?":"?, perdera los cambios hechos al proceso actual")) == true ){
-                 if(process.publisher != ""){
-                   $.get("/nuevo_proceso/" + process.pulisher, function(data){
+                 if(("#org-id").val() != ""){
+                   $.get("/nuevo_proceso/" + ("#org-id").val(), function(data){
                      $("#ocid").val(data.id);
                      currentocid = value.id;
                    });
