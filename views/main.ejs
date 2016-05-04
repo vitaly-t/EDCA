@@ -264,6 +264,7 @@
                                <%}%>
                         required>
                     </div>
+
                         <div class="col-sm-6">
                             <label>Tender period end date</label>
                         <input type="text" class="form-control" id="lici_date2" name="tenderperiod_enddate" placeholder="tender period end date"
@@ -296,8 +297,6 @@
                     </div>
                     </p>
 
-
-
                     <p>
                         <label>Has enquiries</label>
                         <select class="form-control" name="hasenquiries">
@@ -323,6 +322,7 @@
 
                     <p>
                     <div class="row">
+
                     <div class="col-sm-6">
                         <label>Award period start date</label>
                         <input type="text" class="form-control" id="lici_date5" name="awardperiod_startdate" placeholder="award period start date"
@@ -331,13 +331,14 @@
                                <%}%>
                         required>
                     </div>
+
                     <div class="col-sm-6">
                         <label>Award period end date</label>
                         <input type="text" class="form-control" id="lici_date6" name="awardperiod_enddate" placeholder="award period end date"
                                <%if(typeof tender != "undefined"){%>
                                value = "<%= (tender.awardperiod_enddate != null)? tender.awardperiod_enddate.toLocaleString():''%>"
-                        required>
                         <%}%>
+                        required>
                     </div>
                     </div>
                     </p>
