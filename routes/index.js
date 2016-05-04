@@ -290,13 +290,13 @@ router.post('/update-budget', function (req, res) {
         edca_db.one("update budget set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
             function (ub) {
             console.log("Update budget ...");
+
         }).catch(function (error) {
             console.log("ERROR: ",error);
         });
     }
 
-    // ¿?
-    res.json({id: '0'});
+    res.send('La etapa de planeación ha sido actualizada');
 });
 
 
@@ -312,8 +312,7 @@ router.post('/update-tender', function (req, res) {
         });
     }
 
-    // ¿?
-    res.send({id: '0'}); // envía la respuesta y presentala en un modal
+    res.send('La etapa de licitación ha sido actualizada'); // envía la respuesta y presentala en un modal
 });
 
 
@@ -329,8 +328,7 @@ router.post('/update-award', function (req, res) {
         });
     }
 
-    // ¿?
-    res.json({id: '0'});
+    res.send('La etapa de adjudicación ha sido actualizada');
 });
 
 
@@ -345,9 +343,8 @@ router.post('/update-contract', function (req, res) {
             console.log("ERROR: ",error);
         });
     }
-
-    // ¿?
-    res.json({id: '0'});
+    
+    res.send('La etapa de contrato ha sido actualizada');
 });
 
 
