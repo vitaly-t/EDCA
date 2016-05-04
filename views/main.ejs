@@ -334,9 +334,10 @@
                     <div class="col-sm-6">
                         <label>Award period end date</label>
                         <input type="text" class="form-control" id="lici_date6" name="awardperiod_enddate" placeholder="award period end date"
-                               <%if(typeof tender != "undefined")%>
+                               <%if(typeof tender != "undefined"){%>
                                value = "<%= (tender.awardperiod_enddate != null)? tender.awardperiod_enddate.toLocaleString():''%>"
                         required>
+                        <%}%>
                     </div>
                     </div>
                     </p>
