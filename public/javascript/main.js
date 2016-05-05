@@ -59,8 +59,28 @@ $(function () {
 /* buscar proceso por fecha*/
 $("#searchprocessbydate_form").submit(function ( event ) {
     $.post('/search-process-by-date/', $(this).serialize()).done(function(data){
+        var html = "";
         $.each(data,function (key, value) {
             //Resultados
+
+            /*var element = $('a',{
+                html: 'Proceso'+ value.id,
+                'class' : 'list-group-item',
+                'value' : value.id,
+                'href' : '#'
+            });*/
+            console.log(value.id);
+
+            $('#searchprocessbydate_result').append( "<a class='list-group-item' value='"+value.id+"'> Proceso "+value.id+"</a>");
+            /*$('searchprocessbydata_result').append(
+
+                $('<a/>',{
+                    html: 'Proceso'+ value.id,
+                    'class' : 'list-group-item',
+                    'value' : value.id,
+                    'href' : '#'
+            })
+            )*/
         })
     });
     event.preventDefault();

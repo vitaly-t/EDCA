@@ -387,6 +387,7 @@ router.post('/search-process-by-date', function (req, res) {
 
     edca_db.many("select * from ContractingProcess where fecha_creacion >= $1 and fecha_creacion <= $2",[fi,ff]).then(function (data) {
         res.json(data);
+        console.log(data);
     }).catch(function (error) {
         console.log("ERROR: ",error);
         res.json(error);
