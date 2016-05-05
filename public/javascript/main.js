@@ -59,15 +59,9 @@ $(function () {
 /* buscar proceso por fecha*/
 $("#searchprocessbydate_form").submit(function ( event ) {
     $.post('/search-process-by-date/', $(this).serialize()).done(function(data){
-        var html = "";
+        $('#searchprocessbydate_result').empty();
         $.each(data,function (key, value) {
-            //Resultados
-
-            //remover html anterior...
-
-
             $('#searchprocessbydate_result').append( "<a class='list-group-item' href='/main/"+value.id+"'value='"+value.id+"'> Proceso "+value.id+"</a>");
-
         })
     });
     event.preventDefault();
