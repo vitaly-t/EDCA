@@ -52,15 +52,17 @@
 
 
     <form action="/login" method="post">
-      <input name="username" type="text" class="form-control" placeholder="Usuario" required>
-      <br>
-      <input name="password" type="password" class="form-control" placeholder="Contraseña" required>
-      <br>
-      <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Enviar</button>
+        <p><input name="username" type="text" class="form-control" placeholder="Usuario" required></p>
+        <p><input name="password" type="password" class="form-control" placeholder="Contraseña" required></p>
+        <p><button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Enviar</button></p>
     </form>
 
     <% if (message !=""){%>
-    <p><div class="alert alert-danger"> <%= message %> </div></p>
+    <p>
+        <div class="alert alert-danger alert-dismissible" align="left">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Atención:</strong> <%= message %> </div>
+    </p>
     <%}%>
     </div>
 </div>
