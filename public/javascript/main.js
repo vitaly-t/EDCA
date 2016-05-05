@@ -63,24 +63,11 @@ $("#searchprocessbydate_form").submit(function ( event ) {
         $.each(data,function (key, value) {
             //Resultados
 
-            /*var element = $('a',{
-                html: 'Proceso'+ value.id,
-                'class' : 'list-group-item',
-                'value' : value.id,
-                'href' : '#'
-            });*/
-            console.log(value.id);
+            //remover html anterior...
 
-            $('#searchprocessbydate_result').append( "<a class='list-group-item' value='"+value.id+"'> Proceso "+value.id+"</a>");
-            /*$('searchprocessbydata_result').append(
 
-                $('<a/>',{
-                    html: 'Proceso'+ value.id,
-                    'class' : 'list-group-item',
-                    'value' : value.id,
-                    'href' : '#'
-            })
-            )*/
+            $('#searchprocessbydate_result').append( "<a class='list-group-item' href='/main/"+value.id+"'value='"+value.id+"'> Proceso "+value.id+"</a>");
+
         })
     });
     event.preventDefault();
