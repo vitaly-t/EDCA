@@ -2,19 +2,9 @@
  * Created by mtorres on 19/04/16.
  */
 
-/*
- var process = {
-  ocid: 1,
-  publisher: 0
- };
-*/
-
-
-
 /*window.onbeforeunload = function() {
         return "Si recarga la página perdera sus últimos cambios";
 };*/
-
 
 /* Date picker */
 $(function () {
@@ -66,6 +56,15 @@ $(function () {
     });
 });
 
+/* buscar proceso por fecha*/
+$("#searchprocessbydate_form").submit(function ( event ) {
+    $.post('/search-process-by-date/', $(this).serialize()).done(function(data){
+        $.each(data,function (key, value) {
+            //Resultados
+        })
+    });
+    event.preventDefault();
+});
 
 /* UPDATE */
 $( "#budget_form" ).submit(function( event ) {

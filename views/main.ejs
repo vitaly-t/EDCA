@@ -87,7 +87,7 @@
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon-dep">ID dependencia</span>
               <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
-                     value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-dep">
+                     value="<%= (typeof cp != "undefined" )? cp.publisher_id : ""%>" aria-describedby="basic-addon-dep">
             </div><!-- /input-group -->
           </div><!-- /.col-lg-6 -->
           <div class="col-lg-6">
@@ -143,7 +143,6 @@
 
                 <p>
                     <button class="btn btn-primary">Document</button>
-
                 </p>
 
                 <h3>1.1 BUDGET</h3>
@@ -785,14 +784,15 @@ Organización Supplier depende de Adjudicación
               <label>Dependencia</label>
               <input type="text" class="form-control" placeholder="Dependencia">
                 </p>
-                <p>
 
+                <p>
+                <form id="searchprocessbydate_form">
               <div class="row">
                 <div class='col-sm-6'>
                   <label>Fecha inicial</label>
                   <div class="form-group">
                     <div class='input-group date' id='datetimepicker1'>
-                      <input type='text' class="form-control" >
+                      <input type='text' name="fecha_inicial" class="form-control" required>
                       <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                       </span>
@@ -804,7 +804,7 @@ Organización Supplier depende de Adjudicación
                   <label>Fecha final</label>
                   <div class="form-group">
                     <div class='input-group date' id='datetimepicker2'>
-                      <input type='text' class="form-control" >
+                      <input type='text' name="fecha_final" class="form-control" required>
                       <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                       </span>
@@ -812,8 +812,10 @@ Organización Supplier depende de Adjudicación
                   </div>
                 </div>
               </div>
-
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
                 </p>
+
 
             </div>
             <div class="modal-footer">
@@ -859,10 +861,10 @@ Organización Supplier depende de Adjudicación
 <script type="text/javascript">
     $(function () {
     $('#datetimepicker1').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm:ss'
+        format: 'DD/MM/YYYY', //HH:mm:ss'
     });
     $('#datetimepicker2').datetimepicker({
-        format: 'DD/MM/YYYY HH:mm:ss',
+        format: 'DD/MM/YYYY',// HH:mm:ss',
         useCurrent: false
     });
     $("#datetimepicker1").on("dp.change", function (e) {
