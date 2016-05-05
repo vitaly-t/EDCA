@@ -53,36 +53,53 @@
 
 <div class="container all-container">
   <div class="panel panel-default pill-container">
-      <div class="panel-heading">
-          <h4>Proceso de contratación</h4>
-      </div>
-        <div class="panel-body">
-
-            <div class="row">
-                <div class="col-sm-8">
-                    <button id="nuevo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalCrea">
-                        Nuevo <i class="fa fa-pencil"></i></button>
-
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
-                        Buscar <i class="fa fa-search"></i></button>
-
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
-                        Publicar <i class="fa fa-file-text-o"></i></button>
-
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
-                        Organización <i class="fa fa-users"></i></button>
-                </div>
-
-
-                <div class="col-sm-4 ">
-                    <input id="ocid" type="number" class="form-control"  placeholder="ocid" disabled
-                    value="<%= (typeof cp != "undefined" )? cp.id : ""%>">
-                </div>
-
-            </div>
-        </div>
+    <div class="panel-heading">
+      <h4>Proceso de contratación</h4>
     </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <button id="nuevo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalCrea">
+                Nuevo <i class="fa fa-pencil"></i></button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                Buscar <i class="fa fa-search"></i></button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                Publicar <i class="fa fa-file-text-o"></i></button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
+                Organización <i class="fa fa-users"></i></button>
+                </div>
+            </div>
+          <br>
+<!--          <div class="row">
+            <div class="col-sm-12 input-group">
+              <span class="input-group-addon" id="basic-addon-dep">ID dependencia</span>
+              <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
+                     value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-dep">
 
+              <span class="input-group-addon" id="basic-addon-proc">ID proceso</span>
+              <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
+                     value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-proc">
+              </div>
+          </div>
+        </div>-->
+        <div id="all-ids" class="row">
+          <div class="col-lg-6">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon-dep">ID dependencia</span>
+              <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
+                     value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-dep">
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon-proc">ID proceso</span>
+              <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
+                     value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-proc">
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        </div>
+  </div>
     <br>
 
     <% if (typeof error!= "undefined"){%>
@@ -106,7 +123,7 @@
     <div id="jumbotron" class="jumbotron">
       <h1 class="display-3">Contrataciones abiertas!</h1>
       <br>
-      <p class="lead">Con la plataforma  de contrataciones abiertas el proceso de apertura es más sencillo.</p>
+      <p class="lead">Con la plataforma de contrataciones abiertas el proceso de apertura es más sencillo.</p>
       <hr class="m-y-2">
       <p>Para obtener más información con respecto al formato que esta herramienta te proporcionará, presiona <b>saber más</b></p>
       <p class="lead">
@@ -860,12 +877,14 @@ Organización Supplier depende de Adjudicación
   $(document).ready(function(){
   $("#all-contents").hide();
   $("#pills").hide();
+  $("#all-ids").hide();
   });
   $(document).ready(function(){
   if($("#ocid").val() != ""){
   $("#jumbotron").hide();
   $("#all-contents").show(1000);
   $("#pills").show(1000);
+  $("#all-ids").show(1050);
   }
   })
 </script>
