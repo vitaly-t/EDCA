@@ -62,25 +62,17 @@
                 <a href="/new-process/1" class="btn btn-default">Nuevo proceso <i class="fa fa-pencil"></i></a>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
                 Buscar <i class="fa fa-search"></i></button>
+
+                <% if (typeof cp != "undefined"){%>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
                 Publicar <i class="fa fa-file-text-o"></i></button>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
                 Organización <i class="fa fa-users"></i></button>
+                <%}%>
                 </div>
             </div>
           <br>
-<!--          <div class="row">
-            <div class="col-sm-12 input-group">
-              <span class="input-group-addon" id="basic-addon-dep">ID dependencia</span>
-              <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
-                     value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-dep">
 
-              <span class="input-group-addon" id="basic-addon-proc">ID proceso</span>
-              <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
-                     value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-proc">
-              </div>
-          </div>
-        </div>-->
         <div id="all-ids" class="row">
           <div class="col-lg-6">
             <div class="input-group">
@@ -454,7 +446,8 @@
                         <input type="text" class="form-control" name="value_currency" placeholder="value currency"
                               value = "<%= (typeof award != "undefined")? award.value_currency:''%>"
                         ></p>
-<p>
+
+                    <p>
                     <div class="row">
                         <div class="col-sm-6">
                             <label>Contract period start date</label>
@@ -473,7 +466,7 @@
                             required>
                         </div>
                     </div>
-</p>
+                    </p>
 
                         <!--
                         <div class="col-sm-4">
@@ -580,11 +573,6 @@
             <div class="well well-lg">
 
                 <h3>5. IMPLEMENTACIÓN</h3>
-                <!--
-                <form role="form">
-                    <button type="submit" class="btn">Guardar</button>
-                </form> -->
-
                 <button class="btn btn-primary">Transactions</button>
                 <button class="btn btn-primary">Milestones</button>
                 <button class="btn btn-primary">Documents</button>
@@ -627,18 +615,19 @@ Organización Supplier depende de Adjudicación
 
                     <div id="collapse1" class="panel-collapse collapse">
                         <div class="panel-body">
-                            <form>
-                                <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
-                                <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
-                                <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
-                                <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
-                                <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                                <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                                <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                                <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                                <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                                <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                                <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                            <form id = "create_">
+                                <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                                <p><input name="name"       type="text" class="form-control" placeholder="name"></p>
+                                <p><input name="address"    type="text" class="form-control" placeholder="address street address"></p>
+                                <p><input name="locality"   type="text" class="form-control" placeholder="address locality"></p>
+                                <p><input name="region"     type="text" class="form-control" placeholder="address region"></p>
+                                <p><input name="pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                                <p><input name="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                                <p><input name="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                                <p><input name="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                                <p><input name="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                                <p><input name="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                                <p><input name="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
                                 <p><button type="submit" class="btn btn-default">Crear</button></p>
                             </form>
                         </div>
@@ -646,7 +635,6 @@ Organización Supplier depende de Adjudicación
                             <p><button class="btn btn-primary">Identifiers</button></p>
                         </div>
                     </div>
-
                 </div>
 
                 <div id="panel-tenderer" class="panel panel-default">
@@ -659,6 +647,7 @@ Organización Supplier depende de Adjudicación
                     <div id="collapse2" class="panel-collapse collapse">
                         <div class="panel-body">
                             <form>
+                                <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                                 <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
                                 <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
                                 <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
@@ -689,6 +678,7 @@ Organización Supplier depende de Adjudicación
                     <div id="collapse3" class="panel-collapse collapse">
                         <div class="panel-body">
                             <form>
+                                <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                                 <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
                                 <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
                                 <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
@@ -718,6 +708,7 @@ Organización Supplier depende de Adjudicación
                     <div id="collapse4" class="panel-collapse collapse">
                         <div class="panel-body">
                             <form>
+                                <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                                 <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
                                 <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
                                 <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
@@ -740,9 +731,7 @@ Organización Supplier depende de Adjudicación
 
                   </div>
 
-
             </div>
-
           <div class="modal-footer">
               <!-- <button id="crear-org" class="btn btn-primary">Crear organización</button> -->
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -779,8 +768,6 @@ Organización Supplier depende de Adjudicación
         </div>
     </div>
 </div>
-
-
 
 <!-- modal para buscar procesos de contratación -->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
