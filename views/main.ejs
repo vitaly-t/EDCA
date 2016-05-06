@@ -87,7 +87,7 @@
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
                         Nueva <i class="fa fa-users"></i></button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditOrg">
                         Editar <i class="fa fa-pencil"></i></button>
 
                     <p>
@@ -133,7 +133,6 @@
 <% if (typeof cp != "undefined") {%>
 
     <p>
-
     <ul id="pills" class="nav nav-pills nav-justified">
         <li role="presentation" class="active"><a data-toggle="pill" href="#home">1. PLANEACIÓN</a></li>
         <li role="presentation"><a data-toggle="pill" href="#menu1">2. LICITACIÓN</a></li>
@@ -142,7 +141,6 @@
         <li role="presentation"><a data-toggle="pill" href="#menu4">5. IMPLEMENTACIÓN</a></li>
         <!-- <li role="presentation"><a data-toggle="pill" href="#menu5">   ORGANIZACIÓN</a></li> -->
     </ul>
-
     </p>
 
     <div id="all-contents" class="tab-content">
@@ -722,6 +720,25 @@ Organización Supplier depende de Adjudicación
             <div class="modal-footer">
                 <!-- <button id="crear-org" class="btn btn-primary">Crear organización</button> -->
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal para editar organizaciones -->
+<div class="modal fade" id="myModalEditOrg" tabindex="-1" role="dialog" aria-labelledby="modalEditOrg">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar organizaciones</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
     </div>
