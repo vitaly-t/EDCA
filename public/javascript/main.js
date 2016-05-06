@@ -38,13 +38,14 @@ $('#crear').click(function(){
 });
 
 // Crear organización
+/*
 $('#crear-org').click(function(){
   if (confirm("¿Está seguro de crear una nueva organización") == true ){
                    $.get("/new-org/" + process.pulisher, function(data){
                      $("#org-id").val(data.id);
                    });
                }
-});
+});*/
 
 $(function () {
     $.get("/organization_type",function(data){
@@ -143,6 +144,8 @@ $(document).ready(function(){
         $("#all-ids").show(1050);
     }
 });
+
+/*
 $(document).ready(function(){
     $("#panel-buyer").click(function(){
         $("#panel-supplier").toggle(100);
@@ -164,4 +167,4 @@ $(document).ready(function(){
         $("#panel-procuring").toggle(100);
         $("#panel-supplier").toggle(100);
     });
-});
+});*/

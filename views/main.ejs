@@ -62,7 +62,7 @@
                 <a href="/new-process/1" class="btn btn-default">Nuevo proceso <i class="fa fa-pencil"></i></a>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
                 Buscar <i class="fa fa-search"></i></button>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
                 Publicar <i class="fa fa-file-text-o"></i></button>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
                 Organización <i class="fa fa-users"></i></button>
@@ -607,113 +607,150 @@ Organización Supplier depende de Adjudicación
 <div class="modal fade" id="myModalorg" tabindex="-1" role="dialog" aria-labelledby="orgModalLabel5">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <div class='col-sm-12'>
+
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="orgModalLabel">Nueva organización</h4>
+              </div>
+
+
+              <div class="modal-body">
               <!-- Different organizations -->
               <div class="panel-group">
+
                 <div id="panel-buyer" class="panel panel-default">
                   <div class="panel-heading">
-                    <h4 class="panel-title menu-org text-center">
+                    <h4 class="panel-title" align="center">
                       <a data-toggle="collapse" href="#collapse1">Buyer</a>
                     </h4>
                   </div>
+
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <form>
+                                <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
+                                <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
+                                <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
+                                <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
+                                <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                                <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                                <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                                <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                                <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                                <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                                <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                                <p><button type="submit" class="btn btn-default">Crear</button></p>
+                            </form>
+                        </div>
+                        <div class="panel-footer">
+                            <p><button class="btn btn-primary">Identifiers</button></p>
+                        </div>
+                    </div>
+
                 </div>
+
                 <div id="panel-tenderer" class="panel panel-default">
                   <div class="panel-heading">
-                    <h4 class="panel-title menu-org text-center">
-                      <a data-toggle="collapse" href="#collapse1">Tenderer</a>
+                    <h4 class="panel-title" align="center">
+                      <a data-toggle="collapse" href="#collapse2">Tenderer</a>
                     </h4>
                   </div>
+
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <form>
+                                <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
+                                <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
+                                <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
+                                <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
+                                <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                                <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                                <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                                <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                                <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                                <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                                <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                                <p><button type="submit" class="btn btn-default">Crear</button></p>
+                            </form>
+                        </div>
+                        <div class="panel-footer">
+                            <p><button class="btn btn-primary">Identifiers</button></p>
+                        </div>
+                    </div>
+
                 </div>
+
                 <div id="panel-supplier" class="panel panel-default">
                   <div class="panel-heading">
-                    <h4 class="panel-title menu-org text-center">
-                      <a id="panel-supplier" data-toggle="collapse" href="#collapse1">Supplier</a>
+                    <h4 class="panel-title" align="center">
+                      <a id="panel-supplier" data-toggle="collapse" href="#collapse3">Supplier</a>
                     </h4>
                   </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <form>
+                                <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
+                                <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
+                                <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
+                                <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
+                                <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                                <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                                <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                                <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                                <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                                <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                                <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                                <p><button type="submit" class="btn btn-default">Crear</button></p>
+                            </form>
+                        </div>
+                        <div class="panel-footer">
+                            <p><button class="btn btn-primary">Identifiers</button></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel panel-default">
-                  <div id="panel-procuring" class="panel-heading">
-                    <h4 class="panel-title menu-org text-center">
-                      <a id="panel-procuring" data-toggle="collapse" href="#collapse1">Procuring entity</a>
+
+                <div id="panel-procuring" class="panel panel-default">
+                  <div  class="panel-heading">
+                    <h4 class="panel-title" align="center">
+                      <a id="panel-procuring" data-toggle="collapse" href="#collapse4">Procuring entity</a>
                     </h4>
                   </div>
-                </div>
-                  </div>
-                  <div id="collapse1" class="panel-collapse collapse">
-                    <div class="panel-body">
-                      <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
-                      <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
-                      <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
-                      <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
-                      <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                      <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                      <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                      <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                      <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                      <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                      <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                    <div id="collapse4" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <form>
+                                <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
+                                <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
+                                <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
+                                <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
+                                <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                                <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                                <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                                <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                                <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                                <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                                <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                                <p><button type="submit" class="btn btn-default">Crear</button></p>
+                            </form>
+                        </div>
+                        <div class="panel-footer">
+                            <p><button class="btn btn-primary">Identifiers</button></p>
+                        </div>
                     </div>
-                    <div class="panel-footer">
-                      <p><button class="btn  btn-primary">Identifiers</button></p>
-                    </div>
-                  </div>
                 </div>
+
+                  </div>
+
+
             </div>
+
           <div class="modal-footer">
-              <button id="crear-org" class="btn btn-primary">Crear organización</button>
+              <!-- <button id="crear-org" class="btn btn-primary">Crear organización</button> -->
               <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
           </div>
         </div>
     </div>
 
-
-
-<!-- modal organización template -->
-<div class="modal fade" id="orgModal" tabindex="-1" role="dialog" aria-labelledby="orgModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="orgModalLabel">Buscar/Registrar nueva organización</h4>
-            </div>
-            <div class="modal-body">
-
-                <form role="form">
-
-                    <p><select class="form-control" id =  "OrganizationType">
-                        </select></p>
-                    <!-- <p><input type="text" class="form-control" placeholder="identifier scheme"></p>
-                    <p><input type="text" class="form-control" placeholder="identifier id"></p>
-                    <p><input type="text" class="form-control" placeholder="identifier legal name"></p>
-                    <p><input type="text" class="form-control" placeholder="identifier uri"></p>
-                    -->
-                    <p><input type="text" class="form-control" placeholder="name"></p>
-                    <p><input type="text" class="form-control" placeholder="address street address"></p>
-                    <p><input type="text" class="form-control" placeholder="address locality"></p>
-                    <p><input type="text" class="form-control" placeholder="address region"></p>
-                    <p><input type="text" class="form-control" placeholder="address postal code"></p>
-                    <p><input type="text" class="form-control" placeholder="address country name"></p>
-                    <p><input type="text" class="form-control" placeholder="contact point name"></p>
-                    <p><input type="text" class="form-control" placeholder="contact point email"></p>
-                    <p><input type="text" class="form-control" placeholder="contact point telephone"></p>
-                    <p><input type="text" class="form-control" placeholder="contact point fax number"></p>
-                    <p><input type="text" class="form-control" placeholder="contact point url"></p>
-
-                    <p><button class="btn btn-primary">Guardar</button> </p>
-                </form>
-                <!-- Additional identifiers-->
-                <p><button class="btn  btn-primary">Identifiers</button></p>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- modal para crear proceso -->
 <div class="modal fade" id="myModalCrea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
