@@ -242,10 +242,14 @@ router.get('/schema', function (req,res) {
 });
 
 // NUEVO PROCESO DE CONTRATACIÓN
-router.get('/new-process/:pubid', function (req, res) {
-    var pid = req.params.pubid;
-    console.log("Publisher id: ", pid);
+router.get('/new-process', function (req, res) {
+    //var pid = req.params.pubid;
+
     edca_db.tx(function (t) {
+        
+        //falta crear el publisher
+        var pid = 1;
+
             return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, publisher_id) values (current_date, current_time, $1) returning id", pid)
                 .then(function (process) {
 

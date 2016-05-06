@@ -39,7 +39,6 @@
     </div>
 </nav>
 
-
 <nav class="row top-buffer">
     <div class="container">
         <div class="navbar-header">
@@ -48,57 +47,92 @@
     </div>
 </nav>
 
-
 <div class="container all-container">
-  <div class="panel panel-default pill-container">
-    <div class="panel-heading">
-      <h4>Proceso de contratación</h4>
-    </div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-sm-12">
-              <!--<button id="nuevo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalCrea">
-                Nuevo <i class="fa fa-pencil"></i></button> -->
-                <a href="/new-process/1" class="btn btn-default">Nuevo proceso <i class="fa fa-pencil"></i></a>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
-                Buscar <i class="fa fa-search"></i></button>
 
-                <% if (typeof cp != "undefined"){%>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
-                Publicar <i class="fa fa-file-text-o"></i></button>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
-                Organización <i class="fa fa-users"></i></button>
-                <%}%>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default pill-container">
+                <div class="panel-heading">
+                    <h4>Proceso de contratación</h4>
+                </div>
+                <div class="panel-body">
+                    <!--<button id="nuevo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalCrea">
+                Nuevo <i class="fa fa-pencil"></i></button> -->
+                    <a href="/new-process" class="btn btn-default">Nuevo <i class="fa fa-pencil"></i></a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                        Buscar <i class="fa fa-search"></i></button>
+                    <% if (typeof cp != "undefined"){%>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
+                        Publicar <i class="fa fa-file-text-o"></i></button>
+                    <p>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon-proc">ID proceso</span>
+                        <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
+                               value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-proc">
+                    </div>
+                    </p>
+                    <%}%>
                 </div>
             </div>
-          <br>
-
-        <div id="all-ids" class="row">
-          <div class="col-lg-6">
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon-dep">ID dependencia</span>
-              <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
-                     value="<%= (typeof cp != "undefined" )? cp.publisher_id : ""%>" aria-describedby="basic-addon-dep">
-            </div><!-- /input-group -->
-          </div><!-- /.col-lg-6 -->
-          <div class="col-lg-6">
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon-proc">ID proceso</span>
-              <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
-                     value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-proc">
-            </div><!-- /input-group -->
-          </div><!-- /.col-lg-6 -->
-        </div><!-- /.row -->
         </div>
-  </div>
-    <br>
+
+        <% if (typeof cp != "undefined"){%>
+        <div class="col-sm-6">
+            <div class="panel panel-default pill-container">
+                <div class="panel-heading">
+                    <h4>Organizaciones</h4>
+                </div>
+                <div class="panel-body">
+
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
+                        Nueva <i class="fa fa-users"></i></button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
+                        Editar <i class="fa fa-pencil"></i></button>
+
+                    <p>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon-dep">ID dependencia</span>
+                        <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
+                               value="<%= (typeof cp != "undefined" )? cp.publisher_id : ""%>" aria-describedby="basic-addon-dep">
+                    </div>
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+        <%}%>
+    </div>
+
 
     <% if (typeof error!= "undefined"){%>
+    <p>
     <div class="alert alert-danger alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Atención:</strong> <%= error %>
     </div>
+    </p>
     <%}%>
+
+
+    <% if (typeof cp == "undefined"){%>
+    <div id="jumbotron" class="jumbotron">
+        <h1 class="display-3">Contrataciones abiertas!</h1>
+        <br>
+        <p class="lead">Con la plataforma de contrataciones abiertas el proceso de apertura es más sencillo.</p>
+        <hr class="m-y-2">
+        <p>Para obtener más información con respecto al formato que esta herramienta te proporcionará, presiona <b>saber más</b></p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="http://standard.open-contracting.org/latest/en/schema/release/#id1" role="button">Saber más</a>
+        </p>
+    </div>
+    <%}%>
+
+
+<% if (typeof cp != "undefined") {%>
+
+    <p>
 
     <ul id="pills" class="nav nav-pills nav-justified">
         <li role="presentation" class="active"><a data-toggle="pill" href="#home">1. PLANEACIÓN</a></li>
@@ -109,78 +143,61 @@
         <!-- <li role="presentation"><a data-toggle="pill" href="#menu5">   ORGANIZACIÓN</a></li> -->
     </ul>
 
-    <br>
+    </p>
 
-    <div id="jumbotron" class="jumbotron">
-      <h1 class="display-3">Contrataciones abiertas!</h1>
-      <br>
-      <p class="lead">Con la plataforma de contrataciones abiertas el proceso de apertura es más sencillo.</p>
-      <hr class="m-y-2">
-      <p>Para obtener más información con respecto al formato que esta herramienta te proporcionará, presiona <b>saber más</b></p>
-      <p class="lead">
-       <a class="btn btn-primary btn-lg" href="http://standard.open-contracting.org/latest/en/schema/release/#id1" role="button">Saber más</a>
-      </p>
-    </div>
+    <div id="all-contents" class="tab-content">
 
-    <div id="all-contents" class="tab-content"
-         <!--<%if(typeof cp == "undefined"){%>
-         <%="hidden"%>
-         <%}%>-->
         <div id="home" class="tab-pane fade in active">
 
             <div class="well well-lg">
-
                 <h3>1. PLANEACIÓN</h3>
-
-                <p>
-                    <button class="btn btn-primary">Document</button>
-                </p>
+                <p><button class="btn btn-primary">Document</button></p>
 
                 <h3>1.1 BUDGET</h3>
                 <form id="budget_form" >
 
                     <input type="text" name="contractingprocess_id" hidden
-                    value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
+                           value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
                     >
                     <!-- Falta el id de planning -->
                     <p>
                         <label>Budget source</label>
                         <input class="form-control" name="budget_source" placeholder="budget source"
-                    value = "<%= (typeof budget != "undefined")? budget.budget_source:''%>"
+                               value = "<%= (typeof budget != "undefined")? budget.budget_source:''%>"
                         ></p>
                     <p>
                         <label>Budget description</label>
                         <input class="form-control" name="budget_description" placeholder="budget description"
-                    value = "<%= (typeof budget != "undefined")? budget.budget_description:''%>"
+                               value = "<%= (typeof budget != "undefined")? budget.budget_description:''%>"
                         ></p>
                     <p>
                         <label>Budget amount</label>
                         <input class="form-control" type="number" name="budget_amount" placeholder="budget amount"
-                        value = "<%= (typeof budget != "undefined")? budget.budget_amount:'' %>"
+                               value = "<%= (typeof budget != "undefined")? budget.budget_amount:'' %>"
                         ></p>
                     <p>
                         <label>Budget currency</label>
                         <input class="form-control" name="budget_currency" placeholder="budget currency"
-                        value = "<%= (typeof budget != "undefined")? budget.budget_currency:'' %>"
+                               value = "<%= (typeof budget != "undefined")? budget.budget_currency:'' %>"
                         ></p>
                     <p>
                         <label>Budget project</label>
                         <input class="form-control" name="budget_project" placeholder="budget project"
-                        value = "<%= (typeof budget != "undefined")? budget.budget_project:'' %>"
+                               value = "<%= (typeof budget != "undefined")? budget.budget_project:'' %>"
                         ></p>
                     <p>
                         <label>Budget projectID</label>
                         <input class="form-control" name="budget_projectid" placeholder="budget projectID"
-                        value = "<%= (typeof budget != "undefined")? budget.budget_projectid:"" %>"
+                               value = "<%= (typeof budget != "undefined")? budget.budget_projectid:"" %>"
                         ></p>
                     <p>
                         <label>Budget URI</label>
                         <input class="form-control" name="budget_uri" placeholder="budget uri"
-                        value = "<%= (typeof budget != "undefined")? budget.budget_uri:'' %>"
+                               value = "<%= (typeof budget != "undefined")? budget.budget_uri:'' %>"
                         ></p>
                     <p><label>Budget rationale</label>
                         <input class="form-control" name="rationale" placeholder="rationale"
-                        value = "<%= (typeof budget != "undefined")? budget.rationale:'' %>"
+                               value = "<%= (typeof budget != "undefined")? budget.rationale:'' %>"
                         ></p>
                     <p><button  type="submit" class="btn">Guardar</button></p>
 
@@ -211,109 +228,109 @@
                     <p>
                         <label>Title</label>
                         <input type="text" class="form-control" name="title" placeholder="title"
-                              value = "<%= (typeof tender != "undefined")? tender.title:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.title:''%>"
                         ></p>
                     <p>
                         <label>Description</label>
                         <input type="text" class="form-control" name = "description" placeholder="description"
-                              value = "<%= (typeof tender != "undefined")? tender.description:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.description:''%>"
                         ></p>
                     <p>
                         <label>Status</label>
                         <input type="text" class="form-control" name = "status" placeholder="status"
-                              value = "<%= (typeof tender != "undefined")? tender.status:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.status:''%>"
                         ></p>
                     <p>
                         <label>Min value amount</label>
                         <input type="number" class="form-control" name = "minvalue_amount" placeholder="minValue amount"
-                              value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>"
                         ></p>
                     <p>
                         <label>Min value currency</label>
                         <input type="text" class="form-control" name="minvalue_currency" placeholder="minValue currency"
-                              value = "<%= (typeof tender != "undefined")? tender.minvalue_currency:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.minvalue_currency:''%>"
                         ></p>
                     <p>
                         <label>Value amount</label>
                         <input type="number" class="form-control" name= "value_amount" placeholder="value amount"
-                              value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>"
                         ></p>
                     <p>
                         <label>Value currency</label>
                         <input type="text" class="form-control" name = "value_currency" placeholder="value currency"
-                              value = "<%= (typeof tender != "undefined")? tender.value_currency:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.value_currency:''%>"
                         ></p>
                     <p>
                         <label>Procurement method</label>
                         <input type="text" class="form-control" name= "procurementmethod" placeholder="procurement method"
-                              value = "<%= (typeof tender != "undefined")? tender.procurementmethod:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.procurementmethod:''%>"
                         ></p>
                     <p>
                         <label>Procurement method rationale</label>
                         <input type="text" class="form-control" name= "procurementmethod_rationale" placeholder="procurement method rationale"
-                              value = "<%= (typeof tender != "undefined")? tender.procurementmethod_rationale:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.procurementmethod_rationale:''%>"
                         ></p>
                     <p>
                         <label>Award criteria</label>
                         <input type="text" class="form-control" name = "awardcriteria" placeholder="award criteria"
-                              value = "<%= (typeof tender != "undefined")? tender.awardcriteria:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.awardcriteria:''%>"
                         ></p>
                     <p>
                         <label>Award criteria details</label>
                         <input type="text" class="form-control" name = "awardcriteria_details" placeholder="award criteria details"
-                              value = "<%= (typeof tender != "undefined")? tender.awardcriteria_details:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.awardcriteria_details:''%>"
                         ></p>
                     <p>
                         <label>Submission method</label>
                         <input type="text" class="form-control" name="submissionmethod" placeholder="submission method"
-                              value = "<%= (typeof tender != "undefined")? tender.submissionmethod:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.submissionmethod:''%>"
                         ></p>
                     <p>
                         <label>Submission method details</label>
                         <input type="text" class="form-control" name="submissionmethod_details" placeholder="submission method details"
-                              value = "<%= (typeof tender != "undefined")? tender.submissionmethod_details:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.submissionmethod_details:''%>"
                         ></p>
 
                     <p>
                     <div class="row">
-                    <div class="col-sm-6">
-                        <label>Tender period start date</label>
-                        <input type="text" class="form-control" id="lici_date1" name="tenderperiod_startdate" placeholder="tender period start date"
-                                <% if (typeof tender != "undefined") {%>
-                               value = "<%= (tender.tenderperiod_startdate != null)? tender.tenderperiod_startdate.toLocaleString():''%>"
-                               <%}%>
-                        required>
-                    </div>
+                        <div class="col-sm-6">
+                            <label>Tender period start date</label>
+                            <input type="text" class="form-control" id="lici_date1" name="tenderperiod_startdate" placeholder="tender period start date"
+                                    <% if (typeof tender != "undefined") {%>
+                                   value = "<%= (tender.tenderperiod_startdate != null)? tender.tenderperiod_startdate.toLocaleString():''%>"
+                                    <%}%>
+                                   required>
+                        </div>
 
                         <div class="col-sm-6">
                             <label>Tender period end date</label>
-                        <input type="text" class="form-control" id="lici_date2" name="tenderperiod_enddate" placeholder="tender period end date"
-                               <% if (typeof tender != "undefined") {%>
-                               value = "<%= (tender.tenderperiod_enddate != null)? tender.tenderperiod_enddate.toLocaleString():''%>"
-                               <%}%>
-                        required>
+                            <input type="text" class="form-control" id="lici_date2" name="tenderperiod_enddate" placeholder="tender period end date"
+                                    <% if (typeof tender != "undefined") {%>
+                                   value = "<%= (tender.tenderperiod_enddate != null)? tender.tenderperiod_enddate.toLocaleString():''%>"
+                                    <%}%>
+                                   required>
                         </div>
-                   </div>
+                    </div>
                     </p>
 
 
                     <p>
                     <div class="row">
-                    <div class="col-sm-6">
-                        <label>Enquiry period start date</label>
-                        <input type="text" class="form-control" id="lici_date3" name= "enquiryperiod_startdate" placeholder="enquiry period start date"
-                                <% if (typeof tender != "undefined") {%>
-                               value = "<%= (tender.enquiryperiod_startdate != null)? tender.enquiryperiod_startdate.toLocaleString():''%>"
-                               <%}%>
-                               required>
+                        <div class="col-sm-6">
+                            <label>Enquiry period start date</label>
+                            <input type="text" class="form-control" id="lici_date3" name= "enquiryperiod_startdate" placeholder="enquiry period start date"
+                                    <% if (typeof tender != "undefined") {%>
+                                   value = "<%= (tender.enquiryperiod_startdate != null)? tender.enquiryperiod_startdate.toLocaleString():''%>"
+                                    <%}%>
+                                   required>
                         </div>
-                    <div class="col-sm-6">
-                        <label>Enquiry period end date</label>
-                        <input type="text" class="form-control" id="lici_date4" name= "enquiryperiod_enddate" placeholder="enquiry period end date"
-                                <% if (typeof tender != "undefined") {%>
-                               value = "<%= (tender.enquiryperiod_enddate != null)? tender.enquiryperiod_enddate.toLocaleString():''%>"
-                               <%}%>
-                               required></div>
+                        <div class="col-sm-6">
+                            <label>Enquiry period end date</label>
+                            <input type="text" class="form-control" id="lici_date4" name= "enquiryperiod_enddate" placeholder="enquiry period end date"
+                                    <% if (typeof tender != "undefined") {%>
+                                   value = "<%= (tender.enquiryperiod_enddate != null)? tender.enquiryperiod_enddate.toLocaleString():''%>"
+                                    <%}%>
+                                   required></div>
                     </div>
                     </p>
 
@@ -323,7 +340,7 @@
                             <option value="0"
                                     <% if (typeof tender != "undefined") {%>
                                     <%=(tender.hasenquiries==1) ?'selected':'';%>
-                                     <%}%>
+                                    <%}%>
                             >Si</option>
                             <option value="1"
                                     <% if (typeof tender != "undefined"){%>
@@ -336,52 +353,38 @@
                     <p>
                         <label>Elegibility criteria</label>
                         <input type="text" class="form-control" name="eligibilitycriteria" placeholder="eligibility criteria"
-                              value = "<%= (typeof tender != "undefined")? tender.eligibilitycriteria:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.eligibilitycriteria:''%>"
                         ></p>
 
 
                     <p>
                     <div class="row">
 
-                    <div class="col-sm-6">
-                        <label>Award period start date</label>
-                        <input type="text" class="form-control" id="lici_date5" name="awardperiod_startdate" placeholder="award period start date"
-                               <%if (typeof tender != "undefined"){%>
-                               value = "<%= (tender.awardperiod_startdate != null)? tender.awardperiod_startdate.toLocaleString():''%>"
-                               <%}%>
-                        required>
-                    </div>
+                        <div class="col-sm-6">
+                            <label>Award period start date</label>
+                            <input type="text" class="form-control" id="lici_date5" name="awardperiod_startdate" placeholder="award period start date"
+                                    <%if (typeof tender != "undefined"){%>
+                                   value = "<%= (tender.awardperiod_startdate != null)? tender.awardperiod_startdate.toLocaleString():''%>"
+                                    <%}%>
+                                   required>
+                        </div>
 
-                    <div class="col-sm-6">
-                        <label>Award period end date</label>
-                        <input type="text" class="form-control" id="lici_date6" name="awardperiod_enddate" placeholder="award period end date"
-                               <%if(typeof tender != "undefined"){%>
-                               value = "<%= (tender.awardperiod_enddate != null)? tender.awardperiod_enddate.toLocaleString():''%>"
-                        <%}%>
-                        required>
-                    </div>
+                        <div class="col-sm-6">
+                            <label>Award period end date</label>
+                            <input type="text" class="form-control" id="lici_date6" name="awardperiod_enddate" placeholder="award period end date"
+                                    <%if(typeof tender != "undefined"){%>
+                                   value = "<%= (tender.awardperiod_enddate != null)? tender.awardperiod_enddate.toLocaleString():''%>"
+                                    <%}%>
+                                   required>
+                        </div>
                     </div>
                     </p>
 
                     <p>
                         <label>Number of tenderers</label>
                         <input type="number" class="form-control" name="numberoftenderers" placeholder="number of tenderers"
-                              value = "<%= (typeof tender != "undefined")? tender.numberoftenderers:''%>"
+                               value = "<%= (typeof tender != "undefined")? tender.numberoftenderers:''%>"
                         ></p>
-
-                    <!--
-                    <p><input type="text" class="form-control" placeholder="procuring entity identifier scheme"></p>
-                    <p><input type="text" class="form-control" placeholder="procuring entity identifier id"></p>
-                    <p><input type="text" class="form-control" placeholder="procuring entity identifier legal name"></p>
-                    <p><input type="text" class="form-control" placeholder="procuring entity identifier uri"></p>
--->
-
-                    <!-- amendment-->
-                    <!--
-                    <p><div style="position: relative">
-                        <input type="text" class="form-control" id="lici_date7" placeholder="amendment date"></div></p>
-                    <p><input type="text" class="form-control" placeholder="amendment rationale"></p>
-                    -->
 
                     <button type="submit" class="btn">Guardar</button>
                 </form>
@@ -414,37 +417,37 @@
                     <p>
                         <label>Title</label>
                         <input type="text" name="title" class="form-control" placeholder="title"
-                                value = "<%= (typeof award != "undefined")? award.title:''%>"
+                               value = "<%= (typeof award != "undefined")? award.title:''%>"
                         ></p>
                     <p>
                         <label>Description</label>
                         <input type="text" name="description" class="form-control" placeholder="description"
-                                value = "<%= (typeof award != "undefined")? award.description:''%>"
+                               value = "<%= (typeof award != "undefined")? award.description:''%>"
                         ></p>
                     <p>
                         <label>Status</label>
                         <input type="text" name="status" class="form-control" placeholder="status"
-                                value = "<%= (typeof award != "undefined")? award.status:''%>"
+                               value = "<%= (typeof award != "undefined")? award.status:''%>"
                         ></p>
 
                     <p> <div style="position: relative">
                         <label>Date</label>
                         <input type="text" id ="adju_date1" name="award_date" class="form-control" placeholder="date"
-                               <%if(typeof award !="undefined"){%>
+                                <%if(typeof award !="undefined"){%>
                                value = "<%= (award.award_date != null)? award.award_date.toLocaleString():''%>"
-                               <%}%>
-                        required>
-                        </div> </p>
+                                <%}%>
+                               required>
+                    </div> </p>
 
                     <p>
                         <label>Value amount</label>
                         <input type="number" class="form-control" name="value_amount" placeholder="value amount"
-                                value = "<%= (typeof award != "undefined")? award.value_amount:''%>"
+                               value = "<%= (typeof award != "undefined")? award.value_amount:''%>"
                         ></p>
                     <p>
                         <label>Value description</label>
                         <input type="text" class="form-control" name="value_currency" placeholder="value currency"
-                              value = "<%= (typeof award != "undefined")? award.value_currency:''%>"
+                               value = "<%= (typeof award != "undefined")? award.value_currency:''%>"
                         ></p>
 
                     <p>
@@ -452,30 +455,22 @@
                         <div class="col-sm-6">
                             <label>Contract period start date</label>
                             <input type="text" id ="adju_date2" name="contractperiod_startdate" class="form-control" placeholder="contract period start date"
-                                   <%if (typeof award != "undefined"){%>
+                                    <%if (typeof award != "undefined"){%>
                                    value = "<%= ( award.contractperiod_startdate != null)? award.contractperiod_startdate.toLocaleString():''%>"
-                                   <%}%>
-                            required>
+                                    <%}%>
+                                   required>
                         </div>
                         <div class="col-sm-6">
                             <label>Contract period end date</label>
                             <input type="text" id = "adju_date3" name="contractperiod_enddate" class="form-control" placeholder="contract period end date"
-                                   <%if(typeof award != "undefined"){%>
+                                    <%if(typeof award != "undefined"){%>
                                    value = "<%= (award.contractperiod_enddate != null)? award.contractperiod_enddate.toLocaleString():''%>"
-                                   <%}%>
-                            required>
+                                    <%}%>
+                                   required>
                         </div>
                     </div>
                     </p>
 
-                        <!--
-                        <div class="col-sm-4">
-                            <input type="text" id= "adju_date4" class="form-control" placeholder="amendment date">
-                        </div>
-                    </div>
-                    <br>
-                    <p><input type="text" class="form-control" placeholder="amendment rationale"></p>
-                    -->
 
                     <button type="submit" class="btn">Guardar</button>
                 </form>
@@ -500,17 +495,17 @@
                     <p>
                         <label>Title</label>
                         <input type="text" class="form-control" name = "title" placeholder="title"
-                              value = "<%= (typeof contract != "undefined")? contract.title:''%>"
+                               value = "<%= (typeof contract != "undefined")? contract.title:''%>"
                         ></p>
                     <p>
                         <label>Description</label>
                         <input type="text" class="form-control" name = "description" placeholder="description"
-                              value = "<%= (typeof contract != "undefined")? contract.description:''%>"
+                               value = "<%= (typeof contract != "undefined")? contract.description:''%>"
                         ></p>
                     <p>
                         <label>Status</label>
                         <input type="text" class="form-control" name = "status" placeholder="status"
-                              value = "<%= (typeof contract != "undefined")? contract.status:''%>"
+                               value = "<%= (typeof contract != "undefined")? contract.status:''%>"
                         ></p>
 
                     <p>
@@ -518,18 +513,18 @@
                         <div class="col-sm-6">
                             <label>Period start date</label>
                             <input type="text" id= "cont_date1" name  = "period_startdate" class="form-control" placeholder="period start date"
-                                   <%if (typeof contract != "undefined"){%>
+                                    <%if (typeof contract != "undefined"){%>
                                    value = "<%= (contract.period_startdate != null)? contract.period_startdate.toLocaleString():''%>"
-                                   <%}%>
-                            required>
+                                    <%}%>
+                                   required>
                         </div>
                         <div class="col-sm-6">
                             <label>Period end date</label>
                             <input type="text" id= "cont_date2" class="form-control" name= "period_enddate" placeholder="period end date"
-                                   <%if(typeof contract != "undefined"){%>
+                                    <%if(typeof contract != "undefined"){%>
                                    value = "<%= (contract.period_enddate != null)? contract.period_enddate.toLocaleString():''%>"
-                                   <%}%>
-                            required>
+                                    <%}%>
+                                   required>
                         </div>
                     </div>
                     </p>
@@ -537,32 +532,24 @@
                     <p>
                         <label>Value amount</label>
                         <input type="number" class="form-control" placeholder="value amount" name="value_amount"
-                              value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>"
+                               value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>"
                         ></p>
                     <p>
                         <label>Value currency</label>
                         <input type="text" class="form-control" placeholder="value currency" name="value_currency"
-                              value = "<%= (typeof contract != "undefined")? contract.value_currency:''%>"
+                               value = "<%= (typeof contract != "undefined")? contract.value_currency:''%>"
                         ></p>
 
                     <p>
                     <div style="position: relative">
                         <label>Date signed</label>
                         <input type="text" id="cont_date3" class="form-control" placeholder="date signed" name="datesigned"
-                               <% if (typeof contract != "undefined"){%>
-                                            value = "<%= (contract.datesigned != null)? contract.datesigned.toLocaleString():''%>"
-                               <%}%>
-                        required></div>
+                                <% if (typeof contract != "undefined"){%>
+                               value = "<%= (contract.datesigned != null)? contract.datesigned.toLocaleString():''%>"
+                                <%}%>
+                               required></div>
                     </p>
 
-
-                        <!--
-                        <div class="col-sm-6">
-                            <input type="text" id="cont_date4" class="form-control" placeholder="amendment date">
-                        </div>
-                    </div>
-                    <p><input type="text" class="form-control" placeholder="amendment rationale"></p>
-                    -->
                     <button type="submit" class="btn">Guardar</button>
 
                 </form>
@@ -596,150 +583,151 @@ Organización Supplier depende de Adjudicación
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="orgModalLabel">Nueva organización</h4>
-              </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="orgModalLabel">Nueva organización</h4>
+            </div>
 
 
-              <div class="modal-body">
-              <!-- Different organizations -->
-              <div class="panel-group">
+            <div class="modal-body">
+                <!-- Different organizations -->
+                <div class="panel-group">
 
-                <div id="panel-buyer" class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title" align="center">
-                      <a data-toggle="collapse" href="#collapse1">Buyer</a>
-                    </h4>
-                  </div>
-
-                    <div id="collapse1" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <form id = "create_">
-                                <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                                <p><input name="name"       type="text" class="form-control" placeholder="name"></p>
-                                <p><input name="address"    type="text" class="form-control" placeholder="address street address"></p>
-                                <p><input name="locality"   type="text" class="form-control" placeholder="address locality"></p>
-                                <p><input name="region"     type="text" class="form-control" placeholder="address region"></p>
-                                <p><input name="pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                                <p><input name="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                                <p><input name="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                                <p><input name="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                                <p><input name="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                                <p><input name="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                                <p><input name="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
-                                <p><button type="submit" class="btn btn-default">Crear</button></p>
-                            </form>
+                    <div id="panel-buyer" class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title" align="center">
+                                <a data-toggle="collapse" href="#collapse1">Buyer</a>
+                            </h4>
                         </div>
-                        <div class="panel-footer">
-                            <p><button class="btn btn-primary">Identifiers</button></p>
-                        </div>
-                    </div>
-                </div>
 
-                <div id="panel-tenderer" class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title" align="center">
-                      <a data-toggle="collapse" href="#collapse2">Tenderer</a>
-                    </h4>
-                  </div>
-
-                    <div id="collapse2" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <form>
-                                <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                                <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
-                                <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
-                                <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
-                                <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
-                                <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                                <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                                <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                                <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                                <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                                <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                                <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
-                                <p><button type="submit" class="btn btn-default">Crear</button></p>
-                            </form>
-                        </div>
-                        <div class="panel-footer">
-                            <p><button class="btn btn-primary">Identifiers</button></p>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form id = "create_">
+                                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                                    <p><input name="name"       type="text" class="form-control" placeholder="name"></p>
+                                    <p><input name="address"    type="text" class="form-control" placeholder="address street address"></p>
+                                    <p><input name="locality"   type="text" class="form-control" placeholder="address locality"></p>
+                                    <p><input name="region"     type="text" class="form-control" placeholder="address region"></p>
+                                    <p><input name="pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                                    <p><input name="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                                    <p><input name="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                                    <p><input name="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                                    <p><input name="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                                    <p><input name="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                                    <p><input name="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                                    <p><button type="submit" class="btn btn-default">Crear</button></p>
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <p><button class="btn btn-primary">Identifiers</button></p>
+                            </div>
                         </div>
                     </div>
 
-                </div>
-
-                <div id="panel-supplier" class="panel panel-default">
-                  <div class="panel-heading">
-                    <h4 class="panel-title" align="center">
-                      <a id="panel-supplier" data-toggle="collapse" href="#collapse3">Supplier</a>
-                    </h4>
-                  </div>
-                    <div id="collapse3" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <form>
-                                <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                                <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
-                                <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
-                                <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
-                                <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
-                                <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                                <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                                <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                                <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                                <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                                <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                                <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
-                                <p><button type="submit" class="btn btn-default">Crear</button></p>
-                            </form>
+                    <div id="panel-tenderer" class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title" align="center">
+                                <a data-toggle="collapse" href="#collapse2">Tenderer</a>
+                            </h4>
                         </div>
-                        <div class="panel-footer">
-                            <p><button class="btn btn-primary">Identifiers</button></p>
+
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form>
+                                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                                    <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
+                                    <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
+                                    <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
+                                    <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
+                                    <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                                    <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                                    <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                                    <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                                    <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                                    <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                                    <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                                    <p><button type="submit" class="btn btn-default">Crear</button></p>
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <p><button class="btn btn-primary">Identifiers</button></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="panel-supplier" class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title" align="center">
+                                <a id="panel-supplier" data-toggle="collapse" href="#collapse3">Supplier</a>
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form>
+                                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                                    <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
+                                    <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
+                                    <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
+                                    <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
+                                    <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                                    <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                                    <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                                    <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                                    <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                                    <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                                    <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                                    <p><button type="submit" class="btn btn-default">Crear</button></p>
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <p><button class="btn btn-primary">Identifiers</button></p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="panel-procuring" class="panel panel-default">
-                  <div  class="panel-heading">
-                    <h4 class="panel-title" align="center">
-                      <a id="panel-procuring" data-toggle="collapse" href="#collapse4">Procuring entity</a>
-                    </h4>
-                  </div>
-                    <div id="collapse4" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <form>
-                                <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                                <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
-                                <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
-                                <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
-                                <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
-                                <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                                <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                                <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                                <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                                <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                                <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                                <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
-                                <p><button type="submit" class="btn btn-default">Crear</button></p>
-                            </form>
+                    <div id="panel-procuring" class="panel panel-default">
+                        <div  class="panel-heading">
+                            <h4 class="panel-title" align="center">
+                                <a id="panel-procuring" data-toggle="collapse" href="#collapse4">Procuring entity</a>
+                            </h4>
                         </div>
-                        <div class="panel-footer">
-                            <p><button class="btn btn-primary">Identifiers</button></p>
+                        <div id="collapse4" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form>
+                                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                                    <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
+                                    <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
+                                    <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
+                                    <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
+                                    <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                                    <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                                    <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                                    <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                                    <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                                    <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                                    <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                                    <p><button type="submit" class="btn btn-default">Crear</button></p>
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <p><button class="btn btn-primary">Identifiers</button></p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                  </div>
+                </div>
 
             </div>
-          <div class="modal-footer">
-              <!-- <button id="crear-org" class="btn btn-primary">Crear organización</button> -->
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <div class="modal-footer">
+                <!-- <button id="crear-org" class="btn btn-primary">Crear organización</button> -->
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
-          </div>
         </div>
     </div>
+</div>
 
+<%}%>
 
 <!-- modal para crear proceso -->
 <div class="modal fade" id="myModalCrea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
@@ -752,18 +740,18 @@ Organización Supplier depende de Adjudicación
             <div class="modal-body">
 
                 <p>
-                  <label>ID de dependencia</label>
-                  <input type="text" class="form-control" placeholder="ocid" disabled>
-                    </p>
+                    <label>ID de dependencia</label>
+                    <input type="text" class="form-control" placeholder="ocid" disabled>
+                </p>
                 <p>
-                  <label>Nombre dependencia</label>
-                  <input type="text" class="form-control" placeholder="dep" disabled>
-                    </p>
+                    <label>Nombre dependencia</label>
+                    <input type="text" class="form-control" placeholder="dep" disabled>
+                </p>
             </div>
             <div class="modal-footer">
-              <button id="crear" class="btn btn-primary">Crear proceso</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-              <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
+                <button id="crear" class="btn btn-primary">Crear proceso</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
     </div>
@@ -780,45 +768,45 @@ Organización Supplier depende de Adjudicación
             <div class="modal-body">
 
                 <form id="searchprocessbyid_form">
-              <p>
-                  <label>ID de proceso</label>
-              <input type="text" name="ocid" class="form-control" placeholder="ocid">
-                  </p>
+                    <p>
+                        <label>ID de proceso</label>
+                        <input type="text" name="ocid" class="form-control" placeholder="ocid">
+                    </p>
                 </form>
 
                 <p>
                 <form id="searchprocessbydate_form">
-              <div class="row">
-                <div class='col-sm-6'>
-                  <label>Fecha inicial</label>
-                  <div class="form-group">
-                    <div class='input-group date' id='datetimepicker1'>
-                      <input type='text' name="fecha_inicial" class="form-control" required>
-                      <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            <label>Fecha inicial</label>
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input type='text' name="fecha_inicial" class="form-control" required>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class='col-sm-6'>
-                  <label>Fecha final</label>
-                  <div class="form-group">
-                    <div class='input-group date' id='datetimepicker2'>
-                      <input type='text' name="fecha_final" class="form-control" required>
-                      <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
+                        <div class='col-sm-6'>
+                            <label>Fecha final</label>
+                            <div class="form-group">
+                                <div class='input-group date' id='datetimepicker2'>
+                                    <input type='text' name="fecha_final" class="form-control" required>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
                     <button type="submit" class="btn btn-default">Buscar</button>
                 </form>
                 </p>
 
                 <div style="max-height: 350px; overflow: auto;">
-                <p><div class="list-group" id="searchprocessbydate_result"></div></p>
+                    <p><div class="list-group" id="searchprocessbydate_result"></div></p>
                 </div>
 
             </div>
@@ -849,7 +837,7 @@ Organización Supplier depende de Adjudicación
                 <button class="btn">Publicar</button>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>

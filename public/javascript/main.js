@@ -131,19 +131,20 @@ $(function () {
     });
 });
 
-$(document).ready(function(){
-    $("#all-contents").hide();
-    $("#pills").hide();
-    $("#all-ids").hide();
-});
+
+/*
 $(document).ready(function(){
     if($("#ocid").val() != ""){
         $("#jumbotron").hide();
         $("#all-contents").show(1000);
         $("#pills").show(1000);
-        $("#all-ids").show(1050);
+        //$("#all-ids").show(1050);
+    }else {
+        $("#all-contents").hide();
+        $("#pills").hide();
+        //$("#all-ids").hide();
     }
-});
+});*/
 
 /*
 $(document).ready(function(){
