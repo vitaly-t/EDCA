@@ -35,7 +35,8 @@ insert into organizationtype (name) values ('Procuring Entity');
 drop table if exists Planning cascade;
 create table Planning (
 	id serial primary key, 
-	ContractingProcess_id int references ContractingProcess(id) on delete cascade
+	ContractingProcess_id int references ContractingProcess(id) on delete cascade,
+	rationale text
 	);
 
 drop table if exists PlanningDocuments cascade;
@@ -64,8 +65,7 @@ create table Budget (
 	budget_currency text, 
 	budget_project text, 
 	budget_projectID text, 
-	budget_uri text, 
-	rationale text 
+	budget_uri text
 	);
 
 drop table if exists BudgetDocuments cascade;
