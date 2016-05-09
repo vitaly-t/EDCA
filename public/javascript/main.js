@@ -47,6 +47,7 @@ $('#crear-org').click(function(){
                }
 });*/
 
+/*
 $(function () {
     $.get("/organization_type",function(data){
         $.each(data, function (key, value) {
@@ -54,6 +55,7 @@ $(function () {
         });
     });
 });
+*/
 
 /* buscar proceso por fecha*/
 $("#searchprocessbydate_form").submit(function ( event ) {
