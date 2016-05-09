@@ -149,6 +149,12 @@
 
             <div class="well well-lg">
                 <h3>1. PLANEACIÓN</h3>
+
+                <p>
+                    <label>Rationale</label>  <!-- ¡¡¡¡!!!-->
+                    <input type="text" class="form-control" name="rationale" placeholder="Rationale"
+                           value = "<%=(typeof planning!= "undefined")? planning.rationale : ''%>"
+                    > </p>
                 <p><button class="btn btn-primary">Document</button></p>
 
                 <h3>1.1 BUDGET</h3>
@@ -439,7 +445,7 @@
                                value = "<%= (typeof award != "undefined")? award.value_amount:''%>"
                         ></p>
                     <p>
-                        <label>Value description</label>
+                        <label>Value currency</label>
                         <input type="text" class="form-control" name="value_currency" placeholder="value currency"
                                value = "<%= (typeof award != "undefined")? award.value_currency:''%>"
                         ></p>

@@ -432,7 +432,7 @@ var ocid = req.params.ocid;
              planning: {
                  //ocid: qp[1],
                  budget: qp[2],
-                 rationale: "...",
+                 rationale: qp[1].rationale,
                  documents: "...",
              },
              tender: qp[3],
