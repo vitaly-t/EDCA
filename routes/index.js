@@ -399,4 +399,71 @@ router.post('/search-process-by-date', function (req, res) {
 
 });
 
+
+
+router.get('/release/:ocid', function (req,res) {
+var ocid = req.params.ocid;
+
+    //queries principales
+     edca_db.tx(function (t) {
+        var cp = this.one("Select * from contractingprocess where id = $1", [ocid]);                    //0
+        var planning = this.one("select * from planning where contractingprocess_id = $1", [ocid]);     //1
+        var budget = this.one("select * from budget where contractingprocess_id = $1", [ocid]);         //2
+         var tender = this.one("select * from tender where contractingprocess_id = $1", [ocid]);        //3
+         var buyer =this.oneOrNone("select * from buyer where contractingprocess_id = $1", [ocid]);    //4
+         var award = this.one("select * from award where contractingprocess_id = $1", [ocid]);           //5
+         var contract = this.one("select * from contract where contractingprocess_id = $1", [ocid]);     //6
+         var implementation = this.oneOrNone('select * from implementation where contractingprocess_id = $1', [ocid]);
+
+        return this.batch([cp, planning, budget, tender, buyer, award, contract, implementation ]);
+    }).then(function (data) {
+
+         //queries secundarias
+         console.log(data);
+         return data;
+
+     }).then(function (qp) {
+
+         var release = {
+             ocid : qp[0].id,
+             id: "id de release",
+             date: qp[0].fecha_creacion,
+             tag: "etiquetas...",
+             planning: {
+                 //ocid: qp[1],
+                 budget: qp[2],
+                 rationale: "...",
+                 documents: "...",
+             },
+             tender: qp[3],
+             buyer: qp[4],
+             awards: qp[5],
+             contracts: {
+                 id: qp[6].id,
+                 awardID: qp[6].award_id,
+                 title: qp[6].title,
+                 description: qp[6].description,
+                 status : qp[6].status,
+                 period: { startDate: qp[6].period_startdate, endDate: qp[6].period_enddate},
+                 value: qp[6].value,
+                 items: "...",
+                 dateSigned: qp[6].datesigned,
+                 documents: "...",
+                 amendment: "...",
+                 implementation: qp[7]
+             }, //aquí va implementation
+             lang: 'es',
+         };
+
+         res.json(release);
+
+         }).catch(function (error) {
+         console.log(error);
+     })
+
+
+
+});
+
+
   module.exports = router;
