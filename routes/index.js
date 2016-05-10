@@ -288,26 +288,39 @@ router.get('/new-process', function (req, res) {
 });
 
 /* Update Planning -> Budget */
-router.post('/update-budget', function (req, res) {
-    for (var campo in req.body) {
+router.post('/update-planning', function (req, res) {
 
-        edca_db.one("update budget set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
-            function (ub) {
-            console.log("Update budget ...");
+        edca_db.tx(function (t) {
+            var planning = this.one("update planning set rationale = $1 where ContractingProcess_id = $2 returning id", [req.body.rationale, req.body.contractingprocess_id]);
+            var budget = this.one("update budget set budget_source = $2, budget_description= $3, budget_amount=$4, budget_currency=$5, budget_project=$6, budget_projectid=$7, budget_uri=$8 where ContractingProcess_id=$1 returning id",
+                [
+                    req.body.contractingprocess_id,
+                    req.body.budget_source,
+                    req.body.budget_description,
+                    req.body.budget_amount,
+                    req.body.budget_currency,
+                    req.body.budget_project,
+                    req.body.budget_projectid,
+                    req.body.budget_uri
+            ]);
+            
+            return this.batch([planning, budget]);
 
+            }).then(function (data) {
+            res.send('La etapa de planeación ha sido actualizada');
+            console.log(data);
         }).catch(function (error) {
             console.log("ERROR: ",error);
+            res.send('Error');
         });
-    }
 
-    res.send('La etapa de planeación ha sido actualizada');
 });
 
 
 /* Update Tender*/
 router.post('/update-tender', function (req, res) {
     for (var campo in req.body) {
-
+        
         console.log(campo+": "+req.body[campo]);
         edca_db.one("update tender set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
             function (ub) {

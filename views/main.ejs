@@ -156,6 +156,7 @@
         <div id="home" class="tab-pane fade in active">
 
             <div class="well well-lg">
+                <form id="planning_form" >
                 <h3>1. PLANEACIÓN</h3>
 
                 <p>
@@ -166,7 +167,6 @@
                 <p><button class="btn btn-primary">Document</button></p>
 
                 <h3>1.1 BUDGET</h3>
-                <form id="budget_form" >
 
                     <input type="text" name="contractingprocess_id" hidden
                            value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"

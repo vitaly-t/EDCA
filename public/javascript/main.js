@@ -75,9 +75,9 @@ $("#searchprocessbydate_form").submit(function ( event ) {
 });
 
 /* UPDATE */
-$( "#budget_form" ).submit(function( event ) {
+$( "#planning_form" ).submit(function( event ) {
     if ($('#ocid').val() != "") {
-        $.post('/update-budget/', $(this).serialize()).done(function (data) {
+        $.post('/update-planning/', $(this).serialize()).done(function (data) {
             alert(data);
         });
     }else{
