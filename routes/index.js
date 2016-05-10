@@ -308,9 +308,11 @@ router.post('/update-budget', function (req, res) {
 router.post('/update-tender', function (req, res) {
     for (var campo in req.body) {
 
+        console.log(campo+": "+req.body[campo]);
         edca_db.one("update tender set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
             function (ub) {
                 console.log("Update tender ...");
+
             }).catch(function (error) {
             console.log("ERROR: ",error);
         });

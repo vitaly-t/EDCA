@@ -347,12 +347,12 @@
                         <select class="form-control" name="hasenquiries">
                             <option value="0"
                                     <% if (typeof tender != "undefined") {%>
-                                    <%=(tender.hasenquiries==1) ?'selected':'';%>
+                                    <%=(tender.hasenquiries==0) ?'selected':'';%>
                                     <%}%>
                             >Si</option>
                             <option value="1"
                                     <% if (typeof tender != "undefined"){%>
-                                    <%=(tender.hasenquiries==0) ?'selected':'';%>
+                                    <%=(tender.hasenquiries==1) ?'selected':'';%>
                                     <%}%>
                             >No</option>
                         </select>
