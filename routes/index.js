@@ -188,6 +188,7 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
                 // this.ctx = transaction config + state context;
                 return t.batch([
                     t.one("select * from contractingprocess where id = $1", ocid),
+                    t.one("select * from Planning where id= $1", ocid),
                     t.one("select * from budget where ContractingProcess_id = $1", ocid),
                     t.one("select * from Tender where ContractingProcess_id = $1", ocid),
                     t.one("select * from Award where ContractingProcess_id = $1", ocid),
@@ -197,19 +198,21 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
             // using .spread(function(user, event)) is best here, if supported;
             .then(function (data) {
                 console.log(data[0].id); //CP
-                console.log(data[1].id); //budget
-                console.log(data[2].id); //Tender
-                console.log(data[3].id); //Award
-                console.log(data[4].id); //Contract
+                console.log(data[1].id); //planning
+                console.log(data[2].id); //budget
+                console.log(data[3].id); //Tender
+                console.log(data[4].id); //Award
+                console.log(data[5].id); //Contract
 
                 res.render('main', {
                     user: req.user,
                     title: 'Contrataciones abiertas',
                     cp: data[0],
-                    budget: data[1],
-                    tender: data[2],
-                    award: data[3],
-                    contract: data[4]
+                    planning: data[1],
+                    budget: data[2],
+                    tender: data[3],
+                    award: data[4],
+                    contract: data[5]
                 });
             })
             .catch(function (error) {
