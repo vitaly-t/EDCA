@@ -229,18 +229,6 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
 var pgp      = require("pg-promise")();
 var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
-
-
-router.get('/schema', function (req,res) {
-    edca_db.one("select * from contractingprocess where id=1").then(function (data) {
-        edca_db.one("select * from tender where contractingprocess_id=$1", data.id).then(function (tenderdata) {
-            res.json( { cp: data, tender: tenderdata});
-        });
-    }).catch(function (error) {
-        res.json(error);
-    });
-});
-
 // NUEVO PROCESO DE CONTRATACIÓN
 router.get('/new-process', function (req, res) {
     //var pid = req.params.pubid;
@@ -428,14 +416,34 @@ var ocid = req.params.ocid;
              ocid : qp[0].id,
              id: "id de release",
              date: qp[0].fecha_creacion,
-             tag: "etiquetas...",
+             tag: "...",
              planning: {
                  //ocid: qp[1],
                  budget: qp[2],
                  rationale: qp[1].rationale,
-                 documents: "...",
+                 documents: "..."
              },
-             tender: qp[3],
+             tender: {
+                 id: qp[3].id,
+                 title: qp[3].title,
+                 description: qp[3].description,
+                 status: qp[3].status,
+                 items:"...",
+                 minValue: {amount: qp[3].minvalue_amount, currency : qp[3].minvalue_currency},
+                 value: {amount: qp[3].value_amount, currency : qp[3].value_currency},
+                 procurementMethod: qp[3].procurementmenthod,
+                 procurementMethodRationale: qp[3].procurementMethod_rationale,
+                 awardCriteria : qp[3].awardcriteria,
+                 awardCriteriaDetails : qp[3].awardcriteria_details,
+                 submissionMethod: qp[3].submissionMethod,
+                 submissionMethodDetails: qp[3].submissionMethod_details,
+                 tenderPeriod : {startDate: qp[3].tenderperiod_startdate, endDate: qp[3].tenderperiod_enddate},
+                 enquiryPeriod: {startDate: qp[3].enquiryperiod_startdate, endDate: qp[3].enquiryperiod_enddate },
+                 hasEnquiries:  (qp[3].hasenquiries==1)?true:false,
+                 eligibilityCriteria: qp[3].eligibilitycriteria,
+                 awardPeriod: {startDate: qp[3].tenderperiod_startdate, endDate: qp[3].tenderperiod_enddate},
+                 numberOfTenderers: qp[3].numberoftenderers
+             },
              buyer: qp[4],
              awards: qp[5],
              contracts: {
@@ -452,7 +460,7 @@ var ocid = req.params.ocid;
                  amendment: "...",
                  implementation: qp[7]
              }, //aquí va implementation
-             lang: 'es',
+             lang: 'es'
          };
 
          res.json(release);
