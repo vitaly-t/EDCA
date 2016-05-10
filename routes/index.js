@@ -187,12 +187,12 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
                 // this = t = transaction protocol context;
                 // this.ctx = transaction config + state context;
                 return t.batch([
-                    t.one("select * from contractingprocess where id = $1", ocid),
-                    t.one("select * from Planning where id= $1", ocid),
-                    t.one("select * from budget where ContractingProcess_id = $1", ocid),
-                    t.one("select * from Tender where ContractingProcess_id = $1", ocid),
-                    t.one("select * from Award where ContractingProcess_id = $1", ocid),
-                    t.one("select * from Contract where ContractingProcess_id = $1", ocid)
+                    t.one("select * from ContractingProcess where id = $1", ocid),
+                    t.one("select * from Planning where contractingprocess_id= $1", ocid),
+                    t.one("select * from budget where contractingprocess_id = $1", ocid),
+                    t.one("select * from Tender where contractingprocess_id = $1", ocid),
+                    t.one("select * from Award where contractingprocess_id = $1", ocid),
+                    t.one("select * from Contract where contractingprocess_id = $1", ocid)
                 ]);
             })
             // using .spread(function(user, event)) is best here, if supported;
@@ -234,43 +234,34 @@ var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
 // NUEVO PROCESO DE CONTRATACIÓN
 router.get('/new-process', function (req, res) {
-    //var pid = req.params.pubid;
 
     edca_db.tx(function (t) {
         
-        //falta crear el publisher
+        //falta insertar: publisher y procuring entity
         var pid = 1;
 
             return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, publisher_id) values (current_date, current_time, $1) returning id", pid)
                 .then(function (process) {
 
-                    return t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id)
-                        .then(function (planning) {
-                            return {
-                                process: process,
-                                planning: planning
-                            };
-                        });
-                })
-                .then(function (info) {
+                    var planning = t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id);
+                    var tender = t.one ("insert into Tender (ContractingProcess_id) values ($1) returning id as tender_id", process.id);
+                    var contract = t.one ("insert into Contract (ContractingProcess_id) values ($1) returning id", process.id);
 
-                    var last = t.one("insert into Contract (ContractingProcess_id) values ($1) returning id", [info.process.id])
-                        .then(function (contract) {
+                    return t.batch([process = { id : process.id}, planning, tender, contract] );
 
-                            return t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id as implementation_id", [info.process.id, contract.id])
 
-                        });
+                }).then(function (info) {
 
-                    var process= {process_id : info.process.id}
-                    var planning = {planning_id : info.planning.id}
-
+                    var process= {process_id : info[0].id}
+                    var planning = {planning_id : info[1].id}
+                    
                     return t.batch([
                         process, planning,
-                            t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id as budget_id", [info.process.id, info.planning.id]),
-                            t.one("insert into Tender (ContractingProcess_id) values ($1) returning id as tender_id", [info.process.id]),
-                            t.one("insert into Buyer (ContractingProcess_id) values ($1) returning id as Buyer_id",[info.process.id]),
-                            t.one("insert into Award (ContractingProcess_id) values ($1) returning id as award_id", [info.process.id]),
-                            last
+                            t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id as budget_id", [info[0].id, info[1].id]),
+                            t.one("insert into Buyer (ContractingProcess_id) values ($1) returning id as buyer_id",[info[0].id]),
+                            t.one("insert into ProcuringEntity (contractingprocess_id, tender_id) values ($1,$2) returning id as procuringentity_id",[info[0].id, info[2].id]),
+                            t.one("insert into Award (ContractingProcess_id) values ($1) returning id as award_id", [info[0].id]),
+                            t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id as implementation_id", [info[0].id, info[3].id]),
                         ])
 
                 });
@@ -367,20 +358,6 @@ router.post('/update-contract', function (req, res) {
 });
 
 
-// Buyer
-router.get('/new_buyer/:ContractingProcess_id', function (req,res) {
-var cpid = req.params.ContractingProcess_id;
-
-     edca_db.one("insert into buyer (ContractingProcess_id) values ($1) returning id", cpid).then(function (buyer) {
-     console.log("Se ha creado un nuevo comprador", buyer.id);
-         res.send(buyer);
-     }).catch(function (error) {
-         res.json({"id" : 0});
-     console.log("ERROR: ",error);
-     });
-
-});
-
 router.get('/organization_type', function (req, res) {
 edca_db.many("select id, name from OrganizationType").then(function (data) {
     res.send(data);
@@ -474,7 +451,7 @@ var ocid = req.params.ocid;
                  procuringEntity: "...", //añadir campos a tender
                  documents: {/* ... */},
                  milestones: {/* ... */},
-                 amendment: {date: "...", changes: "...", rationale: "..."} //añadir campos a tender
+                 amendment: {date: "...", changes: "...", rationale: "..."}
              },
              buyer: {
                  identifier: {/* Añadir campos a buyer */},

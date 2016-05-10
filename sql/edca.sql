@@ -195,24 +195,28 @@ create table TendererAdditionalIdentifiers(
 );
 
 /* ProcuringEntity (organization) */
+
 drop table if exists ProcuringEntity cascade;
 create table ProcuringEntity(
-	id serial primary key, 
+	id serial primary key,
 	ContractingProcess_id int references ContractingProcess(id) on delete cascade,
 	Tender_id int references Tender(id) on delete cascade,
-	name text,
-	/*identifier_scheme text, 
-	identifier_legalname text, 
-	identifier_uri text,  */
-	address_streetaddres text, 
-	address_locality text, 
-	address_region text, 
-	address_postalcode text, 
+
+	identifier_scheme text,
+	identifier_id text,
+	identifier_legalname text,
+	identifier_uri text,
+
+    name text,
+	address_streetaddres text,
+	address_locality text,
+	address_region text,
+	address_postalcode text,
 	address_contryname text,
-	contactpoint_name text, 
-	contactpoint_email text, 
-	contactpoint_telephone text, 
-	contactpoint_faxnumber text, 
+	contactpoint_name text,
+	contactpoint_email text,
+	contactpoint_telephone text,
+	contactpoint_faxnumber text,
 	contactpoint_url text
 	);
 
@@ -220,7 +224,8 @@ drop table if exists ProcuringEntityAdditionalIdentifiers cascade;
 create table ProcuringEntityAdditionalIdentifiers(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
-	prcuringentity_id int references ProcuringEntity(id) on delete cascade,
+	tender_id int references Tender(id) on delete cascade,
+	procuringentity_id int references ProcuringEntity(id) on delete cascade,
 	scheme text, 
 	legalname text, 
 	uri text
