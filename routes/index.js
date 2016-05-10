@@ -420,26 +420,24 @@ var ocid = req.params.ocid;
              tag: "...",
              initiationType: "...",
              planning: {
-                 //ocid: qp[1],
                  budget: {
                      source: qp[2].budget_source,
                      id : qp[2].id,
                      description : qp[2].budget_description,
-                     amount: {amount: qp[2].currency, currency: qp[2].currency},
+                     amount: {amount: qp[2].budget_amount, currency: qp[2].budget_currency},
                      project: qp[2].budget_project,
                      projectID: qp[2].budget_projectid,
                      uri: qp[2].budget_uri
-
                  },
                  rationale: qp[1].rationale,
-                 documents: "..."
+                 documents: {/* ... */}
              },
              tender: {
                  id: qp[3].id,
                  title: qp[3].title,
                  description: qp[3].description,
                  status: qp[3].status,
-                 items:"...",
+                 items: {/* ... */},
                  minValue: {amount: qp[3].minvalue_amount, currency : qp[3].minvalue_currency},
                  value: {amount: qp[3].value_amount, currency : qp[3].value_currency},
                  procurementMethod: qp[3].procurementmenthod,
@@ -454,15 +452,15 @@ var ocid = req.params.ocid;
                  eligibilityCriteria: qp[3].eligibilitycriteria,
                  awardPeriod: {startDate: qp[3].tenderperiod_startdate, endDate: qp[3].tenderperiod_enddate},
                  numberOfTenderers: qp[3].numberoftenderers,
-                 tenderers: "...",
+                 tenderers: {/* ... */},
                  procuringEntity: "...", //añadir campos a tender
-                 documents: "...",
-                 milestones: "...",
+                 documents: {/* ... */},
+                 milestones: {/* ... */},
                  amendment: {date: "...", changes: "...", rationale: "..."} //añadir campos a tender
              },
              buyer: {
                  identifier: {/* Añadir campos a buyer */},
-                 additionalIdentifiers : { /* ... */ },
+                 additionalIdentifiers : {/* ... */},
                  name: qp[4].name,
                  addres: {streetAddress: qp[4].address_streetaddress, locality: qp[4].address_locality , region: qp[4].address_region, postalCode: qp[4].address_postalcode, countryName: qp[4].address_contryname},
                  contactPoint: {name: qp[4].contactpoint_name, email: qp[4].contactpoint_email, telephone: qp[4].contactpoint_telephone, faxNumber: qp[4].contactpoint_faxnumber, url: qp[4].contactpoint_url}
@@ -478,10 +476,10 @@ var ocid = req.params.ocid;
                  value: qp[6].value,
                  items: "...",
                  dateSigned: qp[6].datesigned,
-                 documents: "...",
+                 documents: {/* ... */},
                  amendment: "...",
                  implementation: qp[7]
-             }, //aquí va implementation
+             },
              lang: 'es'
          };
 

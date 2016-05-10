@@ -62,8 +62,16 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
                         Buscar <i class="fa fa-search"></i></button>
                     <% if (typeof cp != "undefined"){%>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
-                        Publicar <i class="fa fa-file-text-o"></i></button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Publicar <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li id="release"><a href="#">Release</a></li>
+                            <li><a href="#">Release package</a></li>
+                            <li><a href="#">Record package</a></li>
+                        </ul>
+                    </div>
                     <p>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon-proc">ID proceso</span>
@@ -841,32 +849,6 @@ Organización Supplier depende de Adjudicación
                     <p><div class="list-group" id="searchprocessbydate_result"></div></p>
                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- modal para publicar -->
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel3">Publicar proceso de contratación</h4>
-            </div>
-            <div class="modal-body">
-                <div class="radio">
-                    <label><input type="radio" name="optradio">Release</label>
-                </div>
-                <div class="radio">
-                    <label><input type="radio" name="optradio">Record</label>
-                </div>
-
-                <button class="btn">Publicar</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

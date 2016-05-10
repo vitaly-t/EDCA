@@ -57,6 +57,12 @@ $(function () {
 });
 */
 
+$(function () {
+    $('#release').click(function () {
+        window.open('/release/'+$('#ocid').val());
+    });
+})
+
 /* buscar proceso por fecha*/
 $("#searchprocessbydate_form").submit(function ( event ) {
     $.post('/search-process-by-date/', $(this).serialize()).done(function(data){
