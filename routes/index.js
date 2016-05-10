@@ -265,6 +265,7 @@ router.get('/new-process', function (req, res) {
                         process, planning,
                             t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id as budget_id", [info.process.id, info.planning.id]),
                             t.one("insert into Tender (ContractingProcess_id) values ($1) returning id as tender_id", [info.process.id]),
+                            t.one("insert into Buyer (ContractingProcess_id) values ($1) returning id as Buyer_id",[info.process.id]),
                             t.one("insert into Award (ContractingProcess_id) values ($1) returning id as award_id", [info.process.id]),
                             last
                         ])
@@ -417,9 +418,19 @@ var ocid = req.params.ocid;
              id: "id de release",
              date: qp[0].fecha_creacion,
              tag: "...",
+             initiationType: "...",
              planning: {
                  //ocid: qp[1],
-                 budget: qp[2],
+                 budget: {
+                     source: qp[2].budget_source,
+                     id : qp[2].id,
+                     description : qp[2].budget_description,
+                     amount: {amount: qp[2].currency, currency: qp[2].currency},
+                     project: qp[2].budget_project,
+                     projectID: qp[2].budget_projectid,
+                     uri: qp[2].budget_uri
+
+                 },
                  rationale: qp[1].rationale,
                  documents: "..."
              },
@@ -442,11 +453,22 @@ var ocid = req.params.ocid;
                  hasEnquiries:  (qp[3].hasenquiries==1)?true:false,
                  eligibilityCriteria: qp[3].eligibilitycriteria,
                  awardPeriod: {startDate: qp[3].tenderperiod_startdate, endDate: qp[3].tenderperiod_enddate},
-                 numberOfTenderers: qp[3].numberoftenderers
+                 numberOfTenderers: qp[3].numberoftenderers,
+                 tenderers: "...",
+                 procuringEntity: "...", //añadir campos a tender
+                 documents: "...",
+                 milestones: "...",
+                 amendment: {date: "...", changes: "...", rationale: "..."} //añadir campos a tender
              },
-             buyer: qp[4],
-             awards: qp[5],
-             contracts: {
+             buyer: {
+                 identifier: {/* Añadir campos a buyer */},
+                 additionalIdentifiers : { /* ... */ },
+                 name: qp[4].name,
+                 addres: {streetAddress: qp[4].address_streetaddress, locality: qp[4].address_locality , region: qp[4].address_region, postalCode: qp[4].address_postalcode, countryName: qp[4].address_contryname},
+                 contactPoint: {name: qp[4].contactpoint_name, email: qp[4].contactpoint_email, telephone: qp[4].contactpoint_telephone, faxNumber: qp[4].contactpoint_faxnumber, url: qp[4].contactpoint_url}
+             },
+             awards: qp[5],  //pueden ser varios
+             contracts: { //pueden ser varios
                  id: qp[6].id,
                  awardID: qp[6].award_id,
                  title: qp[6].title,
