@@ -56,8 +56,6 @@
                     <h4>Proceso de contratación</h4>
                 </div>
                 <div class="panel-body">
-                    <!--<button id="nuevo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalCrea">
-                Nuevo <i class="fa fa-pencil"></i></button> -->
                     <a href="/new-process" class="btn btn-default">Nuevo <i class="fa fa-pencil"></i></a>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
                         Buscar <i class="fa fa-search"></i></button>
@@ -91,7 +89,7 @@
                     <h4>Organizaciones</h4>
                 </div>
                 <div class="panel-body">
-                    <button class="btn btn-default"><i class="fa fa-user"></i> Buyer</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditBuyer"><i class="fa fa-user"></i> Buyer</button>
                     <button class="btn btn-default"><i class="fa fa-user"></i> Procuring entity</button>
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
@@ -609,37 +607,6 @@ Organización Supplier depende de Adjudicación
                 <!-- Different organizations -->
                 <div class="panel-group">
 
-                    <!-- <div id="panel-buyer" class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title" align="center">
-                                <a data-toggle="collapse" href="#collapse1">Buyer</a>
-                            </h4>
-                        </div>
-
-                        <div id="collapse1" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form id = "create_">
-                                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                                    <p><input name="name"       type="text" class="form-control" placeholder="name"></p>
-                                    <p><input name="address"    type="text" class="form-control" placeholder="address street address"></p>
-                                    <p><input name="locality"   type="text" class="form-control" placeholder="address locality"></p>
-                                    <p><input name="region"     type="text" class="form-control" placeholder="address region"></p>
-                                    <p><input name="pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                                    <p><input name="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                                    <p><input name="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                                    <p><input name="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                                    <p><input name="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                                    <p><input name="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                                    <p><input name="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
-                                    <p><button type="submit" class="btn btn-default">Crear</button></p>
-                                </form>
-                            </div>
-                            <div class="panel-footer">
-                                <p><button class="btn btn-primary">Identifiers</button></p>
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div id="panel-tenderer" class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title" align="center">
@@ -744,6 +711,83 @@ Organización Supplier depende de Adjudicación
     </div>
 </div>
 
+
+
+<!-- modal para editar buyer -->
+<div class="modal fade" id="myModalEditBuyer" tabindex="-1" role="dialog" aria-labelledby="modalEditBuyer">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar </h4>
+            </div>
+            <div class="modal-body">
+                <form id = "updatebuyer_form">
+                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                    <p><label>Identifier scheme</label>
+                    <input name = "identifier_scheme" class="form-control" type="text"
+                           placeholder="identifier scheme"
+                    value="<%=(typeof buyer != "undefined")?buyer.identifier_scheme:''%>"
+                    ></p>
+                    <p><label>Identifier ID</label>
+                        <input name = "identifier_id" class="form-control" type="text"
+                               placeholder ="identifier id"
+                               value="<%=(typeof buyer != "undefined")?buyer.identifier_id:''%>"></p>
+                    <p><label>Identifier legal name</label>
+                        <input name = "identifier_legalname" class="form-control" type="text"
+                               placeholder="identifier legalname"
+                               value="<%=(typeof buyer != "undefined")?buyer.identifier_legalname:''%>"
+                        ></p>
+                    <p><label>Identifier URI</label>
+                        <input name = "identifier_uri" class="form-control" type="text"
+                               placeholder="identifier uri"
+                               value="<%=(typeof buyer != "undefined")?buyer.identifier_uri:''%>"></p>
+                    <p><label>Name</label>
+                        <input name="name"       type="text" class="form-control" placeholder="name"
+                               value="<%=(typeof buyer != "undefined")?buyer.name:''%>"></p>
+                    <p><label>Address street address</label>
+                        <input name="addres_streetaddress"    type="text" class="form-control" placeholder="address street address"
+                               value="<%=(typeof buyer != "undefined")?buyer.addres_streetaddress:''%>"
+                        ></p>
+                    <p><label>Address locality</label>
+                        <input name="address_locality"   type="text" class="form-control" placeholder="address locality"
+                               value="<%=(typeof buyer != "undefined")?buyer.address_locality:''%>"></p>
+                    <p><label>Address region</label>
+                        <input name="address_region"     type="text" class="form-control" placeholder="address region"
+                               value="<%=(typeof buyer != "undefined")?buyer.address_region:''%>"></p>
+                    <p><label>Address postal code</label>
+                        <input name="address_postalcode"      type="text" class="form-control" placeholder="address postal code"
+                               value="<%=(typeof buyer != "undefined")?buyer.address_postalcode:''%>"></p>
+                    <p><label>Address country name</label>
+                        <input name="address_countryname" type="text" class="form-control" placeholder="address country name"
+                               value="<%=(typeof buyer != "undefined")?buyer.address_countryname:''%>"></p>
+                    <p><label>Contact point name</label>
+                        <input name="contactpoint_name"   type="text" class="form-control" placeholder="contact point name"
+                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_name:''%>"></p>
+                    <p><label>Contact point email</label>
+                        <input name="contactpoint_email"   type="text" class="form-control" placeholder="contact point email"
+                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_email:''%>"></p>
+                    <p><label>Contact point telephone</label>
+                        <input name="contactpoint_telephone"  type="text" class="form-control" placeholder="contact point telephone"
+                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_telephone:''%>"></p>
+                    <p><label>Contact point fax number</label>
+                        <input name="contactpoint_faxnumber"    type="text" class="form-control" placeholder="contact point fax number"
+                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_faxnumber:''%>"></p>
+                    <p><label>Contact point url</label>
+                        <input name="contactpoint_url"    type="text" class="form-control" placeholder="contact point url"
+                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_url:''%>"></p>
+                    <p><button type="submit" class="btn btn-default">Guardar</button></p>
+                </form>
+                <p><button class="btn btn-default">Additional identifiers</button></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- modal para editar organizaciones -->
 <div class="modal fade" id="myModalEditOrg" tabindex="-1" role="dialog" aria-labelledby="modalEditOrg">
     <div class="modal-dialog" role="document">
@@ -777,34 +821,6 @@ Organización Supplier depende de Adjudicación
 </div>
 
 <%}%>
-
-<!-- modal para crear proceso -->
-<div class="modal fade" id="myModalCrea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel3">Dependencia que publica</h4>
-            </div>
-            <div class="modal-body">
-
-                <p>
-                    <label>ID de dependencia</label>
-                    <input type="text" class="form-control" placeholder="ocid" disabled>
-                </p>
-                <p>
-                    <label>Nombre dependencia</label>
-                    <input type="text" class="form-control" placeholder="dep" disabled>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button id="crear" class="btn btn-primary">Crear proceso</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- modal para buscar procesos de contratación -->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">

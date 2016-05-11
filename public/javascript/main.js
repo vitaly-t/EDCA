@@ -86,6 +86,13 @@ $( "#planning_form" ).submit(function( event ) {
     event.preventDefault();
 });
 
+$( "#updatebuyer_form" ).submit(function( event ) {
+        $.post('/update-buyer/', $(this).serialize()).done(function (data) {
+            alert(data);
+        });
+    event.preventDefault();
+});
+
 $("#tender_form").submit(function(event){
     if ( $('#ocid').val() !="") {
         $.post('/update-tender/', $(this).serialize()).done(function(data){

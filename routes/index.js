@@ -191,9 +191,10 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
                     t.one("select * from Planning where contractingprocess_id= $1", ocid),
                     t.one("select * from budget where contractingprocess_id = $1", ocid),
                     t.one("select * from Tender where contractingprocess_id = $1", ocid),
-                    //procuring entity, buyer
                     t.one("select * from Award where contractingprocess_id = $1", ocid),
-                    t.one("select * from Contract where contractingprocess_id = $1", ocid)
+                    t.one("select * from Contract where contractingprocess_id = $1", ocid),
+                    t.one("select * from buyer where contractingprocess_id =$1",ocid),
+                    t.one("select * from procuringentity where contractingprocess_id=$1",ocid)
                 ]);
             })
             // using .spread(function(user, event)) is best here, if supported;
@@ -204,6 +205,8 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
                 console.log(data[3].id); //Tender
                 console.log(data[4].id); //Award
                 console.log(data[5].id); //Contract
+                console.log(data[6].id);
+                console.log(data[7].id);
 
                 res.render('main', {
                     user: req.user,
@@ -213,7 +216,9 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
                     budget: data[2],
                     tender: data[3],
                     award: data[4],
-                    contract: data[5]
+                    contract: data[5],
+                    buyer: data[6],
+                    procuringentity: data[7]
                 });
             })
             .catch(function (error) {
@@ -347,7 +352,7 @@ router.post('/update-award', function (req, res) {
 router.post('/update-contract', function (req, res) {
     for (var campo in req.body) {
 
-        edca_db.one("update contract set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
+        edca_db.one("update contract set "+campo+" = $1 where ContractingProcess_id = $2 returning id", [req.body[campo], req.body.contractingprocess_id]).then(
             function (ub) {
                 console.log("Update contract ...");
             }).catch(function (error) {
@@ -358,6 +363,38 @@ router.post('/update-contract', function (req, res) {
     res.send('La etapa de contrato ha sido actualizada');
 });
 
+/* Update buyer*/
+router.post('/update-buyer', function (req, res) {
+
+        edca_db.one("update buyer set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, address_streetaddress=$6," +
+            " address_locality=$7, address_region =$8, address_postalcode=$9, address_countryname=$10, contactpoint_name=$11, contactpoint_email=$12, contactpoint_telephone=$13," +
+            " contactpoint_faxnumber=$14, contactpoint_url=$15 where ContractingProcess_id = $1 returning id",
+            [
+                req.body.ocid,
+                req.body.identifier_scheme,
+                req.body.identifier_id,
+                req.body.identifier_legalname,
+                req.body.identifier_uri,
+                req.body.address_streetaddress,
+                req.body.address_locality,
+                req.body.address_region,
+                req.body.address_postalcode,
+                req.body.address_countryname,
+                req.body.contactpoint_name,
+                req.body.contactpoint_email,
+                req.body.contactpoint_telephone,
+                req.body.contactpoint_faxnumber,
+                req.body.contactpoint_url
+            ]
+        ).then(function (data) {
+                res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
+                console.log("Update buyer ...");
+            }).catch(function (error) {
+            res.send("Error");
+            console.log("ERROR: ",error);
+        });
+
+});
 
 router.get('/organization-type', function (req, res) {
 edca_db.many("select id, name from OrganizationType").then(function (data) {
