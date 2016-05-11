@@ -89,10 +89,10 @@ create table Buyer (
 	id serial primary key, 
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
 	name text,
-	/*  no necesarios */
-	/*identifier_scheme text, 
-	identifier_legalname text, 
-	identifier_uri text,  */
+	identifier_scheme text,
+	identifier_id text,
+	identifier_legalname text,
+	identifier_uri text,
 	address_streetaddres text, 
 	address_locality text, 
 	address_region text, 
@@ -141,10 +141,9 @@ create table Tender(
 	eligibilitycriteria text, 
 	awardperiod_startdate timestamp,
 	awardperiod_enddate timestamp,
-	numberoftenderers int
-	/*, 
+	numberoftenderers int,
 	amendment_date timestamp,
-	amendment_rationale text*/
+	amendment_rationale text
 	);
 
 drop table if exists TenderDocuments cascade;
@@ -169,9 +168,10 @@ create table Tenderer(
 	ContractingProcess_id int references ContractingProcess(id) on delete cascade,
 	Tender_id int references Tender(id) on delete cascade,
 	name text,
-	/*identifier_scheme text, 
+	identifier_scheme text,
+	identifier_id text,
 	identifier_legalname text, 
-	identifier_uri text,  */
+	identifier_uri text,
 	address_streetaddres text, 
 	address_locality text, 
 	address_region text, 
@@ -281,20 +281,12 @@ create table TenderItemAdditionalClassifications(
 	uri text
 );
 
-drop table if exists TenderAmendment cascade;
-create table TenderAmendment(
-	id serial primary key,
-	contractingprocess_id int references ContractingProcess(id) on delete cascade,
-	tender_id int references TenderItem(id) on delete cascade,
-	amendment_date timestamp,
-	rationale text
-); 
 
 drop table if exists TenderAmendmentChanges cascade;
 create table TenderAmendmentChanges(
 	id serial primary key, 
 	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
-	tenderamendment_id int references TenderAmendment(id) on delete cascade,
+	tender_id int references Tender(id) on delete cascade,
 	property text, 
 	former_value text
 );

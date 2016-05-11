@@ -191,6 +191,7 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
                     t.one("select * from Planning where contractingprocess_id= $1", ocid),
                     t.one("select * from budget where contractingprocess_id = $1", ocid),
                     t.one("select * from Tender where contractingprocess_id = $1", ocid),
+                    //procuring entity, buyer
                     t.one("select * from Award where contractingprocess_id = $1", ocid),
                     t.one("select * from Contract where contractingprocess_id = $1", ocid)
                 ]);
@@ -259,7 +260,7 @@ router.get('/new-process', function (req, res) {
                         process, planning,
                             t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id as budget_id", [info[0].id, info[1].id]),
                             t.one("insert into Buyer (ContractingProcess_id) values ($1) returning id as buyer_id",[info[0].id]),
-                            t.one("insert into ProcuringEntity (contractingprocess_id, tender_id) values ($1,$2) returning id as procuringentity_id",[info[0].id, info[2].id]),
+                            t.one("insert into ProcuringEntity (contractingprocess_id, tender_id) values ($1, $2) returning id as procuringentity_id",[info[0].id, info[2].id]),
                             t.one("insert into Award (ContractingProcess_id) values ($1) returning id as award_id", [info[0].id]),
                             t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id as implementation_id", [info[0].id, info[3].id]),
                         ])
@@ -358,7 +359,7 @@ router.post('/update-contract', function (req, res) {
 });
 
 
-router.get('/organization_type', function (req, res) {
+router.get('/organization-type', function (req, res) {
 edca_db.many("select id, name from OrganizationType").then(function (data) {
     res.send(data);
 }).catch(function (error) {
@@ -487,6 +488,5 @@ var ocid = req.params.ocid;
 
 
 });
-
 
   module.exports = router;

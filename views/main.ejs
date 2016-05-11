@@ -50,7 +50,7 @@
 <div class="container all-container">
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-5">
             <div class="panel panel-default pill-container">
                 <div class="panel-heading">
                     <h4>Proceso de contratación</h4>
@@ -85,19 +85,19 @@
         </div>
 
         <% if (typeof cp != "undefined"){%>
-        <div class="col-sm-6">
+        <div class="col-sm-7">
             <div class="panel panel-default pill-container">
                 <div class="panel-heading">
                     <h4>Organizaciones</h4>
                 </div>
                 <div class="panel-body">
-
+                    <button class="btn btn-default"><i class="fa fa-user"></i> Buyer</button>
+                    <button class="btn btn-default"><i class="fa fa-user"></i> Procuring entity</button>
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
                         Nueva <i class="fa fa-users"></i></button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditOrg">
                         Editar <i class="fa fa-pencil"></i></button>
-
                     <p>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon-dep">ID dependencia</span>
@@ -156,15 +156,17 @@
         <div id="home" class="tab-pane fade in active">
 
             <div class="well well-lg">
-                <form id="planning_form" >
                 <h3>1. PLANEACIÓN</h3>
+                <p><button class="btn btn-primary">Planning documents</button>
+                <button class="btn btn-primary">Budget documents</button></p>
+                <form id="planning_form" >
 
                 <p>
-                    <label>Rationale</label>  <!-- ¡¡¡¡!!!-->
+                    <label>Rationale</label>
                     <input type="text" class="form-control" name="rationale" placeholder="Rationale"
                            value = "<%=(typeof planning!= "undefined")? planning.rationale : ''%>"
                     > </p>
-                <p><button class="btn btn-primary">Document</button></p>
+
 
                 <h3>1.1 BUDGET</h3>
 
@@ -186,7 +188,7 @@
                         <label>Budget amount</label>
                         <input class="form-control" type="number" name="budget_amount" placeholder="budget amount"
                                value = "<%= (typeof budget != "undefined")? budget.budget_amount:'' %>"
-                        ></p>
+                        required></p>
                     <p>
                         <label>Budget currency</label>
                         <input class="form-control" name="budget_currency" placeholder="budget currency"
@@ -209,7 +211,7 @@
                         ></p>
                     <p><button  type="submit" class="btn">Guardar</button></p>
 
-                    <p><button class="btn btn-primary">Budget document</button></p>
+
 
                 </form>
             </div>
@@ -222,10 +224,8 @@
                 <p>
                     <button class="btn btn-primary">Milestones</button>
                     <button class="btn btn-primary">Documents</button>
-                    <button class="btn btn-primary">Amendment </button> <!-- Le sigue Amendment Changes-->
                     <button class="btn btn-primary">Items</button>
-                    <!-- <button class="btn btn-primary">Procuring Entity</button>
-                         <button class="btn btn-primary">Tenderers</button> -->
+                    <button class="btn btn-default">Amendment changes</button>
                 </p>
                 <form id="tender_form" role="form" >
 
@@ -252,7 +252,7 @@
                         <label>Min value amount</label>
                         <input type="number" class="form-control" name = "minvalue_amount" placeholder="minValue amount"
                                value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>"
-                        ></p>
+                        required></p>
                     <p>
                         <label>Min value currency</label>
                         <input type="text" class="form-control" name="minvalue_currency" placeholder="minValue currency"
@@ -262,7 +262,7 @@
                         <label>Value amount</label>
                         <input type="number" class="form-control" name= "value_amount" placeholder="value amount"
                                value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>"
-                        ></p>
+                        required></p>
                     <p>
                         <label>Value currency</label>
                         <input type="text" class="form-control" name = "value_currency" placeholder="value currency"
@@ -392,12 +392,20 @@
                         <label>Number of tenderers</label>
                         <input type="number" class="form-control" name="numberoftenderers" placeholder="number of tenderers"
                                value = "<%= (typeof tender != "undefined")? tender.numberoftenderers:''%>"
-                        ></p>
+                        required></p>
+
+                    <h3>2.1 AMENDMENT</h3>
+                    <p><label>Date</label>
+                    <input type="text" id="lici_date7" name="amendment_date" class="form-control"
+                           value="<%=(typeof tender!= "undefined")?tender.amendment_date:''%>"
+                    required></p>
+                    <p><label>Rationale</label>
+                    <input type="text" name="amendment_rationale" class="form-control" placeholder="rationale"
+                           value="<%=(typeof tender!= "undefined")?tender.amendment_rationale:''%>"
+                    ></p>
 
                     <button type="submit" class="btn">Guardar</button>
                 </form>
-
-
             </div>
         </div>
 
@@ -451,7 +459,7 @@
                         <label>Value amount</label>
                         <input type="number" class="form-control" name="value_amount" placeholder="value amount"
                                value = "<%= (typeof award != "undefined")? award.value_amount:''%>"
-                        ></p>
+                        required></p>
                     <p>
                         <label>Value currency</label>
                         <input type="text" class="form-control" name="value_currency" placeholder="value currency"
@@ -541,7 +549,7 @@
                         <label>Value amount</label>
                         <input type="number" class="form-control" placeholder="value amount" name="value_amount"
                                value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>"
-                        ></p>
+                        required></p>
                     <p>
                         <label>Value currency</label>
                         <input type="text" class="form-control" placeholder="value currency" name="value_currency"
@@ -601,7 +609,7 @@ Organización Supplier depende de Adjudicación
                 <!-- Different organizations -->
                 <div class="panel-group">
 
-                    <div id="panel-buyer" class="panel panel-default">
+                    <!-- <div id="panel-buyer" class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title" align="center">
                                 <a data-toggle="collapse" href="#collapse1">Buyer</a>
@@ -630,7 +638,7 @@ Organización Supplier depende de Adjudicación
                                 <p><button class="btn btn-primary">Identifiers</button></p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div id="panel-tenderer" class="panel panel-default">
                         <div class="panel-heading">
@@ -694,7 +702,7 @@ Organización Supplier depende de Adjudicación
                         </div>
                     </div>
 
-                    <div id="panel-procuring" class="panel panel-default">
+                    <!-- <div id="panel-procuring" class="panel panel-default">
                         <div  class="panel-heading">
                             <h4 class="panel-title" align="center">
                                 <a id="panel-procuring" data-toggle="collapse" href="#collapse4">Procuring entity</a>
@@ -722,7 +730,8 @@ Organización Supplier depende de Adjudicación
                                 <p><button class="btn btn-primary">Identifiers</button></p>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
+
 
                 </div>
 
