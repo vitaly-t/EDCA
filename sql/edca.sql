@@ -208,7 +208,7 @@ create table ProcuringEntity(
 	identifier_uri text,
 
     name text,
-	address_streetaddres text,
+	address_streetaddress text,
 	address_locality text,
 	address_region text,
 	address_postalcode text,

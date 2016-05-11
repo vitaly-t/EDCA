@@ -90,7 +90,7 @@
                 </div>
                 <div class="panel-body">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditBuyer"><i class="fa fa-user"></i> Buyer</button>
-                    <button class="btn btn-default"><i class="fa fa-user"></i> Procuring entity</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditProcuringEntity"><i class="fa fa-user"></i> Procuring entity</button>
 
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
                         Nueva <i class="fa fa-users"></i></button>
@@ -426,8 +426,6 @@
                     <input type="text" name="contractingprocess_id" hidden
                            value ="<%= (typeof award != "undefined")? award.contractingprocess_id :''%>"
                     >
-
-
                     <p>
                         <label>Title</label>
                         <input type="text" name="title" class="form-control" placeholder="title"
@@ -668,40 +666,7 @@ Organización Supplier depende de Adjudicación
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div id="panel-procuring" class="panel panel-default">
-                        <div  class="panel-heading">
-                            <h4 class="panel-title" align="center">
-                                <a id="panel-procuring" data-toggle="collapse" href="#collapse4">Procuring entity</a>
-                            </h4>
-                        </div>
-                        <div id="collapse4" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form>
-                                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                                    <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
-                                    <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
-                                    <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
-                                    <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
-                                    <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                                    <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                                    <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                                    <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                                    <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                                    <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                                    <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
-                                    <p><button type="submit" class="btn btn-default">Crear</button></p>
-                                </form>
-                            </div>
-                            <div class="panel-footer">
-                                <p><button class="btn btn-primary">Identifiers</button></p>
-                            </div>
-                        </div>
-                    </div>-->
-
-
                 </div>
-
             </div>
             <div class="modal-footer">
                 <!-- <button id="crear-org" class="btn btn-primary">Crear organización</button> -->
@@ -723,7 +688,7 @@ Organización Supplier depende de Adjudicación
             </div>
             <div class="modal-body">
                 <form id = "updatebuyer_form">
-                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                    <input type="text"  name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id :'' %>" hidden>
                     <p><label>Identifier scheme</label>
                     <input name = "identifier_scheme" class="form-control" type="text"
                            placeholder="identifier scheme"
@@ -788,6 +753,84 @@ Organización Supplier depende de Adjudicación
     </div>
 </div>
 
+
+<!-- modal para editar procuringEntity -->
+<div class="modal fade" id="myModalEditProcuringEntity" tabindex="-1" role="dialog" aria-labelledby="modalEditProcuring">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateprocuringentity_form">
+                    <input hidden type="text"  name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : '' %>">
+
+                    <p><label>Identifier scheme</label>
+                        <input name = "identifier_scheme" class="form-control" type="text"
+                               placeholder="identifier scheme"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_scheme:''%>"
+                        ></p>
+                    <p><label>Identifier ID</label>
+                        <input name = "identifier_id" class="form-control" type="text"
+                               placeholder ="identifier id"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_id:''%>"></p>
+                    <p><label>Identifier legal name</label>
+                        <input name = "identifier_legalname" class="form-control" type="text"
+                               placeholder="identifier legalname"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_legalname:''%>"
+                        ></p>
+                    <p><label>Identifier URI</label>
+                        <input name = "identifier_uri" class="form-control" type="text"
+                               placeholder="identifier uri"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_uri:''%>"></p>
+                    <p><label>Name</label>
+                        <input name="name"       type="text" class="form-control" placeholder="name"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.name:''%>"></p>
+                    <p><label>Address street address</label>
+                        <input name="addres_streetaddress"    type="text" class="form-control" placeholder="address street address"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.addres_streetaddress:''%>"
+                        ></p>
+                    <p><label>Address locality</label>
+                        <input name="address_locality"   type="text" class="form-control" placeholder="address locality"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.address_locality:''%>"></p>
+                    <p><label>Address region</label>
+                        <input name="address_region"     type="text" class="form-control" placeholder="address region"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.address_region:''%>"></p>
+                    <p><label>Address postal code</label>
+                        <input name="address_postalcode"      type="text" class="form-control" placeholder="address postal code"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.address_postalcode:''%>"></p>
+                    <p><label>Address country name</label>
+                        <input name="address_countryname" type="text" class="form-control" placeholder="address country name"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.address_countryname:''%>"></p>
+                    <p><label>Contact point name</label>
+                        <input name="contactpoint_name"   type="text" class="form-control" placeholder="contact point name"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_name:''%>"></p>
+                    <p><label>Contact point email</label>
+                        <input name="contactpoint_email"   type="text" class="form-control" placeholder="contact point email"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_email:''%>"></p>
+                    <p><label>Contact point telephone</label>
+                        <input name="contactpoint_telephone"  type="text" class="form-control" placeholder="contact point telephone"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_telephone:''%>"></p>
+                    <p><label>Contact point fax number</label>
+                        <input name="contactpoint_faxnumber"    type="text" class="form-control" placeholder="contact point fax number"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_faxnumber:''%>"></p>
+                    <p><label>Contact point url</label>
+                        <input name="contactpoint_url"    type="text" class="form-control" placeholder="contact point url"
+                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_url:''%>"></p>
+                    <p><button type="submit" class="btn btn-default">Guardar</button></p>
+                </form>
+
+                <p><button class="btn btn-default">Additional identifiers</button></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- modal para editar organizaciones -->
 <div class="modal fade" id="myModalEditOrg" tabindex="-1" role="dialog" aria-labelledby="modalEditOrg">
     <div class="modal-dialog" role="document">
@@ -799,7 +842,6 @@ Organización Supplier depende de Adjudicación
             <div class="modal-body">
 
                 <label>Buscar por tipo de organización</label>
-
                 <hr>
 
                 <!-- Editar una organización -->
@@ -807,10 +849,7 @@ Organización Supplier depende de Adjudicación
                     <p><btn class="btn btn-default">Actualizar</btn></p>
                 </form>
 
-
                     <p><button class="btn btn-default">Additional identifiers</button></p>
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

@@ -396,6 +396,39 @@ router.post('/update-buyer', function (req, res) {
 
 });
 
+/* Update procuringentity*/
+router.post('/update-procuringentity', function (req, res) {
+
+    edca_db.one("update procuringentity set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, address_streetaddress=$6," +
+        " address_locality=$7, address_region =$8, address_postalcode=$9, address_countryname=$10, contactpoint_name=$11, contactpoint_email=$12, contactpoint_telephone=$13," +
+        " contactpoint_faxnumber=$14, contactpoint_url=$15 where ContractingProcess_id = $1 returning id",
+        [
+            req.body.ocid,
+            req.body.identifier_scheme,
+            req.body.identifier_id,
+            req.body.identifier_legalname,
+            req.body.identifier_uri,
+            req.body.address_streetaddress,
+            req.body.address_locality,
+            req.body.address_region,
+            req.body.address_postalcode,
+            req.body.address_countryname,
+            req.body.contactpoint_name,
+            req.body.contactpoint_email,
+            req.body.contactpoint_telephone,
+            req.body.contactpoint_faxnumber,
+            req.body.contactpoint_url
+        ]
+    ).then(function (data) {
+        res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
+        console.log("Update procuring entity ...");
+    }).catch(function (error) {
+        res.send("Error");
+        console.log("ERROR: ",error);
+    });
+
+});
+
 router.get('/organization-type', function (req, res) {
 edca_db.many("select id, name from OrganizationType").then(function (data) {
     res.send(data);

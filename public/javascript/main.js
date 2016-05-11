@@ -93,6 +93,14 @@ $( "#updatebuyer_form" ).submit(function( event ) {
     event.preventDefault();
 });
 
+$( "#updateprocuringentity_form" ).submit(function( event ) {
+    $.post('/update-procuringentity/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
+
+
 $("#tender_form").submit(function(event){
     if ( $('#ocid').val() !="") {
         $.post('/update-tender/', $(this).serialize()).done(function(data){
