@@ -399,8 +399,9 @@ var ocid = req.params.ocid;
          var award = this.one("select * from award where contractingprocess_id = $1", [ocid]);           //5
          var contract = this.one("select * from contract where contractingprocess_id = $1", [ocid]);     //6
          var implementation = this.oneOrNone('select * from implementation where contractingprocess_id = $1', [ocid]);
+         var procuringentity = this.one('select * from ProcuringEntity where contractingprocess_id=$1',[ocid]);
 
-        return this.batch([cp, planning, budget, tender, buyer, award, contract, implementation ]);
+        return this.batch([cp, planning, budget, tender, buyer, award, contract, implementation, procuringentity ]);
     }).then(function (data) {
 
          //queries secundarias
@@ -420,7 +421,10 @@ var ocid = req.params.ocid;
                      source: qp[2].budget_source,
                      id : qp[2].id,
                      description : qp[2].budget_description,
-                     amount: {amount: qp[2].budget_amount, currency: qp[2].budget_currency},
+                     amount: {
+                         amount: qp[2].budget_amount,
+                         currency: qp[2].budget_currency
+                     },
                      project: qp[2].budget_project,
                      projectID: qp[2].budget_projectid,
                      uri: qp[2].budget_uri
@@ -434,32 +438,86 @@ var ocid = req.params.ocid;
                  description: qp[3].description,
                  status: qp[3].status,
                  items: {/* ... */},
-                 minValue: {amount: qp[3].minvalue_amount, currency : qp[3].minvalue_currency},
-                 value: {amount: qp[3].value_amount, currency : qp[3].value_currency},
+                 minValue: {
+                     amount: qp[3].minvalue_amount,
+                     currency : qp[3].minvalue_currency
+                 },
+                 value: {
+                     amount: qp[3].value_amount,
+                     currency : qp[3].value_currency
+                 },
                  procurementMethod: qp[3].procurementmenthod,
                  procurementMethodRationale: qp[3].procurementMethod_rationale,
                  awardCriteria : qp[3].awardcriteria,
                  awardCriteriaDetails : qp[3].awardcriteria_details,
                  submissionMethod: qp[3].submissionMethod,
                  submissionMethodDetails: qp[3].submissionMethod_details,
-                 tenderPeriod : {startDate: qp[3].tenderperiod_startdate, endDate: qp[3].tenderperiod_enddate},
-                 enquiryPeriod: {startDate: qp[3].enquiryperiod_startdate, endDate: qp[3].enquiryperiod_enddate },
+                 tenderPeriod : {
+                     startDate: qp[3].tenderperiod_startdate,
+                     endDate: qp[3].tenderperiod_enddate
+                 },
+                 enquiryPeriod: {
+                     startDate: qp[3].enquiryperiod_startdate,
+                     endDate: qp[3].enquiryperiod_enddate
+                 },
                  hasEnquiries:  (qp[3].hasenquiries==1)?true:false,
                  eligibilityCriteria: qp[3].eligibilitycriteria,
-                 awardPeriod: {startDate: qp[3].tenderperiod_startdate, endDate: qp[3].tenderperiod_enddate},
+                 awardPeriod: {
+                     startDate: qp[3].tenderperiod_startdate,
+                     endDate: qp[3].tenderperiod_enddate
+                 },
                  numberOfTenderers: qp[3].numberoftenderers,
                  tenderers: {/* ... */},
-                 procuringEntity: "...", //añadir campos a tender
+                 procuringEntity: {
+                     identifier: {
+                         scheme: qp[8].identifier_scheme,
+                         id:qp[8].identifier_id,
+                         legalName: qp[8].identifier_legalname,
+                         uri: qp[8].identifier_uri
+                     },
+                     additionalIdentifiers:{/* ... */},
+                     name: qp[8].name,
+                     address: {
+                         streetAddress: qp[8].address_streetaddress,
+                         locality: qp[8].address_locality,
+                         region: qp[8].address_region,
+                         postalCode: qp[8].address_postalcode,
+                         countryName: qp[8].address_countryname
+                     },
+                     contactPoint: {
+                         name:qp[8].contactpoint_name,
+                         email: qp[8].contactpoint_email,
+                         telephone:qp[8].contactpoint_telephone,
+                         faxNumber: qp[8].contactpoint_faxnumber,
+                         url: qp[8].contactpoint_url
+                     }
+                 },
                  documents: {/* ... */},
                  milestones: {/* ... */},
-                 amendment: {date: "...", changes: "...", rationale: "..."}
+                 amendment: {
+                     date: qp[3].amendment_date,
+                     changes: {/* ... */},
+                     rationale: qp[3].amendment_rationale
+                 }
              },
              buyer: {
                  identifier: {/* Añadir campos a buyer */},
                  additionalIdentifiers : {/* ... */},
                  name: qp[4].name,
-                 addres: {streetAddress: qp[4].address_streetaddress, locality: qp[4].address_locality , region: qp[4].address_region, postalCode: qp[4].address_postalcode, countryName: qp[4].address_contryname},
-                 contactPoint: {name: qp[4].contactpoint_name, email: qp[4].contactpoint_email, telephone: qp[4].contactpoint_telephone, faxNumber: qp[4].contactpoint_faxnumber, url: qp[4].contactpoint_url}
+                 address: {
+                     streetAddress: qp[4].address_streetaddress,
+                     locality: qp[4].address_locality ,
+                     region: qp[4].address_region,
+                     postalCode: qp[4].address_postalcode,
+                     countryName: qp[4].address_contryname
+                 },
+                 contactPoint: {
+                     name: qp[4].contactpoint_name,
+                     email: qp[4].contactpoint_email,
+                     telephone: qp[4].contactpoint_telephone,
+                     faxNumber: qp[4].contactpoint_faxnumber,
+                     url: qp[4].contactpoint_url
+                 }
              },
              awards: qp[5],  //pueden ser varios
              contracts: { //pueden ser varios
@@ -468,12 +526,15 @@ var ocid = req.params.ocid;
                  title: qp[6].title,
                  description: qp[6].description,
                  status : qp[6].status,
-                 period: { startDate: qp[6].period_startdate, endDate: qp[6].period_enddate},
+                 period: {
+                     startDate: qp[6].period_startdate,
+                     endDate: qp[6].period_enddate
+                 },
                  value: qp[6].value,
-                 items: "...",
+                 items: {/* ... */},
                  dateSigned: qp[6].datesigned,
                  documents: {/* ... */},
-                 amendment: "...",
+                 amendment: {/* ... */}, //integrar tabla contractamendment a contracts
                  implementation: qp[7]
              },
              lang: 'es'
