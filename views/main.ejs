@@ -67,6 +67,8 @@
                             <li id="release"><a href="#">Release</a></li>
                             <li><a href="#">Release package</a></li>
                             <li><a href="#">Record package</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Publisher</a></li>
                         </ul>
                     </div>
                     <p>
@@ -438,8 +440,7 @@
                 <p>
                     <button class="btn btn-primary ">Items</button>
                     <button class="btn btn-primary ">Documents</button>
-                    <!-- <button class="btn btn-primary ">Suppliers</button> -->
-                    <button class="btn btn-primary ">Amendment </button> <!-- Le sigue amendment changes-->
+                    <button class="btn btn-default">Amendment changes</button>
                 </p>
                 <form id="award_form" role="form">
 
@@ -476,13 +477,12 @@
                         <label>Value amount</label>
                         <input type="number" class="form-control" name="value_amount" placeholder="value amount"
                                value = "<%= (typeof award != "undefined")? award.value_amount:''%>"
-                        required></p>
+                               required></p>
                     <p>
                         <label>Value currency</label>
                         <input type="text" class="form-control" name="value_currency" placeholder="value currency"
                                value = "<%= (typeof award != "undefined")? award.value_currency:''%>"
                         ></p>
-
                     <p>
                     <div class="row">
                         <div class="col-sm-6">
@@ -503,7 +503,26 @@
                         </div>
                     </div>
                     </p>
-                    <button type="submit" class="btn">Guardar</button>
+
+                    <p>
+                        <div style="position: relative">
+                        <label>Amendment date</label>
+                        <input type="text" class="form-control" id="adju_date4" name="amendment_date" placeholder="amendment date"
+                                <%if(typeof award != "undefined"){%>
+                               value = "<%= (award.amendment_date != null)? award.amendment_date.toLocaleString():''%>"
+                                <%}%>
+                               required>
+                    </div>
+                    </p>
+
+                    <p>
+
+                        <label>Amendment rationale</label>
+                        <input type="text" class="form-control" name="amendment_rationale" placeholder="Amendment rationale"
+                               value = "<%= (typeof award != "undefined")? award.amendment_rationale:''%>"
+                        ></p>
+
+                    <button type="submit" class="btn btn-default">Guardar</button>
                 </form>
             </div>
         </div>
@@ -515,7 +534,7 @@
                 <p>
                     <button class="btn btn-primary">Documents</button>
                     <button class="btn btn-primary">Items</button>
-                    <button class="btn btn-primary">Amendment</button> <!-- le sigue amendment changes -->
+                    <button class="btn btn-default">Amendment changes</button>
                 </p>
 
                 <form id="contract_form" role="form">
@@ -580,6 +599,25 @@
                                 <%}%>
                                required></div>
                     </p>
+
+
+                    <p>
+                    <div style="position: relative">
+                        <label>Amendment date</label>
+                        <input type="text" class="form-control" id="cont_date4" name="amendment_date" placeholder="amendment date"
+                                <%if(typeof contract != "undefined"){%>
+                               value = "<%= (contract.amendment_date != null)? contract.amendment_date.toLocaleString():''%>"
+                                <%}%>
+                               required>
+                    </div>
+                    </p>
+
+                    <p>
+
+                        <label>Amendment rationale</label>
+                        <input type="text" class="form-control" name="amendment_rationale" placeholder="Amendment rationale"
+                               value = "<%= (typeof contract != "undefined")? contract.amendment_rationale:''%>"
+                        ></p>
 
                     <button type="submit" class="btn">Guardar</button>
 
@@ -776,13 +814,13 @@ Organización Supplier depende de Adjudicación
                     <p><label>Name</label>
                         <input type="text" class="form-control" placeholder="name"></p>
                     <p><label>Identifier scheme</label>
-                        <input name="identifier_scheme"       type="text" class="form-control" placeholder="name"></p>
+                        <input name="identifier_scheme"       type="text" class="form-control" placeholder="identifier scheme"></p>
                     <p><label>Identifier id</label>
-                        <input name="identifier_id"       type="text" class="form-control" placeholder="name"></p>
+                        <input name="identifier_id"       type="text" class="form-control" placeholder="identifier id"></p>
                     <p><label>Identifier legal name</label>
-                        <input name="identifier_legalname"       type="text" class="form-control" placeholder="name"></p>
+                        <input name="identifier_legalname"       type="text" class="form-control" placeholder="identifier legalname"></p>
                     <p><label>Identifier uri</label>
-                        <input name="identifier_uri"       type="text" class="form-control" placeholder="name"></p>
+                        <input name="identifier_uri"       type="text" class="form-control" placeholder="identifier legalname"></p>
                     <p><label>Name</label>
                         <input name="name" type="text" class="form-control" placeholder="name"></p>
                     <p><label>Address street address</label>

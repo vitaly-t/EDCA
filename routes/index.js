@@ -241,11 +241,8 @@ var edca_db  = pgp("postgres://tester:test@localhost/edca");
 router.get('/new-process', function (req, res) {
 
     edca_db.tx(function (t) {
-        
-        //falta insertar: publisher y procuring entity
-        var pid = 1;
 
-            return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, publisher_id) values (current_date, current_time, $1) returning id", pid)
+            return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id")
                 .then(function (process) {
 
                     var planning = t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id);
@@ -267,6 +264,7 @@ router.get('/new-process', function (req, res) {
                             t.one("insert into ProcuringEntity (contractingprocess_id, tender_id) values ($1, $2) returning id as procuringentity_id",[info[0].id, info[2].id]),
                             t.one("insert into Award (ContractingProcess_id) values ($1) returning id as award_id", [info[0].id]),
                             t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id as implementation_id", [info[0].id, info[3].id]),
+                            t.one("insert into Publisher (ContractingProcess_id) values ($1) returning id as publisher_id", info[0].id)
                         ])
 
                 });
@@ -368,7 +366,9 @@ router.post('/update-contract', function (req, res) {
 router.post('/new-organization', function (req, res) {
 
     var table= (req.body.org_type=="S")?"Supplier":"Tenderer";
-    
+
+    //falta pasar id de award y tender segun sea el caso
+
     edca_db.one("insert into " + table +
         " (contractingprocess_id, identifier_scheme, identifier_id, identifier_legalname, identifier_uri, name, address_streetaddress," +
         " address_locality, address_region, address_postalcode, address_countryname, contactpoint_name, contactpoint_email, contactpoint_telephone," +
@@ -505,8 +505,8 @@ var ocid = req.params.ocid;
          var buyer =this.oneOrNone("select * from buyer where contractingprocess_id = $1", [ocid]);    //4
          var award = this.one("select * from award where contractingprocess_id = $1", [ocid]);           //5
          var contract = this.one("select * from contract where contractingprocess_id = $1", [ocid]);     //6
-         var implementation = this.oneOrNone('select * from implementation where contractingprocess_id = $1', [ocid]);
-         var procuringentity = this.one('select * from ProcuringEntity where contractingprocess_id=$1',[ocid]);
+         var implementation = this.oneOrNone('select * from implementation where contractingprocess_id = $1', [ocid]); //7
+         var procuringentity = this.one('select * from ProcuringEntity where contractingprocess_id=$1',[ocid]); //8
 
         return this.batch([cp, planning, budget, tender, buyer, award, contract, implementation, procuringentity ]);
     }).then(function (data) {
@@ -537,14 +537,14 @@ var ocid = req.params.ocid;
                      uri: qp[2].budget_uri
                  },
                  rationale: qp[1].rationale,
-                 documents: {/* ... */}
+                 documents: [{/* ... */}]
              },
              tender: {
                  id: qp[3].id,
                  title: qp[3].title,
                  description: qp[3].description,
                  status: qp[3].status,
-                 items: {/* ... */},
+                 items: [{/* ... */}],
                  minValue: {
                      amount: qp[3].minvalue_amount,
                      currency : qp[3].minvalue_currency
@@ -574,7 +574,7 @@ var ocid = req.params.ocid;
                      endDate: qp[3].tenderperiod_enddate
                  },
                  numberOfTenderers: qp[3].numberoftenderers,
-                 tenderers: {/* ... */},
+                 tenderers: [{/* ... */}],
                  procuringEntity: {
                      identifier: {
                          scheme: qp[8].identifier_scheme,
@@ -582,7 +582,7 @@ var ocid = req.params.ocid;
                          legalName: qp[8].identifier_legalname,
                          uri: qp[8].identifier_uri
                      },
-                     additionalIdentifiers:{/* ... */},
+                     additionalIdentifiers:[{/* ... */}],
                      name: qp[8].name,
                      address: {
                          streetAddress: qp[8].address_streetaddress,
@@ -599,11 +599,11 @@ var ocid = req.params.ocid;
                          url: qp[8].contactpoint_url
                      }
                  },
-                 documents: {/* ... */},
-                 milestones: {/* ... */},
+                 documents: [{/* ... */}],
+                 milestones: [{/* ... */}],
                  amendment: {
                      date: qp[3].amendment_date,
-                     changes: {/* ... */},
+                     changes: [{/* ... */}],
                      rationale: qp[3].amendment_rationale
                  }
              },
@@ -611,10 +611,10 @@ var ocid = req.params.ocid;
                  identifier: {
                      scheme: qp[4].identifier_scheme,
                      id: qp[4].identifier_id,
-                     legalName: identifier_legalname,
-                     uri: identifier_uri
+                     legalName: qp[4].identifier_legalname,
+                     uri: qp[4].identifier_uri
                  },
-                 additionalIdentifiers : {/* ... */},
+                 additionalIdentifiers : [{/* ... */}],
                  name: qp[4].name,
                  address: {
                      streetAddress: qp[4].address_streetaddress,
@@ -633,8 +633,11 @@ var ocid = req.params.ocid;
              },
 
 
-             awards: qp[5],  /* pueden ser varios */
-             contracts: { //pueden ser varios
+             awards: [
+                 qp[5]
+             ],  /* pueden ser varios */
+             contracts: [
+                 { //pueden ser varios
                  id: qp[6].id,
                  awardID: qp[6].award_id,
                  title: qp[6].title,
@@ -645,12 +648,13 @@ var ocid = req.params.ocid;
                      endDate: qp[6].period_enddate
                  },
                  value: qp[6].value,
-                 items: {/* ... */},
+                 items: [{/* ... */}],
                  dateSigned: qp[6].datesigned,
-                 documents: {/* ... */},
+                 documents: [{/* ... */}],
                  amendment: {/* ... */}, //integrar tabla contractamendment a contracts
                  implementation: {/* ... */}//qp[7]
-             },
+             }
+             ],
              lang: 'es'
          };
 

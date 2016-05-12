@@ -3,17 +3,19 @@
 drop table if exists ContractingProcess cascade;
 create table ContractingProcess (
 	id serial primary key,
-        Publisher_id int references Publisher(id),
+    /* Publisher_id int references Publisher(id), */
 	fecha_creacion date,
 	hora_creacion time
 	);
 
 drop table if exists Publisher cascade;
 create table Publisher (
-	id serial primary key, 
-        scheme varchar(30),
-        name   text,
-        uri    text
+	id serial primary key,
+	contractingprocess_id int references ContractingProcess(id) on delete cascade,
+	name   text,
+    scheme text,
+    uid   text,
+    uri    text
 	);
 
 
@@ -304,8 +306,23 @@ create table Award(
 	value_amount decimal,
 	value_currency text,
 	contractperiod_startdate timestamp,
-	contractperiod_enddate timestamp
-); /*remover -> amendment*/
+	contractperiod_enddate timestamp,
+	amendment_date timestamp,
+    amendment_rationale text
+);
+
+
+drop table if exists AwardAmendmentChanges cascade;
+create table AwardAmendmentChanges(
+	id serial primary key,
+	contractingprocess_id int references ContractingProcess(id) on delete cascade,
+	awardamendment_id int references AwardAmendment(id) on delete cascade,
+	property text,
+	former_value text
+);
+
+
+
 
 drop table if exists AwardDocument cascade;
 create table AwardDocument(
@@ -358,25 +375,6 @@ create table SupplierAdditionalIdentifiers(
 	uri text
 );
 
-drop table if exists AwardAmendment cascade;
-create table AwardAmendment(
-	id serial primary key,
-	contractingprocess_id int references ContractingProcess(id) on delete cascade,
-	award_id int references Award(id) on delete cascade,
-	amendment_date timestamp,
-	rationale text
-);
-
-drop table if exists AwardAmendmentChanges cascade;
-create table AwardAmendmentChanges(
-	id serial primary key, 
-	contractingprocess_id int references ContractingProcess(id) on delete cascade,
-	award_id int references AwardAmendment(id) on delete cascade, 
-	awardamendment_id int references AwardAmendment(id) on delete cascade,
-	property text,
-	former_value text
-);
-
 drop table if exists AwardItem cascade;
 create table AwardItem(
 	id serial primary key, 
@@ -412,9 +410,22 @@ create table Contract(
 	period_enddate timestamp,
 	value_amount decimal, 
 	value_currency text,
-	datesigned timestamp
-	/* amendment ...*/
+	datesigned timestamp,
+	amendment_date timestamp,
+	rationale text
 );
+
+
+
+drop table if exists ContractAmendmentChanges cascade;
+create table ContractAmendmentChanges(
+	id serial primary key,
+	contractingprocess_id int references ContractingProcess(id) on delete cascade,
+	contract_id int references Contract(id) on delete cascade,
+	property text,
+	former_value text
+);
+
 
 drop table if exists ContractDocuments cascade;
 create table ContractDocuments(
@@ -456,24 +467,6 @@ create table ContractItemAdditionalClasifications(
 	uri text
 );
 
-drop table if exists ContractAmendment cascade;
-create table ContractAmendment(
-	id serial primary key,
-	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
-	contract_id int references Contract(id) on delete cascade,
-	amendment_date timestamp,
-	rationale text
-);
-
-drop table if exists ContractAmendmentChanges cascade;
-create table ContractAmendmentChanges(
-	id serial primary key,
-	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
-	contract_id int references Contract(id) on delete cascade,
-	contractamendment_id int references ContractAmendment(id) on delete cascade,
-	property text,
-	former_value text
-);
 
 /* IMPLEMENTATION (Implementación)*/
 drop table if exists Implementation cascade;
