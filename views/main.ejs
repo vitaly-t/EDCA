@@ -755,7 +755,6 @@
 
 <!--
 Modal de nueva organización
-
 Restricciones:
 Organización Buyer es independiente
 Organización Procuring Entity depende de Licitación (solo es una por licitación)
@@ -770,29 +769,47 @@ Organización Supplier depende de Adjudicación
                 <h4 class="modal-title">Nueva organización</h4>
             </div>
             <div class="modal-body">
+                <form id="neworg_form">
+                    <input type="text" id="org-type" hidden>
+                    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                    <p><label>Name</label>
+                        <input type="text" class="form-control" placeholder="name"></p>
+                    <p><label>Identifier scheme</label>
+                        <input name="identifier_scheme"       type="text" class="form-control" placeholder="name"></p>
+                    <p><label>Identifier id</label>
+                        <input name="identifier_id"       type="text" class="form-control" placeholder="name"></p>
+                    <p><label>Identifier legal name</label>
+                        <input name="identifier_legalname"       type="text" class="form-control" placeholder="name"></p>
+                    <p><label>Identifier uri</label>
+                        <input name="identifier_uri"       type="text" class="form-control" placeholder="name"></p>
+                    <p><label>Name</label>
+                        <input name="name" type="text" class="form-control" placeholder="name"></p>
+                    <p><label>Address street address</label>
+                        <input name="address_streetaddress"    type="text" class="form-control" placeholder="address street address"></p>
+                    <p><label>Address locality</label>
+                        <input name="address_locality"   type="text" class="form-control" placeholder="address locality"></p>
+                    <p><label>Address region</label>
+                        <input name="address_region"     type="text" class="form-control" placeholder="address region"></p>
+                    <p><label>Address postal code</label>
+                        <input name="address_postalcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                    <p><label>Address country name</label>
+                        <input name="address_countryname" type="text" class="form-control" placeholder="address country name"></p>
+                    <p><label>Contact point name</label>
+                        <input name="contactpoint_name"   type="text" class="form-control" placeholder="contact point name"></p>
+                    <p><label>Contact point email</label>
+                        <input name="contactpoint_email"   type="text" class="form-control" placeholder="contact point email"></p>
+                    <p><label>Contact point telephone</label>
+                        <input name="contactpoint_telephone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                    <p><label>Contact point fax number</label>
+                        <input name="contactpoint_faxnumber"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                    <p><label>Contact point URL</label>
+                        <input name="contactpoint_url"    type="text" class="form-control" placeholder="contact point url"></p>
 
-                <form>
-                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
-                    <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
-                    <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
-                    <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
-                    <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                    <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                    <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                    <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                    <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                    <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                    <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
-                    <p><button type="submit" class="btn btn-default">Crear</button></p>
-
+                        <button type="submit" class="btn btn-default">Crear</button></p>
                 </form>
-
-                <p><button class="btn btn-default">Additional identifiers</button></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
     </div>
@@ -808,22 +825,16 @@ Organización Supplier depende de Adjudicación
             </div>
             <div class="modal-body">
 
-                <label>Buscar organización</label>
                 <!-- Editar una organización -->
-                <form>
-                    <p><btn class="btn btn-default">Buscar</btn></p>
-                </form>
-
+                <input type="text" id="org-type" hidden>
                     <p><button class="btn btn-default">Additional identifiers</button></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
     </div>
 </div>
-
 <%}%>
 
 <!-- modal para buscar procesos de contratación -->
