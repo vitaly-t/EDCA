@@ -176,7 +176,6 @@ router.get('/main', isAuthenticated, function(req, res, next) {
   res.render('main', { user: req.user, title: 'Contrataciones abiertas' });
 });
 
-
 /* GET main page with data */
 router.get('/main/:ocid', isAuthenticated, function (req,res) {
     var ocid = req.params.ocid;
@@ -571,7 +570,12 @@ var ocid = req.params.ocid;
                  }
              },
              buyer: {
-                 identifier: {/* Añadir campos a buyer */},
+                 identifier: {
+                     scheme: qp[4].identifier_scheme,
+                     id: qp[4].identifier_id,
+                     legalName: identifier_legalname,
+                     uri: identifier_uri
+                 },
                  additionalIdentifiers : {/* ... */},
                  name: qp[4].name,
                  address: {
@@ -589,7 +593,9 @@ var ocid = req.params.ocid;
                      url: qp[4].contactpoint_url
                  }
              },
-             awards: qp[5],  //pueden ser varios
+
+
+             awards: qp[5],  /* pueden ser varios */
              contracts: { //pueden ser varios
                  id: qp[6].id,
                  awardID: qp[6].award_id,
@@ -605,7 +611,7 @@ var ocid = req.params.ocid;
                  dateSigned: qp[6].datesigned,
                  documents: {/* ... */},
                  amendment: {/* ... */}, //integrar tabla contractamendment a contracts
-                 implementation: qp[7]
+                 implementation: {/* ... */}//qp[7]
              },
              lang: 'es'
          };

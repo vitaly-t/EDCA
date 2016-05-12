@@ -72,7 +72,7 @@
                     </div>
                     <p>
                     <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon-proc">ID proceso</span>
+                        <span class="input-group-addon" id="basic-addon-proc">ID</span>
                         <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
                                value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-proc">
                     </div>
@@ -89,13 +89,31 @@
                     <h4>Organizaciones</h4>
                 </div>
                 <div class="panel-body">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditBuyer"><i class="fa fa-user"></i> Buyer</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditProcuringEntity"><i class="fa fa-user"></i> Procuring entity</button>
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalorg">
-                        Nueva <i class="fa fa-users"></i></button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditOrg">
-                        Editar <i class="fa fa-pencil"></i></button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditBuyer">Buyer <i class="fa fa-user"></i></button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditProcuringEntity">Procuring E. <i class="fa fa-user"></i></button>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Suppliers <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" data-org="S" data-target="#myModalNewOrg">Nuevo <i class="fa fa-user"></i> </a></li>
+                            <li><a href="#" data-toggle="modal" data-org="S" data-target="#myModalEditOrg">Editar <i class="fa fa-pencil"></i> </a></li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tenderers <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" data-org="T" data-target="#myModalNewOrg">Nuevo <i class="fa fa-user"></i></a></li>
+                            <li><a href="#" data-toggle="modal" data-org="T" data-target="#myModalEditOrg">Editar <i class="fa fa-pencil"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <!---
                     <p>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon-dep">ID dependencia</span>
@@ -103,7 +121,7 @@
                                value="<%= (typeof cp != "undefined" )? cp.publisher_id : ""%>" aria-describedby="basic-addon-dep">
                     </div>
                     </p>
-
+                    -->
                 </div>
 
             </div>
@@ -581,104 +599,7 @@
     </div>
 </div>
 
-
-<!--
-Modal de organización
-
-Restricciones:
-Organización Buyer es independiente
-Organización Procuring Entity depende de Licitación (solo es una por licitación)
-Organización Tenderer depende de Licitación
-Organización Supplier depende de Adjudicación
-  -->
-<div class="modal fade" id="myModalorg" tabindex="-1" role="dialog" aria-labelledby="orgModalLabel5">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="orgModalLabel">Nueva organización</h4>
-            </div>
-
-
-            <div class="modal-body">
-                <!-- Different organizations -->
-                <div class="panel-group">
-
-                    <div id="panel-tenderer" class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title" align="center">
-                                <a data-toggle="collapse" href="#collapse2">Tenderer</a>
-                            </h4>
-                        </div>
-
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form>
-                                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                                    <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
-                                    <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
-                                    <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
-                                    <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
-                                    <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                                    <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                                    <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                                    <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                                    <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                                    <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                                    <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
-                                    <p><button type="submit" class="btn btn-default">Crear</button></p>
-                                </form>
-                            </div>
-                            <div class="panel-footer">
-                                <p><button class="btn btn-primary">Identifiers</button></p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div id="panel-supplier" class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title" align="center">
-                                <a id="panel-supplier" data-toggle="collapse" href="#collapse3">Supplier</a>
-                            </h4>
-                        </div>
-                        <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <form>
-                                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                                    <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
-                                    <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
-                                    <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
-                                    <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
-                                    <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
-                                    <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
-                                    <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
-                                    <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
-                                    <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
-                                    <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
-                                    <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
-                                    <p><button type="submit" class="btn btn-default">Crear</button></p>
-                                </form>
-                            </div>
-                            <div class="panel-footer">
-                                <p><button class="btn btn-primary">Identifiers</button></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <!-- <button id="crear-org" class="btn btn-primary">Crear organización</button> -->
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- modal para editar buyer -->
+            <!-- modal para editar buyer -->
 <div class="modal fade" id="myModalEditBuyer" tabindex="-1" role="dialog" aria-labelledby="modalEditBuyer">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -831,6 +752,52 @@ Organización Supplier depende de Adjudicación
     </div>
 </div>
 
+
+<!--
+Modal de nueva organización
+
+Restricciones:
+Organización Buyer es independiente
+Organización Procuring Entity depende de Licitación (solo es una por licitación)
+Organización Tenderer depende de Licitación
+Organización Supplier depende de Adjudicación
+  -->
+<div class="modal fade" id="myModalNewOrg" tabindex="-1" role="dialog" aria-labelledby="orgModalLabel5">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Nueva organización</h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <input class="text" class="form-control" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                    <p><input id="org-name"       type="text" class="form-control" placeholder="name"></p>
+                    <p><input id="org-address"    type="text" class="form-control" placeholder="address street address"></p>
+                    <p><input id="org-locality"   type="text" class="form-control" placeholder="address locality"></p>
+                    <p><input id="org-region"     type="text" class="form-control" placeholder="address region"></p>
+                    <p><input id="org-pcode"      type="text" class="form-control" placeholder="address postal code"></p>
+                    <p><input id="org-count-name" type="text" class="form-control" placeholder="address country name"></p>
+                    <p><input id="contact-name"   type="text" class="form-control" placeholder="contact point name"></p>
+                    <p><input id="contact-mail"   type="text" class="form-control" placeholder="contact point email"></p>
+                    <p><input id="contact-phone"  type="text" class="form-control" placeholder="contact point telephone"></p>
+                    <p><input id="contact-fax"    type="text" class="form-control" placeholder="contact point fax number"></p>
+                    <p><input id="contact-url"    type="text" class="form-control" placeholder="contact point url"></p>
+                    <p><button type="submit" class="btn btn-default">Crear</button></p>
+
+                </form>
+
+                <p><button class="btn btn-default">Additional identifiers</button></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- modal para editar organizaciones -->
 <div class="modal fade" id="myModalEditOrg" tabindex="-1" role="dialog" aria-labelledby="modalEditOrg">
     <div class="modal-dialog" role="document">
@@ -841,12 +808,10 @@ Organización Supplier depende de Adjudicación
             </div>
             <div class="modal-body">
 
-                <label>Buscar por tipo de organización</label>
-                <hr>
-
+                <label>Buscar organización</label>
                 <!-- Editar una organización -->
                 <form>
-                    <p><btn class="btn btn-default">Actualizar</btn></p>
+                    <p><btn class="btn btn-default">Buscar</btn></p>
                 </form>
 
                     <p><button class="btn btn-default">Additional identifiers</button></p>
