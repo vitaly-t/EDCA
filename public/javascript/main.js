@@ -25,27 +25,20 @@ $(function () {
 
 // Crear proceso de contratación.
 $('#crear').click(function(){
-  if (confirm("¿Está seguro de crear un nuevo proceso de contratación"+
-              ($('#ocid').val()==""?
-               "?":"?, perdera los cambios hechos al proceso actual")) == true ){
-      $.get("/new-process/1");
-      /*if(("#org-id").val() != ""){
-                   $.get("/nuevo_proceso/1");
-                 }else{
-                   alert("Debe registrar la dependencia que publica");
-                 }*/
-               }
+    if (confirm("¿Está seguro de crear un nuevo proceso de contratación"+
+            ($('#ocid').val()==""?
+                "?":"?, perdera los cambios hechos al proceso actual")) == true ){
+        $.get("/new-process/1");
+    }
 });
 
 // Crear organización
-/*
-$('#crear-org').click(function(){
-  if (confirm("¿Está seguro de crear una nueva organización") == true ){
-                   $.get("/new-org/" + process.pulisher, function(data){
-                     $("#org-id").val(data.id);
-                   });
-               }
-});*/
+$('#neworg_form').submit(function (event) {
+    $.post('/new-organization/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
 
 /*
 $(function () {
@@ -87,9 +80,9 @@ $( "#planning_form" ).submit(function( event ) {
 });
 
 $( "#updatebuyer_form" ).submit(function( event ) {
-        $.post('/update-buyer/', $(this).serialize()).done(function (data) {
-            alert(data);
-        });
+    $.post('/update-buyer/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
     event.preventDefault();
 });
 
@@ -142,7 +135,8 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     var modal = $(this)
     //modal.find('.modal-title').text('New message to ' + recipient)
-    modal.find('#org-type').val(recipient);
+    $('#org_type').val(recipient);
+    //modal.find('#org_type').val(recipient);
     //modal.find('.modal-body input').val(recipient)
 });
 
@@ -153,7 +147,7 @@ $('#myModalEditOrg').on('show.bs.modal', function (event) {
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     var modal = $(this);
     //modal.find('.modal-title').text('New message to ' + recipient)
-    modal.find('#org-type').val(recipient);
+    modal.find('#org_type').val(recipient);
     //modal.find('.modal-body input').val(recipient)
 });
 /* */

@@ -13,7 +13,6 @@
     <link rel='stylesheet' href='/stylesheets/buttons.css'/>
 </head>
 <body>
-
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -403,7 +402,6 @@
                         </div>
                     </div>
                     </p>
-
                     <p>
                         <label>Number of tenderers</label>
                         <input type="number" class="form-control" name="numberoftenderers" placeholder="number of tenderers"
@@ -411,10 +409,15 @@
                         required></p>
 
                     <h3>2.1 AMENDMENT</h3>
-                    <p><label>Date</label>
-                    <input type="text" id="lici_date7" name="amendment_date" class="form-control"
-                           value="<%=(typeof tender!= "undefined")?tender.amendment_date:''%>"
-                    required></p>
+                    <p><div style="position:relative;">
+                        <label>Date</label>
+                         <input type="text" class="form-control" id="lici_date7" name="amendment_date" placeholder="amendment date"
+                                <%if(typeof tender != "undefined"){%>
+                               value = "<%= (tender.amendment_date != null)? tender.amendment_date.toLocaleString():''%>"
+                                <%}%>
+                               required>
+                    </div>
+                    </p>
                     <p><label>Rationale</label>
                     <input type="text" name="amendment_rationale" class="form-control" placeholder="rationale"
                            value="<%=(typeof tender!= "undefined")?tender.amendment_rationale:''%>"
@@ -500,8 +503,6 @@
                         </div>
                     </div>
                     </p>
-
-
                     <button type="submit" class="btn">Guardar</button>
                 </form>
             </div>
@@ -770,7 +771,7 @@ Organización Supplier depende de Adjudicación
             </div>
             <div class="modal-body">
                 <form id="neworg_form">
-                    <input type="text" id="org-type" hidden>
+                    <input type="text" id="org_type" name="org_type" hidden>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                     <p><label>Name</label>
                         <input type="text" class="form-control" placeholder="name"></p>

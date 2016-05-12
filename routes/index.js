@@ -362,18 +362,57 @@ router.post('/update-contract', function (req, res) {
     res.send('La etapa de contrato ha sido actualizada');
 });
 
+
+
+/* Update buyer*/
+router.post('/new-organization', function (req, res) {
+
+    var table= (req.body.org_type=="S")?"Supplier":"Tenderer";
+    
+    edca_db.one("insert into " + table +
+        " (contractingprocess_id, identifier_scheme, identifier_id, identifier_legalname, identifier_uri, name, address_streetaddress," +
+        " address_locality, address_region, address_postalcode, address_countryname, contactpoint_name, contactpoint_email, contactpoint_telephone," +
+        " contactpoint_faxnumber, contactpoint_url) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) returning id",
+        [
+            req.body.ocid,
+            req.body.identifier_scheme,
+            req.body.identifier_id,
+            req.body.identifier_legalname,
+            req.body.identifier_uri,
+            req.body.name,
+            req.body.address_streetaddress,
+            req.body.address_locality,
+            req.body.address_region,
+            req.body.address_postalcode,
+            req.body.address_countryname,
+            req.body.contactpoint_name,
+            req.body.contactpoint_email,
+            req.body.contactpoint_telephone,
+            req.body.contactpoint_faxnumber,
+            req.body.contactpoint_url
+        ]
+    ).then(function (data) {
+        res.send('La organización ha sido registrada'); // envía la respuesta y presentala en un modal
+        console.log("Create organization ", table);
+    }).catch(function (error) {
+        res.send("Error");
+        console.log("ERROR: ",error);
+    });
+});
+
 /* Update buyer*/
 router.post('/update-buyer', function (req, res) {
 
-        edca_db.one("update buyer set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, address_streetaddress=$6," +
-            " address_locality=$7, address_region =$8, address_postalcode=$9, address_countryname=$10, contactpoint_name=$11, contactpoint_email=$12, contactpoint_telephone=$13," +
-            " contactpoint_faxnumber=$14, contactpoint_url=$15 where ContractingProcess_id = $1 returning id",
+        edca_db.one("update buyer set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, name = $6, address_streetaddress=$7," +
+            " address_locality=$8, address_region =$9, address_postalcode=$10, address_countryname=$11, contactpoint_name=$12, contactpoint_email=$13, contactpoint_telephone=$14," +
+            " contactpoint_faxnumber=$15, contactpoint_url=$16 where ContractingProcess_id = $1 returning id",
             [
                 req.body.ocid,
                 req.body.identifier_scheme,
                 req.body.identifier_id,
                 req.body.identifier_legalname,
                 req.body.identifier_uri,
+                req.body.name,
                 req.body.address_streetaddress,
                 req.body.address_locality,
                 req.body.address_region,
@@ -392,21 +431,21 @@ router.post('/update-buyer', function (req, res) {
             res.send("Error");
             console.log("ERROR: ",error);
         });
-
 });
 
 /* Update procuringentity*/
 router.post('/update-procuringentity', function (req, res) {
 
-    edca_db.one("update procuringentity set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, address_streetaddress=$6," +
-        " address_locality=$7, address_region =$8, address_postalcode=$9, address_countryname=$10, contactpoint_name=$11, contactpoint_email=$12, contactpoint_telephone=$13," +
-        " contactpoint_faxnumber=$14, contactpoint_url=$15 where ContractingProcess_id = $1 returning id",
+    edca_db.one("update procuringentity set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, name=$6,  address_streetaddress=$7," +
+        " address_locality=$8, address_region =$9, address_postalcode=$10, address_countryname=$11, contactpoint_name=$12, contactpoint_email=$13, contactpoint_telephone=$14," +
+        " contactpoint_faxnumber=$15, contactpoint_url=$16 where ContractingProcess_id = $1 returning id",
         [
             req.body.ocid,
             req.body.identifier_scheme,
             req.body.identifier_id,
             req.body.identifier_legalname,
             req.body.identifier_uri,
+            req.body.name,
             req.body.address_streetaddress,
             req.body.address_locality,
             req.body.address_region,
@@ -425,7 +464,6 @@ router.post('/update-procuringentity', function (req, res) {
         res.send("Error");
         console.log("ERROR: ",error);
     });
-
 });
 
 router.get('/organization-type', function (req, res) {
@@ -621,9 +659,7 @@ var ocid = req.params.ocid;
          }).catch(function (error) {
          console.log(error);
      })
-
-
-
+    
 });
 
   module.exports = router;
