@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -96,33 +96,24 @@
 
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Suppliers <span class="caret"></span>
+                            Tenderers <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" data-toggle="modal" data-org="S" data-target="#myModalNewOrg">Nuevo <i class="fa fa-user"></i> </a></li>
-                            <li><a href="#" data-toggle="modal" data-org="S" data-target="#myModalEditOrg">Editar <i class="fa fa-pencil"></i> </a></li>
+                            <li><a href="#" data-toggle="modal" data-org="T" data-target="#myModalNewOrg">Nuevo</a></li>
+                            <li><a href="#" data-toggle="modal" data-org="T" data-target="#myModalEditOrg">Editar</a></li>
                         </ul>
                     </div>
 
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Tenderers <span class="caret"></span>
+                            Suppliers <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" data-toggle="modal" data-org="T" data-target="#myModalNewOrg">Nuevo <i class="fa fa-user"></i></a></li>
-                            <li><a href="#" data-toggle="modal" data-org="T" data-target="#myModalEditOrg">Editar <i class="fa fa-pencil"></i></a></li>
+                            <li><a href="#" data-toggle="modal" data-org="S" data-target="#myModalNewOrg">Nuevo</a></li>
+                            <li><a href="#" data-toggle="modal" data-org="S" data-target="#myModalEditOrg">Editar</a></li>
                         </ul>
                     </div>
 
-                    <!---
-                    <p>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon-dep">ID dependencia</span>
-                        <input id="ocid" type="text" class="form-control" disabled
-                               value="<%= (typeof cp != "undefined" )? cp.publisher_id : ""%>" aria-describedby="basic-addon-dep">
-                    </div>
-                    </p>
-                    -->
                 </div>
 
             </div>
@@ -164,7 +155,6 @@
         <li role="presentation"><a data-toggle="pill" href="#menu2">3. ADJUDICACIÓN</a></li>
         <li role="presentation"><a data-toggle="pill" href="#menu3">4. CONTRATACIÓN</a></li>
         <li role="presentation"><a data-toggle="pill" href="#menu4">5. IMPLEMENTACIÓN</a></li>
-        <!-- <li role="presentation"><a data-toggle="pill" href="#menu5">   ORGANIZACIÓN</a></li> -->
     </ul>
     </p>
 
@@ -174,50 +164,49 @@
 
             <div class="well well-lg">
                 <h3>1. PLANEACIÓN</h3>
-                <p><button class="btn btn-primary">Planning documents</button>
-                <button class="btn btn-primary">Budget documents</button></p>
+                <p><div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Planning documents <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Budget documents <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div></p>
+
+
                 <form id="planning_form" >
 
-                <p>
-                    <label>Rationale</label>
-                    <input type="text" class="form-control" name="rationale"
-                           value = "<%=(typeof planning!= "undefined")? planning.rationale : ''%>"
-                    > </p>
-
+                <p> <label>Rationale</label>
+                    <input type="text" class="form-control" name="rationale" value = "<%=(typeof planning!= "undefined")? planning.rationale : ''%>" > </p>
 
                 <h3>1.1 BUDGET</h3>
-                    <input type="text" name="contractingprocess_id" hidden
-                           value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>"
-                    >
+                    <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>" >
                     <!-- Falta el id de planning -->
                     <p><label>Budget source</label>
-                        <input class="form-control" name="budget_source"
-                               value = "<%= (typeof budget != "undefined")? budget.budget_source:''%>"
-                        ></p>
+                        <input class="form-control" name="budget_source" value = "<%= (typeof budget != "undefined")? budget.budget_source:''%>" ></p>
                     <p><label>Budget description</label>
-                        <input class="form-control" name="budget_description"
-                               value = "<%= (typeof budget != "undefined")? budget.budget_description:''%>"
-                        ></p>
+                        <input class="form-control" name="budget_description" value = "<%= (typeof budget != "undefined")? budget.budget_description:''%>" ></p>
                     <p><label>Budget amount</label>
-                        <input class="form-control" type="number" name="budget_amount"
-                               value = "<%= (typeof budget != "undefined")? budget.budget_amount:'' %>"
-                        required></p>
+                        <input class="form-control" type="number" name="budget_amount" value = "<%= (typeof budget != "undefined")? budget.budget_amount:'' %>" required></p>
                     <p><label>Budget currency</label>
-                        <input class="form-control" name="budget_currency"
-                               value = "<%= (typeof budget != "undefined")? budget.budget_currency:'' %>"
-                        ></p>
+                        <input class="form-control" name="budget_currency" value = "<%= (typeof budget != "undefined")? budget.budget_currency:'' %>" ></p>
                     <p><label>Budget project</label>
-                        <input class="form-control" name="budget_project"
-                               value = "<%= (typeof budget != "undefined")? budget.budget_project:'' %>"
-                        ></p>
+                        <input class="form-control" name="budget_project" value = "<%= (typeof budget != "undefined")? budget.budget_project:'' %>" ></p>
                     <p><label>Budget projectID</label>
-                        <input class="form-control" name="budget_projectid"
-                               value = "<%= (typeof budget != "undefined")? budget.budget_projectid:"" %>"
-                        ></p>
+                        <input class="form-control" name="budget_projectid" value = "<%= (typeof budget != "undefined")? budget.budget_projectid:"" %>" ></p>
                     <p><label>Budget URI</label>
-                        <input class="form-control" name="budget_uri"
-                               value = "<%= (typeof budget != "undefined")? budget.budget_uri:'' %>"
-                        ></p>
+                        <input class="form-control" name="budget_uri" value = "<%= (typeof budget != "undefined")? budget.budget_uri:'' %>" ></p>
                     <p><button  type="submit" class="btn">Guardar</button></p>
                 </form>
             </div>
@@ -227,67 +216,53 @@
             <div class="well well-lg">
 
                 <h3>2. LICITACIÓN</h3>
-                <p><button class="btn btn-primary">Milestones</button>
-                    <button class="btn btn-primary">Documents</button>
+
+                <p>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Documents <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+                <button class="btn btn-primary">Milestones</button>
                     <button class="btn btn-primary">Items</button>
-                    <button class="btn btn-default">Amendment changes</button></p>
+                    <button class="btn btn-default">Amendment changes</button>
+                </p>
 
                 <form id="tender_form" role="form" >
-
-                    <input type="text" name="contractingprocess_id" hidden
-                           value ="<%= (typeof tender != "undefined")? tender.contractingprocess_id:''%>"
-                    >
+                    <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof tender != "undefined")? tender.contractingprocess_id:''%>" >
                     <p><label>Title</label>
-                        <input type="text" class="form-control" name="title"
-                               value = "<%= (typeof tender != "undefined")? tender.title:''%>"
+                        <input type="text" class="form-control" name="title" value = "<%= (typeof tender != "undefined")? tender.title:''%>"
                         ></p>
                     <p><label>Description</label>
-                        <input type="text" class="form-control" name = "description"
-                               value = "<%= (typeof tender != "undefined")? tender.description:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name = "description" value = "<%= (typeof tender != "undefined")? tender.description:''%>" ></p>
                     <p><label>Status</label>
-                        <input type="text" class="form-control" name = "status"
-                               value = "<%= (typeof tender != "undefined")? tender.status:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name = "status" value = "<%= (typeof tender != "undefined")? tender.status:''%>" ></p>
                     <p><label>Min value amount</label>
-                        <input type="number" class="form-control" name = "minvalue_amount"
-                               value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>"
-                        required></p>
+                        <input type="number" class="form-control" name = "minvalue_amount" value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>" required></p>
                     <p><label>Min value currency</label>
-                        <input type="text" class="form-control" name="minvalue_currency"
-                               value = "<%= (typeof tender != "undefined")? tender.minvalue_currency:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name="minvalue_currency" value = "<%= (typeof tender != "undefined")? tender.minvalue_currency:''%>" ></p>
                     <p><label>Value amount</label>
-                        <input type="number" class="form-control" name= "value_amount"
-                               value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>"
-                        required></p>
+                        <input type="number" class="form-control" name= "value_amount" value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>" required></p>
                     <p><label>Value currency</label>
-                        <input type="text" class="form-control" name = "value_currency"
-                               value = "<%= (typeof tender != "undefined")? tender.value_currency:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name = "value_currency" value = "<%= (typeof tender != "undefined")? tender.value_currency:''%>" ></p>
                     <p><label>Procurement method</label>
-                        <input type="text" class="form-control" name= "procurementmethod"
-                               value = "<%= (typeof tender != "undefined")? tender.procurementmethod:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name= "procurementmethod" value = "<%= (typeof tender != "undefined")? tender.procurementmethod:''%>" ></p>
                     <p><label>Procurement method rationale</label>
-                        <input type="text" class="form-control" name= "procurementmethod_rationale"
-                               value = "<%= (typeof tender != "undefined")? tender.procurementmethod_rationale:''%>"
+                        <input type="text" class="form-control" name= "procurementmethod_rationale" value = "<%= (typeof tender != "undefined")? tender.procurementmethod_rationale:''%>"
                         ></p>
                     <p><label>Award criteria</label>
-                        <input type="text" class="form-control" name = "awardcriteria"
-                               value = "<%= (typeof tender != "undefined")? tender.awardcriteria:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name = "awardcriteria" value = "<%= (typeof tender != "undefined")? tender.awardcriteria:''%>" ></p>
                     <p><label>Award criteria details</label>
-                        <input type="text" class="form-control" name = "awardcriteria_details"
-                               value = "<%= (typeof tender != "undefined")? tender.awardcriteria_details:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name = "awardcriteria_details" value = "<%= (typeof tender != "undefined")? tender.awardcriteria_details:''%>" ></p>
                     <p><label>Submission method</label>
-                        <input type="text" class="form-control" name="submissionmethod"
-                               value = "<%= (typeof tender != "undefined")? tender.submissionmethod:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name="submissionmethod" value = "<%= (typeof tender != "undefined")? tender.submissionmethod:''%>" ></p>
                     <p><label>Submission method details</label>
-                        <input type="text" class="form-control" name="submissionmethod_details"
-                               value = "<%= (typeof tender != "undefined")? tender.submissionmethod_details:''%>"
+                        <input type="text" class="form-control" name="submissionmethod_details" value = "<%= (typeof tender != "undefined")? tender.submissionmethod_details:''%>"
                         ></p>
 
                     <p>
@@ -351,10 +326,7 @@
 
                     <p>
                         <label>Elegibility criteria</label>
-                        <input type="text" class="form-control" name="eligibilitycriteria"
-                               value = "<%= (typeof tender != "undefined")? tender.eligibilitycriteria:''%>"
-                        ></p>
-
+                        <input type="text" class="form-control" name="eligibilitycriteria" value = "<%= (typeof tender != "undefined")? tender.eligibilitycriteria:''%>" ></p>
                     <p>
                     <div class="row">
                         <div class="col-sm-6">
@@ -378,9 +350,7 @@
                     </p>
                     <p>
                         <label>Number of tenderers</label>
-                        <input type="number" class="form-control" name="numberoftenderers"
-                               value = "<%= (typeof tender != "undefined")? tender.numberoftenderers:''%>"
-                        required></p>
+                        <input type="number" class="form-control" name="numberoftenderers" value = "<%= (typeof tender != "undefined")? tender.numberoftenderers:''%>" required></p>
 
                     <h3>2.1 AMENDMENT</h3>
                     <p><div style="position:relative;">
@@ -393,10 +363,7 @@
                     </div>
                     </p>
                     <p><label>Rationale</label>
-                    <input type="text" name="amendment_rationale" class="form-control"
-                           value="<%=(typeof tender!= "undefined")?tender.amendment_rationale:''%>"
-                    ></p>
-
+                    <input type="text" name="amendment_rationale" class="form-control" value="<%=(typeof tender!= "undefined")?tender.amendment_rationale:''%>" ></p>
                     <button type="submit" class="btn">Guardar</button>
                 </form>
             </div>
@@ -406,29 +373,30 @@
             <div class="well well-lg">
 
                 <h3>3. ADJUDICACIÓN</h3>
-                <input type="text" name="contractingprocess_id" hidden
-                       value ="<%= (typeof award != "undefined")? award.contractingprocess_id:''%>"
-                >
-                <p> <button class="btn btn-primary ">Items</button>
-                    <button class="btn btn-primary ">Documents</button>
+                <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof award != "undefined")? award.contractingprocess_id:''%>" >
+                <p>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Documents <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
+                    <button class="btn btn-primary ">Items</button>
                     <button class="btn btn-default">Amendment changes</button></p>
 
                 <form id="award_form" role="form">
-                    <input type="text" name="contractingprocess_id" hidden
-                           value ="<%= (typeof award != "undefined")? award.contractingprocess_id :''%>"
-                    >
+                    <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof award != "undefined")? award.contractingprocess_id :''%>" >
                     <p><label>Title</label>
-                        <input type="text" name="title" class="form-control"
-                               value = "<%= (typeof award != "undefined")? award.title:''%>"
+                        <input type="text" name="title" class="form-control" value = "<%= (typeof award != "undefined")? award.title:''%>"
                         ></p>
                     <p><label>Description</label>
-                        <input type="text" name="description" class="form-control"
-                               value = "<%= (typeof award != "undefined")? award.description:''%>"
-                        ></p>
+                        <input type="text" name="description" class="form-control" value = "<%= (typeof award != "undefined")? award.description:''%>" ></p>
                     <p><label>Status</label>
-                        <input type="text" name="status" class="form-control"
-                               value = "<%= (typeof award != "undefined")? award.status:''%>"
-                        ></p>
+                        <input type="text" name="status" class="form-control" value = "<%= (typeof award != "undefined")? award.status:''%>" ></p>
 
                     <p> <div style="position: relative">
                         <label>Date</label>
@@ -441,14 +409,10 @@
 
                     <p>
                         <label>Value amount</label>
-                        <input type="number" class="form-control" name="value_amount"
-                               value = "<%= (typeof award != "undefined")? award.value_amount:''%>"
-                               required></p>
+                        <input type="number" class="form-control" name="value_amount" value = "<%= (typeof award != "undefined")? award.value_amount:''%>" required></p>
                     <p>
                         <label>Value currency</label>
-                        <input type="text" class="form-control" name="value_currency"
-                               value = "<%= (typeof award != "undefined")? award.value_currency:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name="value_currency" value = "<%= (typeof award != "undefined")? award.value_currency:''%>" ></p>
                     <p>
                     <div class="row">
                         <div class="col-sm-6">
@@ -482,7 +446,6 @@
                     </p>
 
                     <p>
-
                         <label>Amendment rationale</label>
                         <input type="text" class="form-control" name="amendment_rationale"
                                value = "<%= (typeof award != "undefined")? award.amendment_rationale:''%>"
@@ -498,32 +461,34 @@
 
                 <h3>4. CONTRATACIÓN</h3>
                 <p>
-                    <button class="btn btn-primary">Documents</button>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Documents <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
+
                     <button class="btn btn-primary">Items</button>
                     <button class="btn btn-default">Amendment changes</button>
                 </p>
 
                 <form id="contract_form" role="form">
 
-                    <input type="text" name="contractingprocess_id" hidden
-                           value ="<%= (typeof contract != "undefined")? contract.contractingprocess_id :''%>"
-                    >
+                    <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof contract != "undefined")? contract.contractingprocess_id :''%>" >
                     <p>
                         <label>Title</label>
-                        <input type="text" class="form-control" name = "title"
-                               value = "<%= (typeof contract != "undefined")? contract.title:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name = "title" value = "<%= (typeof contract != "undefined")? contract.title:''%>" ></p>
                     <p>
                         <label>Description</label>
-                        <input type="text" class="form-control" name = "description"
-                               value = "<%= (typeof contract != "undefined")? contract.description:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name = "description" value = "<%= (typeof contract != "undefined")? contract.description:''%>" ></p>
                     <p>
                         <label>Status</label>
-                        <input type="text" class="form-control" name = "status"
-                               value = "<%= (typeof contract != "undefined")? contract.status:''%>"
-                        ></p>
-
+                        <input type="text" class="form-control" name = "status" value = "<%= (typeof contract != "undefined")? contract.status:''%>" ></p>
                     <p>
                     <div class="row">
                         <div class="col-sm-6">
@@ -546,13 +511,9 @@
                     </p>
 
                     <p><label>Value amount</label>
-                        <input type="number" class="form-control" name="value_amount"
-                               value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>"
-                        required></p>
+                        <input type="number" class="form-control" name="value_amount" value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>" required></p>
                     <p><label>Value currency</label>
-                        <input type="text" class="form-control" name="value_currency"
-                               value = "<%= (typeof contract != "undefined")? contract.value_currency:''%>"
-                        ></p>
+                        <input type="text" class="form-control" name="value_currency" value = "<%= (typeof contract != "undefined")? contract.value_currency:''%>" ></p>
 
                     <p>
                     <div style="position: relative">
@@ -576,14 +537,11 @@
                     </p>
 
                     <p>
-
                         <label>Amendment rationale</label>
-                        <input type="text" class="form-control" name="amendment_rationale"
-                               value = "<%= (typeof contract != "undefined")? contract.amendment_rationale:''%>"
+                        <input type="text" class="form-control" name="amendment_rationale" value = "<%= (typeof contract != "undefined")? contract.amendment_rationale:''%>"
                         ></p>
 
                     <button type="submit" class="btn">Guardar</button>
-
                 </form>
             </div>
         </div>
@@ -592,9 +550,36 @@
             <div class="well well-lg">
 
                 <h3>5. IMPLEMENTACIÓN</h3>
-                <button class="btn btn-primary">Transactions</button>
-                <button class="btn btn-primary">Milestones</button>
-                <button class="btn btn-primary">Documents</button>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Documents <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Transactions <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Milestones <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
 
             </div>
         </div>
@@ -617,56 +602,40 @@
                     value="<%=(typeof buyer != "undefined")?buyer.identifier_scheme:''%>"
                     ></p>
                     <p><label>Identifier ID</label>
-                        <input name = "identifier_id" class="form-control" type="text"
-                               value="<%=(typeof buyer != "undefined")?buyer.identifier_id:''%>"></p>
+                        <input name = "identifier_id" class="form-control" type="text" value="<%=(typeof buyer != "undefined")?buyer.identifier_id:''%>"></p>
                     <p><label>Identifier legal name</label>
-                        <input name = "identifier_legalname" class="form-control" type="text"
-                               value="<%=(typeof buyer != "undefined")?buyer.identifier_legalname:''%>"
-                        ></p>
+                        <input name = "identifier_legalname" class="form-control" type="text" value="<%=(typeof buyer != "undefined")?buyer.identifier_legalname:''%>" ></p>
                     <p><label>Identifier URI</label>
-                        <input name = "identifier_uri" class="form-control" type="text"
-                               value="<%=(typeof buyer != "undefined")?buyer.identifier_uri:''%>"></p>
+                        <input name = "identifier_uri" class="form-control" type="text" value="<%=(typeof buyer != "undefined")?buyer.identifier_uri:''%>"></p>
                     <p><label>Name</label>
-                        <input name="name"       type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.name:''%>"></p>
+                        <input name="name" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.name:''%>"></p>
                     <p><label>Address street address</label>
-                        <input name="addres_streetaddress"    type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.addres_streetaddress:''%>"
-                        ></p>
+                        <input name="addres_streetaddress" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.addres_streetaddress:''%>" ></p>
                     <p><label>Address locality</label>
-                        <input name="address_locality"   type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.address_locality:''%>"></p>
+                        <input name="address_locality" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.address_locality:''%>"></p>
                     <p><label>Address region</label>
-                        <input name="address_region"     type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.address_region:''%>"></p>
+                        <input name="address_region" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.address_region:''%>"></p>
                     <p><label>Address postal code</label>
-                        <input name="address_postalcode"      type="text" class="form-control"
+                        <input name="address_postalcode" type="text" class="form-control"
                                value="<%=(typeof buyer != "undefined")?buyer.address_postalcode:''%>"></p>
                     <p><label>Address country name</label>
-                        <input name="address_countryname" type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.address_countryname:''%>"></p>
+                        <input name="address_countryname" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.address_countryname:''%>"></p>
                     <p><label>Contact point name</label>
-                        <input name="contactpoint_name"   type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_name:''%>"></p>
+                        <input name="contactpoint_name" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_name:''%>"></p>
                     <p><label>Contact point email</label>
-                        <input name="contactpoint_email"   type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_email:''%>"></p>
+                        <input name="contactpoint_email" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_email:''%>"></p>
                     <p><label>Contact point telephone</label>
-                        <input name="contactpoint_telephone"  type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_telephone:''%>"></p>
+                        <input name="contactpoint_telephone"  type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_telephone:''%>"></p>
                     <p><label>Contact point fax number</label>
-                        <input name="contactpoint_faxnumber"    type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_faxnumber:''%>"></p>
+                        <input name="contactpoint_faxnumber" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_faxnumber:''%>"></p>
                     <p><label>Contact point url</label>
-                        <input name="contactpoint_url"    type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.contactpoint_url:''%>"></p>
+                        <input name="contactpoint_url"    type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_url:''%>"></p>
                     <p><button type="submit" class="btn btn-default">Guardar</button></p>
                 </form>
                 <p><button class="btn btn-default">Additional identifiers</button></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
     </div>
@@ -685,53 +654,37 @@
                     <input hidden type="text"  name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : '' %>">
 
                     <p><label>Identifier scheme</label>
-                        <input name = "identifier_scheme" class="form-control" type="text"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_scheme:''%>"
-                        ></p>
+                        <input name = "identifier_scheme" class="form-control" type="text" value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_scheme:''%>" ></p>
                     <p><label>Identifier ID</label>
-                        <input name = "identifier_id" class="form-control" type="text"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_id:''%>"></p>
+                        <input name = "identifier_id" class="form-control" type="text" value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_id:''%>"></p>
                     <p><label>Identifier legal name</label>
-                        <input name = "identifier_legalname" class="form-control" type="text"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_legalname:''%>"
+                        <input name = "identifier_legalname" class="form-control" type="text" value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_legalname:''%>"
                         ></p>
                     <p><label>Identifier URI</label>
-                        <input name = "identifier_uri" class="form-control" type="text"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_uri:''%>"></p>
+                        <input name = "identifier_uri" class="form-control" type="text" value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_uri:''%>"></p>
                     <p><label>Name</label>
-                        <input name="name"       type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.name:''%>"></p>
+                        <input name="name"       type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.name:''%>"></p>
                     <p><label>Address street address</label>
-                        <input name="addres_streetaddress"    type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.addres_streetaddress:''%>"
+                        <input name="addres_streetaddress"    type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.addres_streetaddress:''%>"
                         ></p>
                     <p><label>Address locality</label>
-                        <input name="address_locality"   type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.address_locality:''%>"></p>
+                        <input name="address_locality"   type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.address_locality:''%>"></p>
                     <p><label>Address region</label>
-                        <input name="address_region"     type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.address_region:''%>"></p>
+                        <input name="address_region"     type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.address_region:''%>"></p>
                     <p><label>Address postal code</label>
-                        <input name="address_postalcode"      type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.address_postalcode:''%>"></p>
+                        <input name="address_postalcode"      type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.address_postalcode:''%>"></p>
                     <p><label>Address country name</label>
-                        <input name="address_countryname" type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.address_countryname:''%>"></p>
+                        <input name="address_countryname" type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.address_countryname:''%>"></p>
                     <p><label>Contact point name</label>
-                        <input name="contactpoint_name"   type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_name:''%>"></p>
+                        <input name="contactpoint_name"   type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_name:''%>"></p>
                     <p><label>Contact point email</label>
-                        <input name="contactpoint_email"   type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_email:''%>"></p>
+                        <input name="contactpoint_email"   type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_email:''%>"></p>
                     <p><label>Contact point telephone</label>
-                        <input name="contactpoint_telephone"  type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_telephone:''%>"></p>
+                        <input name="contactpoint_telephone"  type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_telephone:''%>"></p>
                     <p><label>Contact point fax number</label>
-                        <input name="contactpoint_faxnumber"    type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_faxnumber:''%>"></p>
+                        <input name="contactpoint_faxnumber"    type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_faxnumber:''%>"></p>
                     <p><label>Contact point url</label>
-                        <input name="contactpoint_url"    type="text" class="form-control"
-                               value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_url:''%>"></p>
+                        <input name="contactpoint_url"    type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_url:''%>"></p>
                     <p><button type="submit" class="btn btn-default">Guardar</button></p>
                 </form>
 
@@ -768,27 +721,27 @@ Organización Supplier depende de Adjudicación
                     <p><label>Name</label>
                         <input type="text" class="form-control"></p>
                     <p><label>Identifier scheme</label>
-                        <input name="identifier_scheme"       type="text" class="form-control" ></p>
+                        <input name="identifier_scheme" type="text" class="form-control" ></p>
                     <p><label>Identifier id</label>
-                        <input name="identifier_id"       type="text" class="form-control"></p>
+                        <input name="identifier_id" type="text" class="form-control"></p>
                     <p><label>Identifier legal name</label>
-                        <input name="identifier_legalname"       type="text" class="form-control"></p>
+                        <input name="identifier_legalname" type="text" class="form-control"></p>
                     <p><label>Identifier uri</label>
-                        <input name="identifier_uri"       type="text" class="form-control"></p>
+                        <input name="identifier_uri" type="text" class="form-control"></p>
                     <p><label>Name</label>
                         <input name="name" type="text" class="form-control"></p>
                     <p><label>Address street address</label>
-                        <input name="address_streetaddress"    type="text" class="form-control"></p>
+                        <input name="address_streetaddress" type="text" class="form-control"></p>
                     <p><label>Address locality</label>
-                        <input name="address_locality"   type="text" class="form-control"></p>
+                        <input name="address_locality" type="text" class="form-control"></p>
                     <p><label>Address region</label>
-                        <input name="address_region"     type="text" class="form-control"></p>
+                        <input name="address_region" type="text" class="form-control"></p>
                     <p><label>Address postal code</label>
-                        <input name="address_postalcode"      type="text" class="form-control"></p>
+                        <input name="address_postalcode" type="text" class="form-control"></p>
                     <p><label>Address country name</label>
                         <input name="address_countryname" type="text" class="form-control"></p>
                     <p><label>Contact point name</label>
-                        <input name="contactpoint_name"   type="text" class="form-control"></p>
+                        <input name="contactpoint_name" type="text" class="form-control"></p>
                     <p><label>Contact point email</label>
                         <input name="contactpoint_email"   type="text" class="form-control"></p>
                     <p><label>Contact point telephone</label>

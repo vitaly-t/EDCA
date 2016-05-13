@@ -519,176 +519,203 @@ router.post('/search-process-by-date', function (req, res) {
 
 
 router.get('/release/:ocid', function (req,res) {
-var ocid = req.params.ocid;
+    var ocid = req.params.ocid;
 
     //queries principales
-     edca_db.tx(function (t) {
-        var cp = this.one("Select * from contractingprocess where id = $1", [ocid]);                    //0
-        var planning = this.one("select * from planning where contractingprocess_id = $1", [ocid]);     //1
-        var budget = this.one("select * from budget where contractingprocess_id = $1", [ocid]);         //2
-         var tender = this.one("select * from tender where contractingprocess_id = $1", [ocid]);        //3
-         var buyer =this.oneOrNone("select * from buyer where contractingprocess_id = $1", [ocid]);    //4
-         var award = this.one("select * from award where contractingprocess_id = $1", [ocid]);           //5
-         var contract = this.one("select * from contract where contractingprocess_id = $1", [ocid]);     //6
-         var implementation = this.oneOrNone('select * from implementation where contractingprocess_id = $1', [ocid]); //7
-         var procuringentity = this.one('select * from ProcuringEntity where contractingprocess_id=$1',[ocid]); //8
+    edca_db.tx(function (t) {
 
-        return this.batch([cp, planning, budget, tender, buyer, award, contract, implementation, procuringentity ]);
+        return t.one("Select * from contractingprocess where id = $1", [ocid]).then(function (cp) {
+            //var cp = this.one("Select * from contractingprocess where id = $1", [ocid]);                    //0
+
+
+            var planning = t.one("select * from planning where contractingprocess_id = $1", [ocid]);     //1
+            var budget = t.one("select * from budget where contractingprocess_id = $1", [ocid]);         //2
+            var tender = t.one("select * from tender where contractingprocess_id = $1", [ocid]);        //3
+            var buyer = t.oneOrNone("select * from buyer where contractingprocess_id = $1", [ocid]);    //4
+            var award = t.one("select * from award where contractingprocess_id = $1", [ocid]);           //5
+            var contract = t.one("select * from contract where contractingprocess_id = $1", [ocid]);     //6
+            var implementation = t.oneOrNone('select * from implementation where contractingprocess_id = $1', [ocid]); //7
+            var procuringentity = t.one('select * from ProcuringEntity where contractingprocess_id=$1', [ocid]); //8
+
+            return t.batch([cp, planning, budget, tender, buyer, award, contract, implementation, procuringentity]);
+
+        }).then(function (data) {
+
+            var qp = {
+                cp: data[0],
+                planning: data [1],
+                budget: data [2],
+                tender: data[3],
+                buyer: data [4],
+                award: data[5],
+                contract: data[6],
+                implementation: data[7],
+                procuringentity: data[8]
+            };
+
+            //queries secundarias
+            var tenderers = t.manyOrNone("select * from tenderer where contractingprocess_id=$1", [data[0].id]);
+            return t.batch([qp, tenderers]);
+
+        }).then(function (data) {
+
+         //aquí se genera el release
+            var release = {
+                ocid: data[0].cp.id,
+                id: "id de release",
+                date: data[0].cp.fecha_creacion,
+                tag: "Contrato",
+                initiationType: "...",
+                planning: {
+                    budget: {
+                        source: data[0].budget.budget_source,
+                        id: data[0].budget.id,
+                        description: data[0].budget.budget_description,
+                        amount: {
+                            amount: data[0].budget.budget_amount,
+                            currency: data[0].budget.budget_currency
+                        },
+                        project: data[0].budget.budget_project,
+                        projectID: data[0].budget.budget_projectid,
+                        uri: data[0].budget.budget_uri
+                    },
+                    rationale: data[0].planning.rationale,
+                    documents: [{/* ... */}]
+                },
+                tender: {
+                    id: data[0].tender.id,
+                    title: data[0].tender.title,
+                    description: data[0].tender.description,
+                    status: data[0].tender.status,
+                    items: [{/* ... */}],
+                    minValue: {
+                        amount: data[0].tender.minvalue_amount,
+                        currency: data[0].tender.minvalue_currency
+                    },
+                    value: {
+                        amount: data[0].tender.value_amount,
+                        currency: data[0].tender.value_currency
+                    },
+                    procurementMethod: data[0].tender.procurementmenthod,
+                    procurementMethodRationale: data[0].tender.procurementMethod_rationale,
+                    awardCriteria: data[0].tender.awardcriteria,
+                    awardCriteriaDetails: data[0].tender.awardcriteria_details,
+                    submissionMethod: data[0].tender.submissionMethod,
+                    submissionMethodDetails: data[0].tender.submissionMethod_details,
+                    tenderPeriod: {
+                        startDate: data[0].tender.tenderperiod_startdate,
+                        endDate: data[0].tender.tenderperiod_enddate
+                    },
+                    enquiryPeriod: {
+                        startDate: data[0].tender.enquiryperiod_startdate,
+                        endDate: data[0].tender.enquiryperiod_enddate
+                    },
+                    hasEnquiries: (data[0].tender.hasenquiries == 1) ? true : false,
+                    eligibilityCriteria: data[0].tender.eligibilitycriteria,
+                    awardPeriod: {
+                        startDate: data[0].tender.tenderperiod_startdate,
+                        endDate: data[0].tender.tenderperiod_enddate
+                    },
+                    numberOfTenderers: data[0].tender.numberoftenderers,
+                    tenderers: [{/* ... */}],
+                    procuringEntity: {
+                        identifier: {
+                            scheme: data[0].procuringentity.identifier_scheme,
+                            id: data[0].procuringentity.identifier_id,
+                            legalName: data[0].procuringentity.identifier_legalname,
+                            uri: data[0].procuringentity.identifier_uri
+                        },
+                        additionalIdentifiers: [{/* ... */}],
+                        name: data[0].procuringentity.name,
+                        address: {
+                            streetAddress: data[0].procuringentity.address_streetaddress,
+                            locality: data[0].procuringentity.address_locality,
+                            region: data[0].procuringentity.address_region,
+                            postalCode: data[0].procuringentity.address_postalcode,
+                            countryName: data[0].procuringentity.address_countryname
+                        },
+                        contactPoint: {
+                            name: data[0].procuringentity.contactpoint_name,
+                            email: data[0].procuringentity.contactpoint_email,
+                            telephone: data[0].procuringentity.contactpoint_telephone,
+                            faxNumber: data[0].procuringentity.contactpoint_faxnumber,
+                            url: data[0].procuringentity.contactpoint_url
+                        }
+                    },
+                    documents: [{/* ... */}],
+                    milestones: [{/* ... */}],
+                    amendment: {
+                        date: data[0].tender.amendment_date,
+                        changes: [{/* ... */}],
+                        rationale: data[0].tender.amendment_rationale
+                    }
+                },
+                buyer: {
+                    identifier: {
+                        scheme: data[0].buyer.identifier_scheme,
+                        id: data[0].buyer.identifier_id,
+                        legalName: data[0].buyer.identifier_legalname,
+                        uri: data[0].buyer.identifier_uri
+                    },
+                    additionalIdentifiers: [{/* ... */}],
+                    name: data[0].buyer.name,
+                    address: {
+                        streetAddress: data[0].buyer.address_streetaddress,
+                        locality: data[0].buyer.address_locality,
+                        region: data[0].buyer.address_region,
+                        postalCode: data[0].buyer.address_postalcode,
+                        countryName: data[0].buyer.address_contryname
+                    },
+                    contactPoint: {
+                        name: data[0].buyer.contactpoint_name,
+                        email: data[0].buyer.contactpoint_email,
+                        telephone: data[0].buyer.contactpoint_telephone,
+                        faxNumber: data[0].buyer.contactpoint_faxnumber,
+                        url: data[0].buyer.contactpoint_url
+                    }
+                },
+
+
+                awards: [/* pueden ser varios */
+                    data[0].award
+                ],
+                contracts: [
+                    { //pueden ser varios
+                        id: data[0].contract.id,
+                        awardID: data[0].contract.award_id,
+                        title: data[0].contract.title,
+                        description: data[0].contract.description,
+                        status: data[0].contract.status,
+                        period: {
+                            startDate: data[0].contract.period_startdate,
+                            endDate: data[0].contract.period_enddate
+                        },
+                        value: data[0].contract.value,
+                        items: [{/* ... */}],
+                        dateSigned: data[0].contract.datesigned,
+                        documents: [/* ... */],
+                        amendment: {
+                            date: data[0].contract.amendment_date,
+                            changes: [/* ... */],
+                            rationale: data[0].contract.amendment_rationale
+                        },
+                        implementation: {/* ... */}//qp[7]
+                    }
+                ],
+                lang: 'es'
+            };
+
+            return release;
+
+         })
+
     }).then(function (data) {
-
-         //queries secundarias
-         console.log(data);
-         return data;
-
-     }).then(function (qp) {
-
-         var release = {
-             ocid : qp[0].id,
-             id: "id de release",
-             date: qp[0].fecha_creacion,
-             tag: "...",
-             initiationType: "...",
-             planning: {
-                 budget: {
-                     source: qp[2].budget_source,
-                     id : qp[2].id,
-                     description : qp[2].budget_description,
-                     amount: {
-                         amount: qp[2].budget_amount,
-                         currency: qp[2].budget_currency
-                     },
-                     project: qp[2].budget_project,
-                     projectID: qp[2].budget_projectid,
-                     uri: qp[2].budget_uri
-                 },
-                 rationale: qp[1].rationale,
-                 documents: [{/* ... */}]
-             },
-             tender: {
-                 id: qp[3].id,
-                 title: qp[3].title,
-                 description: qp[3].description,
-                 status: qp[3].status,
-                 items: [{/* ... */}],
-                 minValue: {
-                     amount: qp[3].minvalue_amount,
-                     currency : qp[3].minvalue_currency
-                 },
-                 value: {
-                     amount: qp[3].value_amount,
-                     currency : qp[3].value_currency
-                 },
-                 procurementMethod: qp[3].procurementmenthod,
-                 procurementMethodRationale: qp[3].procurementMethod_rationale,
-                 awardCriteria : qp[3].awardcriteria,
-                 awardCriteriaDetails : qp[3].awardcriteria_details,
-                 submissionMethod: qp[3].submissionMethod,
-                 submissionMethodDetails: qp[3].submissionMethod_details,
-                 tenderPeriod : {
-                     startDate: qp[3].tenderperiod_startdate,
-                     endDate: qp[3].tenderperiod_enddate
-                 },
-                 enquiryPeriod: {
-                     startDate: qp[3].enquiryperiod_startdate,
-                     endDate: qp[3].enquiryperiod_enddate
-                 },
-                 hasEnquiries:  (qp[3].hasenquiries==1)?true:false,
-                 eligibilityCriteria: qp[3].eligibilitycriteria,
-                 awardPeriod: {
-                     startDate: qp[3].tenderperiod_startdate,
-                     endDate: qp[3].tenderperiod_enddate
-                 },
-                 numberOfTenderers: qp[3].numberoftenderers,
-                 tenderers: [{/* ... */}],
-                 procuringEntity: {
-                     identifier: {
-                         scheme: qp[8].identifier_scheme,
-                         id:qp[8].identifier_id,
-                         legalName: qp[8].identifier_legalname,
-                         uri: qp[8].identifier_uri
-                     },
-                     additionalIdentifiers:[{/* ... */}],
-                     name: qp[8].name,
-                     address: {
-                         streetAddress: qp[8].address_streetaddress,
-                         locality: qp[8].address_locality,
-                         region: qp[8].address_region,
-                         postalCode: qp[8].address_postalcode,
-                         countryName: qp[8].address_countryname
-                     },
-                     contactPoint: {
-                         name:qp[8].contactpoint_name,
-                         email: qp[8].contactpoint_email,
-                         telephone:qp[8].contactpoint_telephone,
-                         faxNumber: qp[8].contactpoint_faxnumber,
-                         url: qp[8].contactpoint_url
-                     }
-                 },
-                 documents: [{/* ... */}],
-                 milestones: [{/* ... */}],
-                 amendment: {
-                     date: qp[3].amendment_date,
-                     changes: [{/* ... */}],
-                     rationale: qp[3].amendment_rationale
-                 }
-             },
-             buyer: {
-                 identifier: {
-                     scheme: qp[4].identifier_scheme,
-                     id: qp[4].identifier_id,
-                     legalName: qp[4].identifier_legalname,
-                     uri: qp[4].identifier_uri
-                 },
-                 additionalIdentifiers : [{/* ... */}],
-                 name: qp[4].name,
-                 address: {
-                     streetAddress: qp[4].address_streetaddress,
-                     locality: qp[4].address_locality ,
-                     region: qp[4].address_region,
-                     postalCode: qp[4].address_postalcode,
-                     countryName: qp[4].address_contryname
-                 },
-                 contactPoint: {
-                     name: qp[4].contactpoint_name,
-                     email: qp[4].contactpoint_email,
-                     telephone: qp[4].contactpoint_telephone,
-                     faxNumber: qp[4].contactpoint_faxnumber,
-                     url: qp[4].contactpoint_url
-                 }
-             },
-
-
-             awards: [
-                 qp[5]
-             ],  /* pueden ser varios */
-             contracts: [
-                 { //pueden ser varios
-                 id: qp[6].id,
-                 awardID: qp[6].award_id,
-                 title: qp[6].title,
-                 description: qp[6].description,
-                 status : qp[6].status,
-                 period: {
-                     startDate: qp[6].period_startdate,
-                     endDate: qp[6].period_enddate
-                 },
-                 value: qp[6].value,
-                 items: [{/* ... */}],
-                 dateSigned: qp[6].datesigned,
-                 documents: [{/* ... */}],
-                 amendment: {/* ... */}, //integrar tabla contractamendment a contracts
-                 implementation: {/* ... */}//qp[7]
-             }
-             ],
-             lang: 'es'
-         };
-
-         res.json(release);
-
-         }).catch(function (error) {
-         console.log(error);
-     })
-    
+        console.log("Hecho...");
+        console.log("Data: ", data);
+        res.send(data);
+    }).catch(function (error) {
+        console.log("ERROR: ",error);
+    });
 });
 
-  module.exports = router;
+module.exports = router;

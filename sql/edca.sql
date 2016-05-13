@@ -412,7 +412,7 @@ create table Contract(
 	value_currency text,
 	datesigned timestamp,
 	amendment_date timestamp,
-	rationale text
+	amendment_rationale text
 );
 
 
