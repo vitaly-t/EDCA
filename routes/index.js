@@ -193,19 +193,21 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
                     t.one("select * from Award where contractingprocess_id = $1", ocid),
                     t.one("select * from Contract where contractingprocess_id = $1", ocid),
                     t.one("select * from buyer where contractingprocess_id =$1",ocid),
-                    t.one("select * from procuringentity where contractingprocess_id=$1",ocid)
+                    t.one("select * from procuringentity where contractingprocess_id=$1",ocid),
+                    t.one("select * from publisher where contractingprocess_id=$1",ocid)
                 ]);
             })
             // using .spread(function(user, event)) is best here, if supported;
             .then(function (data) {
-                console.log(data[0].id); //CP
-                console.log(data[1].id); //planning
-                console.log(data[2].id); //budget
-                console.log(data[3].id); //Tender
-                console.log(data[4].id); //Award
-                console.log(data[5].id); //Contract
-                console.log(data[6].id);
-                console.log(data[7].id);
+                console.log("Contracting process -> ",data[0].id); //CP
+                console.log("Planning ->",data[1].id); //planning
+                console.log("Budget ->",data[2].id); //budget
+                console.log("Tender ->",data[3].id); //Tender
+                console.log("Award -> ",data[4].id); //Award
+                console.log("Contract -> ",data[5].id); //Contract
+                console.log("Buyer -> ",data[6].id);
+                console.log("Procuring entity -> ",data[7].id);
+                console.log("Publisher -> ",data[8].id);
 
                 res.render('main', {
                     user: req.user,
@@ -217,7 +219,8 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
                     award: data[4],
                     contract: data[5],
                     buyer: data[6],
-                    procuringentity: data[7]
+                    procuringentity: data[7],
+                    publisher: data[8]
                 });
             })
             .catch(function (error) {
