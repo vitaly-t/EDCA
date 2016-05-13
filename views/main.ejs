@@ -169,7 +169,7 @@
                         Planning documents <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#" data-toggle="modal" data-table="planningdocuments" data-target="#myModalNewDoc">Nuevo</a></li>
                         <li><a href="#">Editar</a></li>
                     </ul>
                 </div>
@@ -179,7 +179,7 @@
                         Budget documents <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#" data-toggle="modal" data-table="budgetdocuments" data-target="#myModalNewDoc">Nuevo</a></li>
                         <li><a href="#">Editar</a></li>
                     </ul>
                 </div></p>
@@ -224,13 +224,43 @@
                         Documents <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-table="tenderdocuments" data-target="#myModalNewDoc">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
+
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Milestones <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
                         <li><a href="#">Nuevo</a></li>
                         <li><a href="#">Editar</a></li>
                     </ul>
                 </div>
-                <button class="btn btn-primary">Milestones</button>
-                    <button class="btn btn-primary">Items</button>
-                    <button class="btn btn-default">Amendment changes</button>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Items <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Amendmendt changes <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
                 </p>
 
                 <form id="tender_form" role="form" >
@@ -380,13 +410,30 @@
                         Documents <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-table="awarddocuments" data-target="#myModalNewDoc">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Items <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
                         <li><a href="#">Nuevo</a></li>
                         <li><a href="#">Editar</a></li>
                     </ul>
                 </div>
 
-                    <button class="btn btn-primary ">Items</button>
-                    <button class="btn btn-default">Amendment changes</button></p>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Amendment changes <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
 
                 <form id="award_form" role="form">
                     <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof award != "undefined")? award.contractingprocess_id :''%>" >
@@ -467,14 +514,32 @@
                         Documents <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#" data-toggle="modal" data-table="contractdocuments" data-target="#myModalNewDoc">Nuevo</a></li>
                         <li><a href="#">Editar</a></li>
                     </ul>
                 </div>
 
 
-                    <button class="btn btn-primary">Items</button>
-                    <button class="btn btn-default">Amendment changes</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Items <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Amendment changes <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#">Editar</a></li>
+                    </ul>
+                </div>
+
                 </p>
 
                 <form id="contract_form" role="form">
@@ -556,7 +621,7 @@
                         Documents <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Nuevo</a></li>
+                        <li><a href="#" data-toggle="modal" data-table="implementationdocuments" data-target="#myModalNewDoc">Nuevo</a></li>
                         <li><a href="#">Editar</a></li>
                     </ul>
                 </div>
@@ -698,15 +763,7 @@
     </div>
 </div>
 
-
-<!--
-Modal de nueva organización
-Restricciones:
-Organización Buyer es independiente
-Organización Procuring Entity depende de Licitación (solo es una por licitación)
-Organización Tenderer depende de Licitación
-Organización Supplier depende de Adjudicación
-  -->
+<!-- Modal de nueva organización  -->
 <div class="modal fade" id="myModalNewOrg" tabindex="-1" role="dialog" aria-labelledby="orgModalLabel5">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -810,6 +867,51 @@ Organización Supplier depende de Adjudicación
         </div>
     </div>
 </div>
+
+
+<!-- modal para nuevo documento  -->
+<div class="modal fade" id="myModalNewDoc" tabindex="-1" role="dialog" aria-labelledby="modalNewDoc">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar </h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <p><label>Document type</label>
+                    <input type="text" class="form-control" name = "document_type"></p>
+                    <p><label>Title</label>
+                    <input type="text" class="form-control" name = "title"></p>
+                    <p><label>Description</label>
+                    <input type="text" class="form-control" name = "description"></p>
+                    <p><label>URL</label>
+                    <input type="text" class="form-control" name = "url"></p>
+                    <p><div class="row">
+                        <div class="col-sm-6">
+                            <label>Date published</label>
+                            <input type="text" class="form-control" name = "date_published">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Date modified</label>
+                            <input type="text" class="form-control" name = "date_modified">
+                        </div>
+                    </div></p>
+                    <p><label>Format</label>
+                    <input type="text" class="form-control" name = "format"></p>
+                    <p><label>Language</label>
+                    <input type="text" class="form-control" name = "language"></p>
+
+                    <button class="btn btn-default">Guardar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <%}%>
 
 <!-- modal para buscar procesos de contratación -->
