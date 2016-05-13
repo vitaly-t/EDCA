@@ -555,7 +555,8 @@ router.get('/release/:ocid', function (req,res) {
 
             //queries secundarias
             var tenderers = t.manyOrNone("select * from tenderer where contractingprocess_id=$1", [data[0].id]);
-            return t.batch([qp, tenderers]);
+            var suppliers = t.manyOrNone("select * from supplier where contractingprocess_id=$1", [data[0].id]); //dependen de awards
+            return t.batch([qp, tenderers, suppliers]);
 
         }).then(function (data) {
 
@@ -565,7 +566,7 @@ router.get('/release/:ocid', function (req,res) {
                 id: "id de release",
                 date: data[0].cp.fecha_creacion,
                 tag: "Contrato",
-                initiationType: "...",
+                initiationType: "Tender",
                 planning: {
                     budget: {
                         source: data[0].budget.budget_source,
@@ -580,14 +581,14 @@ router.get('/release/:ocid', function (req,res) {
                         uri: data[0].budget.budget_uri
                     },
                     rationale: data[0].planning.rationale,
-                    documents: [{/* ... */}]
+                    documents: [/* ... */]
                 },
                 tender: {
                     id: data[0].tender.id,
                     title: data[0].tender.title,
                     description: data[0].tender.description,
                     status: data[0].tender.status,
-                    items: [{/* ... */}],
+                    items: [/* ... */],
                     minValue: {
                         amount: data[0].tender.minvalue_amount,
                         currency: data[0].tender.minvalue_currency
@@ -617,7 +618,7 @@ router.get('/release/:ocid', function (req,res) {
                         endDate: data[0].tender.tenderperiod_enddate
                     },
                     numberOfTenderers: data[0].tender.numberoftenderers,
-                    tenderers: [{/* ... */}],
+                    tenderers: data[1], //Falta uniformizar los atributos de cada objeto
                     procuringEntity: {
                         identifier: {
                             scheme: data[0].procuringentity.identifier_scheme,
@@ -625,7 +626,7 @@ router.get('/release/:ocid', function (req,res) {
                             legalName: data[0].procuringentity.identifier_legalname,
                             uri: data[0].procuringentity.identifier_uri
                         },
-                        additionalIdentifiers: [{/* ... */}],
+                        additionalIdentifiers: [/* ... */],
                         name: data[0].procuringentity.name,
                         address: {
                             streetAddress: data[0].procuringentity.address_streetaddress,
@@ -642,11 +643,11 @@ router.get('/release/:ocid', function (req,res) {
                             url: data[0].procuringentity.contactpoint_url
                         }
                     },
-                    documents: [{/* ... */}],
-                    milestones: [{/* ... */}],
+                    documents: [/* ... */],
+                    milestones: [/* ... */],
                     amendment: {
                         date: data[0].tender.amendment_date,
-                        changes: [{/* ... */}],
+                        changes: [/* ... */],
                         rationale: data[0].tender.amendment_rationale
                     }
                 },
@@ -657,7 +658,7 @@ router.get('/release/:ocid', function (req,res) {
                         legalName: data[0].buyer.identifier_legalname,
                         uri: data[0].buyer.identifier_uri
                     },
-                    additionalIdentifiers: [{/* ... */}],
+                    additionalIdentifiers: [/* ... */],
                     name: data[0].buyer.name,
                     address: {
                         streetAddress: data[0].buyer.address_streetaddress,
@@ -676,8 +677,31 @@ router.get('/release/:ocid', function (req,res) {
                 },
 
 
-                awards: [/* pueden ser varios */
-                    data[0].award
+                awards: [ // pueden ser varios
+                    {
+                        id: data[0].award.id,
+                        title: data[0].award.title,
+                        description: data[0].award.description,
+                        status: data[0].award.status,
+                        date: data[0].award.award_date,
+                        value: {
+                            amount: data[0].award.value_amount,
+                            currency: data[0].award.value_currency
+                        },
+                        suppliers: data[2],
+                        items: [/* ... */],
+                        contractPeriod: {
+                            startDate: data[0].award.contractperiod_startdate,
+                            endDate: data[0].award.contractperiod_enddate,
+                        },
+                        documents: [/* ... */],
+                        amendment: {
+                            date: data[0].award.amendment_date,
+                            changes: [/* ... */],
+                            rationale: data[0].award.amendment_rationale,
+                        }
+                    }
+
                 ],
                 contracts: [
                     { //pueden ser varios
@@ -691,7 +715,7 @@ router.get('/release/:ocid', function (req,res) {
                             endDate: data[0].contract.period_enddate
                         },
                         value: data[0].contract.value,
-                        items: [{/* ... */}],
+                        items: [/* ... */],
                         dateSigned: data[0].contract.datesigned,
                         documents: [/* ... */],
                         amendment: {
@@ -699,7 +723,11 @@ router.get('/release/:ocid', function (req,res) {
                             changes: [/* ... */],
                             rationale: data[0].contract.amendment_rationale
                         },
-                        implementation: {/* ... */}//qp[7]
+                        implementation: { //7
+                            transactions: [/* ... */],
+                            milestones: [/* ... */],
+                            documents: [/* ... */]
+                        }
                     }
                 ],
                 lang: 'es'
@@ -711,7 +739,7 @@ router.get('/release/:ocid', function (req,res) {
 
     }).then(function (data) {
         console.log("Hecho...");
-        console.log("Data: ", data);
+        //console.log("Data: ", data);
         res.send(data);
     }).catch(function (error) {
         console.log("ERROR: ",error);
