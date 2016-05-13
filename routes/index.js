@@ -180,8 +180,6 @@ router.get('/main', isAuthenticated, function(req, res, next) {
 router.get('/main/:ocid', isAuthenticated, function (req,res) {
     var ocid = req.params.ocid;
 
-
-
         edca_db.task(function (t) {
                 // this = t = transaction protocol context;
                 // this.ctx = transaction config + state context;
@@ -312,6 +310,7 @@ router.post('/update-planning', function (req, res) {
         });
 
 });
+
 
 
 /* Update Tender*/
@@ -468,6 +467,29 @@ router.post('/update-procuringentity', function (req, res) {
         console.log("ERROR: ",error);
     });
 });
+
+/* Update publisher*/
+router.post('/update-publisher', function (req, res) {
+
+    edca_db.one("update publisher set name=$2, scheme=$3, uid=$4, uri=$5 where id = $1 returning id",
+        [
+            req.body.id,
+            req.body.name,
+            req.body.scheme,
+            req.body.uid,
+            req.body.uri
+        ]
+    ).then(function (data) {
+        res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
+        console.log("Update publisher ...");
+    }).catch(function (error) {
+        res.send("Error");
+        console.log("ERROR: ",error);
+    });
+});
+
+
+
 
 router.get('/organization-type', function (req, res) {
 edca_db.many("select id, name from OrganizationType").then(function (data) {

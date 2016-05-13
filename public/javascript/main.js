@@ -40,6 +40,13 @@ $('#neworg_form').submit(function (event) {
     event.preventDefault();
 });
 
+// Edit publisher 
+$('#updatepub_form').submit(function (event) {
+    $.post('/update-publisher/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
 /*
 $(function () {
     $.get("/organization_type",function(data){

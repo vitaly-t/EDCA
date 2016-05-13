@@ -838,7 +838,8 @@ Organización Supplier depende de Adjudicación
                 <h4 class="modal-title">Editar </h4>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="updatepub_form">
+                    <input type="text" name="id" value="<%=(typeof publisher != "undefined")?publisher.id:''%>" hidden>
                     <p><label>Name</label>
                     <input name="name" class="form-control" value="<%= (typeof publisher != "undefined")?publisher.name:''%>"></p>
                     <p><label>Scheme</label>
