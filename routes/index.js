@@ -518,8 +518,9 @@ router.post('/search-process-by-date', function (req, res) {
 
 
 
-router.get('/release/:ocid', function (req,res) {
+router.get('/publish/:type/:ocid', function (req,res) {
     var ocid = req.params.ocid;
+    var type = req.params.type;
 
     //queries principales
     edca_db.tx(function (t) {
@@ -556,9 +557,76 @@ router.get('/release/:ocid', function (req,res) {
             //queries secundarias
             var tenderers = t.manyOrNone("select * from tenderer where contractingprocess_id=$1", [data[0].id]);
             var suppliers = t.manyOrNone("select * from supplier where contractingprocess_id=$1", [data[0].id]); //dependen de awards
+
+            if (type =="release-record"){
+                var publisher= t.one("select * from publisher where contractingprocess_id=$1",[data[0].id]);
+                return t.batch([qp, tenderers, suppliers, publisher]);
+            }
+
             return t.batch([qp, tenderers, suppliers]);
 
         }).then(function (data) {
+
+            var tenderers = [];
+            for ( var i=0; i < data[1].length; i++){
+                //console.log("tend: ",data[1][i]);
+                tenderers.push ({
+                    identifier: {
+                        scheme: data[1][i].identifier_scheme,
+                        id: data[1][i].identifier_id,
+                        legalName: data[1][i].identifier_legalname,
+                        uri: data[1][i].identifier_uri
+                    },
+                    additionalIdentifiers:[/* ... */],
+                    name: data[1][i].name,
+                    address: {
+                        locality: data[1][i].identifier_locality,
+                        region: data[1][i].identifier_region,
+                        postalCode: data[1][i].identifier_postalcode,
+                        countryName: data[1][i].identifier_countryname
+                    },
+                    contactPoint:{
+                        name: data[1][i].contactpoint_name,
+                        email: data[1][i].contactpoint_email,
+                        telephone: data[1][i].contactpoint_telephone,
+                        faxNumber: data[1][i].contactpoint_faxnumber,
+                        url: data[1][i].contactpount_faxnumber
+                    }
+                });
+
+            }
+
+            //suppliers -> pueden pertenecer a varios awards
+            var suppliers=[];
+            for ( var i=0; i < data[2].length; i++){
+                //console.log("tend: ",data[1][i]);
+                suppliers.push ({
+                    identifier: {
+                        scheme: data[2][i].identifier_scheme,
+                        id: data[2][i].identifier_id,
+                        legalName: data[2][i].identifier_legalname,
+                        uri: data[2][i].identifier_uri
+                    },
+                    additionalIdentifiers:[/* ... */],
+                    name: data[2][i].name,
+                    address: {
+                        locality: data[2][i].identifier_locality,
+                        region: data[2][i].identifier_region,
+                        postalCode: data[2][i].identifier_postalcode,
+                        countryName: data[2][i].identifier_countryname
+                    },
+                    contactPoint:{
+                        name: data[2][i].contactpoint_name,
+                        email: data[2][i].contactpoint_email,
+                        telephone: data[2][i].contactpoint_telephone,
+                        faxNumber: data[2][i].contactpoint_faxnumber,
+                        url: data[2][i].contactpount_faxnumber
+                    }
+                });
+
+            }
+
+
 
          //aquí se genera el release
             var release = {
@@ -618,7 +686,7 @@ router.get('/release/:ocid', function (req,res) {
                         endDate: data[0].tender.tenderperiod_enddate
                     },
                     numberOfTenderers: data[0].tender.numberoftenderers,
-                    tenderers: data[1], //Falta uniformizar los atributos de cada objeto
+                    tenderers: tenderers, //data[1], //Falta uniformizar los atributos de cada objeto
                     procuringEntity: {
                         identifier: {
                             scheme: data[0].procuringentity.identifier_scheme,
@@ -688,7 +756,7 @@ router.get('/release/:ocid', function (req,res) {
                             amount: data[0].award.value_amount,
                             currency: data[0].award.value_currency
                         },
-                        suppliers: data[2],
+                        suppliers: suppliers,//data[2],
                         items: [/* ... */],
                         contractPeriod: {
                             startDate: data[0].award.contractperiod_startdate,
@@ -733,6 +801,25 @@ router.get('/release/:ocid', function (req,res) {
                 lang: 'es'
             };
 
+            if (type =="release-record"){
+
+                var release_record = {
+                    uri: "",
+                    publishedDate: "",
+                    releases : [ release ],
+                    publisher: {
+                        name: data[3].name,
+                        scheme: data[3].scheme,
+                        uid: data[3].uid,
+                        uri: data[3].uri
+                    },
+                    license: "",
+                    publicationPolicy: ""
+                };
+
+                return release_record;
+            }
+
             return release;
 
          })
@@ -743,6 +830,7 @@ router.get('/release/:ocid', function (req,res) {
         res.send(data);
     }).catch(function (error) {
         console.log("ERROR: ",error);
+        res.send(error);
     });
 });
 

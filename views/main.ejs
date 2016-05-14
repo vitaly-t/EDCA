@@ -52,7 +52,7 @@
         <div class="col-sm-5">
             <div class="panel panel-default pill-container">
                 <div class="panel-heading">
-                    <h4>Proceso de contratación</h4>
+                    <h3 class="panel-title"><strong>Proceso de contratación</strong></h3>
                 </div>
                 <div class="panel-body">
                     <a href="/new-process" class="btn btn-default">Nuevo <i class="fa fa-pencil"></i></a>
@@ -65,7 +65,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li id="release"><a href="#">Release</a></li>
-                            <li><a href="#">Release package</a></li>
+                            <li id="release_package"><a href="#">Release package</a></li>
                             <li><a href="#">Record package</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#" data-toggle="modal" data-target="#myModalEditPub">Publisher</a></li>
@@ -87,7 +87,7 @@
         <div class="col-sm-7">
             <div class="panel panel-default pill-container">
                 <div class="panel-heading">
-                    <h4>Organizaciones</h4>
+                    <h3 class="panel-title"><strong>Organizaciones</strong></h3>
                 </div>
                 <div class="panel-body">
 
@@ -775,8 +775,6 @@
                 <form id="neworg_form">
                     <input type="text" id="org_type" name="org_type" hidden>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <p><label>Name</label>
-                        <input type="text" class="form-control"></p>
                     <p><label>Identifier scheme</label>
                         <input name="identifier_scheme" type="text" class="form-control" ></p>
                     <p><label>Identifier id</label>
