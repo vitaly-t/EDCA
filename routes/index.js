@@ -364,11 +364,21 @@ router.post('/update-contract', function (req, res) {
 
 // New document
 router.post('/new-document', function(req,res){
-var table = req.body.doc_table;
 
-
-    edca_db.one("",[]).then(function (data) {
-
+    edca_db.one('insert into $1~ (contractingprocess_id, document_type, title, description, url, date_published, date_modified, format, language) values ($2,$3,$4,$5,$6,$7,$8,$9,$10) returning id',
+        [
+            req.body.doc_table,
+            req.body.ocid,
+            req.body.document_type,
+            req.body.title,
+            req.body.description,
+            req.body.url,
+            (req.body.date_published!='')?req.body.date_published:null,
+            (req.body.date_modified!='')?req.body.date_modified:null,
+            req.body.format,
+            req.body.language
+        ]).then(function (data) {
+        res.send("Se ha creado un nuevo documento");
         console.log("new "+ table + ": ", data);
 
     }).catch(function (error) {
@@ -692,7 +702,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         startDate: data[0].tender.enquiryperiod_startdate,
                         endDate: data[0].tender.enquiryperiod_enddate
                     },
-                    hasEnquiries: (data[0].tender.hasenquiries == 1) ? true : false,
+                    hasEnquiries: (data[0].tender.hasenquiries == 0) ? true : false,
                     eligibilityCriteria: data[0].tender.eligibilitycriteria,
                     awardPeriod: {
                         startDate: data[0].tender.tenderperiod_startdate,
