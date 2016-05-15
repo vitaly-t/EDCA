@@ -24,6 +24,16 @@ $(function () {
         locale: 'es',
         format: 'DD/MM/YYYY HH:mm:ss'
     });
+    
+    $('#newitem_date1, #newitem_date2').datetimepicker({
+        locale: 'es',
+        format: 'DD/MM/YYYY HH:mm:ss'
+    });
+
+    $('#newmilestone_date1, #newmilestone_date2').datetimepicker({
+        locale: 'es',
+        format: 'DD/MM/YYYY HH:mm:ss'
+    });
 
 });
 

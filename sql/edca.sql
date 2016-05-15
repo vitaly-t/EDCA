@@ -529,7 +529,7 @@ create table ReceiverOrganization(
 	uri text
 	);
 
-drop table if exists ImplementationMilestones cascade;
+drop table if exists ImplementationMilestone cascade;
 create table ImplementationMilestones(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
