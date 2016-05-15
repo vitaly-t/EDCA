@@ -362,9 +362,24 @@ router.post('/update-contract', function (req, res) {
     res.send('La etapa de contrato ha sido actualizada');
 });
 
+// New document
+router.post('/new-document', function(req,res){
+var table = req.body.doc_table;
 
 
-/* Update buyer*/
+    edca_db.one("",[]).then(function (data) {
+
+        console.log("new "+ table + ": ", data);
+
+    }).catch(function (error) {
+        res.send('ERROR');
+        console.log("ERROR: ", error)
+    });
+});
+
+
+
+/* New organization */
 router.post('/new-organization', function (req, res) {
 
     var table= (req.body.org_type=="S")?"Supplier":"Tenderer";
@@ -525,9 +540,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
     //queries principales
     edca_db.tx(function (t) {
 
-        return t.one("Select * from contractingprocess where id = $1", [ocid]).then(function (cp) {
-            //var cp = this.one("Select * from contractingprocess where id = $1", [ocid]);                    //0
-
+        return t.one("Select * from contractingprocess where id = $1", [ocid]).then(function (cp) { //0
 
             var planning = t.one("select * from planning where contractingprocess_id = $1", [ocid]);     //1
             var budget = t.one("select * from budget where contractingprocess_id = $1", [ocid]);         //2
@@ -766,7 +779,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         amendment: {
                             date: data[0].award.amendment_date,
                             changes: [/* ... */],
-                            rationale: data[0].award.amendment_rationale,
+                            rationale: data[0].award.amendment_rationale
                         }
                     }
 

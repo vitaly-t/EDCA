@@ -9,15 +9,19 @@
 /* Date picker */
 $(function () {
     $('#lici_date1, #lici_date2, #lici_date3, #lici_date4, #lici_date5, #lici_date6, #lici_date7').datetimepicker({
-        //locale: ''
+        locale: 'es',
         format: 'DD/MM/YYYY HH:mm:ss'
     });
     $('#adju_date1, #adju_date2, #adju_date3, #adju_date4').datetimepicker({
-        //locale: ''
+        locale: 'es',
         format: 'DD/MM/YYYY HH:mm:ss'
     });
     $('#cont_date1, #cont_date2, #cont_date3, #cont_date4').datetimepicker({
-        //locale: ''
+        locale: 'es',
+        format: 'DD/MM/YYYY HH:mm:ss'
+    });
+    $('#docs_date1, #docs_date2').datetimepicker({
+        locale: 'es',
         format: 'DD/MM/YYYY HH:mm:ss'
     });
 
@@ -35,6 +39,14 @@ $('#crear').click(function(){
 // Crear organización
 $('#neworg_form').submit(function (event) {
     $.post('/new-organization/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
+
+// Nuevo docto
+$('#newdoc_form').submit(function (event) {
+    $.post('/new-document/', $(this).serialize()).done(function (data) {
         alert(data);
     });
     event.preventDefault();
@@ -152,24 +164,30 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
 });
 
 $('#myModalEditOrg').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
-    var recipient = button.data('org'); // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var button = $(event.relatedTarget);
+    var recipient = button.data('org');
     var modal = $(this);
-    //modal.find('.modal-title').text('New message to ' + recipient)
     modal.find('#org_type').val(recipient);
-    //modal.find('.modal-body input').val(recipient)
 });
+
+$('#myModalNewDoc').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    modal.find('#doc_table').val( button.data('doctable') );
+});
+
+
 /* */
 
 $(function () {
     $('#datetimepicker1').datetimepicker({
-        format: 'DD/MM/YYYY', //HH:mm:ss'
+        format: 'DD/MM/YYYY',
+        locale: 'es'
     });
     $('#datetimepicker2').datetimepicker({
-        format: 'DD/MM/YYYY',// HH:mm:ss',
-        useCurrent: false
+        format: 'DD/MM/YYYY',
+        useCurrent: false,
+        locale: 'es'
     });
     $("#datetimepicker1").on("dp.change", function (e) {
         $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
