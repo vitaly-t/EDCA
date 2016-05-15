@@ -146,8 +146,7 @@
                         <input type="text" class="form-control" id="lici_date1" name="tenderperiod_startdate"
                                 <% if (typeof tender != "undefined") {%>
                                value = "<%= (tender.tenderperiod_startdate != null)? tender.tenderperiod_startdate.toLocaleString():''%>"
-                                <%}%>
-                               required>
+                                <%}%> >
                     </div>
 
                     <div class="col-sm-6">
@@ -155,8 +154,7 @@
                         <input type="text" class="form-control" id="lici_date2" name="tenderperiod_enddate"
                                 <% if (typeof tender != "undefined") {%>
                                value = "<%= (tender.tenderperiod_enddate != null)? tender.tenderperiod_enddate.toLocaleString():''%>"
-                                <%}%>
-                               required>
+                                <%}%> >
                     </div>
                 </div>
                 </p>
@@ -168,16 +166,15 @@
                         <input type="text" class="form-control" id="lici_date3" name= "enquiryperiod_startdate"
                                 <% if (typeof tender != "undefined") {%>
                                value = "<%= (tender.enquiryperiod_startdate != null)? tender.enquiryperiod_startdate.toLocaleString():''%>"
-                                <%}%>
-                               required>
+                                <%}%> >
                     </div>
                     <div class="col-sm-6">
                         <label>Enquiry period end date</label>
                         <input type="text" class="form-control" id="lici_date4" name= "enquiryperiod_enddate"
                                 <% if (typeof tender != "undefined") {%>
                                value = "<%= (tender.enquiryperiod_enddate != null)? tender.enquiryperiod_enddate.toLocaleString():''%>"
-                                <%}%>
-                               required></div>
+                                <%}%> >
+                    </div>
                 </div>
                 </p>
 
@@ -207,8 +204,7 @@
                         <input type="text" class="form-control" id="lici_date5" name="awardperiod_startdate"
                                 <%if (typeof tender != "undefined"){%>
                                value = "<%= (tender.awardperiod_startdate != null)? tender.awardperiod_startdate.toLocaleString():''%>"
-                                <%}%>
-                               required>
+                                <%}%> >
                     </div>
 
                     <div class="col-sm-6">
@@ -216,8 +212,7 @@
                         <input type="text" class="form-control" id="lici_date6" name="awardperiod_enddate"
                                 <%if(typeof tender != "undefined"){%>
                                value = "<%= (tender.awardperiod_enddate != null)? tender.awardperiod_enddate.toLocaleString():''%>"
-                                <%}%>
-                               required>
+                                <%}%> >
                     </div>
                 </div>
                 </p>
@@ -231,8 +226,7 @@
                     <input type="text" class="form-control" id="lici_date7" name="amendment_date"
                             <%if(typeof tender != "undefined"){%>
                            value = "<%= (tender.amendment_date != null)? tender.amendment_date.toLocaleString():''%>"
-                            <%}%>
-                           required>
+                            <%}%> >
                 </div>
                 </p>
                 <p><label>Rationale</label>
@@ -293,8 +287,7 @@
                     <input type="text" id ="adju_date1" name="award_date" class="form-control"
                             <%if(typeof award !="undefined"){%>
                            value = "<%= (award.award_date != null)? award.award_date.toLocaleString():''%>"
-                            <%}%>
-                           required>
+                            <%}%> >
                 </div> </p>
 
                 <p>
@@ -310,16 +303,14 @@
                         <input type="text" id ="adju_date2" name="contractperiod_startdate" class="form-control"
                                 <%if (typeof award != "undefined"){%>
                                value = "<%= ( award.contractperiod_startdate != null)? award.contractperiod_startdate.toLocaleString():''%>"
-                                <%}%>
-                               required>
+                                <%}%> >
                     </div>
                     <div class="col-sm-6">
                         <label>Contract period end date</label>
                         <input type="text" id = "adju_date3" name="contractperiod_enddate" class="form-control"
                                 <%if(typeof award != "undefined"){%>
                                value = "<%= (award.contractperiod_enddate != null)? award.contractperiod_enddate.toLocaleString():''%>"
-                                <%}%>
-                               required>
+                                <%}%> >
                     </div>
                 </div>
                 </p>
@@ -330,8 +321,7 @@
                     <input type="text" class="form-control" id="adju_date4" name="amendment_date"
                             <%if(typeof award != "undefined"){%>
                            value = "<%= (award.amendment_date != null)? award.amendment_date.toLocaleString():''%>"
-                            <%}%>
-                           required>
+                            <%}%> >
                 </div>
                 </p>
 
@@ -404,16 +394,14 @@
                         <input type="text" id= "cont_date1" name  = "period_startdate" class="form-control"
                                 <%if (typeof contract != "undefined"){%>
                                value = "<%= (contract.period_startdate != null)? contract.period_startdate.toLocaleString():''%>"
-                                <%}%>
-                               required>
+                                <%}%> >
                     </div>
                     <div class="col-sm-6">
                         <label>Period end date</label>
                         <input type="text" id= "cont_date2" class="form-control" name= "period_enddate"
                                 <%if(typeof contract != "undefined"){%>
                                value = "<%= (contract.period_enddate != null)? contract.period_enddate.toLocaleString():''%>"
-                                <%}%>
-                               required>
+                                <%}%> >
                     </div>
                 </div>
                 </p>
@@ -429,8 +417,7 @@
                     <input type="text" id="cont_date3" class="form-control" name="datesigned"
                             <% if (typeof contract != "undefined"){%>
                            value = "<%= (contract.datesigned != null)? contract.datesigned.toLocaleString():''%>"
-                            <%}%>
-                           required></div>
+                            <%}%> ></div>
                 </p>
 
                 <p>
@@ -439,8 +426,7 @@
                     <input type="text" class="form-control" id="cont_date4" name="amendment_date"
                             <%if(typeof contract != "undefined"){%>
                            value = "<%= (contract.amendment_date != null)? contract.amendment_date.toLocaleString():''%>"
-                            <%}%>
-                           required>
+                            <%}%> >
                 </div>
                 </p>
 

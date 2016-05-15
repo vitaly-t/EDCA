@@ -315,51 +315,97 @@ router.post('/update-planning', function (req, res) {
 
 /* Update Tender*/
 router.post('/update-tender', function (req, res) {
-    for (var campo in req.body) {
-        
-        console.log(campo+": "+req.body[campo]);
-        edca_db.one("update tender set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
-            function (ub) {
-                console.log("Update tender ...");
 
+        edca_db.one("update tender set title= $2, description=$3, status=$4, minvalue_amount=$5, minvalue_currency=$6, procurementmethod=$7," +
+            "procurementmethod_rationale=$8, awardcriteria=$9, awardcriteria_details=$10, submissionmethod=$11, submissionmethod_details=$12," +
+            "tenderperiod_startdate=$13, tenderperiod_enddate=$14, enquiryperiod_startdate=$15, enquiryperiod_enddate=$16 ,hasenquiries=$17, eligibilitycriteria=$18, awardperiod_startdate=$19," +
+            "awardperiod_enddate=$20, numberoftenderers=$21, amendment_date=$22, amendment_rationale=$23" +
+            " where ContractingProcess_id = $1 returning id", [
+            req.body.contractingprocess_id,
+            req.body.title,
+            req.body.description,
+            req.body.status,
+            req.body.minvalue_amount,
+            req.body.minvalue_currency,
+            req.body.procurementmethod,
+            req.body.procurementmethod_rationale,
+            req.body.awardcriteria,
+            req.body.awardcriteria_details,
+            req.body.submissionmethod,
+            req.body.submissionmethod_details,
+            (req.body.tenderperiod_startdate!='')?req.body.tenderperiod_startdate:null,
+            (req.body.tenderperiod_enddate!='')?req.body.tenderperiod_enddate:null,
+            (req.body.enquiryperiod_startdate!='')?req.body.enquiryperiod_startdate:null,
+            (req.body.enquiryperiod_enddate!='')?req.body.enquiryperiod_enddate:null,
+            req.body.hasenquiries,
+            req.body.eligibilitycriteria,
+            (req.body.awardperiod_startdate!='')?req.body.awardperiod_startdate:null,
+            (req.body.awardperiod_enddate!='')?req.body.awardperiod_enddate:null,
+            req.body.numberoftenderers,
+            (req.body.amendment_date!='')?req.body.amendment_date:null,
+            req.body.amendment_rationale
+        ]).then(
+            function (data) {
+                console.log("Update tender: ", data);
+                res.send("La etapa de licitación ha sido actualizada");
             }).catch(function (error) {
+            res.send("ERROR");
             console.log("ERROR: ",error);
         });
-    }
-
-    res.send('La etapa de licitación ha sido actualizada'); // envía la respuesta y presentala en un modal
 });
 
 
 /* Update Award */
 router.post('/update-award', function (req, res) {
-    for (var campo in req.body) {
-
-        edca_db.one("update award set "+campo+" = $1 where ContractingProcess_id = $2 returning 1", [req.body[campo], req.body.contractingprocess_id]).then(
-            function (ub) {
-                console.log("Update award ...");
+        edca_db.one("update award set title= $2, description=$3,status=$4,award_date=$5,value_amount=$6,value_currency=$7,contractperiod_startdate=$8," +
+            "contractperiod_enddate=$9,amendment_date=$10,amendment_rationale=$11 " +
+            " where ContractingProcess_id = $1 returning id",
+            [
+                req.body.contractingprocess_id,
+                req.body.title,
+                req.body.description,
+                req.body.status,
+                (req.body.award_date!='')?req.body.award_date:null,
+                req.body.value_amount,
+                req.body.value_currency,
+                (req.body.contractperiod_startdate!='')?req.body.contractperiod_startdate:null,
+                (req.body.contractperiod_enddate!='')?req.body.contractperiod_enddate:null,
+                (req.body.amendment_date!='')?req.body.amendment_date:null,
+                req.body.amendment_rationale
+            ]
+        ).then(
+            function (data) {
+                console.log("Update award: ", data);
+                res.send("La etapa de adjudicación ha sido actualizada");
             }).catch(function (error) {
             console.log("ERROR: ",error);
+            res.send("ERROR");
         });
-    }
-
-    res.send('La etapa de adjudicación ha sido actualizada');
 });
-
 
 /* Update Contract */
 router.post('/update-contract', function (req, res) {
-    for (var campo in req.body) {
-
-        edca_db.one("update contract set "+campo+" = $1 where ContractingProcess_id = $2 returning id", [req.body[campo], req.body.contractingprocess_id]).then(
-            function (ub) {
-                console.log("Update contract ...");
-            }).catch(function (error) {
-            console.log("ERROR: ",error);
-        });
-    }
-
-    res.send('La etapa de contrato ha sido actualizada');
+    edca_db.one("update contract set title=$2, description=$3, status=$4, period_startdate=$5, period_enddate=$6, value_amount=$7, value_currency=$8, datesigned=$9, amendment_date=$10, amendment_rationale=$11 " +
+        " where ContractingProcess_id = $1 returning id", [
+        req.body.contractingprocess_id,
+        req.body.title,
+        req.body.description,
+        req.body.status,
+        (req.body.period_startdate!='')?req.body.period_startdate:null,
+        (req.body.period_enddate!='')?req.body.period_enddate:null,
+        (req.body.value_amount!='')?req.body.value_amount:null,
+        req.body.value_currency,
+        (req.body.datesigned!='')?req.body.datesigned:null,
+        (req.body.amendment_date!='')?req.body.amendment_date:null,
+        req.body.amendment_rationale
+    ]).then(
+        function (data) {
+            res.send('La etapa de contratación ha sido actualizada');
+            console.log("Update contract id: ", data);
+        }).catch(function (error) {
+        res.send('ERROR')
+        console.log("ERROR: ",error);
+    });
 });
 
 // New document
