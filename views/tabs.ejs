@@ -370,6 +370,10 @@
             <form id="contract_form" role="form">
 
                 <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof contract != "undefined")? contract.contractingprocess_id :''%>" >
+                <p><label>Award ID</label>
+                    <input class="form-control" type="number" name="awardid" value = "<%= (typeof contract != "undefined")? contract.awardid:''%>" required>
+                </p>
+
                 <p>
                     <label>Title</label>
                     <input type="text" class="form-control" name = "title" value = "<%= (typeof contract != "undefined")? contract.title:''%>" ></p>

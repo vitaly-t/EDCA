@@ -247,8 +247,8 @@ router.get('/new-process', function (req, res) {
                 .then(function (process) {
 
                     var planning = t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id);
-                    var tender = t.one ("insert into Tender (ContractingProcess_id) values ($1) returning id as tender_id", process.id);
-                    var contract = t.one ("insert into Contract (ContractingProcess_id) values ($1) returning id", process.id);
+                    var tender = t.one ("insert into Tender (ContractingProcess_id) values ($1, $2) returning id as tender_id", [process.id, 'None']);
+                    var contract = t.one ("insert into Contract (ContractingProcess_id, status) values ($1, $2) returning id", [process.id, 'None']);
 
                     return t.batch([process = { id : process.id}, planning, tender, contract] );
 
@@ -385,9 +385,10 @@ router.post('/update-award', function (req, res) {
 
 /* Update Contract */
 router.post('/update-contract', function (req, res) {
-    edca_db.one("update contract set title=$2, description=$3, status=$4, period_startdate=$5, period_enddate=$6, value_amount=$7, value_currency=$8, datesigned=$9, amendment_date=$10, amendment_rationale=$11 " +
+    edca_db.one("update contract set title=$2, awardid=$3, description=$4, status=$5, period_startdate=$6, period_enddate=$7, value_amount=$8, value_currency=$9, datesigned=$10, amendment_date=$11, amendment_rationale=$12 " +
         " where ContractingProcess_id = $1 returning id", [
         req.body.contractingprocess_id,
+        req.body.awardid,
         req.body.title,
         req.body.description,
         req.body.status,
@@ -731,6 +732,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                 var documents =[];
                 for (var i=0; i < docarray.length; i++ ){
                     documents.push({
+                        id: docarray[i].id,
                         documentType: docarray[i].document_type,
                         title: docarray[i].title ,
                         description: docarray[i].description,
@@ -748,8 +750,9 @@ router.get('/publish/:type/:ocid', function (req,res) {
                 var items =[];
                 for (var i=0; i < arr.length;i++){
                     items.push({
+                        id: arr[i].id,
                         description: arr[i].description,
-                        clasification:{
+                        classification:{
                             scheme: arr[i].classification_scheme,
                             id: arr[i].classification_id,
                             description: arr[i]. classification_description,
@@ -759,7 +762,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         unit :{
                             name: arr[i].unit_name,
                             value: {
-                                amount: arr[i].unit_value_amount,
+                                amount: Number(arr[i].unit_value_amount),
                                 currency: arr[i].unit_value_currency
                             }
                         }
@@ -784,11 +787,11 @@ router.get('/publish/:type/:ocid', function (req,res) {
 
             //aquí se genera el release
             var release = {
-                ocid: data[0].cp.id,
+                ocid: String(data[0].cp.id),
                 id: "id de release",
                 date: data[0].cp.fecha_creacion,
-                tag: "Contrato",
-                initiationType: "Tender",
+                tag: ["Contrato"],
+                initiationType: "tender",
                 planning: {
                     budget: {
                         source: data[0].budget.budget_source,
@@ -928,7 +931,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                 contracts: [
                     { //pueden ser varios
                         id: data[0].contract.id,
-                        awardID: data[0].contract.award_id,
+                        awardID: String(data[0].contract.awardid),
                         title: data[0].contract.title,
                         description: data[0].contract.description,
                         status: data[0].contract.status,
@@ -952,7 +955,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         }
                     }
                 ],
-                lang: 'es'
+                language: 'es'
             };
 
             if (type =="release-record"){

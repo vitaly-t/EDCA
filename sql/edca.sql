@@ -188,12 +188,10 @@ create table ProcuringEntity(
 	id serial primary key,
 	ContractingProcess_id int references ContractingProcess(id) on delete cascade,
 	Tender_id int references Tender(id) on delete cascade,
-
 	identifier_scheme text,
 	identifier_id text,
 	identifier_legalname text,
 	identifier_uri text,
-
     name text,
 	address_streetaddress text,
 	address_locality text,
@@ -396,6 +394,7 @@ drop table if exists Contract cascade;
 create table Contract(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
+	awardid int,
 	title text,
 	description text,
 	status text, 
