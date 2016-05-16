@@ -665,25 +665,20 @@ router.get('/publish/:type/:ocid', function (req,res) {
             };
 
             //queries secundarias
-            var tenderers = t.manyOrNone("select * from tenderer where contractingprocess_id=$1", [data[0].id]);
-            var suppliers = t.manyOrNone("select * from supplier where contractingprocess_id=$1", [data[0].id]); //dependen de awards
-            var planningdocuments=t.manyOrNone('select * from planningdocuments where contractingprocess_id=$1',[data[0].id]);
-            var tenderdocuments=t.manyOrNone('select * from tenderdocuments where contractingprocess_id=$1',[data[0].id]);
-            var awarddocuments=t.manyOrNone('select * from awarddocuments where contractingprocess_id=$1',[data[0].id]);
-            var contractdocuments = t.manyOrNone('select * from contractdocuments where contractingprocess_id=$1', [data[0].id]);
-            var implementationdocuments=t.manyOrNone('select * from implementationdocuments where contractingprocess_id=$1 ',[data[0].id]);
-            var publisher= t.one("select * from publisher where contractingprocess_id=$1",[data[0].id]);
             return t.batch(
                 [
-                    qp, //0
-                    tenderers, //1
-                    suppliers, //2
-                    publisher, //3
-                    planningdocuments, //4
-                    tenderdocuments,  //5
-                    awarddocuments,   //6
-                    contractdocuments, //7
-                    implementationdocuments //8
+                    qp,
+                    t.manyOrNone("select * from tenderer where contractingprocess_id=$1", [data[0].id]), //0
+                    t.manyOrNone("select * from supplier where contractingprocess_id=$1", [data[0].id]), //1: dependen de awards
+                    t.one("select * from publisher where contractingprocess_id=$1",[data[0].id]), //2
+                    t.manyOrNone('select * from planningdocuments where contractingprocess_id=$1',[data[0].id]),//3
+                    t.manyOrNone('select * from tenderdocuments where contractingprocess_id=$1',[data[0].id]), //4
+                    t.manyOrNone('select * from awarddocuments where contractingprocess_id=$1',[data[0].id]), //5
+                    t.manyOrNone('select * from contractdocuments where contractingprocess_id=$1', [data[0].id]),//6
+                    t.manyOrNone('select * from implementationdocuments where contractingprocess_id=$1 ',[data[0].id]), //7
+                    t.manyOrNone('select * from tenderitem where contractingprocess_id=$1',[data[0].id]),// 8
+                    t.manyOrNone('select * from awarditem where contractingprocess_id=$1',[data[0].id]), //9
+                    t.manyOrNone('select * from contractitem where contractingprocess_id=$1',[data[0].id])//10
                 ]);
 
         }).then(function (data) {
@@ -738,13 +733,24 @@ router.get('/publish/:type/:ocid', function (req,res) {
                 return documents;
             }
 
+            function getItems(arr){
+                var items =[];
+                for (var i=0; i < arr.length;i++){
+                    items.push({
+                        description: arr[i].description,
+                        quantity: arr[i].quantity,
+                        unit :{
+                            name: arr[i].unit_name,
+                            value: {
+                                amount: arr[i].unit_value_amount,
+                                currency: arr[i].unit_value_currency
+                            }
+                        }
+                    });
+                }
+            }
 
-            var tenderers = getOrganizations(data[1]);
-
-            //suppliers -> pueden pertenecer a varios awards
-            var suppliers= getOrganizations(data[2]);
-
-         //aquí se genera el release
+            //aquí se genera el release
             var release = {
                 ocid: data[0].cp.id,
                 id: "id de release",
@@ -772,7 +778,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                     title: data[0].tender.title,
                     description: data[0].tender.description,
                     status: data[0].tender.status,
-                    items: [/* ... */],
+                    items: getItems(data[8]),
                     minValue: {
                         amount: data[0].tender.minvalue_amount,
                         currency: data[0].tender.minvalue_currency
@@ -802,7 +808,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         endDate: data[0].tender.tenderperiod_enddate
                     },
                     numberOfTenderers: data[0].tender.numberoftenderers,
-                    tenderers: tenderers, //data[1], //Falta uniformizar los atributos de cada objeto
+                    tenderers: getOrganizations(data[1]),
                     procuringEntity: {
                         identifier: {
                             scheme: data[0].procuringentity.identifier_scheme,
@@ -872,8 +878,8 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             amount: data[0].award.value_amount,
                             currency: data[0].award.value_currency
                         },
-                        suppliers: suppliers,//data[2],
-                        items: [/* ... */],
+                        suppliers: getOrganizations(data[2]), //pueden pertenecer a diferentes awards
+                        items: getItems(data[9]),
                         contractPeriod: {
                             startDate: data[0].award.contractperiod_startdate,
                             endDate: data[0].award.contractperiod_enddate,
@@ -899,7 +905,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             endDate: data[0].contract.period_enddate
                         },
                         value: data[0].contract.value,
-                        items: [/* ... */],
+                        items: getItems(data[10]),
                         dateSigned: data[0].contract.datesigned,
                         documents: getDocuments(data[7]),
                         amendment: {

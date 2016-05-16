@@ -250,8 +250,12 @@ drop table if exists TenderItem cascade;
 create table TenderItem(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
+	tender_id int references Tender(id) on delete cascade,
 	description text,
-	/*classification... */
+	classification_scheme text,
+    classification_id text,
+    classification_description text,
+    classification_uri text,
 	quantity int,
 	unit_name text, 
 	unit_value_amount decimal,
@@ -362,10 +366,14 @@ create table SupplierAdditionalIdentifiers(
 
 drop table if exists AwardItem cascade;
 create table AwardItem(
-	id serial primary key, 
+	id serial primary key,
+	contractingprocess_id int references ContractingProcess(id),
 	award_id int references Award(id) on delete cascade,
 	description text,
-	/*classification... */
+	classification_scheme text,
+	classification_id text,
+	classification_description text,
+	classification_uri text,
 	quantity int,
 	unit_name text, 
 	unit_value_amount decimal,
@@ -433,7 +441,10 @@ create table ContractItem(
 	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
 	contract_id int references Contract(id) on delete cascade,
 	description text,
-	/*classification... */
+	classification_scheme text,
+    classification_id text,
+    classification_description text,
+    classification_uri text,
 	quantity int,
 	unit_name text, 
 	unit_value_amount decimal,
