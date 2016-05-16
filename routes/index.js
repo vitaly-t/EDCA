@@ -442,7 +442,7 @@ router.post('/new-organization', function (req, res) {
 
     //falta pasar id de award y tender segun sea el caso
 
-    edca_db.one("insert into " + table +
+    edca_db.one("insert into $17~" +
         " (contractingprocess_id, identifier_scheme, identifier_id, identifier_legalname, identifier_uri, name, address_streetaddress," +
         " address_locality, address_region, address_postalcode, address_countryname, contactpoint_name, contactpoint_email, contactpoint_telephone," +
         " contactpoint_faxnumber, contactpoint_url) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) returning id",
@@ -462,7 +462,8 @@ router.post('/new-organization', function (req, res) {
             req.body.contactpoint_email,
             req.body.contactpoint_telephone,
             req.body.contactpoint_faxnumber,
-            req.body.contactpoint_url
+            req.body.contactpoint_url,
+            table
         ]
     ).then(function (data) {
         res.send('La organización ha sido registrada'); // envía la respuesta y presentala en un modal
@@ -474,11 +475,16 @@ router.post('/new-organization', function (req, res) {
 });
 
 router.post('/new-item',function (req,res) {
-    edca_db.one('insert into $1~ (contractingprocess_id, description, unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6) returning id',
+    edca_db.one('insert into $1~ (contractingprocess_id, description, classification_scheme, classification_id, classification_description, classification_uri,' +
+        ' unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6,$7,$8,$9,$10) returning id',
         [
             req.body.item_table,
             req.body.ocid,
             req.body.description,
+            req.body.classification_scheme,
+            req.body.classification_id,
+            req.body.classification_description,
+            req.body.classification_uri,
             req.body.unit_name,
             req.body.unit_value_amount,
             req.body.unit_value_currency
@@ -667,18 +673,23 @@ router.get('/publish/:type/:ocid', function (req,res) {
             //queries secundarias
             return t.batch(
                 [
-                    qp,
-                    t.manyOrNone("select * from tenderer where contractingprocess_id=$1", [data[0].id]), //0
-                    t.manyOrNone("select * from supplier where contractingprocess_id=$1", [data[0].id]), //1: dependen de awards
-                    t.one("select * from publisher where contractingprocess_id=$1",[data[0].id]), //2
-                    t.manyOrNone('select * from planningdocuments where contractingprocess_id=$1',[data[0].id]),//3
-                    t.manyOrNone('select * from tenderdocuments where contractingprocess_id=$1',[data[0].id]), //4
-                    t.manyOrNone('select * from awarddocuments where contractingprocess_id=$1',[data[0].id]), //5
-                    t.manyOrNone('select * from contractdocuments where contractingprocess_id=$1', [data[0].id]),//6
-                    t.manyOrNone('select * from implementationdocuments where contractingprocess_id=$1 ',[data[0].id]), //7
-                    t.manyOrNone('select * from tenderitem where contractingprocess_id=$1',[data[0].id]),// 8
-                    t.manyOrNone('select * from awarditem where contractingprocess_id=$1',[data[0].id]), //9
-                    t.manyOrNone('select * from contractitem where contractingprocess_id=$1',[data[0].id])//10
+                    qp, //0
+                    t.manyOrNone("select * from tenderer where contractingprocess_id=$1", [data[0].id]), //1
+                    t.manyOrNone("select * from supplier where contractingprocess_id=$1", [data[0].id]), //2: dependen de awards
+                    t.one("select * from publisher where contractingprocess_id=$1",[data[0].id]), //3
+                    /* Documents */
+                    t.manyOrNone('select * from planningdocuments where contractingprocess_id=$1',[data[0].id]),//4
+                    t.manyOrNone('select * from tenderdocuments where contractingprocess_id=$1',[data[0].id]), //5
+                    t.manyOrNone('select * from awarddocuments where contractingprocess_id=$1',[data[0].id]), //6
+                    t.manyOrNone('select * from contractdocuments where contractingprocess_id=$1', [data[0].id]),//7
+                    t.manyOrNone('select * from implementationdocuments where contractingprocess_id=$1 ',[data[0].id]), //8
+                    /* Items */
+                    t.manyOrNone('select * from tenderitem where contractingprocess_id=$1',[data[0].id]),// 9
+                    t.manyOrNone('select * from awarditem where contractingprocess_id=$1',[data[0].id]), //10
+                    t.manyOrNone('select * from contractitem where contractingprocess_id=$1',[data[0].id]),//11
+                    /* Milestones */
+                    t.manyOrNone('select * from tendermilestone where contractingprocess_id=$1',[data[0].id]), //12
+                    t.manyOrNone('select * from implementationmilestone where contractingprocess_id=$1',[data[0].id]) //13
                 ]);
 
         }).then(function (data) {
@@ -738,6 +749,12 @@ router.get('/publish/:type/:ocid', function (req,res) {
                 for (var i=0; i < arr.length;i++){
                     items.push({
                         description: arr[i].description,
+                        clasification:{
+                            scheme: arr[i].classification_scheme,
+                            id: arr[i].classification_id,
+                            description: arr[i]. classification_description,
+                            uri: arr[i].classification_uri
+                        },
                         quantity: arr[i].quantity,
                         unit :{
                             name: arr[i].unit_name,
@@ -748,6 +765,21 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         }
                     });
                 }
+                return items;
+            }
+
+            function getMilestones(arr) {
+                var milestones =[];
+                for (var i=0; i < arr.length;i++){
+                    milestones.push({
+                        title: arr[i].title,
+                        description: arr[i].description,
+                        dueDate: arr[i].duedate,
+                        dateModified: arr[i].date_modified,
+                        status: arr[i].status
+                    });
+                }
+                return milestones;
             }
 
             //aquí se genera el release
@@ -763,7 +795,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         id: data[0].budget.id,
                         description: data[0].budget.budget_description,
                         amount: {
-                            amount: data[0].budget.budget_amount,
+                            amount: Number (data[0].budget.budget_amount),
                             currency: data[0].budget.budget_currency
                         },
                         project: data[0].budget.budget_project,
@@ -778,13 +810,13 @@ router.get('/publish/:type/:ocid', function (req,res) {
                     title: data[0].tender.title,
                     description: data[0].tender.description,
                     status: data[0].tender.status,
-                    items: getItems(data[8]),
+                    items: getItems(data[9]),
                     minValue: {
-                        amount: data[0].tender.minvalue_amount,
+                        amount: Number (data[0].tender.minvalue_amount),
                         currency: data[0].tender.minvalue_currency
                     },
                     value: {
-                        amount: data[0].tender.value_amount,
+                        amount: Number (data[0].tender.value_amount),
                         currency: data[0].tender.value_currency
                     },
                     procurementMethod: data[0].tender.procurementmenthod,
@@ -834,7 +866,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         }
                     },
                     documents: getDocuments(data[5]),
-                    milestones: [/* ... */],
+                    milestones: getMilestones(data[12]),
                     amendment: {
                         date: data[0].tender.amendment_date,
                         changes: [/* ... */],
@@ -875,11 +907,11 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         status: data[0].award.status,
                         date: data[0].award.award_date,
                         value: {
-                            amount: data[0].award.value_amount,
+                            amount: Number (data[0].award.value_amount),
                             currency: data[0].award.value_currency
                         },
                         suppliers: getOrganizations(data[2]), //pueden pertenecer a diferentes awards
-                        items: getItems(data[9]),
+                        items: getItems(data[10]),
                         contractPeriod: {
                             startDate: data[0].award.contractperiod_startdate,
                             endDate: data[0].award.contractperiod_enddate,
@@ -905,7 +937,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             endDate: data[0].contract.period_enddate
                         },
                         value: data[0].contract.value,
-                        items: getItems(data[10]),
+                        items: getItems(data[11]),
                         dateSigned: data[0].contract.datesigned,
                         documents: getDocuments(data[7]),
                         amendment: {
@@ -915,7 +947,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         },
                         implementation: { //7
                             transactions: [/* ... */],
-                            milestones: [/* ... */],
+                            milestones: getMilestones(data[13]),
                             documents: getDocuments(data[8])
                         }
                     }
