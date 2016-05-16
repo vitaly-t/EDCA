@@ -24,7 +24,6 @@ $(function () {
         locale: 'es',
         format: 'DD/MM/YYYY HH:mm:ss'
     });
-    
     $('#newitem_date1, #newitem_date2').datetimepicker({
         locale: 'es',
         format: 'DD/MM/YYYY HH:mm:ss'
@@ -34,7 +33,6 @@ $(function () {
         locale: 'es',
         format: 'DD/MM/YYYY HH:mm:ss'
     });
-
 });
 
 // Crear proceso de contratación.
@@ -57,6 +55,22 @@ $('#neworg_form').submit(function (event) {
 // Nuevo docto
 $('#newdoc_form').submit(function (event) {
     $.post('/new-document/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
+
+// New milestone
+$('#newmilestone_form').submit(function (event) {
+    $.post('/new-milestone/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
+
+// New item
+$('#newitem_form').submit(function (event) {
+    $.post('/new-item/', $(this).serialize()).done(function (data) {
         alert(data);
     });
     event.preventDefault();
@@ -184,6 +198,18 @@ $('#myModalNewDoc').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
     modal.find('#doc_table').val( button.data('doctable') );
+});
+
+$('#myModalNewItem').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    modal.find('#item_table').val( button.data('itemtable') );
+});
+
+$('#myModalNewMilestone').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    modal.find('#milestone_table').val( button.data('milestonetable') );
 });
 
 

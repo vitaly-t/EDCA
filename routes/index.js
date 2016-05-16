@@ -473,6 +473,47 @@ router.post('/new-organization', function (req, res) {
     });
 });
 
+router.post('/new-item',function (req,res) {
+    edca_db.one('insert into $1~ (contractingprocess_id, description, unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6) returning id',
+        [
+            req.body.item_table,
+            req.body.ocid,
+            req.body.description,
+            req.body.unit_name,
+            req.body.unit_value_amount,
+            req.body.unit_value_currency
+        ]
+    ).then(function (data) {
+        console.log("New milestone: ", data);
+        res.send('Datos registrados');
+    }).catch(function (error) {
+        console.log('ERROR: ', error);
+        res.send('ERROR');
+    });
+});
+
+router.post('/new-milestone',function (req,res) {
+
+    edca_db.one('insert into $1~ (contractingprocess_id, title, description, duedate, date_modified, status) values ($2,$3,$4,$5,$6,$7) returning id',
+        [
+            req.body.milestone_table,
+            req.body.ocid,
+            req.body.title,
+            req.body.description,
+            (req.body.duedate!='')?req.body.duedate:null,
+            (req.body.date_modified!='')?req.body.date_modified:null,
+            req.body.status
+        ]
+    ).then(function (data) {
+        console.log("New milestone: ", data);
+        res.send('Datos registrados');
+    }).catch(function (error) {
+        console.log('ERROR: ', error);
+        res.send('ERROR');
+    });
+
+});
+
 /* Update buyer*/
 router.post('/update-buyer', function (req, res) {
 
