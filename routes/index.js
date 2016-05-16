@@ -667,76 +667,82 @@ router.get('/publish/:type/:ocid', function (req,res) {
             //queries secundarias
             var tenderers = t.manyOrNone("select * from tenderer where contractingprocess_id=$1", [data[0].id]);
             var suppliers = t.manyOrNone("select * from supplier where contractingprocess_id=$1", [data[0].id]); //dependen de awards
-
-            if (type =="release-record"){
-                var publisher= t.one("select * from publisher where contractingprocess_id=$1",[data[0].id]);
-                return t.batch([qp, tenderers, suppliers, publisher]);
-            }
-
-            return t.batch([qp, tenderers, suppliers]);
+            var planningdocuments=t.manyOrNone('select * from planningdocuments where contractingprocess_id=$1',[data[0].id]);
+            var tenderdocuments=t.manyOrNone('select * from tenderdocuments where contractingprocess_id=$1',[data[0].id]);
+            var awarddocuments=t.manyOrNone('select * from awarddocuments where contractingprocess_id=$1',[data[0].id]);
+            var contractdocuments = t.manyOrNone('select * from contractdocuments where contractingprocess_id=$1', [data[0].id]);
+            var implementationdocuments=t.manyOrNone('select * from implementationdocuments where contractingprocess_id=$1 ',[data[0].id]);
+            var publisher= t.one("select * from publisher where contractingprocess_id=$1",[data[0].id]);
+            return t.batch(
+                [
+                    qp, //0
+                    tenderers, //1
+                    suppliers, //2
+                    publisher, //3
+                    planningdocuments, //4
+                    tenderdocuments,  //5
+                    awarddocuments,   //6
+                    contractdocuments, //7
+                    implementationdocuments //8
+                ]);
 
         }).then(function (data) {
 
-            var tenderers = [];
-            for ( var i=0; i < data[1].length; i++){
-                //console.log("tend: ",data[1][i]);
-                tenderers.push ({
-                    identifier: {
-                        scheme: data[1][i].identifier_scheme,
-                        id: data[1][i].identifier_id,
-                        legalName: data[1][i].identifier_legalname,
-                        uri: data[1][i].identifier_uri
-                    },
-                    additionalIdentifiers:[/* ... */],
-                    name: data[1][i].name,
-                    address: {
-                        locality: data[1][i].identifier_locality,
-                        region: data[1][i].identifier_region,
-                        postalCode: data[1][i].identifier_postalcode,
-                        countryName: data[1][i].identifier_countryname
-                    },
-                    contactPoint:{
-                        name: data[1][i].contactpoint_name,
-                        email: data[1][i].contactpoint_email,
-                        telephone: data[1][i].contactpoint_telephone,
-                        faxNumber: data[1][i].contactpoint_faxnumber,
-                        url: data[1][i].contactpount_faxnumber
-                    }
-                });
+            function getOrganizations(orgarray){
+                var organizations = [];
+                for ( var i=0; i < orgarray.length; i++){
 
+                    organizations.push ({
+                        identifier: {
+                            scheme: orgarray[i].identifier_scheme,
+                            id: orgarray[i].identifier_id,
+                            legalName: orgarray[i].identifier_legalname,
+                            uri: orgarray[i].identifier_uri
+                        },
+                        additionalIdentifiers:[/* ... */],
+                        name: orgarray[i].name,
+                        address: {
+                            locality: orgarray[i].identifier_locality,
+                            region: orgarray[i].identifier_region,
+                            postalCode: orgarray[i].identifier_postalcode,
+                            countryName: orgarray[i].identifier_countryname
+                        },
+                        contactPoint:{
+                            name: orgarray[i].contactpoint_name,
+                            email: orgarray[i].contactpoint_email,
+                            telephone: orgarray[i].contactpoint_telephone,
+                            faxNumber: orgarray[i].contactpoint_faxnumber,
+                            url: orgarray[i].contactpount_faxnumber
+                        }
+                    });
+
+                }
+                return organizations;
             }
+
+
+            function getDocuments(docarray){
+                var documents =[];
+                for (var i=0; i < docarray.length; i++ ){
+                    documents.push({
+                        documentType: docarray[i].document_type,
+                        title: docarray[i].title ,
+                        description: docarray[i].description,
+                        url: docarray[i].url,
+                        datePublished: docarray[i].date_published,
+                        dateModified: docarray[i].date_modified,
+                        format: docarray[i].format,
+                        language: docarray[i].language
+                    });
+                }
+                return documents;
+            }
+
+
+            var tenderers = getOrganizations(data[1]);
 
             //suppliers -> pueden pertenecer a varios awards
-            var suppliers=[];
-            for ( var i=0; i < data[2].length; i++){
-                //console.log("tend: ",data[1][i]);
-                suppliers.push ({
-                    identifier: {
-                        scheme: data[2][i].identifier_scheme,
-                        id: data[2][i].identifier_id,
-                        legalName: data[2][i].identifier_legalname,
-                        uri: data[2][i].identifier_uri
-                    },
-                    additionalIdentifiers:[/* ... */],
-                    name: data[2][i].name,
-                    address: {
-                        locality: data[2][i].identifier_locality,
-                        region: data[2][i].identifier_region,
-                        postalCode: data[2][i].identifier_postalcode,
-                        countryName: data[2][i].identifier_countryname
-                    },
-                    contactPoint:{
-                        name: data[2][i].contactpoint_name,
-                        email: data[2][i].contactpoint_email,
-                        telephone: data[2][i].contactpoint_telephone,
-                        faxNumber: data[2][i].contactpoint_faxnumber,
-                        url: data[2][i].contactpount_faxnumber
-                    }
-                });
-
-            }
-
-
+            var suppliers= getOrganizations(data[2]);
 
          //aquí se genera el release
             var release = {
@@ -759,7 +765,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         uri: data[0].budget.budget_uri
                     },
                     rationale: data[0].planning.rationale,
-                    documents: [/* ... */]
+                    documents: getDocuments(data[4])
                 },
                 tender: {
                     id: data[0].tender.id,
@@ -821,7 +827,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             url: data[0].procuringentity.contactpoint_url
                         }
                     },
-                    documents: [/* ... */],
+                    documents: getDocuments(data[5]),
                     milestones: [/* ... */],
                     amendment: {
                         date: data[0].tender.amendment_date,
@@ -872,7 +878,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             startDate: data[0].award.contractperiod_startdate,
                             endDate: data[0].award.contractperiod_enddate,
                         },
-                        documents: [/* ... */],
+                        documents: getDocuments(data[6]),
                         amendment: {
                             date: data[0].award.amendment_date,
                             changes: [/* ... */],
@@ -895,7 +901,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         value: data[0].contract.value,
                         items: [/* ... */],
                         dateSigned: data[0].contract.datesigned,
-                        documents: [/* ... */],
+                        documents: getDocuments(data[7]),
                         amendment: {
                             date: data[0].contract.amendment_date,
                             changes: [/* ... */],
@@ -904,7 +910,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         implementation: { //7
                             transactions: [/* ... */],
                             milestones: [/* ... */],
-                            documents: [/* ... */]
+                            documents: getDocuments(data[8])
                         }
                     }
                 ],

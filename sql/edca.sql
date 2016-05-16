@@ -70,21 +70,6 @@ create table Budget (
 	budget_uri text
 	);
 
-drop table if exists BudgetDocuments cascade;
-create table BudgetDocuments (
-	id serial primary key, 
-	contractingprocess_id int references contractingprocess(id) on delete cascade, 
-	budget_id int references budget(id) on delete cascade, 
-	document_type text, 
-	title text, 
-	description text, 
-	url text, 
-	date_published timestamp, 
-	date_modified timestamp, 
-	format text, 
-	language text 
-	);
-
 /* BUYER (organization) */
 drop table if exists Buyer cascade;
 create table Buyer (
@@ -324,7 +309,7 @@ create table AwardAmendmentChanges(
 
 
 
-drop table if exists AwardDocument cascade;
+drop table if exists AwardDocuments cascade;
 create table AwardDocument(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
