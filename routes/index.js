@@ -247,7 +247,7 @@ router.get('/new-process', function (req, res) {
                 .then(function (process) {
 
                     var planning = t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id);
-                    var tender = t.one ("insert into Tender (ContractingProcess_id) values ($1, $2) returning id as tender_id", [process.id, 'None']);
+                    var tender = t.one ("insert into Tender (ContractingProcess_id,status) values ($1, $2) returning id as tender_id", [process.id, 'None']);
                     var contract = t.one ("insert into Contract (ContractingProcess_id, status) values ($1, $2) returning id", [process.id, 'None']);
 
                     return t.batch([process = { id : process.id}, planning, tender, contract] );
@@ -607,17 +607,14 @@ router.post('/update-publisher', function (req, res) {
     });
 });
 
-
-
-
-router.get('/organization-type', function (req, res) {
+/*router.get('/organization-type', function (req, res) {
 edca_db.many("select id, name from OrganizationType").then(function (data) {
     res.send(data);
 }).catch(function (error) {
     res.json({id: 0, name: "Error"});
 console.log("ERROR: ", error);
 });
-});
+});*/
 
 
 router.post('/search-process-by-date', function (req, res) {
@@ -790,7 +787,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                 ocid: String(data[0].cp.id),
                 id: "id de release",
                 date: data[0].cp.fecha_creacion,
-                tag: ["Contrato"],
+                tag: ["contract"],
                 initiationType: "tender",
                 planning: {
                     budget: {
