@@ -188,6 +188,14 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
 
 });
 
+$('#myModalURL').on('show.bs.modal', function (event) {
+    var button    = $(event.relatedTarget);
+    var recipient = button.data('org');
+    var modal     = $(this);
+    modal.find('#org_type').val(recipient);
+});
+
+
 $('#myModalEditOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var recipient = button.data('org');

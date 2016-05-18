@@ -46,7 +46,7 @@
                 <p><label>Budget URI</label>
                     <input class="form-control" name="budget_uri" value = "<%= (typeof budget != "undefined")? budget.budget_uri:'' %>" ></p>
                 <button type="submit" class="btn urLink">Guardar</button>
-                <li role="button" class="btn urLink"><a class="urLink" href="#" data-toggle="modal" data-doctable="planningdocuments" data-target="#myModalURL">Cargar desde URL</a></li>
+                <a class="urLink" href="#" data-toggle="modal" data-stage="planning" data-target="#myModalURL"><li role="button" class="btn urLink">Cargar desde URL</li></a>
             </form>
         </div>
     </div>
@@ -225,7 +225,7 @@
                 <p><label>Rationale</label>
                     <input type="text" name="amendment_rationale" class="form-control" value="<%=(typeof tender!= "undefined")?tender.amendment_rationale:''%>" ></p>
                 <button type="submit" class="btn urLink">Guardar</button>
-                <li role="button" class="btn urLink"><a class="urLink" href="#" data-toggle="modal" data-doctable="planningdocuments" data-target="#myModalURL">Cargar desde URL</a></li>
+                <a class="urLink" href="#" data-toggle="modal" data-stage="tender" data-target="#myModalURL"><li role="button" class="btn urLink">Cargar desde URL</li></a>
             </form>
         </div>
     </div>
@@ -326,7 +326,7 @@
                     ></p>
 
                 <button type="submit" class="btn urLink">Guardar</button>
-                <li role="button" class="btn urLink"><a class="urLink" href="#" data-toggle="modal" data-doctable="planningdocuments" data-target="#myModalURL">Cargar desde URL</a></li>
+                <a class="urLink" href="#" data-toggle="modal" data-stage="award" data-target="#myModalURL"><li role="button" class="btn urLink">Cargar desde URL</li></a>
             </form>
         </div>
     </div>
@@ -435,7 +435,7 @@
                     ></p>
 
                 <button type="submit" class="btn urLink">Guardar</button>
-                <li role="button" class="btn urLink"><a class="urLink" href="#" data-toggle="modal" data-doctable="planningdocuments" data-target="#myModalURL">Cargar desde URL</a></li>
+                <a class="urLink" href="#" data-toggle="modal" data-stage="contract" data-target="#myModalURL"><li role="button" class="btn urLink">Cargar desde URL</li></a>
             </form>
         </div>
     </div>
