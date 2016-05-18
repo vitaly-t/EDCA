@@ -45,7 +45,8 @@
                     <input class="form-control" name="budget_projectid" value = "<%= (typeof budget != "undefined")? budget.budget_projectid:"" %>" ></p>
                 <p><label>Budget URI</label>
                     <input class="form-control" name="budget_uri" value = "<%= (typeof budget != "undefined")? budget.budget_uri:'' %>" ></p>
-                <p><button  type="submit" class="btn">Guardar</button></p>
+                <button type="submit" class="btn urLink">Guardar</button>
+                <li role="button" class="btn urLink"><a class="urLink" href="#" data-toggle="modal" data-doctable="planningdocuments" data-target="#myModalURL">Cargar desde URL</a></li>
             </form>
         </div>
     </div>
@@ -223,7 +224,8 @@
                 </p>
                 <p><label>Rationale</label>
                     <input type="text" name="amendment_rationale" class="form-control" value="<%=(typeof tender!= "undefined")?tender.amendment_rationale:''%>" ></p>
-                <button type="submit" class="btn">Guardar</button>
+                <button type="submit" class="btn urLink">Guardar</button>
+                <li role="button" class="btn urLink"><a class="urLink" href="#" data-toggle="modal" data-doctable="planningdocuments" data-target="#myModalURL">Cargar desde URL</a></li>
             </form>
         </div>
     </div>
@@ -323,7 +325,8 @@
                            value = "<%= (typeof award != "undefined")? award.amendment_rationale:''%>"
                     ></p>
 
-                <button type="submit" class="btn btn-default">Guardar</button>
+                <button type="submit" class="btn urLink">Guardar</button>
+                <li role="button" class="btn urLink"><a class="urLink" href="#" data-toggle="modal" data-doctable="planningdocuments" data-target="#myModalURL">Cargar desde URL</a></li>
             </form>
         </div>
     </div>
@@ -431,7 +434,8 @@
                     <input type="text" class="form-control" name="amendment_rationale" value = "<%= (typeof contract != "undefined")? contract.amendment_rationale:''%>"
                     ></p>
 
-                <button type="submit" class="btn">Guardar</button>
+                <button type="submit" class="btn urLink">Guardar</button>
+                <li role="button" class="btn urLink"><a class="urLink" href="#" data-toggle="modal" data-doctable="planningdocuments" data-target="#myModalURL">Cargar desde URL</a></li>
             </form>
         </div>
     </div>

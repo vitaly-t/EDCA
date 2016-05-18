@@ -259,6 +259,34 @@
     </div>
 </div>
 
+
+<!-- modal para cargar desde url -->
+<div class="modal fade" id="myModalURL" tabindex="-1" role="dialog" aria-labelledby="modalURL">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Carga desde url</h4>
+            </div>
+            <div class="modal-body">
+              <form id ="newdoc_form">
+                <input type="text" id = "doc_table" name = "doc_table" hidden>
+                <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                <p><label>URL</label></p>
+                <input id="urlProc" class="form-control" type="text" name="description">
+                <br>
+                <button class="btn btn-default">Guardar</button>
+            </div>
+            </form>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- modal para nuevo item -->
 <div class="modal fade" id="myModalNewItem" tabindex="-1" role="dialog" aria-labelledby="modalNewItem">
     <div class="modal-dialog" role="document">

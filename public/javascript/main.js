@@ -4,7 +4,8 @@
 
 /*window.onbeforeunload = function() {
         return "Si recarga la página perdera sus últimos cambios";
-};*/
+ };*/
+
 
 /* Date picker */
 $(function () {
@@ -205,6 +206,8 @@ $('#myModalNewItem').on('show.bs.modal', function (event) {
     var modal = $(this);
     modal.find('#item_table').val( button.data('itemtable') );
 });
+
+
 
 $('#myModalNewMilestone').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
