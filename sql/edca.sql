@@ -312,7 +312,7 @@ create table AwardAmendmentChanges(
 
 
 drop table if exists AwardDocuments cascade;
-create table AwardDocument(
+create table AwardDocuments(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
 	award_id int references Award(id), 

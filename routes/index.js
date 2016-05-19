@@ -691,7 +691,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                 ]);
 
         }).then(function (data) {
-
+            
             function getOrganizations(orgarray){
                 var organizations = [];
                 for ( var i=0; i < orgarray.length; i++){
