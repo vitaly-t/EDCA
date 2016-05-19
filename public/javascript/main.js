@@ -99,7 +99,7 @@ $(function () {
         window.open('/publish/release/'+$('#ocid').val());
     });
     $('#release_package').click(function () {
-        window.open('/publish/release-package/'+$('#ocid').val());
+        window.open('/publish/release-record/'+$('#ocid').val());
     });
 })
 
