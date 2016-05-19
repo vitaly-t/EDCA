@@ -303,7 +303,7 @@ drop table if exists AwardAmendmentChanges cascade;
 create table AwardAmendmentChanges(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
-	awardamendment_id int references AwardAmendment(id) on delete cascade,
+	award_id int references Award(id) on delete cascade,
 	property text,
 	former_value text
 );
@@ -525,7 +525,7 @@ create table ReceiverOrganization(
 	);
 
 drop table if exists ImplementationMilestone cascade;
-create table ImplementationMilestones(
+create table ImplementationMilestone(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
 	contract_id int references Contract(id) on delete cascade,
