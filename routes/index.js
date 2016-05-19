@@ -691,7 +691,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                 ]);
 
         }).then(function (data) {
-            
+
             function getOrganizations(orgarray){
                 var organizations = [];
                 for ( var i=0; i < orgarray.length; i++){
@@ -959,7 +959,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
 
                 var release_record = {
                     uri: "",
-                    publishedDate: "",
+                    publishedDate: (new Date).toISOString(),//getMString(new Date()),
                     releases : [ release ],
                     publisher: {
                         name: data[3].name,
@@ -987,5 +987,16 @@ router.get('/publish/:type/:ocid', function (req,res) {
         res.send(error);
     });
 });
+
+function getMString ( fecha ){
+    return (
+        fecha.getFullYear()+ "-"+
+        ( (fecha.getMonth()+1 < 10)?("0"+(fecha.getMonth()+1)):(fecha.getMonth()+1) )+ "-" + // 0 - 11
+        ( (fecha.getDate() < 10)?("0"+(fecha.getDate())):(fecha.getDate()) ) +"T"+ // 1 - 31
+        ( (fecha.getHours() < 9)?("0"+fecha.getHours()):fecha.getHours() )+":"+ //0 - 23
+        ( (fecha.getMinutes() < 9 )?("0"+fecha.getMinutes()):fecha.getMinutes() )+":"+
+        ( (fecha.getSeconds() < 9 )?("0"+ fecha.getSeconds()):fecha.getSeconds() )
+    );
+}
 
 module.exports = router;
