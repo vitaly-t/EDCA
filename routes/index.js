@@ -523,6 +523,24 @@ router.post('/new-milestone',function (req,res) {
 
 });
 
+router.post('/new-transaction', function (req,res) {
+    edca_db.one('insert into implementationtransactions (contractingprocess_id, source, implementation_date, value_amount, value_currency, uri) ' +
+        'values ($1,$2,$3,$4,$5,$6) returning id',[
+        req.body.ocid,
+        req.body.source,
+        (req.body.implementation_date != '')?req.body.implementation_date:null,
+        req.body.value_amount,
+        req.body.value_currency,
+        req.body.uri
+    ]).then(function (data) {
+        console.log('New transaction: ', data);
+        res.send('Se ha creado una nueva transacción');
+    }).catch(function (error) {
+        console.log('ERROR: ', error);
+        res.send('ERROR');
+    });
+});
+
 /* Update buyer*/
 router.post('/update-buyer', function (req, res) {
 
@@ -608,16 +626,6 @@ router.post('/update-publisher', function (req, res) {
         console.log("ERROR: ",error);
     });
 });
-
-/*router.get('/organization-type', function (req, res) {
-edca_db.many("select id, name from OrganizationType").then(function (data) {
-    res.send(data);
-}).catch(function (error) {
-    res.json({id: 0, name: "Error"});
-console.log("ERROR: ", error);
-});
-});*/
-
 
 router.post('/search-process-by-date', function (req, res) {
     fi = req.body.fecha_inicial;

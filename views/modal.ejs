@@ -339,7 +339,7 @@
             </div>
             <div class="modal-body">
                 <form id ="newmilestone_form">
-
+                    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                     <input type="text" id = "milestone_table" name = "milestone_table" hidden></p>
                     <p><label>Title</label>
                     <input type="text" class="form-control" name="title"></p>
@@ -357,6 +357,47 @@
                     </div></p>
                     <p><label>Status</label>
                     <input type="text" class="form-control" name="status"></p>
+                    <button class="btn btn-default">Guardar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModalNewTransaction" tabindex="-1" role="dialog" aria-labelledby="modalNewTransaction">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Nuevo </h4>
+            </div>
+            <div class="modal-body">
+                <form id ="newtransaction_form">
+                    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                    <p>
+                    <label>Source</label>
+                    <input class="form-control" name="source">
+                        </p>
+                    <p>
+                    <label>Date</label>
+                    <input class="form-control" id="newtrans_date1" name="implementation_date">
+                        </p>
+                    <p>
+                    <label>Value amount</label>
+                    <input type="number" class="form-control" step="0.01" name="value_amount" required>
+                        </p>
+                    <p>
+                    <label>Value currency</label>
+                    <input class="form-control" name="value_currency">
+                        </p>
+                    <p>
+                    <label>URI</label>
+                    <input class="form-control" name="uri">
+                        </p>
                     <button class="btn btn-default">Guardar</button>
                 </form>
             </div>

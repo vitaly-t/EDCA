@@ -34,6 +34,11 @@ $(function () {
         locale: 'es',
         format: 'YYYY-MM-DD HH:mm:ss'
     });
+
+    $('#newtrans_date1').datetimepicker({
+        locale: 'es',
+        format: 'YYYY-MM-DD HH:mm:ss'
+    })
 });
 
 // Crear proceso de contratación.
@@ -84,15 +89,13 @@ $('#updatepub_form').submit(function (event) {
     });
     event.preventDefault();
 });
-/*
-$(function () {
-    $.get("/organization_type",function(data){
-        $.each(data, function (key, value) {
-          $('#OrganizationType').append($('<option></option>').attr("value", value.id).text(value.name));
-        });
+
+$('#newtransaction_form').submit(function (event) {
+    $.post('/new-transaction', $(this).serialize()).done(function(data){
+        alert(data);
     });
+    event.preventDefault();
 });
-*/
 
 $(function () {
     $('#release').click(function () {
