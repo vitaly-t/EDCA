@@ -316,10 +316,10 @@ router.post('/update-planning', function (req, res) {
 /* Update Tender*/
 router.post('/update-tender', function (req, res) {
 
-        edca_db.one("update tender set title= $2, description=$3, status=$4, minvalue_amount=$5, minvalue_currency=$6, procurementmethod=$7," +
-            "procurementmethod_rationale=$8, awardcriteria=$9, awardcriteria_details=$10, submissionmethod=$11, submissionmethod_details=$12," +
-            "tenderperiod_startdate=$13, tenderperiod_enddate=$14, enquiryperiod_startdate=$15, enquiryperiod_enddate=$16 ,hasenquiries=$17, eligibilitycriteria=$18, awardperiod_startdate=$19," +
-            "awardperiod_enddate=$20, numberoftenderers=$21, amendment_date=$22, amendment_rationale=$23" +
+        edca_db.one("update tender set title= $2, description=$3, status=$4, minvalue_amount=$5, minvalue_currency=$6, value_amount=$7, value_currency=$8, procurementmethod=$9," +
+            "procurementmethod_rationale=$10, awardcriteria=$11, awardcriteria_details=$12, submissionmethod=$13, submissionmethod_details=$14," +
+            "tenderperiod_startdate=$15, tenderperiod_enddate=$16, enquiryperiod_startdate=$17, enquiryperiod_enddate=$18 ,hasenquiries=$19, eligibilitycriteria=$20, awardperiod_startdate=$21," +
+            "awardperiod_enddate=$22, numberoftenderers=$23, amendment_date=$24, amendment_rationale=$25" +
             " where ContractingProcess_id = $1 returning id", [
             req.body.contractingprocess_id,
             req.body.title,
@@ -327,6 +327,8 @@ router.post('/update-tender', function (req, res) {
             req.body.status,
             req.body.minvalue_amount,
             req.body.minvalue_currency,
+            req.body.value_amount,
+            req.body.value_currency,
             req.body.procurementmethod,
             req.body.procurementmethod_rationale,
             req.body.awardcriteria,
