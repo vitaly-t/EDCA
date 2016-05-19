@@ -11,28 +11,28 @@
 $(function () {
     $('#lici_date1, #lici_date2, #lici_date3, #lici_date4, #lici_date5, #lici_date6, #lici_date7').datetimepicker({
         locale: 'es',
-        format: 'YYYY-MM-DDTHH:mm:ss'//'DD/MM/YYYY HH:mm:ss'
+        format: 'YYYY-MM-DD HH:mm:ss'//'DD/MM/YYYY HH:mm:ss'
     });
     $('#adju_date1, #adju_date2, #adju_date3, #adju_date4').datetimepicker({
         locale: 'es',
-        format: 'YYYY-MM-DDTHH:mm:ss'//'DD/MM/YYYY HH:mm:ss'
+        format: 'YYYY-MM-DD HH:mm:ss'//'DD/MM/YYYY HH:mm:ss'
     });
     $('#cont_date1, #cont_date2, #cont_date3, #cont_date4').datetimepicker({
         locale: 'es',
-        format: 'YYYY-MM-DDTHH:mm:ss'//'DD/MM/YYYY HH:mm:ss'
+        format: 'YYYY-MM-DD HH:mm:ss'//'DD/MM/YYYY HH:mm:ss'
     });
     $('#docs_date1, #docs_date2').datetimepicker({
         locale: 'es',
-        format: 'YYYY-MM-DDTHH:mm:ss'
+        format: 'YYYY-MM-DD HH:mm:ss'
     });
     $('#newitem_date1, #newitem_date2').datetimepicker({
         locale: 'es',
-        format: 'YYYY-MM-DDTHH:mm:ss'
+        format: 'YYYY-MM-DD HH:mm:ss'
     });
 
     $('#newmilestone_date1, #newmilestone_date2').datetimepicker({
         locale: 'es',
-        format: 'YYYY-MM-DDTHH:mm:ss'
+        format: 'YYYY-MM-DD HH:mm:ss'
     });
 });
 

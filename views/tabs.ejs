@@ -1,3 +1,16 @@
+<%
+function getMString ( fecha ){
+    return (
+            fecha.getFullYear()+ "-"+
+            ( (fecha.getMonth()+1 < 10)?("0"+(fecha.getMonth()+1)):(fecha.getMonth()+1) )+ "-" + // 0 - 11
+            ( (fecha.getDate() < 10)?("0"+(fecha.getDate())):(fecha.getDate()) ) +" "+ // 1 - 31
+            ( (fecha.getHours() < 9)?("0"+fecha.getHours()):fecha.getHours() )+":"+ //0 - 23
+            ( (fecha.getMinutes() < 9 )?("0"+fecha.getMinutes()):fecha.getMinutes() )+":"+
+            ( (fecha.getSeconds() < 9 )?("0"+ fecha.getSeconds()):fecha.getSeconds() )
+    );
+}
+%>
+
 <p> <ul id="pills" class="nav nav-pills nav-justified">
     <li role="presentation" class="active"><a data-toggle="pill" href="#home">1. PLANEACIÓN</a></li>
     <li role="presentation"><a data-toggle="pill" href="#menu1">2. LICITACIÓN</a></li>
@@ -138,7 +151,7 @@
                         <label>Tender period start date</label>
                         <input type="text" class="form-control" id="lici_date1" name="tenderperiod_startdate"
                                 <% if (typeof tender != "undefined") {%>
-                               value = "<%= (tender.tenderperiod_startdate != null)? tender.tenderperiod_startdate.toISOString():''%>"
+                               value = "<%= (tender.tenderperiod_startdate != null)? getMString(tender.tenderperiod_startdate):''%>"
                                 <%}%> >
                     </div>
 
@@ -146,7 +159,7 @@
                         <label>Tender period end date</label>
                         <input type="text" class="form-control" id="lici_date2" name="tenderperiod_enddate"
                                 <% if (typeof tender != "undefined") {%>
-                               value = "<%= (tender.tenderperiod_enddate != null)? tender.tenderperiod_enddate.toISOString():''%>"
+                               value = "<%= (tender.tenderperiod_enddate != null)? getMString(tender.tenderperiod_enddate):''%>"
                                 <%}%> >
                     </div>
                 </div>
@@ -158,14 +171,14 @@
                         <label>Enquiry period start date</label>
                         <input type="text" class="form-control" id="lici_date3" name= "enquiryperiod_startdate"
                                 <% if (typeof tender != "undefined") {%>
-                               value = "<%= (tender.enquiryperiod_startdate != null)? tender.enquiryperiod_startdate.toISOString():''%>"
+                               value = "<%= (tender.enquiryperiod_startdate != null)? getMString(tender.enquiryperiod_startdate):''%>"
                                 <%}%> >
                     </div>
                     <div class="col-sm-6">
                         <label>Enquiry period end date</label>
                         <input type="text" class="form-control" id="lici_date4" name= "enquiryperiod_enddate"
                                 <% if (typeof tender != "undefined") {%>
-                               value = "<%= (tender.enquiryperiod_enddate != null)? tender.enquiryperiod_enddate.toISOString():''%>"
+                               value = "<%= (tender.enquiryperiod_enddate != null)? getMString(tender.enquiryperiod_enddate):''%>"
                                 <%}%> >
                     </div>
                 </div>
@@ -196,7 +209,7 @@
                         <label>Award period start date</label>
                         <input type="text" class="form-control" id="lici_date5" name="awardperiod_startdate"
                                 <%if (typeof tender != "undefined"){%>
-                               value = "<%= (tender.awardperiod_startdate != null)? tender.awardperiod_startdate.toISOString():''%>"
+                               value = "<%= (tender.awardperiod_startdate != null)? getMString(tender.awardperiod_startdate):''%>"
                                 <%}%> >
                     </div>
 
@@ -204,7 +217,7 @@
                         <label>Award period end date</label>
                         <input type="text" class="form-control" id="lici_date6" name="awardperiod_enddate"
                                 <%if(typeof tender != "undefined"){%>
-                               value = "<%= (tender.awardperiod_enddate != null)? tender.awardperiod_enddate.toISOString():''%>"
+                               value = "<%= (tender.awardperiod_enddate != null)? getMString(tender.awardperiod_enddate):''%>"
                                 <%}%> >
                     </div>
                 </div>
@@ -218,7 +231,7 @@
                     <label>Date</label>
                     <input type="text" class="form-control" id="lici_date7" name="amendment_date"
                             <%if(typeof tender != "undefined"){%>
-                           value = "<%= (tender.amendment_date != null)? tender.amendment_date.toISOString():''%>"
+                           value = "<%= (tender.amendment_date != null)? getMString(tender.amendment_date):''%>"
                             <%}%> >
                 </div>
                 </p>
@@ -280,7 +293,7 @@
                     <label>Date</label>
                     <input type="text" id ="adju_date1" name="award_date" class="form-control"
                             <%if(typeof award !="undefined"){%>
-                           value = "<%= (award.award_date != null)? award.award_date.toISOString():''%>"
+                           value = "<%= (award.award_date != null)? getMString(award.award_date):''%>"
                             <%}%> >
                 </div> </p>
 
@@ -296,14 +309,14 @@
                         <label>Contract period start date</label>
                         <input type="text" id ="adju_date2" name="contractperiod_startdate" class="form-control"
                                 <%if (typeof award != "undefined"){%>
-                               value = "<%= ( award.contractperiod_startdate != null)? award.contractperiod_startdate.toISOString():''%>"
+                               value = "<%= ( award.contractperiod_startdate != null)? getMString(award.contractperiod_startdate):''%>"
                                 <%}%> >
                     </div>
                     <div class="col-sm-6">
                         <label>Contract period end date</label>
                         <input type="text" id = "adju_date3" name="contractperiod_enddate" class="form-control"
                                 <%if(typeof award != "undefined"){%>
-                               value = "<%= (award.contractperiod_enddate != null)? award.contractperiod_enddate.toISOString():''%>"
+                               value = "<%= (award.contractperiod_enddate != null)? getMString(award.contractperiod_enddate):''%>"
                                 <%}%> >
                     </div>
                 </div>
@@ -314,7 +327,7 @@
                     <label>Amendment date</label>
                     <input type="text" class="form-control" id="adju_date4" name="amendment_date"
                             <%if(typeof award != "undefined"){%>
-                           value = "<%= (award.amendment_date != null)? award.amendment_date.toISOString():''%>"
+                           value = "<%= (award.amendment_date != null)? getMString(award.amendment_date):''%>"
                             <%}%> >
                 </div>
                 </p>
@@ -392,14 +405,14 @@
                         <label>Period start date</label>
                         <input type="text" id= "cont_date1" name  = "period_startdate" class="form-control"
                                 <%if (typeof contract != "undefined"){%>
-                               value = "<%= (contract.period_startdate != null)? contract.period_startdate.toISOString():''%>"
+                               value = "<%= (contract.period_startdate != null)? getMString(contract.period_startdate):''%>"
                                 <%}%> >
                     </div>
                     <div class="col-sm-6">
                         <label>Period end date</label>
                         <input type="text" id= "cont_date2" class="form-control" name= "period_enddate"
                                 <%if(typeof contract != "undefined"){%>
-                               value = "<%= (contract.period_enddate != null)? contract.period_enddate.toISOString():''%>"
+                               value = "<%= (contract.period_enddate != null)? getMString(contract.period_enddate):''%>"
                                 <%}%> >
                     </div>
                 </div>
@@ -415,7 +428,7 @@
                     <label>Date signed</label>
                     <input type="text" id="cont_date3" class="form-control" name="datesigned"
                             <% if (typeof contract != "undefined"){%>
-                           value = "<%= (contract.datesigned != null)? contract.datesigned.toISOString():''%>"
+                           value = "<%= (contract.datesigned != null)? getMString(contract.datesigned):''%>"
                             <%}%> ></div>
                 </p>
 
@@ -424,7 +437,7 @@
                     <label>Amendment date</label>
                     <input type="text" class="form-control" id="cont_date4" name="amendment_date"
                             <%if(typeof contract != "undefined"){%>
-                           value = "<%= (contract.amendment_date != null)? contract.amendment_date.toISOString():''%>"
+                           value = "<%= (contract.amendment_date != null)? getMString(contract.amendment_date):''%>"
                             <%}%> >
                 </div>
                 </p>

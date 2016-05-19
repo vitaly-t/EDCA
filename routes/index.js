@@ -404,7 +404,7 @@ router.post('/update-contract', function (req, res) {
             res.send('La etapa de contratación ha sido actualizada');
             console.log("Update contract id: ", data);
         }).catch(function (error) {
-        res.send('ERROR')
+        res.send('ERROR');
         console.log("ERROR: ",error);
     });
 });
