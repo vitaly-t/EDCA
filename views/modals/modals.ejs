@@ -423,3 +423,31 @@
         </div>
     </div>
 </div>
+
+
+<!-- modal para nuevo item -->
+<div class="modal fade" id="myModalNewAmendmentChange" tabindex="-1" role="dialog" aria-labelledby="modalNewAmenmentChange">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Nuevo </h4>
+            </div>
+            <div class="modal-body">
+                <form id ="newamendmentchange_form">
+                    <input type="text" id = "amendmentchanges_table" name = "amendmentchanges_table" hidden></p>
+                    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+
+                    <p><label>Property</label>
+                        <input class="form-control" type="text" name="property">  </p>
+                    <p><label>Former value</label>
+                        <input class="form-control" type="text" name="former_value"> </p>
+                    <button class="btn btn-default">Guardar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

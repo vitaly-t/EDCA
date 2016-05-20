@@ -1,11 +1,11 @@
 <%
 function getMString ( fecha ){
     return (
-            fecha.getFullYear()+ "-"+
-            ( (fecha.getMonth()+1 < 10)?("0"+(fecha.getMonth()+1)):(fecha.getMonth()+1) )+ "-" + // 0 - 11
+            fecha.getFullYear() + "-"+
+            ( (fecha.getMonth() + 1 < 10)?("0"+(fecha.getMonth()+1)):(fecha.getMonth() + 1) )+ "-" + // 0 - 11
             ( (fecha.getDate() < 10)?("0"+(fecha.getDate())):(fecha.getDate()) ) +" "+ // 1 - 31
             ( (fecha.getHours() < 9)?("0"+fecha.getHours()):fecha.getHours() )+":"+ //0 - 23
-            ( (fecha.getMinutes() < 9 )?("0"+fecha.getMinutes()):fecha.getMinutes() )+":"+
+            ( (fecha.getMinutes() < 9 )?("0"+fecha.getMinutes()):fecha.getMinutes() ) + ":" +
             ( (fecha.getSeconds() < 9 )?("0"+ fecha.getSeconds()):fecha.getSeconds() )
     );
 }
@@ -35,7 +35,6 @@ function getMString ( fecha ){
             </div>
 
             </p>
-
 
             <form id="planning_form" >
                 <p> <label>Rationale</label>
@@ -105,7 +104,7 @@ function getMString ( fecha ){
                     Amendmendt changes <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Nuevo</a></li>
+                    <li><a href="#" data-toggle="modal" data-changestable="tenderamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
                     <li><a href="#">Editar</a></li>
                 </ul>
             </div>
@@ -281,7 +280,7 @@ function getMString ( fecha ){
                     Amendment changes <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Nuevo</a></li>
+                    <li><a href="#" data-toggle="modal" data-changestable="awardamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
                     <li><a href="#">Editar</a></li>
                 </ul>
             </div>
@@ -390,7 +389,7 @@ function getMString ( fecha ){
                     Amendment changes <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Nuevo</a></li>
+                    <li><a href="#" data-toggle="modal" data-changestable="contractamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
                     <li><a href="#">Editar</a></li>
                 </ul>
             </div>

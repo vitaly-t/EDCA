@@ -731,7 +731,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             legalName: orgarray[i].identifier_legalname,
                             uri: orgarray[i].identifier_uri
                         },
-                        additionalIdentifiers:[/* ... */],
+                        //additionalIdentifiers:[ ],
                         name: orgarray[i].name,
                         address: {
                             locality: orgarray[i].identifier_locality,
@@ -824,13 +824,13 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         providerOrganization:{
                             scheme: arr[i].providerorganization_scheme,
                             id: arr[i].providerorganization_id,
-                            legalName: arr[i].providerorganization_legalName,
+                            legalName: arr[i].providerorganization_legalname,
                             uri: arr[i].providerorganization_uri
                         },
                         receiverOrganization:{
                             scheme: arr[i].receiverorganization_scheme,
                             id: arr[i].receiverorganization_id,
-                            legalName: arr[i].receiverorganization_legalName,
+                            legalName: arr[i].receiverorganization_legalname,
                             uri: arr[i].receiverorganization_uri
                         },
                         uri: arr[i].uri
@@ -977,7 +977,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         documents: getDocuments(data[6]),
                         amendment: {
                             date: data[0].award.amendment_date,
-                            changes: [/* ... */],
+                            //changes: [ ],
                             rationale: data[0].award.amendment_rationale
                         }
                     }
@@ -1003,7 +1003,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             //changes: [ ],
                             rationale: data[0].contract.amendment_rationale
                         },
-                        implementation: { //7
+                        implementation: { 
                             transactions: getTransactions(data[14]),
                             milestones: getMilestones(data[13]),
                             documents: getDocuments(data[8])
