@@ -697,7 +697,9 @@ router.get('/publish/:type/:ocid', function (req,res) {
                     t.manyOrNone('select * from contractitem where contractingprocess_id=$1',[data[0].id]),//11
                     /* Milestones */
                     t.manyOrNone('select * from tendermilestone where contractingprocess_id=$1',[data[0].id]), //12
-                    t.manyOrNone('select * from implementationmilestone where contractingprocess_id=$1',[data[0].id]) //13
+                    t.manyOrNone('select * from implementationmilestone where contractingprocess_id=$1',[data[0].id]), //13
+                    /* Transactions */
+                    t.manyOrNone('select * from implementationtransactions where contractingprocess_id=$1', [data[0].id]) //14
                 ]);
 
         }).then(function (data) {
@@ -790,6 +792,24 @@ router.get('/publish/:type/:ocid', function (req,res) {
                     });
                 }
                 return milestones;
+            }
+
+            function getTransactions( arr ){
+                var transactions = [];
+
+                for (var i =0; i< arr.length;i++){
+                    transactions.push({
+                        source: arr[i].source,
+                        date: arr[i].date,
+                        value : {
+                            amount: Number(arr[i].value_amount),
+                            currency: arr[i].currency
+                        },
+                        uri: arr[i].uri
+                    });
+                }
+
+                return transactions;
             }
 
             //aquí se genera el release
@@ -956,7 +976,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             rationale: data[0].contract.amendment_rationale
                         },
                         implementation: { //7
-                            transactions: [/* ... */],
+                            transactions: getTransactions(data[14]),
                             milestones: getMilestones(data[13]),
                             documents: getDocuments(data[8])
                         }
