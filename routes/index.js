@@ -557,6 +557,23 @@ router.post('/new-transaction', function (req,res) {
     });
 });
 
+// new amendment change
+
+router.post('/new-amendment-change', function (req, res) {
+    edca_db.one('insert into $1~ (contractingprocess_id, property, former_value) values ($2,$3,$4) returning id',[
+        req.body.amendmentchanges_table,
+        req.body.ocid,
+        req.body.property,
+        req.body.former_value
+    ]).then(function (data) {
+        res.send('El cambio ha sido registrado');
+        console.log('New amendment change: ',data);
+    }).catch(function (error) {
+        res.send('ERROR');
+        console.log('ERROR',error );
+    });
+});
+
 /* Update buyer*/
 router.post('/update-buyer', function (req, res) {
 

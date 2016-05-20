@@ -41,14 +41,15 @@ $(function () {
     })
 });
 
-// Crear proceso de contratación.
+/*
+ // Crear proceso de contratación.
 $('#crear').click(function(){
     if (confirm("¿Está seguro de crear un nuevo proceso de contratación"+
             ($('#ocid').val()==""?
                 "?":"?, perdera los cambios hechos al proceso actual")) == true ){
         $.get("/new-process/1");
     }
-});
+});*/
 
 // Crear organización
 $('#neworg_form').submit(function (event) {
@@ -90,6 +91,7 @@ $('#updatepub_form').submit(function (event) {
     event.preventDefault();
 });
 
+//new transaction
 $('#newtransaction_form').submit(function (event) {
     $.post('/new-transaction', $(this).serialize()).done(function(data){
         alert(data);
@@ -97,6 +99,14 @@ $('#newtransaction_form').submit(function (event) {
     event.preventDefault();
 });
 
+$('#newamendmentchange_form').submit(function (event) {
+    $.post('/new-amendment-change',$(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
+
+//publish
 $(function () {
     $('#release').click(function () {
         window.open('/publish/release/'+$('#ocid').val());
@@ -106,7 +116,7 @@ $(function () {
     });
 })
 
-/* buscar proceso por fecha*/
+// buscar proceso por fecha
 $("#searchprocessbydate_form").submit(function ( event ) {
     $.post('/search-process-by-date/', $(this).serialize()).done(function(data){
         $('#searchprocessbydate_result').empty();
@@ -117,18 +127,15 @@ $("#searchprocessbydate_form").submit(function ( event ) {
     event.preventDefault();
 });
 
-/* UPDATE */
+// UPDATE planning
 $( "#planning_form" ).submit(function( event ) {
-    if ($('#ocid').val() != "") {
-        $.post('/update-planning/', $(this).serialize()).done(function (data) {
-            alert(data);
-        });
-    }else{
-        alert("Debes crear un nuevo proceso de contratación");
-    }
+    $.post('/update-planning/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
     event.preventDefault();
 });
 
+//update buyer
 $( "#updatebuyer_form" ).submit(function( event ) {
     $.post('/update-buyer/', $(this).serialize()).done(function (data) {
         alert(data);
@@ -143,39 +150,32 @@ $( "#updateprocuringentity_form" ).submit(function( event ) {
     event.preventDefault();
 });
 
-
 $("#tender_form").submit(function(event){
-    if ( $('#ocid').val() !="") {
-        $.post('/update-tender/', $(this).serialize()).done(function(data){
-            alert(data);
-        });
-    }else{
-        alert("Debes crear un nuevo proceso de contratación");
-    }
+    $.post('/update-tender/', $(this).serialize()).done(function(data){
+        alert(data);
+    });
     event.preventDefault();
 });
 
-
 $("#award_form").submit(function(event){
-    if ( $('#ocid').val()!= "") {
-        $.post('/update-award/', $(this).serialize()).done(function (data) {
-            alert(data);
-        });
-    }else{
-        alert("Debes crear un nuevo proceso de contratación");
-    }
+    $.post('/update-award/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
     event.preventDefault();
 });
 
 $("#contract_form").submit(function(event){
-    if ( $('#ocid').val()!="") {
-        $.post('/update-contract/', $(this).serialize()).done(function (data) {
-            alert(data);
-        });
-    }else{
-        alert("Debes crear un nuevo proceso de contratación");
-    }
+    $.post('/update-contract/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
     event.preventDefault();
+});
+
+$('#myModalURL').on('show.bs.modal', function (event) {
+    var button    = $(event.relatedTarget);
+    var recipient = button.data('org');
+    var modal     = $(this);
+    modal.find('#org_type').val(recipient);
 });
 
 $('#myModalNewOrg').on('show.bs.modal', function (event) {
@@ -188,16 +188,7 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
     //modal.find('.modal-body input').val("");
     $('#org_type').val(recipient);
     //modal.find('#org_type').val(recipient);
-
 });
-
-$('#myModalURL').on('show.bs.modal', function (event) {
-    var button    = $(event.relatedTarget);
-    var recipient = button.data('org');
-    var modal     = $(this);
-    modal.find('#org_type').val(recipient);
-});
-
 
 $('#myModalEditOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
@@ -218,14 +209,17 @@ $('#myModalNewItem').on('show.bs.modal', function (event) {
     modal.find('#item_table').val( button.data('itemtable') );
 });
 
-
-
 $('#myModalNewMilestone').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
     modal.find('#milestone_table').val( button.data('milestonetable') );
 });
 
+$('#myModalNewAmendmentChange').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    modal.find('#amendmentchanges_table').val( button.data('changestable') );
+});
 
 /* */
 
