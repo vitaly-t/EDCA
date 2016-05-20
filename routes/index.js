@@ -558,7 +558,6 @@ router.post('/new-transaction', function (req,res) {
 });
 
 // new amendment change
-
 router.post('/new-amendment-change', function (req, res) {
     edca_db.one('insert into $1~ (contractingprocess_id, property, former_value) values ($2,$3,$4) returning id',[
         req.body.amendmentchanges_table,
@@ -574,7 +573,7 @@ router.post('/new-amendment-change', function (req, res) {
     });
 });
 
-/* Update buyer*/
+// Update buyer
 router.post('/update-buyer', function (req, res) {
 
         edca_db.one("update buyer set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, name = $6, address_streetaddress=$7," +
@@ -607,7 +606,7 @@ router.post('/update-buyer', function (req, res) {
         });
 });
 
-/* Update procuringentity*/
+// Update procuringentity
 router.post('/update-procuringentity', function (req, res) {
 
     edca_db.one("update procuringentity set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, name=$6,  address_streetaddress=$7," +
@@ -640,7 +639,7 @@ router.post('/update-procuringentity', function (req, res) {
     });
 });
 
-/* Update publisher*/
+// Update publisher
 router.post('/update-publisher', function (req, res) {
 
     edca_db.one("update publisher set name=$2, scheme=$3, uid=$4, uri=$5 where id = $1 returning id",
@@ -660,6 +659,7 @@ router.post('/update-publisher', function (req, res) {
     });
 });
 
+//buscar por periodo
 router.post('/search-process-by-date', function (req, res) {
     fi = req.body.fecha_inicial;
     ff = req.body.fecha_final;
@@ -732,7 +732,11 @@ router.get('/publish/:type/:ocid', function (req,res) {
                     t.manyOrNone('select * from tendermilestone where contractingprocess_id=$1',[data[0].id]), //12
                     t.manyOrNone('select * from implementationmilestone where contractingprocess_id=$1',[data[0].id]), //13
                     /* Transactions */
-                    t.manyOrNone('select * from implementationtransactions where contractingprocess_id=$1', [data[0].id]) //14
+                    t.manyOrNone('select * from implementationtransactions where contractingprocess_id=$1', [data[0].id]), //14
+                    /* Amendment changes */
+                    t.manyOrNone('select * from tenderamendmentchanges where contractingprocess_id=$1',[data[0].id]), //15
+                    t.manyOrNone('select * from awardamendmentchanges where contractingprocess_id=$1',[data[0].id]), //16
+                    t.manyOrNone('select * from contractamendmentchanges where contractingprocess_id=$1',[data[0].id]) //17
                 ]);
 
         }).then(function (data) {
@@ -857,6 +861,18 @@ router.get('/publish/:type/:ocid', function (req,res) {
                 return transactions;
             }
 
+            function getAmendmentChanges( arr ){
+                var changes = [];
+                for (var i=0; i < arr.length;i++){
+                    changes.push({
+                        property: arr[i].property,
+                        former_value: arr[i].former_value
+                    });
+                }
+
+                return changes;
+            }
+
             //aquí se genera el release
             var release = {
                 ocid: String(data[0].cp.id),
@@ -944,7 +960,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                     milestones: getMilestones(data[12]),
                     amendment: {
                         date: data[0].tender.amendment_date,
-                        //changes: [ ],
+                        changes: getAmendmentChanges(data[15]),
                         rationale: data[0].tender.amendment_rationale
                     }
                 },
@@ -994,7 +1010,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         documents: getDocuments(data[6]),
                         amendment: {
                             date: data[0].award.amendment_date,
-                            //changes: [ ],
+                            changes: getAmendmentChanges(data[16]),
                             rationale: data[0].award.amendment_rationale
                         }
                     }
@@ -1017,7 +1033,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         documents: getDocuments(data[7]),
                         amendment: {
                             date: data[0].contract.amendment_date,
-                            //changes: [ ],
+                            changes: getAmendmentChanges(data[17]),
                             rationale: data[0].contract.amendment_rationale
                         },
                         implementation: { 
@@ -1062,16 +1078,5 @@ router.get('/publish/:type/:ocid', function (req,res) {
         res.send(error);
     });
 });
-
-function getMString ( fecha ){
-    return (
-        fecha.getFullYear()+ "-"+
-        ( (fecha.getMonth()+1 < 10)?("0"+(fecha.getMonth()+1)):(fecha.getMonth()+1) )+ "-" + // 0 - 11
-        ( (fecha.getDate() < 10)?("0"+(fecha.getDate())):(fecha.getDate()) ) +"T"+ // 1 - 31
-        ( (fecha.getHours() < 9)?("0"+fecha.getHours()):fecha.getHours() )+":"+ //0 - 23
-        ( (fecha.getMinutes() < 9 )?("0"+fecha.getMinutes()):fecha.getMinutes() )+":"+
-        ( (fecha.getSeconds() < 9 )?("0"+ fecha.getSeconds()):fecha.getSeconds() )
-    );
-}
 
 module.exports = router;
