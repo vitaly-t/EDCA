@@ -821,6 +821,18 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             amount: Number(arr[i].value_amount),
                             currency: arr[i].currency
                         },
+                        providerOrganization:{
+                            scheme: arr[i].providerorganization_scheme,
+                            id: arr[i].providerorganization_id,
+                            legalName: arr[i].providerorganization_legalName,
+                            uri: arr[i].providerorganization_uri
+                        },
+                        receiverOrganization:{
+                            scheme: arr[i].receiverorganization_scheme,
+                            id: arr[i].receiverorganization_id,
+                            legalName: arr[i].receiverorganization_legalName,
+                            uri: arr[i].receiverorganization_uri
+                        },
                         uri: arr[i].uri
                     });
                 }
