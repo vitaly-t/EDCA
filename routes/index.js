@@ -389,7 +389,8 @@ router.post('/update-award', function (req, res) {
 
 /* Update Contract */
 router.post('/update-contract', function (req, res) {
-    edca_db.one("update contract set title=$2, awardid=$3, description=$4, status=$5, period_startdate=$6, period_enddate=$7, value_amount=$8, value_currency=$9, datesigned=$10, amendment_date=$11, amendment_rationale=$12 " +
+    edca_db.one("update contract set awardid=$2, title=$3, description=$4, status=$5, period_startdate=$6, period_enddate=$7, value_amount=$8, value_currency=$9," +
+        " datesigned=$10, amendment_date=$11, amendment_rationale=$12 " +
         " where ContractingProcess_id = $1 returning id", [
         req.body.contractingprocess_id,
         req.body.awardid,
