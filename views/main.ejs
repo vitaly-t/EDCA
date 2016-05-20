@@ -132,7 +132,7 @@
 
 
 <% if (typeof cp != "undefined") {%>
-    <%-include partials/tabs.ejs %>
+    <%-include tabs/tabs.ejs %>
     <%} else {%>
     <div id="jumbotron" class="jumbotron">
         <h1 class="display-3">¡Contrataciones abiertas!</h1>
@@ -148,7 +148,7 @@
 </div>
 
 <% if (typeof cp != "undefined") {%>
-<%- include modal.ejs %>
+<%- include modals/modals.ejs %>
 <%}%>
 
 <!-- modal para buscar procesos de contratación -->
