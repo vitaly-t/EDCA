@@ -497,32 +497,20 @@ create table ImplementationTransactions(
 	implementation_date timestamp,
 	value_amount decimal, 
 	value_currency text,
+
+	providerorganization_scheme text,
+	providerorganization_id text,
+    providerorganization_legalname text,
+    providerorganization_uri text,
+
+    receiverorganization_scheme text,
+    receiverorganization_id text,
+    receiverorganization_legalname text,
+    receiverorganization_uri text,
+
 	uri text
 );
-	
-drop table if exists ProviderOrganization cascade;
-create table ProviderOrganization(
-	id serial primary key,
-	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
-	contract_id int references Contract(id) on delete cascade,
-	implementation_id int references Implementation(id) on delete cascade, 
-	implementationtransaction_id int references ImplementationTransactions(id) on delete cascade,
-	scheme text,
-	legalname text,
-	uri text
-	);
-	
-drop table if exists ReceiverOrganization cascade;
-create table ReceiverOrganization(
-	id serial primary key,
-	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
-	contract_id int references Contract(id) on delete cascade,
-	implementation_id int references Implementation(id) on delete cascade, 
-	implementationtransaction_id int references Implementation(id) on delete cascade,
-	scheme text,
-	legalname text,
-	uri text
-	);
+
 
 drop table if exists ImplementationMilestone cascade;
 create table ImplementationMilestone(

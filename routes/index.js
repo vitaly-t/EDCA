@@ -527,13 +527,26 @@ router.post('/new-milestone',function (req,res) {
 });
 
 router.post('/new-transaction', function (req,res) {
-    edca_db.one('insert into implementationtransactions (contractingprocess_id, source, implementation_date, value_amount, value_currency, uri) ' +
-        'values ($1,$2,$3,$4,$5,$6) returning id',[
+    edca_db.one('insert into implementationtransactions (contractingprocess_id, source, implementation_date, value_amount, value_currency, ' +
+        'providerorganization_scheme,providerorganization_id,providerorganization_legalname,providerorganization_uri,' +
+        'receiverorganization_scheme,receiverorganization_id,receiverorganization_legalname,receiverorganization_uri, uri) ' +
+        'values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) returning id',[
         req.body.ocid,
         req.body.source,
         (req.body.implementation_date != '')?req.body.implementation_date:null,
         req.body.value_amount,
         req.body.value_currency,
+
+        req.body.providerorganization_scheme,
+        req.body.providerorganization_id,
+        req.body.providerorganization_legalname,
+        req.body.providerorganization_uri,
+
+        req.body.receiverorganization_scheme,
+        req.body.receiverorganization_id,
+        req.body.receiverorganization_legalname,
+        req.body.receiverorganization_uri,
+
         req.body.uri
     ]).then(function (data) {
         console.log('New transaction: ', data);
@@ -881,7 +894,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                             legalName: data[0].procuringentity.identifier_legalname,
                             uri: data[0].procuringentity.identifier_uri
                         },
-                        additionalIdentifiers: [/* ... */],
+                        //additionalIdentifiers: [ ],
                         name: data[0].procuringentity.name,
                         address: {
                             streetAddress: data[0].procuringentity.address_streetaddress,
@@ -902,7 +915,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                     milestones: getMilestones(data[12]),
                     amendment: {
                         date: data[0].tender.amendment_date,
-                        changes: [/* ... */],
+                        //changes: [ ],
                         rationale: data[0].tender.amendment_rationale
                     }
                 },
@@ -913,7 +926,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         legalName: data[0].buyer.identifier_legalname,
                         uri: data[0].buyer.identifier_uri
                     },
-                    additionalIdentifiers: [/* ... */],
+                    //additionalIdentifiers: [ ],
                     name: data[0].buyer.name,
                     address: {
                         streetAddress: data[0].buyer.address_streetaddress,
@@ -975,7 +988,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                         documents: getDocuments(data[7]),
                         amendment: {
                             date: data[0].contract.amendment_date,
-                            changes: [/* ... */],
+                            //changes: [ ],
                             rationale: data[0].contract.amendment_rationale
                         },
                         implementation: { //7
