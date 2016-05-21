@@ -115,7 +115,6 @@ var createHash = function(password){
 };
 */
 
-
 // Passport needs to be able to serialize and deserialize users to support persistent login sessions
 passport.serializeUser(function(user, done) {
   console.log('serializing user: ');
@@ -129,8 +128,6 @@ passport.deserializeUser(function(id, done) {
     done(err, user);
   });
 });
-
-
 
 var isAuthenticated = function (req, res, next) {
   // if user is authenticated in the session, call the next() to call the next request handler
@@ -175,6 +172,10 @@ router.get('/signout', function(req, res) {
 router.get('/main', isAuthenticated, function(req, res, next) {
   res.render('main', { user: req.user, title: 'Contrataciones abiertas' });
 });
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+var pgp      = require("pg-promise")();
+var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
 /* GET main page with data */
 router.get('/main/:ocid', isAuthenticated, function (req,res) {
@@ -233,14 +234,8 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
 
 });
 
-
-/************* API ****************/
-var pgp      = require("pg-promise")();
-var edca_db  = pgp("postgres://tester:test@localhost/edca");
-
 // NUEVO PROCESO DE CONTRATACIÓN
 router.get('/new-process', function (req, res) {
-
     edca_db.tx(function (t) {
 
             return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id")
@@ -282,8 +277,6 @@ router.get('/new-process', function (req, res) {
         });
 });
 
-
-
 /* Update Planning -> Budget */
 router.post('/update-planning', function (req, res) {
 
@@ -313,11 +306,8 @@ router.post('/update-planning', function (req, res) {
 
 });
 
-
-
 /* Update Tender*/
 router.post('/update-tender', function (req, res) {
-
         edca_db.one("update tender set title= $2, description=$3, status=$4, minvalue_amount=$5, minvalue_currency=$6, value_amount=$7, value_currency=$8, procurementmethod=$9," +
             "procurementmethod_rationale=$10, awardcriteria=$11, awardcriteria_details=$12, submissionmethod=$13, submissionmethod_details=$14," +
             "tenderperiod_startdate=$15, tenderperiod_enddate=$16, enquiryperiod_startdate=$17, enquiryperiod_enddate=$18 ,hasenquiries=$19, eligibilitycriteria=$20, awardperiod_startdate=$21," +
@@ -357,7 +347,6 @@ router.post('/update-tender', function (req, res) {
             console.log("ERROR: ",error);
         });
 });
-
 
 /* Update Award */
 router.post('/update-award', function (req, res) {
@@ -416,7 +405,6 @@ router.post('/update-contract', function (req, res) {
 
 // New document
 router.post('/new-document', function(req,res){
-
     edca_db.one('insert into $1~ (contractingprocess_id, document_type, title, description, url, date_published, date_modified, format, language) values ($2,$3,$4,$5,$6,$7,$8,$9,$10) returning id',
         [
             req.body.doc_table,
@@ -439,15 +427,12 @@ router.post('/new-document', function(req,res){
     });
 });
 
-
-
 /* New organization */
 router.post('/new-organization', function (req, res) {
 
     var table= (req.body.org_type=="S")?"Supplier":"Tenderer";
 
     //falta pasar id de award y tender segun sea el caso
-
     edca_db.one("insert into $17~" +
         " (contractingprocess_id, identifier_scheme, identifier_id, identifier_legalname, identifier_uri, name, address_streetaddress," +
         " address_locality, address_region, address_postalcode, address_countryname, contactpoint_name, contactpoint_email, contactpoint_telephone," +
@@ -505,7 +490,6 @@ router.post('/new-item',function (req,res) {
 });
 
 router.post('/new-milestone',function (req,res) {
-
     edca_db.one('insert into $1~ (contractingprocess_id, title, description, duedate, date_modified, status) values ($2,$3,$4,$5,$6,$7) returning id',
         [
             req.body.milestone_table,
@@ -663,7 +647,6 @@ router.post('/update-publisher', function (req, res) {
 router.post('/search-process-by-date', function (req, res) {
     fi = req.body.fecha_inicial;
     ff = req.body.fecha_final;
-    //console.log(ff, fi);
 
     edca_db.many("select * from ContractingProcess where fecha_creacion >= $1 and fecha_creacion <= $2",[fi,ff]).then(function (data) {
         res.json(data);
@@ -675,6 +658,20 @@ router.post('/search-process-by-date', function (req, res) {
 
 });
 
+//get list of transactions
+router.post('/get-transactions/:table/:ocid',function (req, res) {
+    //req.params.table;
+    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+        req.params.table,
+        req.params.ocid
+    ]).then(function(data){
+        res.render('transaction-list', data);
+    }).catch(function(error){
+        console.log('ERROR: ', error);
+        res.send('ERROR');
+    });
+
+});
 
 
 router.get('/publish/:type/:ocid', function (req,res) {
@@ -798,6 +795,7 @@ router.get('/publish/:type/:ocid', function (req,res) {
                     items.push({
                         id: arr[i].id,
                         description: arr[i].description,
+                        //additionalClasifications: [ ],
                         classification:{
                             scheme: arr[i].classification_scheme,
                             id: arr[i].classification_id,
@@ -1070,9 +1068,8 @@ router.get('/publish/:type/:ocid', function (req,res) {
          })
 
     }).then(function (data) {
-        console.log("Hecho...");
-        //console.log("Data: ", data);
-        res.send(data);
+        console.log("Done ;)");
+        res.json(data);
     }).catch(function (error) {
         console.log("ERROR: ",error);
         res.send(error);
