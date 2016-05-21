@@ -658,6 +658,7 @@ router.post('/search-process-by-date', function (req, res) {
 
 });
 
+/*
 //get list of transactions
 router.post('/get-transactions/:table/:ocid',function (req, res) {
     //req.params.table;
@@ -672,7 +673,7 @@ router.post('/get-transactions/:table/:ocid',function (req, res) {
     });
 
 });
-
+*/
 
 router.get('/publish/:type/:ocid', function (req,res) {
     var ocid = req.params.ocid;
