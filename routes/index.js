@@ -700,9 +700,49 @@ router.post('/item-list',function (req, res) {
         console.log('ERROR: ', error);
         res.send('ERROR');
     });
-
 });
 
+//get list of documents
+router.post('/document-list',function (req, res) {
+    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+        req.body.table,
+        req.body.ocid
+    ]).then(function(data){
+        console.log(data);
+        res.render('modals/document-list', {data});
+    }).catch(function(error){
+        console.log('ERROR: ', error);
+        res.send('ERROR');
+    });
+});
+
+//get list of milestones
+router.post('/milestone-list',function (req, res) {
+    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+        req.body.table,
+        req.body.ocid
+    ]).then(function(data){
+        console.log(data);
+        res.render('modals/milestone-list', {data});
+    }).catch(function(error){
+        console.log('ERROR: ', error);
+        res.send('ERROR');
+    });
+});
+
+//get list of amendment changes
+router.post('/amendmentchange-list',function (req, res) {
+    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+        req.body.table,
+        req.body.ocid
+    ]).then(function(data){
+        console.log(data);
+        res.render('modals/amendmentchange-list', {data});
+    }).catch(function(error){
+        console.log('ERROR: ', error);
+        res.send('ERROR');
+    });
+});
 
 router.get('/publish/:type/:ocid', function (req,res) {
     var ocid = req.params.ocid;
