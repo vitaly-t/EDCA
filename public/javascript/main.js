@@ -227,6 +227,13 @@ $('#myModalEditTransactions').on('show.bs.modal', function (event) {
     modal.find('.modal-body div').load( '/transaction-list/' ,{ ocid: button.data('ocid') });
 });
 
+$('#myModalEditItem').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    modal.find('#item_table').val( button.data('table'));
+    modal.find('.modal-body div').load( '/item-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
+});
+
 /* */
 
 $(function () {

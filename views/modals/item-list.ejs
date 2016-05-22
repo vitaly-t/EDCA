@@ -1,0 +1,19 @@
+<%
+if ( data.length > 0 ){
+for (var i=0; i< data.length; i++){%>
+<div class="panel default">
+    <div class="panel-body">
+        <p><label>Description</label><input type="text" class="form-control" value="<%= data[i].description%>"></p>
+        <p><label>Classification scheme</label><input type="text" class="form-control" value="<%= data[i].classification_scheme%>"></p>
+        <p><label>Classification ID</label><input type="text" class="form-control" value="<%=data[i].classification_id%>"></p>
+        <p><label>Classification description</label><input type="text" class="form-control" value="<%= data[i].classification_description%>"></p>
+        <p><label>Classification URI</label><input type="text" class="form-control" value="<%= data[i].classification_uri%>"></p>
+    </div>
+</div>
+<%}
+} else {
+%>
+
+<div class="alert alert-warning" role="alert"><strong>Atención:</strong> No se han registrado artículos</div>
+<%}
+%>
