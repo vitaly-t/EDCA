@@ -110,6 +110,35 @@
     </div>
 </div>
 
+<!-- modal para editar publisher  -->
+<div class="modal fade" id="myModalEditPub" tabindex="-1" role="dialog" aria-labelledby="modalEditPub">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar </h4>
+            </div>
+            <div class="modal-body">
+                <form id="updatepub_form">
+                    <input type="text" name="id" value="<%=(typeof publisher != "undefined")?publisher.id:''%>" hidden>
+                    <p><label>Name</label>
+                        <input name="name" class="form-control" value="<%= (typeof publisher != "undefined")?publisher.name:''%>"></p>
+                    <p><label>Scheme</label>
+                        <input name="scheme" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.scheme:''%>"></p>
+                    <p><label>UID</label>
+                        <input name="uid" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.uid:''%>"></p>
+                    <p><label>URI</label>
+                        <input name="uri" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.uri:''%>"></p>
+                    <button class="btn btn-default">Guardar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal de nueva organización  -->
 <div class="modal fade" id="myModalNewOrg" tabindex="-1" role="dialog" aria-labelledby="orgModalLabel5">
     <div class="modal-dialog" role="document">
@@ -153,7 +182,7 @@
                     <p><label>Contact point URL</label>
                         <input name="contactpoint_url"    type="text" class="form-control"></p>
 
-                    <button type="submit" class="btn btn-default">Crear</button></p>
+                    <button type="submit" class="btn btn-default">Crear</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -172,9 +201,8 @@
                 <h4 class="modal-title">Editar organizaciones</h4>
             </div>
             <div class="modal-body">
-
-                <!-- Editar una organización -->
                 <input type="text" id="org-type" hidden>
+                <div><!-- contenidos --></div>
                 <!-- <p><button class="btn btn-default">Additional identifiers</button></p> -->
             </div>
             <div class="modal-footer">
@@ -183,36 +211,6 @@
         </div>
     </div>
 </div>
-
-<!-- modal para editar publisher  -->
-<div class="modal fade" id="myModalEditPub" tabindex="-1" role="dialog" aria-labelledby="modalEditPub">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Editar </h4>
-            </div>
-            <div class="modal-body">
-                <form id="updatepub_form">
-                    <input type="text" name="id" value="<%=(typeof publisher != "undefined")?publisher.id:''%>" hidden>
-                    <p><label>Name</label>
-                        <input name="name" class="form-control" value="<%= (typeof publisher != "undefined")?publisher.name:''%>"></p>
-                    <p><label>Scheme</label>
-                        <input name="scheme" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.scheme:''%>"></p>
-                    <p><label>UID</label>
-                        <input name="uid" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.uid:''%>"></p>
-                    <p><label>URI</label>
-                        <input name="uri" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.uri:''%>"></p>
-                    <button class="btn btn-default">Guardar</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- modal para nuevo documento  -->
 <div class="modal fade" id="myModalNewDoc" tabindex="-1" role="dialog" aria-labelledby="modalNewDoc">
@@ -259,27 +257,19 @@
     </div>
 </div>
 
-
-<!-- modal para cargar desde url -->
-<div class="modal fade" id="myModalURL" tabindex="-1" role="dialog" aria-labelledby="modalURL">
+<!-- modal editar documentos -->
+<div class="modal fade" id="myModalEditDocuments" tabindex="-1" role="dialog" aria-labelledby="modalEditDocuments">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Carga desde url</h4>
+                <h4 class="modal-title">Editar </h4>
             </div>
             <div class="modal-body">
-              <form id ="newdoc_form">
-                <input type="text" id = "doc_table" name = "doc_table" hidden>
-                <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                <p><label>URL</label></p>
-                <input id="urlProc" class="form-control" type="text" name="description">
-                <br>
-                <button class="btn btn-default">Guardar</button>
-            </form>
+                <div><!-- contenidos --></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -297,28 +287,45 @@
                 <form id ="newitem_form">
                     <input type="text" id = "item_table" name = "item_table" hidden></p>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-
                     <p><label>Description</label>
-                    <input class="form-control" type="text" name="description"></p>
+                        <input class="form-control" type="text" name="description"></p>
                     <p><label>Classification scheme</label>
-                    <input class="form-control" type="text" name="classification_scheme"></p>
+                        <input class="form-control" type="text" name="classification_scheme"></p>
                     <p><label>Classification id</label>
-                    <input class="form-control" type="text" name="classification_id"></p>
+                        <input class="form-control" type="text" name="classification_id"></p>
                     <p><label>Classification description</label>
-                    <input class="form-control" type="text" name="classification_description"></p>
+                        <input class="form-control" type="text" name="classification_description"></p>
                     <p><label>Classification uri</label>
-                    <input class="form-control" type="text" name="classification_uri"></p>
+                        <input class="form-control" type="text" name="classification_uri"></p>
                     <p><label>Quantity</label>
-                    <input class="form-control" type="number" name="quantity"></p>
+                        <input class="form-control" type="number" name="quantity"></p>
                     <p><label>Unit name</label>
-                    <input class="form-control" type="text" name="unit_name"></p>
+                        <input class="form-control" type="text" name="unit_name"></p>
                     <p><label>Unit value amount</label>
-                    <input class="form-control" type="number" name="unit_value_amount"  step="0.01" required></p>
+                        <input class="form-control" type="number" name="unit_value_amount"  step="0.01" required></p>
                     <p><label>Unit value currency</label>
-                    <input class="form-control" type="text" name="unit_value_currency"></p>
+                        <input class="form-control" type="text" name="unit_value_currency"></p>
 
                     <button class="btn btn-default">Guardar</button>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal editar items -->
+<div class="modal fade" id="myModalEditItem" tabindex="-1" role="dialog" aria-labelledby="modalEditItem">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar </h4>
+            </div>
+            <div class="modal-body">
+                <div><!-- contenidos --></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -340,9 +347,9 @@
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                     <input type="text" id = "milestone_table" name = "milestone_table" hidden></p>
                     <p><label>Title</label>
-                    <input type="text" class="form-control" name="title"></p>
+                        <input type="text" class="form-control" name="title"></p>
                     <p><label>Description</label>
-                    <input type="text" class="form-control" name="description"></p>
+                        <input type="text" class="form-control" name="description"></p>
                     <p><div class="row">
                         <div class="col-sm-6">
                             <label>Due date</label>
@@ -354,9 +361,27 @@
                         </div>
                     </div></p>
                     <p><label>Status</label>
-                    <input type="text" class="form-control" name="status"></p>
+                        <input type="text" class="form-control" name="status"></p>
                     <button class="btn btn-default">Guardar</button>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal editar milestones -->
+<div class="modal fade" id="myModalEditMilestones" tabindex="-1" role="dialog" aria-labelledby="modalEditMilestones">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar </h4>
+            </div>
+            <div class="modal-body">
+                <div><!-- contenidos --></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -376,32 +401,22 @@
             <div class="modal-body">
                 <form id ="newtransaction_form">
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <p>
-                    <label>Source</label>
-                    <input class="form-control" name="source">
-                        </p>
-                    <p>
-                    <label>Date</label>
-                    <input class="form-control" id="newtrans_date1" name="implementation_date">
-                        </p>
-                    <p>
-                    <label>Value amount</label>
-                    <input type="number" class="form-control" step="0.01" name="value_amount" required>
-                        </p>
-                    <p>
-                    <label>Value currency</label>
-                    <input class="form-control" name="value_currency">
-                        </p>
-
+                    <p> <label>Source</label>
+                        <input class="form-control" name="source"> </p>
+                    <p><label>Date</label>
+                        <input class="form-control" id="newtrans_date1" name="implementation_date"></p>
+                    <p><label>Value amount</label>
+                        <input type="number" class="form-control" step="0.01" name="value_amount" required></p>
+                    <p><label>Value currency</label>
+                        <input class="form-control" name="value_currency"></p>
                     <p><label>Provider organization scheme</label>
-                    <input type="text" class="form-control" name="providerorganization_scheme"></p>
+                        <input type="text" class="form-control" name="providerorganization_scheme"></p>
                     <p><label>Provider organization ID</label>
-                    <input type="text" class="form-control" name="providerorganization_id"></p>
+                        <input type="text" class="form-control" name="providerorganization_id"></p>
                     <p><label>Provider organization legal name</label>
-                    <input type="text" class="form-control" name="providerorganization_legalname"></p>
+                        <input type="text" class="form-control" name="providerorganization_legalname"></p>
                     <p><label>Provider organization URI</label>
-                    <input type="text" class="form-control" name="providerorganization_uri"></p>
-
+                        <input type="text" class="form-control" name="providerorganization_uri"></p>
                     <p><label>Receiver organization scheme</label>
                         <input type="text" class="form-control" name="receiverorganization_scheme"></p>
                     <p><label>Receiver organization ID</label>
@@ -410,11 +425,10 @@
                         <input type="text" class="form-control" name="receiverorganization_legalname"></p>
                     <p><label>Receiver organization URI</label>
                         <input type="text" class="form-control" name="receiverorganization_uri"></p>
-
                     <p>
-                    <label>URI</label>
-                    <input class="form-control" name="uri">
-                        </p>
+                        <label>URI</label>
+                        <input class="form-control" name="uri">
+                    </p>
                     <button class="btn btn-default">Guardar</button>
                 </form>
             </div>
@@ -425,6 +439,23 @@
     </div>
 </div>
 
+<!-- modal editar transacciones -->
+<div class="modal fade" id="myModalEditTransactions" tabindex="-1" role="dialog" aria-labelledby="modalEditTransactions">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar </h4>
+            </div>
+            <div class="modal-body">
+                <div><!-- contenidos --></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- modal para nuevo cambio -->
 <div class="modal fade" id="myModalNewAmendmentChange" tabindex="-1" role="dialog" aria-labelledby="modalNewAmenmentChange">
@@ -443,6 +474,50 @@
                         <input class="form-control" type="text" name="property">  </p>
                     <p><label>Former value</label>
                         <input class="form-control" type="text" name="former_value"> </p>
+                    <button class="btn btn-default">Guardar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal editar cambios -->
+<div class="modal fade" id="myModalEditChanges" tabindex="-1" role="dialog" aria-labelledby="modalEditChanges">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar </h4>
+            </div>
+            <div class="modal-body">
+                <div><!-- contenidos --></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal para cargar desde url -->
+<div class="modal fade" id="myModalURL" tabindex="-1" role="dialog" aria-labelledby="modalURL">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Carga desde url</h4>
+            </div>
+            <div class="modal-body">
+                <form id ="newdoc_form">
+                    <input type="text" id = "doc_table" name = "doc_table" hidden>
+                    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                    <p><label>URL</label></p>
+                    <input id="urlProc" class="form-control" type="text" name="description">
+                    <br>
                     <button class="btn btn-default">Guardar</button>
                 </form>
             </div>

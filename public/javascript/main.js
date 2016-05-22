@@ -51,6 +51,16 @@ $('#crear').click(function(){
     }
 });*/
 
+//publish
+$(function () {
+    $('#release').click(function () {
+        window.open('/publish/release/'+$('#ocid').val());
+    });
+    $('#release_package').click(function () {
+        window.open('/publish/release-record/'+$('#ocid').val());
+    });
+});
+
 // Crear organización
 $('#neworg_form').submit(function (event) {
     $.post('/new-organization/', $(this).serialize()).done(function (data) {
@@ -105,16 +115,6 @@ $('#newamendmentchange_form').submit(function (event) {
     });
     event.preventDefault();
 });
-
-//publish
-$(function () {
-    $('#release').click(function () {
-        window.open('/publish/release/'+$('#ocid').val());
-    });
-    $('#release_package').click(function () {
-        window.open('/publish/release-record/'+$('#ocid').val());
-    });
-})
 
 // buscar proceso por fecha
 $("#searchprocessbydate_form").submit(function ( event ) {
@@ -183,7 +183,7 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
     var recipient = button.data('org'); // Extract info from data-* attributes
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    var modal = $(this)
+    var modal = $(this);
     //modal.find('.modal-title').text('New message to ' + recipient)
     //modal.find('.modal-body input').val("");
     $('#org_type').val(recipient);
@@ -220,6 +220,20 @@ $('#myModalNewAmendmentChange').on('show.bs.modal', function (event) {
     var modal = $(this);
     modal.find('#amendmentchanges_table').val( button.data('changestable') );
 });
+
+
+
+
+$('#myModalEditTransactions').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    modal.find('.modal-body div').load( '/transaction-list/' ,{ ocid: '2' });//val( button.data('changestable') );
+});
+
+
+
+
+
 
 /* */
 

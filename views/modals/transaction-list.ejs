@@ -1,24 +1,17 @@
-<form id ="newtransaction_form">
-    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-    <p>
+
+<%
+for (var i=0; i< data.length; i++){%>
+
+<p>
         <label>Source</label>
-        <input class="form-control" name="source">
+        <input class="form-control" name="source"
+        value = "<%= data[i].source %>"
+        disabled>
     </p>
     <p>
         <label>Date</label>
-        <input class="form-control" id="newtrans_date1" name="implementation_date">
+        <input class="form-control" id="newtrans_date1" name="implementation_date"
+        value = "<%= data[i].implementation_date.toLocaleString() %>" disabled>
     </p>
-    <p>
-        <label>Value amount</label>
-        <input type="number" class="form-control" step="0.01" name="value_amount" required>
-    </p>
-    <p>
-        <label>Value currency</label>
-        <input class="form-control" name="value_currency">
-    </p>
-    <p>
-        <label>URI</label>
-        <input class="form-control" name="uri">
-    </p>
-    <button class="btn btn-default">Guardar</button>
-</form>
+
+<%}%>

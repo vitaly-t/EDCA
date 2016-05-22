@@ -658,22 +658,21 @@ router.post('/search-process-by-date', function (req, res) {
 
 });
 
-/*
+
 //get list of transactions
-router.post('/get-transactions/:table/:ocid',function (req, res) {
-    //req.params.table;
-    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
-        req.params.table,
-        req.params.ocid
+router.post('/transaction-list',function (req, res) {
+    edca_db.manyOrNone('select * from implementationtransactions where contractingprocess_id=$1',[
+        req.body.ocid
     ]).then(function(data){
-        res.render('transaction-list', data);
+        console.log(data);
+        res.render('modals/transaction-list', {data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
     });
 
 });
-*/
+
 
 router.get('/publish/:type/:ocid', function (req,res) {
     var ocid = req.params.ocid;
