@@ -673,6 +673,21 @@ router.post('/transaction-list',function (req, res) {
 
 });
 
+//get list of organizations
+router.post('/organization-list',function (req, res) {
+    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+        req.body.table,
+        req.body.ocid
+    ]).then(function(data){
+        console.log(data);
+        res.render('modals/organization-list', {data});
+    }).catch(function(error){
+        console.log('ERROR: ', error);
+        res.send('ERROR');
+    });
+
+});
+
 
 router.get('/publish/:type/:ocid', function (req,res) {
     var ocid = req.params.ocid;

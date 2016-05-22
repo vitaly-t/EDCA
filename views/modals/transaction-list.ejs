@@ -1,17 +1,23 @@
-
 <%
+if ( data.length > 0 ){
 for (var i=0; i< data.length; i++){%>
+<div class="panel default">
+    <div class="panel-body">
+        <p>
+            <label>Source</label>
+            <input class="form-control" name="source" value = "<%= data[i].source %>" disabled>
+        </p>
+        <p>
+            <label>Date</label>
+            <input class="form-control" id="newtrans_date1" name="implementation_date"
+                   value = "<%= data[i].implementation_date.toLocaleString() %>" disabled>
+        </p>
+    </div>
+</div>
+<%}
+} else {
+%>
 
-<p>
-        <label>Source</label>
-        <input class="form-control" name="source"
-        value = "<%= data[i].source %>"
-        disabled>
-    </p>
-    <p>
-        <label>Date</label>
-        <input class="form-control" id="newtrans_date1" name="implementation_date"
-        value = "<%= data[i].implementation_date.toLocaleString() %>" disabled>
-    </p>
-
-<%}%>
+<div class="alert alert-warning" role="alert"><strong>Atención:</strong> No se han registrado transacciones</div>
+<%}
+%>

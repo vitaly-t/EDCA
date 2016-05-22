@@ -190,13 +190,6 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
     //modal.find('#org_type').val(recipient);
 });
 
-$('#myModalEditOrg').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var recipient = button.data('org');
-    var modal = $(this);
-    modal.find('#org_type').val(recipient);
-});
-
 $('#myModalNewDoc').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
@@ -221,19 +214,18 @@ $('#myModalNewAmendmentChange').on('show.bs.modal', function (event) {
     modal.find('#amendmentchanges_table').val( button.data('changestable') );
 });
 
-
-
+$('#myModalEditOrg').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    modal.find('#org_table').val( button.data('table'));
+    modal.find('.modal-body div').load( '/organization-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
+});
 
 $('#myModalEditTransactions').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
-    modal.find('.modal-body div').load( '/transaction-list/' ,{ ocid: '2' });//val( button.data('changestable') );
+    modal.find('.modal-body div').load( '/transaction-list/' ,{ ocid: button.data('ocid') });
 });
-
-
-
-
-
 
 /* */
 
