@@ -4,6 +4,16 @@ if ( data.length > 0 ){
 %>
 <div class="panel panel-default">
     <div class="panel-body">
+        <p><label>Name</label>
+        <input type="text" class="form-control" value="<%= data[i].name%>" disabled></p>
+        <p><label>Identifier scheme</label>
+            <input type="text" class="form-control" value="<%= data[i].identifier_scheme%>" disabled></p>
+        <p><label>Identifier id</label>
+            <input type="text" class="form-control" value="<%= data[i].identifier_id%>" disabled></p>
+        <p><label>Legal name</label>
+            <input type="text" class="form-control" value="<%= data[i].identifier_legalname%>" disabled></p>
+        <p><label>URI</label>
+            <input type="text" class="form-control" value="<%= data[i].identifier_uri%>" disabled></p>
 
     </div>
 </div>
