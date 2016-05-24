@@ -107,7 +107,13 @@ $('#newamendmentchange_form').submit(function (event) {
 
 // buscar proceso por fecha
 $("#searchprocessbydate_form").submit(function ( event ) {
-    $('#searchprocessbydate_result').load('/search-process-by-date/', $(this).serializeArray());
+    $('#searchprocess_result').load('/search-process-by-date/', $(this).serializeArray());
+    event.preventDefault();
+});
+
+//buscar por ocid
+$("#searchprocessbyocid_form").submit(function ( event ) {
+    $('#searchprocess_result').load('/search-process-by-ocid/', $(this).serializeArray());
     event.preventDefault();
 });
 
