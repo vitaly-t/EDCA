@@ -71,18 +71,12 @@
                             <li><a href="#" data-toggle="modal" data-target="#myModalEditPub">Publisher</a></li>
                         </ul>
                     </div>
-                    <!--<p>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon-proc">ID</span>
-                        <input id="ocid" type="text" class="form-control"  placeholder="ocid" disabled
-                               value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-proc">
-                    </div>
-                    </p>-->
                     <p>
-                    <form>
+                    <form id ="updateocid_form">
+                        <input name="localid" type="text" value="<%= (typeof cp != "undefined" )? cp.id : ''%>" hidden>
                         <p>
                         <label>Identificador de proceso</label>
-                        <input type="text" class="form-control"></p>
+                        <input type="text" name='ocid' class="form-control" value="<%= (cp.ocid != null)? cp.ocid : '' %>" placeholder="OCID"></p>
                         <button class="btn btn-default">Guardar</button>
                     </form>
                     </p>

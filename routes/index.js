@@ -178,22 +178,22 @@ var pgp      = require("pg-promise")();
 var edca_db  = pgp("postgres://tester:test@localhost/edca");
 
 /* GET main page with data */
-router.get('/main/:ocid', isAuthenticated, function (req,res) {
-    var ocid = req.params.ocid;
+router.get('/main/:localid', isAuthenticated, function (req,res) {
+    var localid = req.params.localid;
 
         edca_db.task(function (t) {
                 // this = t = transaction protocol context;
                 // this.ctx = transaction config + state context;
                 return t.batch([
-                    t.one("select * from ContractingProcess where id = $1", ocid),
-                    t.one("select * from Planning where contractingprocess_id= $1", ocid),
-                    t.one("select * from budget where contractingprocess_id = $1", ocid),
-                    t.one("select * from Tender where contractingprocess_id = $1", ocid),
-                    t.one("select * from Award where contractingprocess_id = $1", ocid),
-                    t.one("select * from Contract where contractingprocess_id = $1", ocid),
-                    t.one("select * from buyer where contractingprocess_id =$1",ocid),
-                    t.one("select * from procuringentity where contractingprocess_id=$1",ocid),
-                    t.one("select * from publisher where contractingprocess_id=$1",ocid)
+                    t.one("select * from ContractingProcess where id = $1", localid),
+                    t.one("select * from Planning where contractingprocess_id= $1", localid),
+                    t.one("select * from budget where contractingprocess_id = $1", localid),
+                    t.one("select * from Tender where contractingprocess_id = $1", localid),
+                    t.one("select * from Award where contractingprocess_id = $1", localid),
+                    t.one("select * from Contract where contractingprocess_id = $1", localid),
+                    t.one("select * from buyer where contractingprocess_id =$1",localid),
+                    t.one("select * from procuringentity where contractingprocess_id=$1",localid),
+                    t.one("select * from publisher where contractingprocess_id=$1",localid)
                 ]);
             })
             // using .spread(function(user, event)) is best here, if supported;
@@ -228,10 +228,9 @@ router.get('/main/:ocid', isAuthenticated, function (req,res) {
                 res.render('main', {
                     user: req.user,
                     title: 'Contrataciones abiertas',
-                    error: 'Proceso de contratación ' + ocid + ' no encontrado'
+                    error: 'Proceso de contratación no encontrado'
                 });
             });
-
 });
 
 // NUEVO PROCESO DE CONTRATACIÓN
@@ -642,6 +641,17 @@ router.post('/update-publisher', function (req, res) {
         console.log("ERROR: ",error);
     });
 });
+
+//update OCID
+router.post('/update-ocid',function (req, res) {
+    edca_db.one("update contractingprocess set ocid = $1 where id=$2 returning id",[ req.body.ocid, req.body.localid ]).then(function (data) {
+        res.send("Identificador de proceso actualizado");
+        console.log("Update ocid:", data);
+    }).catch(function (error) {
+        console.log("ERROR: ", error);
+        res.send('ERROR');
+    });
+})
 
 //buscar por periodo
 router.post('/search-process-by-date', function (req, res) {

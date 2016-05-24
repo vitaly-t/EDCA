@@ -134,6 +134,14 @@ $( "#updateprocuringentity_form" ).submit(function( event ) {
     event.preventDefault();
 });
 
+//update ocid
+$("#updateocid_form").submit(function (event) {
+    $.post('/update-ocid',$(this).serialize()).done(function (data) {
+        alert(data);
+    });
+});
+
+
 $("#tender_form").submit(function(event){
     $.post('/update-tender/', $(this).serialize()).done(function(data){
         alert(data);
