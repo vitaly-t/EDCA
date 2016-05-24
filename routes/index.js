@@ -744,23 +744,23 @@ router.post('/amendmentchange-list',function (req, res) {
     });
 });
 
-router.get('/publish/:type/:ocid/:outputname', function (req,res) {
-    var ocid = req.params.ocid;
+router.get('/publish/:type/:localid/:outputname', function (req,res) {
+    var localid = req.params.localid;
     var type = req.params.type;
 
     //queries principales
     edca_db.tx(function (t) {
 
-        return t.one("Select * from contractingprocess where id = $1", [ocid]).then(function (cp) { //0
+        return t.one("Select * from contractingprocess where id = $1", [localid]).then(function (cp) { //0
 
-            var planning = t.one("select * from planning where contractingprocess_id = $1", [ocid]);     //1
-            var budget = t.one("select * from budget where contractingprocess_id = $1", [ocid]);         //2
-            var tender = t.one("select * from tender where contractingprocess_id = $1", [ocid]);        //3
-            var buyer = t.oneOrNone("select * from buyer where contractingprocess_id = $1", [ocid]);    //4
-            var award = t.one("select * from award where contractingprocess_id = $1", [ocid]);           //5
-            var contract = t.one("select * from contract where contractingprocess_id = $1", [ocid]);     //6
-            var implementation = t.oneOrNone('select * from implementation where contractingprocess_id = $1', [ocid]); //7
-            var procuringentity = t.one('select * from ProcuringEntity where contractingprocess_id=$1', [ocid]); //8
+            var planning = t.one("select * from planning where contractingprocess_id = $1", [localid]);     //1
+            var budget = t.one("select * from budget where contractingprocess_id = $1", [localid]);         //2
+            var tender = t.one("select * from tender where contractingprocess_id = $1", [localid]);        //3
+            var buyer = t.oneOrNone("select * from buyer where contractingprocess_id = $1", [localid]);    //4
+            var award = t.one("select * from award where contractingprocess_id = $1", [localid]);           //5
+            var contract = t.one("select * from contract where contractingprocess_id = $1", [localid]);     //6
+            var implementation = t.oneOrNone('select * from implementation where contractingprocess_id = $1', [localid]); //7
+            var procuringentity = t.one('select * from ProcuringEntity where contractingprocess_id=$1', [localid]); //8
 
             return t.batch([cp, planning, budget, tender, buyer, award, contract, implementation, procuringentity]);
 
@@ -943,8 +943,8 @@ router.get('/publish/:type/:ocid/:outputname', function (req,res) {
 
             //aquí se genera el release
             var release = {
-                ocid: String(data[0].cp.id),
-                id: "id de release",
+                ocid: String(data[0].cp.ocid),
+                id: "id de release", //ocid  + fecha +  hora
                 date: data[0].cp.fecha_creacion,
                 tag: ["contract"],
                 initiationType: "tender",
