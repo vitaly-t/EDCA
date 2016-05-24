@@ -41,24 +41,13 @@ $(function () {
     })
 });
 
-/*
- // Crear proceso de contratación.
-$('#crear').click(function(){
-    if (confirm("¿Está seguro de crear un nuevo proceso de contratación"+
-            ($('#ocid').val()==""?
-                "?":"?, perdera los cambios hechos al proceso actual")) == true ){
-        $.get("/new-process/1");
-    }
-});*/
-
 //publish
-$(function () {
-    $('#release').click(function () {
-        window.open('/publish/release/'+$('#ocid').val());
-    });
-    $('#release_package').click(function () {
-        window.open('/publish/release-record/'+$('#ocid').val());
-    });
+$('#release').on('click',function (event) {
+    window.open('/publish/release/'+ $(this).data('id') );
+});
+
+$('#release_package').on('click',function (event) {
+    window.open('/publish/release-record/'+$(this).data('id'));
 });
 
 // Crear organización
@@ -270,42 +259,3 @@ $(function () {
         $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
     });
 });
-
-
-/*
-$(document).ready(function(){
-    if($("#ocid").val() != ""){
-        $("#jumbotron").hide();
-        $("#all-contents").show(1000);
-        $("#pills").show(1000);
-        //$("#all-ids").show(1050);
-    }else {
-        $("#all-contents").hide();
-        $("#pills").hide();
-        //$("#all-ids").hide();
-    }
-});*/
-
-/*
-$(document).ready(function(){
-    $("#panel-buyer").click(function(){
-        $("#panel-supplier").toggle(100);
-        $("#panel-procuring").toggle(100);
-        $("#panel-tenderer").toggle(100);
-    });
-    $("#panel-supplier").click(function(){
-        $("#panel-buyer").toggle(100);
-        $("#panel-procuring").toggle(100);
-        $("#panel-tenderer").toggle(100);
-    });
-    $("#panel-procuring").click(function(){
-        $("#panel-buyer").toggle(100);
-        $("#panel-supplier").toggle(100);
-        $("#panel-tenderer").toggle(100);
-    });
-    $("#panel-tenderer").click(function(){
-        $("#panel-buyer").toggle(100);
-        $("#panel-procuring").toggle(100);
-        $("#panel-supplier").toggle(100);
-    });
-});*/

@@ -3,7 +3,7 @@
 drop table if exists ContractingProcess cascade;
 create table ContractingProcess (
 	id serial primary key,
-    /* Publisher_id int references Publisher(id), */
+    ocid text,
 	fecha_creacion date,
 	hora_creacion time
 	);
@@ -17,21 +17,6 @@ create table Publisher (
     uid   text,
     uri    text
 	);
-
-
-
-/* ORGANIZATION TYPE */
-drop table if exists OrganizationType cascade;
-CREATE TABLE OrganizationType (
-    id serial primary key,
-    name character varying(50)
-);
-
-insert into organizationtype (name) values ('Buyer');
-insert into organizationtype (name) values ('Tenderer');
-insert into organizationtype (name) values ('Supplier');
-insert into organizationtype (name) values ('Procuring Entity');
-
 
 /* PLANNING */
 drop table if exists Planning cascade;

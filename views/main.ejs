@@ -64,8 +64,8 @@
                             Publicar <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li id="release"><a href="#">Release</a></li>
-                            <li id="release_package"><a href="#">Release package</a></li>
+                            <li id="release" data-id="<%=cp.id%>"><a href="#">Release</a></li>
+                            <li id="release_package" data-id="<%=cp.id%>"><a href="#">Release package</a></li>
                             <li><a href="#">Record package</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#" data-toggle="modal" data-target="#myModalEditPub">Publisher</a></li>
@@ -78,6 +78,15 @@
                                value="<%= (typeof cp != "undefined" )? cp.id : ""%>" aria-describedby="basic-addon-proc">
                     </div>
                     </p>
+
+                    <hr>
+                    <form>
+                        <p>
+                        <label>Identificador de proceso</label>
+                        <input type="text" class="form-control"></p>
+                        <button class="btn btn-default">Guardar</button>
+                    </form>
+
                     <%}%>
                 </div>
             </div>
