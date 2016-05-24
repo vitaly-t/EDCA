@@ -107,12 +107,7 @@ $('#newamendmentchange_form').submit(function (event) {
 
 // buscar proceso por fecha
 $("#searchprocessbydate_form").submit(function ( event ) {
-    $.post('/search-process-by-date/', $(this).serialize()).done(function(data){
-        $('#searchprocessbydate_result').empty();
-        $.each(data,function (key, value) {
-            $('#searchprocessbydate_result').append( "<a class='list-group-item' href='/main/"+value.id+"'value='"+value.id+"'> Proceso "+value.id+"</a>");
-        })
-    });
+    $('#searchprocessbydate_result').load('/search-process-by-date/', $(this).serializeArray());
     event.preventDefault();
 });
 

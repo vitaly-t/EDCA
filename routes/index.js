@@ -645,17 +645,17 @@ router.post('/update-publisher', function (req, res) {
 
 //buscar por periodo
 router.post('/search-process-by-date', function (req, res) {
-    fi = req.body.fecha_inicial;
-    ff = req.body.fecha_final;
-
-    edca_db.many("select * from ContractingProcess where fecha_creacion >= $1 and fecha_creacion <= $2",[fi,ff]).then(function (data) {
-        res.json(data);
+    edca_db.manyOrNone("select * from ContractingProcess where fecha_creacion >= $1 and fecha_creacion <= $2",[
+        req.body.fecha_inicial,
+        req.body.fecha_final
+    ]
+    ).then(function (data) {
         console.log(data);
+        res.render('modals/process-list',{ data: data});
     }).catch(function (error) {
         console.log("ERROR: ",error);
-        res.json(error);
+        res.send('ERROR');
     });
-
 });
 
 
