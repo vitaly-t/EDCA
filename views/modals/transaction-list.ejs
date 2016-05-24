@@ -1,17 +1,15 @@
 <%
 if ( data.length > 0 ){
 for (var i=0; i< data.length; i++){%>
-<div class="panel default">
+<div class="panel panel-default">
     <div class="panel-body">
         <p>
-            <label>Source</label>
-            <input class="form-control" name="source" value = "<%= data[i].source %>" disabled>
+            <label>Source:</label> <%= data[i].source %>
         </p>
         <p>
-            <label>Date</label>
-            <input class="form-control" id="newtrans_date1" name="implementation_date"
-                   value = "<%= data[i].implementation_date.toLocaleString() %>" disabled>
+            <label>Date: </label> <%= data[i].implementation_date.toLocaleString() %>
         </p>
+        <button class="btn btn-default">Eliminar</button>
     </div>
 </div>
 <%}

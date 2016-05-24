@@ -1,19 +1,21 @@
 <%
 if ( data.length > 0 ){
 for (var i=0; i< data.length; i++){%>
-<div class="panel default">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title"><%= data[i].description %></h4>
+    </div>
     <div class="panel-body">
-        <p><label>Description</label><input type="text" class="form-control" value="<%= data[i].description%>" disabled></p>
-        <p><label>Classification scheme</label><input type="text" class="form-control" value="<%= data[i].classification_scheme%>" disabled></p>
-        <p><label>Classification ID</label><input type="text" class="form-control" value="<%=data[i].classification_id%>" disabled></p>
-        <p><label>Classification description</label><input type="text" class="form-control" value="<%= data[i].classification_description%>" disabled></p>
-        <p><label>Classification URI</label><input type="text" class="form-control" value="<%= data[i].classification_uri%>" disabled></p>
+        <p><label>Classification scheme: </label> <%= data[i].classification_scheme%></p>
+        <p><label>Classification ID: </label> <%=data[i].classification_id%></p>
+        <p><label>Classification description</label> <%= data[i].classification_description%></p>
+        <p><label>Classification URI:</label> <%= data[i].classification_uri%></p>
+        <button class="btn btn-default">Eliminar</button>
     </div>
 </div>
 <%}
 } else {
 %>
-
 <div class="alert alert-warning" role="alert"><strong>Atención:</strong> No se han registrado artículos</div>
 <%}
 %>

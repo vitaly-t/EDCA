@@ -1,16 +1,20 @@
-<%
-if ( data.length > 0 ){
-for (var i=0; i< data.length; i++){%>
-<div class="panel default">
-    <div class="panel-body">
-<p><label>Title</label><input type="text" class="form-control" value="<%= data[i].title%>" disabled></p>
+<% if ( data.length > 0 ){%>
 
+<% for (var i=0; i< data.length; i++){ %>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title"> <%= data[i].title %></h4>
     </div>
-</div>
-<%}
-} else {
-%>
 
+    <div class="panel-body">
+        <p><label>Descripción: </label><%= data[i].description %></p>
+        <p><label>URL: </label><%= data[i].url%></p>
+        <button class="btn btn-default">Eliminar</button></p>
+    </div>
+
+</div>
+<%}%>
+
+<%} else { %>
 <div class="alert alert-warning" role="alert"><strong>Atención:</strong> No se han registrado documentos</div>
-<%}
-%>
+<%} %>

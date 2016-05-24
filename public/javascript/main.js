@@ -139,6 +139,7 @@ $("#updateocid_form").submit(function (event) {
     $.post('/update-ocid',$(this).serialize()).done(function (data) {
         alert(data);
     });
+    event.preventDefault();
 });
 
 
@@ -248,11 +249,12 @@ $('#myModalEditMilestones').on('show.bs.modal', function (event) {
 $(function () {
     $('#datetimepicker1').datetimepicker({
         format: 'YYYY-MM-DD',
+        useCurrent: false,
         locale: 'es'
     });
     $('#datetimepicker2').datetimepicker({
         format: 'YYYY-MM-DD',
-        useCurrent: false,
+        useCurrent: true,
         locale: 'es'
     });
     $("#datetimepicker1").on("dp.change", function (e) {

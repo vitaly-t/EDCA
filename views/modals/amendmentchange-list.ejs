@@ -1,10 +1,11 @@
 <%
 if ( data.length > 0 ){
 for (var i=0; i< data.length; i++){%>
-<div class="panel default">
+<div class="panel panel-default">
     <div class="panel-body">
-        <p><label>Property</label><input type="text" class="form-control" value="<%= data[i].property%>" disabled></p>
-        <p><label>Former value</label><input type="text" class="form-control" value="<%= data[i].former_value%>" disabled></p>
+        <p><label>Property:</label> <%= data[i].property%></p>
+        <p><label>Former value:</label> <%= data[i].former_value%></p>
+        <button class="btn btn-default">Eliminar</button>
     </div>
 </div>
 <%}
