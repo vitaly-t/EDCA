@@ -6,7 +6,6 @@
         return "Si recarga la página perdera sus últimos cambios";
  };*/
 
-
 /* Date picker */
 $(function () {
     $('#lici_date1, #lici_date2, #lici_date3, #lici_date4, #lici_date5, #lici_date6, #lici_date7').datetimepicker({
@@ -39,6 +38,23 @@ $(function () {
         locale: 'es',
         format: 'YYYY-MM-DD HH:mm:ss'
     })
+
+    $('#datetimepicker1').datetimepicker({
+        format: 'YYYY-MM-DD',
+        useCurrent: false,
+        locale: 'es'
+    }).on("dp.change", function (e) {
+        $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+    });
+
+    $('#datetimepicker2').datetimepicker({
+        format: 'YYYY-MM-DD',
+        useCurrent: true,
+        locale: 'es'
+    }).on("dp.change", function (e) {
+        $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+    });
+
 });
 
 //publish
@@ -249,24 +265,4 @@ $('#myModalEditMilestones').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
     modal.find('.modal-body div').load( '/milestone-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
-});
-/* */
-
-$(function () {
-    $('#datetimepicker1').datetimepicker({
-        format: 'YYYY-MM-DD',
-        useCurrent: false,
-        locale: 'es'
-    });
-    $('#datetimepicker2').datetimepicker({
-        format: 'YYYY-MM-DD',
-        useCurrent: true,
-        locale: 'es'
-    });
-    $("#datetimepicker1").on("dp.change", function (e) {
-        $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
-    });
-    $("#datetimepicker2").on("dp.change", function (e) {
-        $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
-    });
 });

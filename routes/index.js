@@ -669,7 +669,7 @@ router.post('/search-process-by-date', function (req, res) {
 });
 
 router.post('/search-process-by-ocid',function(req, res){
-    edca_db.manyOrNone("select * from ContractingProcess where ocid like '%$1#%' ",[ req.body.ocid ]).then(function (data) {
+    edca_db.manyOrNone("select * from ContractingProcess where ocid ilike '%$1#%' ",[ req.body.ocid ]).then(function (data) {
         res.render('modals/process-list',{ data : data});
     }).catch(function (error) {
         console.log(error);
