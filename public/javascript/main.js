@@ -43,11 +43,11 @@ $(function () {
 
 //publish
 $('#release').on('click',function (event) {
-    window.open('/publish/release/'+ $(this).data('id') );
+    window.open('/publish/release/'+ $(this).data('id')+"/document.json" );
 });
 
 $('#release_package').on('click',function (event) {
-    window.open('/publish/release-record/'+$(this).data('id'));
+    window.open('/publish/release-record/'+$(this).data('id')+"/document.json");
 });
 
 // Crear organización

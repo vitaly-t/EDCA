@@ -636,7 +636,7 @@ router.post('/update-publisher', function (req, res) {
         ]
     ).then(function (data) {
         res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
-        console.log("Update publisher ...");
+        console.log("Update publisher", data);
     }).catch(function (error) {
         res.send("Error");
         console.log("ERROR: ",error);
@@ -650,7 +650,7 @@ router.post('/search-process-by-date', function (req, res) {
         req.body.fecha_final
     ]
     ).then(function (data) {
-        console.log(data);
+        //console.log(data);
         res.render('modals/process-list',{ data: data});
     }).catch(function (error) {
         console.log("ERROR: ",error);
@@ -665,7 +665,7 @@ router.post('/transaction-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/transaction-list', {data});
+        res.render('modals/transaction-list', {data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -680,7 +680,7 @@ router.post('/organization-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/organization-list', {data});
+        res.render('modals/organization-list', {data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -695,7 +695,7 @@ router.post('/item-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/item-list', {data});
+        res.render('modals/item-list', {data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -709,7 +709,7 @@ router.post('/document-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/document-list', {data});
+        res.render('modals/document-list', {data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -723,7 +723,7 @@ router.post('/milestone-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/milestone-list', {data});
+        res.render('modals/milestone-list', {data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -737,14 +737,14 @@ router.post('/amendmentchange-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/amendmentchange-list', {data});
+        res.render('modals/amendmentchange-list', {data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
     });
 });
 
-router.get('/publish/:type/:ocid', function (req,res) {
+router.get('/publish/:type/:ocid/:outputname', function (req,res) {
     var ocid = req.params.ocid;
     var type = req.params.type;
 
