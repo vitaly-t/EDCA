@@ -194,14 +194,15 @@ $('#myModalURL').on('show.bs.modal', function (event) {
 
 $('#myModalNewOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
-    var recipient = button.data('org'); // Extract info from data-* attributes
+    //var recipient = button.data('table'); // Extract info from data-* attributes
     // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    var modal = $(this);
+    //var modal = $(this);
     //modal.find('.modal-title').text('New message to ' + recipient)
     //modal.find('.modal-body input').val("");
-    $('#org_type').val(recipient);
     //modal.find('#org_type').val(recipient);
+    //$('#org_table').val(recipient);
+    $('#neworg_fields').load('/neworg-fields/',{ localid: button.data('localid') ,table : button.data('table') });
 });
 
 $('#myModalNewDoc').on('show.bs.modal', function (event) {

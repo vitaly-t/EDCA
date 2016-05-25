@@ -431,16 +431,13 @@ router.post('/new-document', function(req,res){
 
 /* New organization */
 router.post('/new-organization', function (req, res) {
-
-    var table= (req.body.org_type=="S")?"Supplier":"Tenderer";
-
     //falta pasar id de award y tender segun sea el caso
     edca_db.one("insert into $17~" +
         " (contractingprocess_id, identifier_scheme, identifier_id, identifier_legalname, identifier_uri, name, address_streetaddress," +
         " address_locality, address_region, address_postalcode, address_countryname, contactpoint_name, contactpoint_email, contactpoint_telephone," +
         " contactpoint_faxnumber, contactpoint_url) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) returning id",
         [
-            req.body.ocid,
+            req.body.localid,
             req.body.identifier_scheme,
             req.body.identifier_id,
             req.body.identifier_legalname,
@@ -456,7 +453,7 @@ router.post('/new-organization', function (req, res) {
             req.body.contactpoint_telephone,
             req.body.contactpoint_faxnumber,
             req.body.contactpoint_url,
-            table
+            req.body.table
         ]
     ).then(function (data) {
         res.send('La organización ha sido registrada'); // envía la respuesta y presentala en un modal
@@ -465,6 +462,10 @@ router.post('/new-organization', function (req, res) {
         res.send("Error");
         console.log("ERROR: ",error);
     });
+});
+
+router.post('/neworg-fields', function (req,res) {
+    res.render('modals/neworg-fields', { localid: req.body.localid , table : req.body.table });
 });
 
 router.post('/new-item',function (req,res) {
@@ -981,7 +982,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             //aquí se genera el release
             var release = {
                 ocid: String(data[0].cp.ocid),
-                id: "RELEASE_"+data[0].cp.ocid+"_"+(new Date()).toISOString(), 
+                id: "RELEASE_"+data[0].cp.ocid+"_"+(new Date()).toISOString(),
                 date: data[0].cp.fecha_creacion,
                 tag: ["contract"],
                 initiationType: "tender",
