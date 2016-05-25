@@ -10,7 +10,7 @@ for (var i=0; i< data.length; i++){%>
         <p><label>Due date:</label> <%= data[i].duedate %></p>
         <p><label>Date modified:</label> <%= data[i].date_modified %></p>
         <p><label>Status:</label> <%= data[i].status %></p>
-        <button class="btn btn-default">Eliminar</button>
+        <button data-id="<%= data[i].id %>" data-table="<%= table %>" class="btn btn-default">Eliminar</button>
     </div>
 </div>
 <%}

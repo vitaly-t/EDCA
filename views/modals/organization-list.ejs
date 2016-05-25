@@ -11,7 +11,7 @@ if ( data.length > 0 ){
         <p><label>Identifier id:</label> <%= data[i].identifier_id%></p>
         <p><label>Legal name:</label> <%= data[i].identifier_legalname%> </p>
         <p><label>URI:</label> <%= data[i].identifier_uri%></p>
-        <button class="btn btn-default">Eliminar</button>
+        <button class="btn btn-default" data-table="<%= table %>" data-id="<%= data[i].id%>">Eliminar</button>
     </div>
 </div>
 

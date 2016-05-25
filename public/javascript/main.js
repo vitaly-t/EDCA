@@ -37,7 +37,7 @@ $(function () {
     $('#newtrans_date1').datetimepicker({
         locale: 'es',
         format: 'YYYY-MM-DD HH:mm:ss'
-    })
+    });
 
     $('#datetimepicker1').datetimepicker({
         format: 'YYYY-MM-DD',
@@ -164,7 +164,6 @@ $("#updateocid_form").submit(function (event) {
     event.preventDefault();
 });
 
-
 $("#tender_form").submit(function(event){
     $.post('/update-tender/', $(this).serialize()).done(function(data){
         alert(data);
@@ -253,6 +252,18 @@ $('#myModalEditDocuments').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
     modal.find('.modal-body div').load( '/document-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
+
+    var div = modal.find('.modal-body div');
+    div.off('click','.btn');
+    div.on('click', '.btn', function (event) {
+        var b = $(this);
+        $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
+            alert(data.msg);
+            if ( data.status == 0 ){
+                b.parent().parent().remove();
+            }
+        });
+    });
 });
 
 $('#myModalEditChanges').on('show.bs.modal', function (event) {

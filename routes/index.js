@@ -684,7 +684,7 @@ router.post('/transaction-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/transaction-list', {data: data});
+        res.render('modals/transaction-list', {table : req.body.table, data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -699,7 +699,7 @@ router.post('/organization-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/organization-list', {data: data});
+        res.render('modals/organization-list', {table: req.body.table, data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -714,7 +714,7 @@ router.post('/item-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/item-list', {data: data});
+        res.render('modals/item-list', {table: req.body.table, data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -728,7 +728,7 @@ router.post('/document-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/document-list', {data: data});
+        res.render('modals/document-list', {data: data, table: req.body.table});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -742,7 +742,7 @@ router.post('/milestone-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/milestone-list', {data: data});
+        res.render('modals/milestone-list', {table: req.body.table, data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
@@ -756,10 +756,25 @@ router.post('/amendmentchange-list',function (req, res) {
         req.body.ocid
     ]).then(function(data){
         console.log(data);
-        res.render('modals/amendmentchange-list', {data: data});
+        res.render('modals/amendmentchange-list', {table: req.body.table, data: data});
     }).catch(function(error){
         console.log('ERROR: ', error);
         res.send('ERROR');
+    });
+});
+
+
+router.post('/delete', function (req,res) {
+    console.log(req.body.id);
+    console.log(req.body.table);
+    edca_db.result('delete from $1~ where id = $2', [
+        req.body.table,
+        req.body.id
+    ]).then(function (result) {
+        res.json( {msg: "Registros eliminados: " +result.rowCount, status : 0});
+    }).catch(function (error) {
+        res.json({msg: 'ERROR', status: 1});
+        console.log('ERROR',error);
     });
 });
 

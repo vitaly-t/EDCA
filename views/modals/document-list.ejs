@@ -9,7 +9,7 @@
     <div class="panel-body">
         <p><label>Descripción: </label><%= data[i].description %></p>
         <p><label>URL: </label><%= data[i].url%></p>
-        <button class="btn btn-default">Eliminar</button></p>
+        <button data-table="<%= table %>" data-id = "<%= data[i].id %>" class="btn btn-default">Eliminar</button></p>
     </div>
 
 </div>
