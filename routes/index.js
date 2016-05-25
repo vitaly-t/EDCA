@@ -457,7 +457,7 @@ router.post('/new-organization', function (req, res) {
         ]
     ).then(function (data) {
         res.send('La organización ha sido registrada'); // envía la respuesta y presentala en un modal
-        console.log("Create organization ", table);
+        console.log("Create organization: ", data);
     }).catch(function (error) {
         res.send("Error");
         console.log("ERROR: ",error);
