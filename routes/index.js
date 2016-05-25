@@ -981,7 +981,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             //aquí se genera el release
             var release = {
                 ocid: String(data[0].cp.ocid),
-                id: "id de release", //ocid  + fecha +  hora
+                id: "RELEASE_"+data[0].cp.ocid+"_"+(new Date()).toISOString(), 
                 date: data[0].cp.fecha_creacion,
                 tag: ["contract"],
                 initiationType: "tender",
