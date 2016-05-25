@@ -297,7 +297,7 @@ router.post('/update-planning', function (req, res) {
 
             }).then(function (data) {
             res.send('La etapa de planeación ha sido actualizada');
-            console.log(data);
+            console.log('Update planning: ',data);
         }).catch(function (error) {
             console.log("ERROR: ",error);
             res.send('Error');
@@ -582,7 +582,7 @@ router.post('/update-buyer', function (req, res) {
             ]
         ).then(function (data) {
                 res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
-                console.log("Update buyer ...");
+                console.log("Update buyer: ", data);
             }).catch(function (error) {
             res.send("Error");
             console.log("ERROR: ",error);
@@ -615,7 +615,7 @@ router.post('/update-procuringentity', function (req, res) {
         ]
     ).then(function (data) {
         res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
-        console.log("Update procuring entity ...");
+        console.log("Update procuring entity: ", data);
     }).catch(function (error) {
         res.send("Error");
         console.log("ERROR: ",error);
