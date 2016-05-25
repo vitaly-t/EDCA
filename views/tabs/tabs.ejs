@@ -24,7 +24,7 @@ function getMString ( fecha ){
 
         <div class="well well-lg">
             <h3>1. PLANEACIÓN</h3>
-            <p><div class="btn-group">
+            <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Documents <span class="caret"></span>
                 </button>
@@ -33,8 +33,7 @@ function getMString ( fecha ){
                     <li><a href="#" data-toggle="modal" data-table="planningdocuments" data-ocid="<%=cp.id%>" data-target="#myModalEditDocuments">Editar</a></li>
                 </ul>
             </div>
-
-            </p>
+            <hr>
 
             <form id="planning_form" >
                 <p> <label>Rationale</label>
@@ -68,7 +67,7 @@ function getMString ( fecha ){
 
             <h3>2. LICITACIÓN</h3>
 
-            <p>
+
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Documents <span class="caret"></span>
@@ -109,10 +108,13 @@ function getMString ( fecha ){
                 </ul>
             </div>
 
-            </p>
+            <hr>
 
             <form id="tender_form" role="form" >
                 <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof tender != "undefined")? tender.contractingprocess_id:''%>" >
+
+                <p><label>ID</label><input type="text" class="form-control" name="tenderid" value="<%= tender.tenderid %>" required></p>
+
                 <p><label>Title</label>
                     <input type="text" class="form-control" name="title" value = "<%= (typeof tender != "undefined")? tender.title:''%>"
                     ></p>
@@ -285,8 +287,12 @@ function getMString ( fecha ){
                 </ul>
             </div>
 
+            <hr>
+
             <form id="award_form" role="form">
                 <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof award != "undefined")? award.contractingprocess_id :''%>" >
+
+                <p><label>ID</label><input type="text" class="form-control" name="awardid" value="<%= award.awardid %>" required></p>
                 <p><label>Title</label>
                     <input type="text" name="title" class="form-control" value = "<%= (typeof award != "undefined")? award.title:''%>"
                     ></p>
@@ -361,7 +367,6 @@ function getMString ( fecha ){
         <div class="well well-lg">
 
             <h3>4. CONTRATACIÓN</h3>
-            <p>
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -394,13 +399,14 @@ function getMString ( fecha ){
                 </ul>
             </div>
 
-            </p>
+            <hr>
 
             <form id="contract_form" role="form">
 
                 <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof contract != "undefined")? contract.contractingprocess_id :''%>" >
+                <p><label>ID</label><input type="text" class="form-control" name="contractid" value="<%= contract.contractid %>" required></p>
                 <p><label>Award ID</label>
-                    <input class="form-control" type="number" name="awardid" value = "<%= (typeof contract != "undefined")? contract.awardid:''%>" required>
+                    <input class="form-control" type="text" name="awardid" value = "<%= (typeof contract != "undefined")? contract.awardid:''%>" required>
                 </p>
 
                 <p>

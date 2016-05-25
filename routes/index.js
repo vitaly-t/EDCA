@@ -307,12 +307,13 @@ router.post('/update-planning', function (req, res) {
 
 /* Update Tender*/
 router.post('/update-tender', function (req, res) {
-        edca_db.one("update tender set title= $2, description=$3, status=$4, minvalue_amount=$5, minvalue_currency=$6, value_amount=$7, value_currency=$8, procurementmethod=$9," +
-            "procurementmethod_rationale=$10, awardcriteria=$11, awardcriteria_details=$12, submissionmethod=$13, submissionmethod_details=$14," +
-            "tenderperiod_startdate=$15, tenderperiod_enddate=$16, enquiryperiod_startdate=$17, enquiryperiod_enddate=$18 ,hasenquiries=$19, eligibilitycriteria=$20, awardperiod_startdate=$21," +
-            "awardperiod_enddate=$22, numberoftenderers=$23, amendment_date=$24, amendment_rationale=$25" +
+        edca_db.one("update tender set tenderid =$2, title= $3, description=$4, status=$5, minvalue_amount=$6, minvalue_currency=$7, value_amount=$8, value_currency=$9, procurementmethod=$10," +
+            "procurementmethod_rationale=$11, awardcriteria=$12, awardcriteria_details=$13, submissionmethod=$14, submissionmethod_details=$15," +
+            "tenderperiod_startdate=$16, tenderperiod_enddate=$17, enquiryperiod_startdate=$18, enquiryperiod_enddate=$19 ,hasenquiries=$20, eligibilitycriteria=$21, awardperiod_startdate=$22," +
+            "awardperiod_enddate=$23, numberoftenderers=$24, amendment_date=$25, amendment_rationale=$26" +
             " where ContractingProcess_id = $1 returning id", [
             req.body.contractingprocess_id,
+            req.body.tenderid,
             req.body.title,
             req.body.description,
             req.body.status,
@@ -349,11 +350,12 @@ router.post('/update-tender', function (req, res) {
 
 /* Update Award */
 router.post('/update-award', function (req, res) {
-        edca_db.one("update award set title= $2, description=$3,status=$4,award_date=$5,value_amount=$6,value_currency=$7,contractperiod_startdate=$8," +
-            "contractperiod_enddate=$9,amendment_date=$10,amendment_rationale=$11 " +
+        edca_db.one("update award set awardid=$2, title= $3, description=$4,status=$5,award_date=$6,value_amount=$7,value_currency=$8,contractperiod_startdate=$9," +
+            "contractperiod_enddate=$10,amendment_date=$11,amendment_rationale=$12 " +
             " where ContractingProcess_id = $1 returning id",
             [
                 req.body.contractingprocess_id,
+                req.body.awardid,
                 req.body.title,
                 req.body.description,
                 req.body.status,
@@ -377,10 +379,11 @@ router.post('/update-award', function (req, res) {
 
 /* Update Contract */
 router.post('/update-contract', function (req, res) {
-    edca_db.one("update contract set awardid=$2, title=$3, description=$4, status=$5, period_startdate=$6, period_enddate=$7, value_amount=$8, value_currency=$9," +
-        " datesigned=$10, amendment_date=$11, amendment_rationale=$12 " +
+    edca_db.one("update contract set contractid=$2, awardid=$3, title=$4, description=$5, status=$6, period_startdate=$7, period_enddate=$8, value_amount=$9, value_currency=$10," +
+        " datesigned=$11, amendment_date=$12, amendment_rationale=$13 " +
         " where ContractingProcess_id = $1 returning id", [
         req.body.contractingprocess_id,
+        req.body.contractid,
         req.body.awardid,
         req.body.title,
         req.body.description,
@@ -999,7 +1002,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                     documents: getDocuments(data[4])
                 },
                 tender: {
-                    id: data[0].tender.id,
+                    id: data[0].tender.tenderid,
                     title: data[0].tender.title,
                     description: data[0].tender.description,
                     status: data[0].tender.status,
@@ -1094,7 +1097,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
 
                 awards: [ // pueden ser varios
                     {
-                        id: data[0].award.id,
+                        id: data[0].award.awardid,
                         title: data[0].award.title,
                         description: data[0].award.description,
                         status: data[0].award.status,
@@ -1120,7 +1123,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                 ],
                 contracts: [
                     { //pueden ser varios
-                        id: data[0].contract.id,
+                        id: data[0].contract.contractid,
                         awardID: String(data[0].contract.awardid),
                         title: data[0].contract.title,
                         description: data[0].contract.description,

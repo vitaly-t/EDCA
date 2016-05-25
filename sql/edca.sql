@@ -92,6 +92,7 @@ drop table if exists Tender cascade;
 create table Tender(
 	id serial primary key,
 	ContractingProcess_id int references ContractingProcess(id) on delete cascade,
+	tenderid text,
 	title text, 
 	description text,
 	status text,
@@ -271,6 +272,7 @@ drop table if exists Award cascade;
 create table Award(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
+	awardid text,
 	title text,
 	description text,
 	status text,
@@ -379,7 +381,8 @@ drop table if exists Contract cascade;
 create table Contract(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
-	awardid int,
+	awardid text,
+	contractid text,
 	title text,
 	description text,
 	status text, 
