@@ -280,7 +280,6 @@ router.get('/new-process', function (req, res) {
 router.post('/update-planning', function (req, res) {
 
         edca_db.tx(function (t) {
-            console.log(req.body.budget_budgetid);
             var planning = this.one("update planning set rationale = $1 where ContractingProcess_id = $2 returning id", [req.body.rationale, req.body.contractingprocess_id]);
             var budget = this.one("update budget set budget_source = $2, budget_budgetid =$3, budget_description= $4, budget_amount=$5, budget_currency=$6, budget_project=$7, budget_projectid=$8, budget_uri=$9" +
                 " where ContractingProcess_id=$1 returning id",
@@ -863,10 +862,11 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                         //additionalIdentifiers:[ ],
                         name: orgarray[i].name,
                         address: {
-                            locality: orgarray[i].identifier_locality,
-                            region: orgarray[i].identifier_region,
-                            postalCode: orgarray[i].identifier_postalcode,
-                            countryName: orgarray[i].identifier_countryname
+                            address: orgarray[i].address_streetaddres,
+                            locality: orgarray[i].address_locality,
+                            region: orgarray[i].address_region,
+                            postalCode: orgarray[i].address_postalcode,
+                            countryName: orgarray[i].address_countryname
                         },
                         contactPoint:{
                             name: orgarray[i].contactpoint_name,
