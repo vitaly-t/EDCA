@@ -239,7 +239,7 @@ $('#myModalEditOrg').on('show.bs.modal', function (event) {
     div.off('click','.btn');
     div.on('click', '.btn', function (event) {
         var b = $(this);
-        $.post('/delete', { id : b.data('ocid'), table: b.data('table') }).done(function(data){
+        $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
             alert(data.msg);
             if ( data.status == 0 ){
                 b.parent().parent().remove();
