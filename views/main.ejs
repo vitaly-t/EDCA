@@ -49,7 +49,7 @@
 <div class="container all-container">
 
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-6">
             <div class="panel panel-default pill-container">
                 <div class="panel-heading">
                     <h3 class="panel-title"><strong>Proceso de contratación</strong></h3>
@@ -86,19 +86,21 @@
         </div>
 
         <% if (typeof cp != "undefined"){%>
-        <div class="col-sm-7">
+        <div class="col-sm-6">
             <div class="panel panel-default pill-container">
                 <div class="panel-heading">
                     <h3 class="panel-title"><strong>Organizaciones</strong></h3>
                 </div>
                 <div class="panel-body">
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditBuyer">Buyer <i class="fa fa-user"></i></button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditProcuringEntity">Procuring E. <i class="fa fa-user"></i></button>
+                    <p>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditBuyer">Comprador <!--Buyer--> <i class="fa fa-user"></i></button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditProcuringEntity">Contratante <!--Procuring E.--> <i class="fa fa-user"></i></button>
+                    </p>
 
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Tenderers <span class="caret"></span>
+                            Licitantes<!-- Tenderers--> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-localid = "<%= cp.id%>" data-table="tenderer" data-target="#myModalNewOrg">Nuevo</a></li>
@@ -108,7 +110,7 @@
 
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Suppliers <span class="caret"></span>
+                            Proveedores <!--Suppliers--> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-localid="<%= cp.id %>" data-table="supplier" data-target="#myModalNewOrg">Nuevo</a></li>

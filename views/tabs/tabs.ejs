@@ -26,7 +26,7 @@ function getMString ( fecha ){
             <h3>1. PLANEACIÓN</h3>
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Documents <span class="caret"></span>
+                    <!-- Documents-->Documentos <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-doctable="planningdocuments" data-target="#myModalNewDoc">Nuevo</a></li>
@@ -39,7 +39,7 @@ function getMString ( fecha ){
                 <p> <label>Rationale</label>
                     <input type="text" class="form-control" name="rationale" value = "<%=(typeof planning!= "undefined")? planning.rationale : ''%>" > </p>
 
-                <h3>1.1 BUDGET</h3>
+                <h3>1.1 PRESUPUESTO <!--BUDGET--></h3>
                 <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>" >
                 <!-- Falta el id de planning -->
                 <p><label>Budget source</label>
@@ -72,7 +72,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Documents <span class="caret"></span>
+                    Documentos<!-- Documents--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-doctable="tenderdocuments" data-target="#myModalNewDoc">Nuevo</a></li>
@@ -82,7 +82,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Milestones <span class="caret"></span>
+                    Hitos <!--Milestones--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-milestonetable="tendermilestone" data-target="#myModalNewMilestone">Nuevo</a></li>
@@ -92,7 +92,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Items <span class="caret"></span>
+                    Articulos <!--Items--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-itemtable="tenderitem" data-target="#myModalNewItem">Nuevo</a></li>
@@ -102,7 +102,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Amendmendt changes <span class="caret"></span>
+                    Cambios de enmienda<!--Amendmendt changes--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-changestable="tenderamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
@@ -236,7 +236,7 @@ function getMString ( fecha ){
                     <label>Number of tenderers</label>
                     <input type="number" class="form-control" name="numberoftenderers" value = "<%= (typeof tender != "undefined")? tender.numberoftenderers:''%>" required></p>
 
-                <h3>2.1 AMENDMENT</h3>
+                <h3>2.1 ENMIENDA <!--AMENDMENT--></h3>
                 <p><div style="position:relative;">
                     <label>Date</label>
                     <input type="text" class="form-control" id="lici_date7" name="amendment_date"
@@ -261,7 +261,7 @@ function getMString ( fecha ){
             <p>
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Documents <span class="caret"></span>
+                    Documentos<!--Documents--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-doctable="awarddocuments" data-target="#myModalNewDoc">Nuevo</a></li>
@@ -271,7 +271,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Items <span class="caret"></span>
+                    Artículos<!--Items--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-itemtable="awarditem" data-target="#myModalNewItem">Nuevo</a></li>
@@ -281,7 +281,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Amendment changes <span class="caret"></span>
+                    Cambios de enmienda <!--Amendment changes--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-changestable="awardamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
@@ -372,7 +372,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Documents <span class="caret"></span>
+                    Documentos<!--Documents--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-doctable="contractdocuments" data-target="#myModalNewDoc">Nuevo</a></li>
@@ -383,7 +383,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Items <span class="caret"></span>
+                    Artículos <!--Items--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-itemtable="contractitem" data-target="#myModalNewItem">Nuevo</a></li>
@@ -393,7 +393,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Amendment changes <span class="caret"></span>
+                    Cambios de enmienda<!--Amendment changes--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-changestable="contractamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
@@ -487,7 +487,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Documents <span class="caret"></span>
+                    Documentos <!--Documents--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-doctable="implementationdocuments" data-target="#myModalNewDoc">Nuevo</a></li>
@@ -497,7 +497,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Transactions <span class="caret"></span>
+                    Transacciones<!--Transactions--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-target="#myModalNewTransaction">Nuevo</a></li>
@@ -507,7 +507,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Milestones <span class="caret"></span>
+                    Hitos <!--Milestones--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-milestonetable="implementationmilestone" data-target="#myModalNewMilestone">Nuevo</a></li>
