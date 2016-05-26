@@ -44,6 +44,8 @@ function getMString ( fecha ){
                 <!-- Falta el id de planning -->
                 <p><label>Budget source</label>
                     <input class="form-control" name="budget_source" value = "<%= (typeof budget != "undefined")? budget.budget_source:''%>" ></p>
+                <p><label>ID</label>
+                    <input class="form-control" name="budget_budgetid" value="<%= budget.budget_budgetid %>"> </p>
                 <p><label>Budget description</label>
                     <input class="form-control" name="budget_description" value = "<%= (typeof budget != "undefined")? budget.budget_description:''%>" ></p>
                 <p><label>Budget amount</label>

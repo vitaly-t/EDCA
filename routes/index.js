@@ -280,11 +280,14 @@ router.get('/new-process', function (req, res) {
 router.post('/update-planning', function (req, res) {
 
         edca_db.tx(function (t) {
+            console.log(req.body.budget_budgetid);
             var planning = this.one("update planning set rationale = $1 where ContractingProcess_id = $2 returning id", [req.body.rationale, req.body.contractingprocess_id]);
-            var budget = this.one("update budget set budget_source = $2, budget_description= $3, budget_amount=$4, budget_currency=$5, budget_project=$6, budget_projectid=$7, budget_uri=$8 where ContractingProcess_id=$1 returning id",
+            var budget = this.one("update budget set budget_source = $2, budget_budgetid =$3, budget_description= $4, budget_amount=$5, budget_currency=$6, budget_project=$7, budget_projectid=$8, budget_uri=$9" +
+                " where ContractingProcess_id=$1 returning id",
                 [
                     req.body.contractingprocess_id,
                     req.body.budget_source,
+                    req.body.budget_budgetid,
                     req.body.budget_description,
                     req.body.budget_amount,
                     req.body.budget_currency,
@@ -991,7 +994,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             release.planning = {
                 budget: {
                     source: data[0].budget.budget_source,
-                    id: data[0].budget.id,
+                    id: data[0].budget.budget_budgetid,
                     description: data[0].budget.budget_description,
                     amount: {
                         amount: Number(data[0].budget.budget_amount),
