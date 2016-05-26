@@ -975,186 +975,258 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                         former_value: arr[i].former_value
                     });
                 }
-
                 return changes;
             }
 
-            //aquí se genera el release
+            //RELEASE METADATA
             var release = {
                 ocid: String(data[0].cp.ocid),
-                id: "RELEASE_"+data[0].cp.ocid+"_"+(new Date()).toISOString(),
+                id: "RELEASE_" + data[0].cp.ocid + "_" + (new Date()).toISOString(),
                 date: data[0].cp.fecha_creacion,
                 tag: ["contract"],
-                initiationType: "tender",
-                planning: {
-                    budget: {
-                        source: data[0].budget.budget_source,
-                        id: data[0].budget.id,
-                        description: data[0].budget.budget_description,
-                        amount: {
-                            amount: Number (data[0].budget.budget_amount),
-                            currency: data[0].budget.budget_currency
-                        },
-                        project: data[0].budget.budget_project,
-                        projectID: data[0].budget.budget_projectid,
-                        uri: data[0].budget.budget_uri
-                    },
-                    rationale: data[0].planning.rationale,
-                    documents: getDocuments(data[4])
-                },
-                tender: {
-                    id: data[0].tender.tenderid,
-                    title: data[0].tender.title,
-                    description: data[0].tender.description,
-                    status: data[0].tender.status,
-                    items: getItems(data[9]),
-                    minValue: {
-                        amount: Number (data[0].tender.minvalue_amount),
-                        currency: data[0].tender.minvalue_currency
-                    },
-                    value: {
-                        amount: Number (data[0].tender.value_amount),
-                        currency: data[0].tender.value_currency
-                    },
-                    procurementMethod: data[0].tender.procurementmenthod,
-                    procurementMethodRationale: data[0].tender.procurementMethod_rationale,
-                    awardCriteria: data[0].tender.awardcriteria,
-                    awardCriteriaDetails: data[0].tender.awardcriteria_details,
-                    submissionMethod: data[0].tender.submissionMethod,
-                    submissionMethodDetails: data[0].tender.submissionMethod_details,
-                    tenderPeriod: {
-                        startDate: data[0].tender.tenderperiod_startdate,
-                        endDate: data[0].tender.tenderperiod_enddate
-                    },
-                    enquiryPeriod: {
-                        startDate: data[0].tender.enquiryperiod_startdate,
-                        endDate: data[0].tender.enquiryperiod_enddate
-                    },
-                    hasEnquiries: (data[0].tender.hasenquiries == 0) ? true : false,
-                    eligibilityCriteria: data[0].tender.eligibilitycriteria,
-                    awardPeriod: {
-                        startDate: data[0].tender.tenderperiod_startdate,
-                        endDate: data[0].tender.tenderperiod_enddate
-                    },
-                    numberOfTenderers: data[0].tender.numberoftenderers,
-                    tenderers: getOrganizations(data[1]),
-                    procuringEntity: {
-                        identifier: {
-                            scheme: data[0].procuringentity.identifier_scheme,
-                            id: data[0].procuringentity.identifier_id,
-                            legalName: data[0].procuringentity.identifier_legalname,
-                            uri: data[0].procuringentity.identifier_uri
-                        },
-                        //additionalIdentifiers: [ ],
-                        name: data[0].procuringentity.name,
-                        address: {
-                            streetAddress: data[0].procuringentity.address_streetaddress,
-                            locality: data[0].procuringentity.address_locality,
-                            region: data[0].procuringentity.address_region,
-                            postalCode: data[0].procuringentity.address_postalcode,
-                            countryName: data[0].procuringentity.address_countryname
-                        },
-                        contactPoint: {
-                            name: data[0].procuringentity.contactpoint_name,
-                            email: data[0].procuringentity.contactpoint_email,
-                            telephone: data[0].procuringentity.contactpoint_telephone,
-                            faxNumber: data[0].procuringentity.contactpoint_faxnumber,
-                            url: data[0].procuringentity.contactpoint_url
-                        }
-                    },
-                    documents: getDocuments(data[5]),
-                    milestones: getMilestones(data[12]),
-                    amendment: {
-                        date: data[0].tender.amendment_date,
-                        changes: getAmendmentChanges(data[15]),
-                        rationale: data[0].tender.amendment_rationale
-                    }
-                },
-                buyer: {
-                    identifier: {
-                        scheme: data[0].buyer.identifier_scheme,
-                        id: data[0].buyer.identifier_id,
-                        legalName: data[0].buyer.identifier_legalname,
-                        uri: data[0].buyer.identifier_uri
-                    },
-                    //additionalIdentifiers: [ ],
-                    name: data[0].buyer.name,
-                    address: {
-                        streetAddress: data[0].buyer.address_streetaddress,
-                        locality: data[0].buyer.address_locality,
-                        region: data[0].buyer.address_region,
-                        postalCode: data[0].buyer.address_postalcode,
-                        countryName: data[0].buyer.address_contryname
-                    },
-                    contactPoint: {
-                        name: data[0].buyer.contactpoint_name,
-                        email: data[0].buyer.contactpoint_email,
-                        telephone: data[0].buyer.contactpoint_telephone,
-                        faxNumber: data[0].buyer.contactpoint_faxnumber,
-                        url: data[0].buyer.contactpoint_url
-                    }
-                },
-
-
-                awards: [ // pueden ser varios
-                    {
-                        id: data[0].award.awardid,
-                        title: data[0].award.title,
-                        description: data[0].award.description,
-                        status: data[0].award.status,
-                        date: data[0].award.award_date,
-                        value: {
-                            amount: Number (data[0].award.value_amount),
-                            currency: data[0].award.value_currency
-                        },
-                        suppliers: getOrganizations(data[2]), //pueden pertenecer a diferentes awards
-                        items: getItems(data[10]),
-                        contractPeriod: {
-                            startDate: data[0].award.contractperiod_startdate,
-                            endDate: data[0].award.contractperiod_enddate,
-                        },
-                        documents: getDocuments(data[6]),
-                        amendment: {
-                            date: data[0].award.amendment_date,
-                            changes: getAmendmentChanges(data[16]),
-                            rationale: data[0].award.amendment_rationale
-                        }
-                    }
-
-                ],
-                contracts: [
-                    { //pueden ser varios
-                        id: data[0].contract.contractid,
-                        awardID: String(data[0].contract.awardid),
-                        title: data[0].contract.title,
-                        description: data[0].contract.description,
-                        status: data[0].contract.status,
-                        period: {
-                            startDate: data[0].contract.period_startdate,
-                            endDate: data[0].contract.period_enddate
-                        },
-                        value: data[0].contract.value,
-                        items: getItems(data[11]),
-                        dateSigned: data[0].contract.datesigned,
-                        documents: getDocuments(data[7]),
-                        amendment: {
-                            date: data[0].contract.amendment_date,
-                            changes: getAmendmentChanges(data[17]),
-                            rationale: data[0].contract.amendment_rationale
-                        },
-                        implementation: { 
-                            transactions: getTransactions(data[14]),
-                            milestones: getMilestones(data[13]),
-                            documents: getDocuments(data[8])
-                        }
-                    }
-                ],
-                language: 'es'
+                initiationType: "tender"
             };
+
+            //PLANNING
+            release.planning = {
+                budget: {
+                    source: data[0].budget.budget_source,
+                    id: data[0].budget.id,
+                    description: data[0].budget.budget_description,
+                    amount: {
+                        amount: Number(data[0].budget.budget_amount),
+                        currency: data[0].budget.budget_currency
+                    },
+                    project: data[0].budget.budget_project,
+                    projectID: data[0].budget.budget_projectid,
+                    uri: data[0].budget.budget_uri
+                },
+                rationale: data[0].planning.rationale
+            };
+
+            //planning documents
+            if (data[4].length > 0){
+                release.planning.documents = getDocuments(data[4])
+            }
+
+            //TENDER
+            release.tender = {
+                id: data[0].tender.tenderid,
+                title: data[0].tender.title,
+                description: data[0].tender.description,
+                status: data[0].tender.status,
+                items: getItems(data[9]),
+                minValue: {
+                    amount: Number (data[0].tender.minvalue_amount),
+                    currency: data[0].tender.minvalue_currency
+                },
+                value: {
+                    amount: Number (data[0].tender.value_amount),
+                    currency: data[0].tender.value_currency
+                },
+                procurementMethod: data[0].tender.procurementmenthod,
+                procurementMethodRationale: data[0].tender.procurementMethod_rationale,
+                awardCriteria: data[0].tender.awardcriteria,
+                awardCriteriaDetails: data[0].tender.awardcriteria_details,
+                submissionMethod: data[0].tender.submissionMethod,
+                submissionMethodDetails: data[0].tender.submissionMethod_details,
+                tenderPeriod: {
+                    startDate: data[0].tender.tenderperiod_startdate,
+                    endDate: data[0].tender.tenderperiod_enddate
+                },
+                enquiryPeriod: {
+                    startDate: data[0].tender.enquiryperiod_startdate,
+                    endDate: data[0].tender.enquiryperiod_enddate
+                },
+                hasEnquiries: (data[0].tender.hasenquiries == 0) ? true : false,
+                eligibilityCriteria: data[0].tender.eligibilitycriteria,
+                awardPeriod: {
+                    startDate: data[0].tender.tenderperiod_startdate,
+                    endDate: data[0].tender.tenderperiod_enddate
+                },
+                numberOfTenderers: data[0].tender.numberoftenderers
+            };
+
+
+            if (data[1].length > 0) {
+                release.tender.tenderers = getOrganizations(data[1]);
+            }
+
+
+            // Tender -> procuring entity
+            release.tender.procuringEntity= {
+                identifier: {
+                    scheme: data[0].procuringentity.identifier_scheme,
+                    id: data[0].procuringentity.identifier_id,
+                    legalName: data[0].procuringentity.identifier_legalname,
+                    uri: data[0].procuringentity.identifier_uri
+                },
+                //additionalIdentifiers: [ ],
+                name: data[0].procuringentity.name,
+                address: {
+                    streetAddress: data[0].procuringentity.address_streetaddress,
+                    locality: data[0].procuringentity.address_locality,
+                    region: data[0].procuringentity.address_region,
+                    postalCode: data[0].procuringentity.address_postalcode,
+                    countryName: data[0].procuringentity.address_countryname
+                },
+                contactPoint: {
+                    name: data[0].procuringentity.contactpoint_name,
+                    email: data[0].procuringentity.contactpoint_email,
+                    telephone: data[0].procuringentity.contactpoint_telephone,
+                    faxNumber: data[0].procuringentity.contactpoint_faxnumber,
+                    url: data[0].procuringentity.contactpoint_url
+                }
+            };
+
+
+
+            if( data[5].length > 0) {
+                release.tender.documents = getDocuments(data[5]);
+            }
+            if (data[12].length > 0 ) {
+                relese.tender.milestones = getMilestones(data[12]);
+            }
+
+            release.tender.amendment = {
+                date: data[0].tender.amendment_date
+            };
+
+            if( data[15].length > 0 ) {
+                release.tender.amendment.changes = getAmendmentChanges(data[15]);
+            }
+
+            release.tender.amendment.rationale = data[0].tender.amendment_rationale;
+
+            //BUYER
+            release.buyer = {
+                identifier: {
+                    scheme: data[0].buyer.identifier_scheme,
+                    id: data[0].buyer.identifier_id,
+                    legalName: data[0].buyer.identifier_legalname,
+                    uri: data[0].buyer.identifier_uri
+                },
+                //additionalIdentifiers: [ ],
+                name: data[0].buyer.name,
+                address: {
+                    streetAddress: data[0].buyer.address_streetaddress,
+                    locality: data[0].buyer.address_locality,
+                    region: data[0].buyer.address_region,
+                    postalCode: data[0].buyer.address_postalcode,
+                    countryName: data[0].buyer.address_contryname
+                },
+                contactPoint: {
+                    name: data[0].buyer.contactpoint_name,
+                    email: data[0].buyer.contactpoint_email,
+                    telephone: data[0].buyer.contactpoint_telephone,
+                    faxNumber: data[0].buyer.contactpoint_faxnumber,
+                    url: data[0].buyer.contactpoint_url
+                }
+            };
+
+            //AWARDS
+            var award = {
+                    id: data[0].award.awardid,
+                    title: data[0].award.title,
+                    description: data[0].award.description,
+                    status: data[0].award.status,
+                    date: data[0].award.award_date,
+                    value: {
+                        amount: Number(data[0].award.value_amount),
+                        currency: data[0].award.value_currency
+                    }
+                };
+
+            if (data[2].length > 0) {
+                award.suppliers = getOrganizations(data[2]); //pueden pertenecer a diferentes awards
+            }
+
+            if (data[10].length > 0) {
+                award.items = getItems(data[10]);
+            }
+
+            award.contractPeriod = {
+                startDate: data[0].award.contractperiod_startdate,
+                endDate: data[0].award.contractperiod_enddate,
+            };
+
+            if (data[6].length > 0) {
+                award.documents = getDocuments(data[6]);
+            }
+
+
+            award.amendment = {
+                date: data[0].award.amendment_date
+            };
+
+            if (data[16].length > 0) {
+                award.amendment.changes = getAmendmentChanges(data[16]);
+            }
+
+            award.amendment.rationale = data[0].award.amendment_rationale;
+
+            release. awards = [ award ];
+
+            //CONTRACTS
+            var contract = { //pueden ser varios
+                id: data[0].contract.contractid,
+                awardID: String(data[0].contract.awardid),
+                title: data[0].contract.title,
+                description: data[0].contract.description,
+                status: data[0].contract.status,
+                period: {
+                    startDate: data[0].contract.period_startdate,
+                    endDate: data[0].contract.period_enddate
+                },
+                value: data[0].contract.value
+            };
+
+            if (data[11].length > 0) {
+                contract.items = getItems(data[11]);
+            }
+            contract.dateSigned = data[0].contract.datesigned;
+
+            if (data[7].length > 0) {
+                contract.documents = getDocuments(data[7]);
+            }
+
+            contract.amendment = {
+                date: data[0].contract.amendment_date
+            };
+
+            if (data[17].length > 0) {
+                contract.amendment.changes = getAmendmentChanges(data[17]);
+            }
+            contract.amendment.rationale = data[0].contract.amendment_rationale;
+
+            //IMPLEMENTATION
+            if (data[14].length > 0) {
+                contract.implementation = {
+                    transactions: getTransactions(data[14])
+                };
+            }
+
+            if (data[13].length > 0) {
+                if (typeof contract.implementation == 'undefined'){
+                    contract.implementation = { };
+                }
+                contract.implementation.milestones = getMilestones(data[13]);
+            }
+
+            if (data[8].length > 0) {
+                if (typeof contract.implementation == 'undefined'){
+                    contract.implementation = { };
+                }
+                contract.implementation.documents = getDocuments(data[8]);
+            }
+
+            release.contracts = [ contract ];
+
+            release.language = 'es';
 
             if (type =="release-record"){
 
-                var release_record = {
+                return ({
                     uri: "",
                     publishedDate: (new Date).toISOString(),//getMString(new Date()),
                     releases : [ release ],
@@ -1166,14 +1238,12 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                     },
                     license: "",
                     publicationPolicy: ""
-                };
-
-                return release_record;
+                });
             }
 
             return release;
 
-         })
+        })
 
     }).then(function (data) {
         console.log("Done ;)");
