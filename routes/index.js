@@ -1017,39 +1017,44 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                 id: data[0].tender.tenderid,
                 title: data[0].tender.title,
                 description: data[0].tender.description,
-                status: data[0].tender.status,
-                items: getItems(data[9]),
-                minValue: {
-                    amount: Number (data[0].tender.minvalue_amount),
-                    currency: data[0].tender.minvalue_currency
-                },
-                value: {
-                    amount: Number (data[0].tender.value_amount),
-                    currency: data[0].tender.value_currency
-                },
-                procurementMethod: data[0].tender.procurementmenthod,
-                procurementMethodRationale: data[0].tender.procurementMethod_rationale,
-                awardCriteria: data[0].tender.awardcriteria,
-                awardCriteriaDetails: data[0].tender.awardcriteria_details,
-                submissionMethod: data[0].tender.submissionMethod,
-                submissionMethodDetails: data[0].tender.submissionMethod_details,
-                tenderPeriod: {
-                    startDate: data[0].tender.tenderperiod_startdate,
-                    endDate: data[0].tender.tenderperiod_enddate
-                },
-                enquiryPeriod: {
-                    startDate: data[0].tender.enquiryperiod_startdate,
-                    endDate: data[0].tender.enquiryperiod_enddate
-                },
-                hasEnquiries: (data[0].tender.hasenquiries == 0) ? true : false,
-                eligibilityCriteria: data[0].tender.eligibilitycriteria,
-                awardPeriod: {
-                    startDate: data[0].tender.tenderperiod_startdate,
-                    endDate: data[0].tender.tenderperiod_enddate
-                },
-                numberOfTenderers: data[0].tender.numberoftenderers
+                status: data[0].tender.status
             };
 
+            if (data[9].length > 0) {
+                release.tender.items = getItems(data[9]);
+            }
+            release.tender.minValue = {
+                amount: Number (data[0].tender.minvalue_amount),
+                currency: data[0].tender.minvalue_currency
+            };
+
+            release.tender.value = {
+                amount: Number (data[0].tender.value_amount),
+                currency: data[0].tender.value_currency
+            };
+
+            release.tender.procurementMethod = data[0].tender.procurementmenthod;
+            release.tender.procurementMethodRationale = data[0].tender.procurementMethod_rationale;
+
+            release.tender.awardCriteria = data[0].tender.awardcriteria;
+            release.tender.awardCriteriaDetails = data[0].tender.awardcriteria_details;
+            release.tender.submissionMethod = data[0].tender.submissionMethod;
+            release.tender.submissionMethodDetails = data[0].tender.submissionMethod_details;
+            release.tender.tenderPeriod = {
+                startDate: data[0].tender.tenderperiod_startdate,
+                endDate: data[0].tender.tenderperiod_enddate
+            };
+            release.tender.enquiryPeriod = {
+                startDate: data[0].tender.enquiryperiod_startdate,
+                endDate: data[0].tender.enquiryperiod_enddate
+            };
+            release.tender.hasEnquiries = (data[0].tender.hasenquiries == 0) ? true : false;
+            release.tender.eligibilityCriteria = data[0].tender.eligibilitycriteria;
+            release.tender.awardPeriod = {
+                startDate: data[0].tender.tenderperiod_startdate,
+                endDate: data[0].tender.tenderperiod_enddate
+            };
+            release.tender.numberOfTenderers = data[0].tender.numberoftenderers;
 
             if (data[1].length > 0) {
                 release.tender.tenderers = getOrganizations(data[1]);
@@ -1081,8 +1086,6 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                     url: data[0].procuringentity.contactpoint_url
                 }
             };
-
-
 
             if( data[5].length > 0) {
                 release.tender.documents = getDocuments(data[5]);
