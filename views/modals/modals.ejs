@@ -258,7 +258,7 @@
                     <input type="text" id = "item_table" name = "item_table" hidden></p>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                     <p><label>Description</label>
-                        <input class="form-control" type="text" name="description"></p>
+                        <input class="form-control" type="text" name="description" required></p>
                     <p><label>Classification scheme</label>
                         <input class="form-control" type="text" name="classification_scheme"></p>
                     <p><label>Classification id</label>
@@ -318,9 +318,9 @@
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                     <input type="text" id = "milestone_table" name = "milestone_table" hidden></p>
                     <p><label>Title</label>
-                        <input type="text" class="form-control" name="title"></p>
+                        <input type="text" class="form-control" name="title" required></p>
                     <p><label>Description</label>
-                        <input type="text" class="form-control" name="description"></p>
+                        <input type="text" class="form-control" name="description" required></p>
                     <p><div class="row">
                         <div class="col-sm-6">
                             <label>Due date</label>
@@ -375,7 +375,7 @@
                     <p> <label>Source</label>
                         <input class="form-control" name="source"> </p>
                     <p><label>Date</label>
-                        <input class="form-control" id="newtrans_date1" name="implementation_date"></p>
+                        <input class="form-control" id="newtrans_date1" name="implementation_date" required></p>
                     <p><label>Value amount</label>
                         <input type="number" class="form-control" step="0.01" name="value_amount" required></p>
                     <p><label>Value currency</label>
@@ -442,9 +442,9 @@
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
 
                     <p><label>Property</label>
-                        <input class="form-control" type="text" name="property">  </p>
+                        <input class="form-control" type="text" name="property" required>  </p>
                     <p><label>Former value</label>
-                        <input class="form-control" type="text" name="former_value"> </p>
+                        <input class="form-control" type="text" name="former_value" required> </p>
                     <button class="btn btn-default">Guardar</button>
                 </form>
             </div>

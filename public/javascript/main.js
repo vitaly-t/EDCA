@@ -239,7 +239,7 @@ $('#myModalEditOrg').on('show.bs.modal', function (event) {
     div.off('click','.btn');
     div.on('click', '.btn', function (event) {
         var b = $(this);
-        $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
+        $.post('/delete', { id : b.data('ocid'), table: b.data('table') }).done(function(data){
             alert(data.msg);
             if ( data.status == 0 ){
                 b.parent().parent().remove();
@@ -251,7 +251,7 @@ $('#myModalEditOrg').on('show.bs.modal', function (event) {
 $('#myModalEditTransactions').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
-    modal.find('.modal-body div').load( '/transaction-list/' ,{ ocid: button.data('ocid') });
+    modal.find('.modal-body div').load( '/transaction-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
     //button events
     var div = modal.find('.modal-body div');
     div.off('click','.btn');
