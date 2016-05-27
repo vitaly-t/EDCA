@@ -133,9 +133,9 @@
             <div class="modal-body">
                 <form id="updatepub_form">
                     <input type="text" name="id" value="<%=(typeof publisher != "undefined")?publisher.id:''%>" hidden>
-                    <p><label>Name</label>
+                    <p><label>Nombre<!--Name--></label>
                         <input name="name" class="form-control" value="<%= (typeof publisher != "undefined")?publisher.name:''%>"></p>
-                    <p><label>Scheme</label>
+                    <p><label>Esquema<!--Scheme--></label>
                         <input name="scheme" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.scheme:''%>"></p>
                     <p><label>UID</label>
                         <input name="uid" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.uid:''%>"></p>
@@ -206,27 +206,27 @@
                 <form id ="newdoc_form">
                     <input type="text" id = "doc_table" name = "doc_table" hidden></p>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <p><label>Document type</label>
+                    <p><label>Tipo de documento<!--Document type--></label>
                         <input type="text" class="form-control" name = "document_type"></p>
-                    <p><label>Title</label>
+                    <p><label>Título<!--Title--></label>
                         <input type="text" class="form-control" name = "title"></p>
-                    <p><label>Description</label>
+                    <p><label>Descripción<!--Description--></label>
                         <input type="text" class="form-control" name = "description"></p>
                     <p><label>URL</label>
                         <input type="text" class="form-control" name = "url"></p>
                     <p><div class="row">
                         <div class="col-sm-6">
-                            <label>Date published</label>
+                            <label>Fecha de publicación<!--Date published--></label>
                             <input type="text" class="form-control" id= "docs_date1" name = "date_published">
                         </div>
                         <div class="col-sm-6">
-                            <label>Date modified</label>
+                            <label>Fecha de modificación<!--Date modified--></label>
                             <input type="text" class="form-control" id= "docs_date2" name = "date_modified">
                         </div>
                     </div></p>
-                    <p><label>Format</label>
+                    <p><label>Formato<!--Format--></label>
                         <input type="text" class="form-control" name = "format"></p>
-                    <p><label>Language</label>
+                    <p><label>Idioma<!--Language--></label>
                         <input type="text" class="form-control" name = "language"></p>
 
                     <button class="btn btn-default">Guardar</button>
@@ -387,33 +387,37 @@
             <div class="modal-body">
                 <form id ="newtransaction_form">
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <p> <label>Source</label>
+                    <p> <label>Origen<!--Source--></label>
                         <input class="form-control" name="source"> </p>
-                    <p><label>Date</label>
+                    <p><label>Fecha <!--Date--></label>
                         <input class="form-control" id="newtrans_date1" name="implementation_date" required></p>
-                    <p><label>Value amount</label>
+                    <p><label>Valor: Monto<!--Value amount--></label>
                         <input type="number" class="form-control" step="0.01" name="value_amount" required></p>
-                    <p><label>Value currency</label>
+                    <p><label>Valor: Divisa<!--Value currency--></label>
                         <input class="form-control" name="value_currency"></p>
-                    <p><label>Provider organization scheme</label>
+                    <p><label>URI</label>
+                    <input class="form-control" name="uri"></p>
+                    <hr>
+                    <h4>Proveedor</h4>
+                    <p><label>Esquema<!--Provider organization scheme--></label>
                         <input type="text" class="form-control" name="providerorganization_scheme"></p>
-                    <p><label>Provider organization ID</label>
+                    <p><label>ID <!--Provider organization ID--></label>
                         <input type="text" class="form-control" name="providerorganization_id"></p>
-                    <p><label>Provider organization legal name</label>
+                    <p><label>Nombre legal<!--Provider organization legal name--></label>
                         <input type="text" class="form-control" name="providerorganization_legalname"></p>
-                    <p><label>Provider organization URI</label>
+                    <p><label>URI<!--Provider organization URI--></label>
                         <input type="text" class="form-control" name="providerorganization_uri"></p>
-                    <p><label>Receiver organization scheme</label>
+                    <hr>
+                    <h4>Receptor</h4>
+                    <p><label>Esquema<!--Receiver organization scheme--></label>
                         <input type="text" class="form-control" name="receiverorganization_scheme"></p>
-                    <p><label>Receiver organization ID</label>
+                    <p><label>ID<!--Receiver organization ID--></label>
                         <input type="text" class="form-control" name="receiverorganization_id"></p>
-                    <p><label>Receiver organization legal name</label>
+                    <p><label>Nombre legal<!--Receiver organization legal name--></label>
                         <input type="text" class="form-control" name="receiverorganization_legalname"></p>
-                    <p><label>Receiver organization URI</label>
+                    <p><label>URI<!--Receiver organization URI--></label>
                         <input type="text" class="form-control" name="receiverorganization_uri"></p>
                     <p>
-                        <label>URI</label>
-                        <input class="form-control" name="uri">
                     </p>
                     <button class="btn btn-default">Guardar</button>
                 </form>
