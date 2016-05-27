@@ -263,29 +263,32 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Nuevo </h4>
+                <h4 class="modal-title">Nuevo artículo</h4>
             </div>
             <div class="modal-body">
                 <form id ="newitem_form">
                     <input type="text" id = "item_table" name = "item_table" hidden></p>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <p><label>Description</label>
+                    <p><label>Descripción<!--Description--></label>
                         <input class="form-control" type="text" name="description" required></p>
-                    <p><label>Classification scheme</label>
+                    <hr>
+                    <h4>Clasificación</h4>
+                    <p><label>Esquema <!--Classification scheme--></label>
                         <input class="form-control" type="text" name="classification_scheme"></p>
-                    <p><label>Classification id</label>
+                    <p><label>ID<!--Classification id--></label>
                         <input class="form-control" type="text" name="classification_id"></p>
-                    <p><label>Classification description</label>
+                    <p><label>Descripción<!--Classification description--></label>
                         <input class="form-control" type="text" name="classification_description"></p>
-                    <p><label>Classification uri</label>
+                    <p><label>URI<!--Classification uri--></label>
                         <input class="form-control" type="text" name="classification_uri"></p>
-                    <p><label>Quantity</label>
+                    <hr>
+                    <p><label>Cantidad<!--Quantity--></label>
                         <input class="form-control" type="number" name="quantity"></p>
-                    <p><label>Unit name</label>
+                    <p><label>Nombre de unidad<!--Unit name--></label>
                         <input class="form-control" type="text" name="unit_name"></p>
-                    <p><label>Unit value amount</label>
+                    <p><label>Valor unitario: Monto<!--Unit value amount--></label>
                         <input class="form-control" type="number" name="unit_value_amount"  step="0.01" required></p>
-                    <p><label>Unit value currency</label>
+                    <p><label>Valor unitario: Divisa<!--Unit value currency--></label>
                         <input class="form-control" type="text" name="unit_value_currency"></p>
 
                     <button class="btn btn-default">Guardar</button>
@@ -329,21 +332,21 @@
                 <form id ="newmilestone_form">
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                     <input type="text" id = "milestone_table" name = "milestone_table" hidden></p>
-                    <p><label>Title</label>
+                    <p><label>Título <!--Title--></label>
                         <input type="text" class="form-control" name="title" required></p>
-                    <p><label>Description</label>
+                    <p><label>Descripción<!--Description--></label>
                         <input type="text" class="form-control" name="description" required></p>
                     <p><div class="row">
                         <div class="col-sm-6">
-                            <label>Due date</label>
+                            <label>Fecha de vencimiento<!--Due date--></label>
                             <input type="text" id="newmilestone_date1" class="form-control" name="duedate">
                         </div>
                         <div class="col-sm-6">
-                            <label>Date modified</label>
+                            <label>Fecha de modificación<!--Date modified--></label>
                             <input type="text" id="newmilestone_date2" class="form-control" name="date_modified">
                         </div>
                     </div></p>
-                    <p><label>Status</label>
+                    <p><label>Estatus<!--Status--></label>
                         <input type="text" class="form-control" name="status"></p>
                     <button class="btn btn-default">Guardar</button>
                 </form>
@@ -453,9 +456,9 @@
                     <input type="text" id = "amendmentchanges_table" name = "amendmentchanges_table" hidden></p>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
 
-                    <p><label>Property</label>
+                    <p><label>Propiedad<!--Property--></label>
                         <input class="form-control" type="text" name="property" required>  </p>
-                    <p><label>Former value</label>
+                    <p><label>Valor anterior<!--Former value--></label>
                         <input class="form-control" type="text" name="former_value" required> </p>
                     <button class="btn btn-default">Guardar</button>
                 </form>

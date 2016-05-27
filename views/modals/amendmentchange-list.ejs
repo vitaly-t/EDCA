@@ -3,8 +3,8 @@ if ( data.length > 0 ){
 for (var i=0; i< data.length; i++){%>
 <div class="panel panel-default">
     <div class="panel-body">
-        <p><label>Property:</label> <%= data[i].property%></p>
-        <p><label>Former value:</label> <%= data[i].former_value%></p>
+        <p><label>Propiedad: <!--Property:-->:</label> <%= data[i].property%></p>
+        <p><label>Valor anterior:<!--Former value:--></label> <%= data[i].former_value%></p>
         <button data-id="<%= data[i].id %>" data-table= "<%= table %>" class="btn btn-default">Eliminar</button>
     </div>
 </div>

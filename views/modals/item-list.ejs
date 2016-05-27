@@ -6,10 +6,11 @@ for (var i=0; i< data.length; i++){%>
         <h4 class="panel-title"><%= data[i].description %></h4>
     </div>
     <div class="panel-body">
-        <p><label>Classification scheme: </label> <%= data[i].classification_scheme%></p>
-        <p><label>Classification ID: </label> <%=data[i].classification_id%></p>
-        <p><label>Classification description</label> <%= data[i].classification_description%></p>
-        <p><label>Classification URI:</label> <%= data[i].classification_uri%></p>
+        <h4>Identificador</h4>
+        <p><label>Esquema:<!--Classification scheme:--></label> <%= data[i].classification_scheme%></p>
+        <p><label>ID<!--Classification ID:--></label> <%=data[i].classification_id%></p>
+        <p><label>Descripción:<!--Classification description--></label> <%= data[i].classification_description%></p>
+        <p><label>URI:<!--Classification URI:--></label> <%= data[i].classification_uri%></p>
         <button class="btn btn-default" data-id="<%= data[i].id %>" data-table="<%= table %>">Eliminar</button>
     </div>
 </div>
