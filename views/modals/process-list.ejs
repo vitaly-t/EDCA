@@ -4,7 +4,7 @@
     <% for (var i=0;i< data.length;i++){%>
     <a href="<%= '/main/'+ data[i].id %>" class="list-group-item">
         <h4 class="list-group-item-heading"> Proceso <%= data[i].id %> </h4>
-        <p class="list-group-item-text"> Creado el <%= data[i].fecha_creacion.toLocaleDateString() %> a las <%= data[i].hora_creacion%> - OCID: <%=data[i].ocid%></p>
+        <p class="list-group-item-text"> <strong> OCID:</strong> <%=data[i].ocid %> - Creado el <%= data[i].fecha_creacion.toLocaleDateString() %> a las <%= data[i].hora_creacion%> </p>
     </a>
     <%}%>
 </div>

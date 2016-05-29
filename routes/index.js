@@ -249,8 +249,8 @@ router.get('/new-process', function (req, res) {
 
                 }).then(function (info) {
 
-                    var process= {process_id : info[0].id}
-                    var planning = {planning_id : info[1].id}
+                    var process= {process_id : info[0].id};
+                    var planning = {planning_id : info[1].id};
                     
                     return t.batch([
                         process, planning,
