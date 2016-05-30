@@ -59,9 +59,7 @@
             </div>
             <div class="modal-body">
                 <form id="neworg_form">
-
                     <div id="neworg_fields"></div>
-
                     <button type="submit" class="btn btn-default">Crear</button>
                 </form>
             </div>
@@ -102,7 +100,7 @@
             </div>
             <div class="modal-body">
                 <form id ="newdoc_form">
-                    <input type="text" id = "doc_table" name = "doc_table" hidden></p>
+                    <input type="text" id = "doc_table" name = "doc_table" hidden>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                     <p><label>Tipo de documento<!--Document type--></label>
                         <input type="text" class="form-control" name = "document_type"></p>
@@ -112,16 +110,20 @@
                         <input type="text" class="form-control" name = "description"></p>
                     <p><label>URL</label>
                         <input type="text" class="form-control" name = "url"></p>
-                    <p><div class="row">
+                    <div class="row">
                         <div class="col-sm-6">
-                            <label>Fecha de publicación<!--Date published--></label>
-                            <input type="text" class="form-control" id= "docs_date1" name = "date_published">
+                            <p>
+                                <label>Fecha de publicación<!--Date published--></label>
+                                <input type="text" class="form-control" id= "docs_date1" name = "date_published">
+                            </p>
                         </div>
                         <div class="col-sm-6">
-                            <label>Fecha de modificación<!--Date modified--></label>
-                            <input type="text" class="form-control" id= "docs_date2" name = "date_modified">
+                            <p>
+                                <label>Fecha de modificación<!--Date modified--></label>
+                                <input type="text" class="form-control" id= "docs_date2" name = "date_modified">
+                            </p>
                         </div>
-                    </div></p>
+                    </div>
                     <p><label>Formato<!--Format--></label>
                         <input type="text" class="form-control" name = "format"></p>
                     <p><label>Idioma<!--Language--></label>
@@ -165,7 +167,7 @@
             </div>
             <div class="modal-body">
                 <form id ="newitem_form">
-                    <input type="text" id = "item_table" name = "item_table" hidden></p>
+                    <input type="text" id = "item_table" name = "item_table" hidden>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
                     <p><label>Descripción<!--Description--></label>
                         <input class="form-control" type="text" name="description" required></p>
@@ -229,21 +231,25 @@
             <div class="modal-body">
                 <form id ="newmilestone_form">
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <input type="text" id = "milestone_table" name = "milestone_table" hidden></p>
+                    <input type="text" id = "milestone_table" name = "milestone_table" hidden>
                     <p><label>Título <!--Title--></label>
                         <input type="text" class="form-control" name="title" required></p>
                     <p><label>Descripción<!--Description--></label>
                         <input type="text" class="form-control" name="description" required></p>
-                    <p><div class="row">
+                    <div class="row">
                         <div class="col-sm-6">
+                            <p>
                             <label>Fecha de vencimiento<!--Due date--></label>
                             <input type="text" id="newmilestone_date1" class="form-control" name="duedate">
+                            </p>
                         </div>
                         <div class="col-sm-6">
+                            <p>
                             <label>Fecha de modificación<!--Date modified--></label>
                             <input type="text" id="newmilestone_date2" class="form-control" name="date_modified">
+                            </p>
                         </div>
-                    </div></p>
+                    </div>
                     <p><label>Estatus<!--Status--></label>
                         <input type="text" class="form-control" name="status"></p>
                     <button class="btn btn-default">Guardar</button>
@@ -294,7 +300,7 @@
                     <p><label>Valor: Divisa<!--Value currency--></label>
                         <input class="form-control" name="value_currency"></p>
                     <p><label>URI</label>
-                    <input class="form-control" name="uri"></p>
+                        <input class="form-control" name="uri"></p>
                     <hr>
                     <h4>Proveedor</h4>
                     <p><label>Esquema<!--Provider organization scheme--></label>
@@ -315,8 +321,6 @@
                         <input type="text" class="form-control" name="receiverorganization_legalname"></p>
                     <p><label>URI<!--Receiver organization URI--></label>
                         <input type="text" class="form-control" name="receiverorganization_uri"></p>
-                    <p>
-                    </p>
                     <button class="btn btn-default">Guardar</button>
                 </form>
             </div>
@@ -355,7 +359,7 @@
             </div>
             <div class="modal-body">
                 <form id ="newamendmentchange_form">
-                    <input type="text" id = "amendmentchanges_table" name = "amendmentchanges_table" hidden></p>
+                    <input type="text" id = "amendmentchanges_table" name = "amendmentchanges_table" hidden>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
 
                     <p><label>Propiedad<!--Property--></label>
