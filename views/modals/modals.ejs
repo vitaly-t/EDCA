@@ -394,7 +394,6 @@
     </div>
 </div>
 
-
 <!-- modal para cargar desde url -->
 <div class="modal fade" id="myModalURL" tabindex="-1" role="dialog" aria-labelledby="modalURL">
     <div class="modal-dialog" role="document">
@@ -404,12 +403,10 @@
                 <h4 class="modal-title">Carga desde url</h4>
             </div>
             <div class="modal-body">
-                <form id ="newdoc_form">
-                    <input type="text" id = "doc_table" name = "doc_table" hidden>
-                    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <p><label>URL</label></p>
-                    <input id="urlProc" class="form-control" type="text" name="description">
-                    <br>
+                <form>
+                    <p><label>URL</label>
+                        <input id="urlProc" class="form-control" type="text" name="description">
+                    </p>
                     <button class="btn btn-default">Guardar</button>
                 </form>
             </div>
