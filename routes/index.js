@@ -405,7 +405,7 @@ router.post('/update-contract', function (req, res) {
 router.post('/new-document', function(req,res){
     edca_db.one('insert into $1~ (contractingprocess_id, document_type, title, description, url, date_published, date_modified, format, language) values ($2,$3,$4,$5,$6,$7,$8,$9,$10) returning id',
         [
-            req.body.doc_table,
+            req.body.table,
             req.body.ocid,
             req.body.document_type,
             req.body.title,
@@ -417,12 +417,16 @@ router.post('/new-document', function(req,res){
             req.body.language
         ]).then(function (data) {
         res.send("Se ha creado un nuevo documento");
-        console.log("new "+ table + ": ", data);
+        console.log("new "+ req.body.table + ": ", data);
 
     }).catch(function (error) {
         res.send('ERROR');
         console.log("ERROR: ", error)
     });
+});
+
+router.post('/newdoc-fields', function (req,res) {
+    res.render('modals/newdoc-fields',{localid: req.body.localid, table: req.body.table});
 });
 
 /* New organization */

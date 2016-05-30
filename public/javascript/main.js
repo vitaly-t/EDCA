@@ -20,10 +20,7 @@ $(function () {
         locale: 'es',
         format: 'YYYY-MM-DD HH:mm:ss'//'DD/MM/YYYY HH:mm:ss'
     });
-    $('#docs_date1, #docs_date2').datetimepicker({
-        locale: 'es',
-        format: 'YYYY-MM-DD HH:mm:ss'
-    });
+
     $('#newitem_date1, #newitem_date2').datetimepicker({
         locale: 'es',
         format: 'YYYY-MM-DD HH:mm:ss'
@@ -199,7 +196,13 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
 $('#myModalNewDoc').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
-    modal.find('#doc_table').val( button.data('doctable') );
+    modal.find('#newdoc_fields').load('/newdoc-fields', { localid: button.data('localid'), table: button.data('table') }, function () {
+        //Date pickers
+        $('#newdoc_date1, #newdoc_date2').datetimepicker({
+            locale: 'es',
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
+    });
 });
 
 $('#myModalNewItem').on('show.bs.modal', function (event) {

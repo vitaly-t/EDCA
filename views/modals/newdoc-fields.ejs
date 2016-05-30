@@ -1,0 +1,31 @@
+<input type="text"  name = "table" value="<%= table %>" hidden>
+<input type="text" name="ocid" value = "<%= localid %>" hidden>
+
+<p><label>Tipo de documento<!--Document type--></label>
+    <input type="text" class="form-control" name = "document_type"></p>
+<p><label>Título<!--Title--></label>
+    <input type="text" class="form-control" name = "title" required></p>
+<p><label>Descripción<!--Description--></label>
+    <input type="text" class="form-control" name = "description" required></p>
+<p><label>URL</label>
+    <input type="text" class="form-control" name = "url"></p>
+<div class="row">
+    <div class="col-sm-6">
+        <p>
+            <label>Fecha de publicación<!--Date published--></label>
+            <input type="text" class="form-control" id= "newdoc_date1" name = "date_published">
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <p>
+            <label>Fecha de modificación<!--Date modified--></label>
+            <input type="text" class="form-control" id= "newdoc_date2" name = "date_modified">
+        </p>
+    </div>
+</div>
+<p><label>Formato<!--Format--></label>
+    <input type="text" class="form-control" name = "format"></p>
+<p><label>Idioma<!--Language--></label>
+    <input type="text" class="form-control" name = "language"></p>
+
+<button class="btn btn-default">Guardar</button>
