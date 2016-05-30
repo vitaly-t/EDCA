@@ -1,67 +1,5 @@
-<!-- modal para editar buyer -->
-<div class="modal fade" id="myModalEditBuyer" tabindex="-1" role="dialog" aria-labelledby="modalEditBuyer">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Editar </h4>
-            </div>
-            <div class="modal-body">
-                <form id = "updatebuyer_form">
-                    <input type="text"  name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id :'' %>" hidden>
-
-                    <p><label>Nombre<!--Name--></label>
-                        <input name="name" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.name:''%>"></p>
-                    <hr>
-                    <h4>Identificador</h4>
-                    <p><label>Esquema <!--Identifier scheme--></label>
-                        <input name = "identifier_scheme" class="form-control" type="text"
-                               value="<%=(typeof buyer != "undefined")?buyer.identifier_scheme:''%>"
-                        ></p>
-                    <p><label>ID<!--Identifier ID--></label>
-                        <input name = "identifier_id" class="form-control" type="text" value="<%=(typeof buyer != "undefined")?buyer.identifier_id:''%>"></p>
-                    <p><label>Nombre legal<!--Identifier legal name--></label>
-                        <input name = "identifier_legalname" class="form-control" type="text" value="<%=(typeof buyer != "undefined")?buyer.identifier_legalname:''%>" ></p>
-                    <p><label>URI<!--Identifier URI--></label>
-                        <input name = "identifier_uri" class="form-control" type="text" value="<%=(typeof buyer != "undefined")?buyer.identifier_uri:''%>"></p>
-                    <hr>
-                    <h4>Dirección</h4>
-                    <p><label>Calle y número <!--Address street address--></label>
-                        <input name="addres_streetaddress" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.addres_streetaddress:''%>" ></p>
-                    <p><label>Localidad<!--Address locality--></label>
-                        <input name="address_locality" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.address_locality:''%>"></p>
-                    <p><label>Región<!--Address region--></label>
-                        <input name="address_region" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.address_region:''%>"></p>
-                    <p><label>Código postal<!--Address postal code--></label>
-                        <input name="address_postalcode" type="text" class="form-control"
-                               value="<%=(typeof buyer != "undefined")?buyer.address_postalcode:''%>"></p>
-                    <p><label>País<!--Address country name--></label>
-                        <input name="address_countryname" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.address_countryname:''%>"></p>
-                    <hr>
-                    <h4>Contacto</h4>
-                    <p><label>Nombre<!--Contact point name--></label>
-                        <input name="contactpoint_name" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_name:''%>"></p>
-                    <p><label>E-mail<!--Contact point email--></label>
-                        <input name="contactpoint_email" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_email:''%>"></p>
-                    <p><label>Teléfono<!--Contact point telephone--></label>
-                        <input name="contactpoint_telephone"  type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_telephone:''%>"></p>
-                    <p><label>Fax<!--Contact point fax number--></label>
-                        <input name="contactpoint_faxnumber" type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_faxnumber:''%>"></p>
-                    <p><label>URL<!--Contact point url--></label>
-                        <input name="contactpoint_url"    type="text" class="form-control" value="<%=(typeof buyer != "undefined")?buyer.contactpoint_url:''%>"></p>
-                    <p><button type="submit" class="btn btn-default">Guardar</button></p>
-                </form>
-                <!--<p><button class="btn btn-default">Additional identifiers</button></p>-->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- modal para editar procuringEntity -->
-<div class="modal fade" id="myModalEditProcuringEntity" tabindex="-1" role="dialog" aria-labelledby="modalEditProcuring">
+<!-- modal para editar Buyer, Procuring Entity -->
+<div class="modal fade" id="myModalEditSingleOrg" tabindex="-1" role="dialog" aria-labelledby="modalEditSingleOrg">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -69,49 +7,9 @@
                 <h4 class="modal-title">Editar</h4>
             </div>
             <div class="modal-body">
-                <form id="updateprocuringentity_form">
-                    <input hidden type="text"  name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : '' %>">
-                    <p><label>Nombre <!--Name--></label>
-                        <input name="name" type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.name:''%>"></p>
-                    <hr>
-                    <h4>Identificador</h4>
-                    <p><label>Esquema <!--Identifier scheme--></label>
-                        <input name = "identifier_scheme" class="form-control" type="text" value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_scheme:''%>" ></p>
-                    <p><label>ID <!--Identifier ID--></label>
-                        <input name = "identifier_id" class="form-control" type="text" value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_id:''%>"></p>
-                    <p><label>Nombre legal <!--Identifier legal name--></label>
-                        <input name = "identifier_legalname" class="form-control" type="text" value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_legalname:''%>"
-                        ></p>
-                    <p><label>URI<!--Identifier URI--></label>
-                        <input name = "identifier_uri" class="form-control" type="text" value="<%=(typeof procuringentity != "undefined")?procuringentity.identifier_uri:''%>"></p>
-                    <hr>
-                    <h4>Dirección</h4>
-                    <p><label>Calle y número <!--Address street address--></label>
-                        <input name="addres_streetaddress"    type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.addres_streetaddress:''%>"
-                        ></p>
-                    <p><label>Localidad <!--Address locality--></label>
-                        <input name="address_locality"   type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.address_locality:''%>"></p>
-                    <p><label>Región<!--Address region--></label>
-                        <input name="address_region"     type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.address_region:''%>"></p>
-                    <p><label>Código postal <!--Address postal code--></label>
-                        <input name="address_postalcode"      type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.address_postalcode:''%>"></p>
-                    <p><label>País<!--Address country name--></label>
-                        <input name="address_countryname" type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.address_countryname:''%>"></p>
-                    <hr>
-                    <h4>Contacto</h4>
-                    <p><label>Nombre <!--Contact point name--></label>
-                        <input name="contactpoint_name"   type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_name:''%>"></p>
-                    <p><label>E-mail<!--Contact point email--></label>
-                        <input name="contactpoint_email"   type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_email:''%>"></p>
-                    <p><label>Teléfono<!--Contact point telephone--></label>
-                        <input name="contactpoint_telephone"  type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_telephone:''%>"></p>
-                    <p><label>Fax<!--Contact point fax number--></label>
-                        <input name="contactpoint_faxnumber"    type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_faxnumber:''%>"></p>
-                    <p><label>URL<!--Contact point url--></label>
-                        <input name="contactpoint_url"    type="text" class="form-control" value="<%=(typeof procuringentity != "undefined")?procuringentity.contactpoint_url:''%>"></p>
-                    <p><button type="submit" class="btn btn-default">Guardar</button></p>
+                <form id="updatesingleorg_form">
+                    <div id="updatesingleorg_fields"></div>
                 </form>
-
                 <!-- <p><button class="btn btn-default">Additional identifiers</button></p> -->
             </div>
             <div class="modal-footer">

@@ -562,47 +562,16 @@ router.post('/new-amendment-change', function (req, res) {
     });
 });
 
-// Update buyer
-router.post('/update-buyer', function (req, res) {
 
-        edca_db.one("update buyer set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, name = $6, address_streetaddress=$7," +
-            " address_locality=$8, address_region =$9, address_postalcode=$10, address_countryname=$11, contactpoint_name=$12, contactpoint_email=$13, contactpoint_telephone=$14," +
-            " contactpoint_faxnumber=$15, contactpoint_url=$16 where ContractingProcess_id = $1 returning id",
-            [
-                req.body.ocid,
-                req.body.identifier_scheme,
-                req.body.identifier_id,
-                req.body.identifier_legalname,
-                req.body.identifier_uri,
-                req.body.name,
-                req.body.address_streetaddress,
-                req.body.address_locality,
-                req.body.address_region,
-                req.body.address_postalcode,
-                req.body.address_countryname,
-                req.body.contactpoint_name,
-                req.body.contactpoint_email,
-                req.body.contactpoint_telephone,
-                req.body.contactpoint_faxnumber,
-                req.body.contactpoint_url
-            ]
-        ).then(function (data) {
-                res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
-                console.log("Update buyer: ", data);
-            }).catch(function (error) {
-            res.send("Error");
-            console.log("ERROR: ",error);
-        });
-});
+// Update buyer, procuring entity
+router.post('/update-organization', function (req, res) {
 
-// Update procuringentity
-router.post('/update-procuringentity', function (req, res) {
-
-    edca_db.one("update procuringentity set identifier_scheme= $2, identifier_id =$3, identifier_legalname=$4, identifier_uri=$5, name=$6,  address_streetaddress=$7," +
-        " address_locality=$8, address_region =$9, address_postalcode=$10, address_countryname=$11, contactpoint_name=$12, contactpoint_email=$13, contactpoint_telephone=$14," +
-        " contactpoint_faxnumber=$15, contactpoint_url=$16 where ContractingProcess_id = $1 returning id",
+    edca_db.one("update $1~ set identifier_scheme= $3, identifier_id =$4, identifier_legalname=$5, identifier_uri=$6, name = $7, address_streetaddress=$8," +
+        " address_locality=$9, address_region =$10, address_postalcode=$11, address_countryname=$12, contactpoint_name=$13, contactpoint_email=$14, contactpoint_telephone=$15," +
+        " contactpoint_faxnumber=$16, contactpoint_url=$17 where ContractingProcess_id = $2 returning id",
         [
-            req.body.ocid,
+            req.body.table,
+            req.body.localid,
             req.body.identifier_scheme,
             req.body.identifier_id,
             req.body.identifier_legalname,
@@ -621,11 +590,27 @@ router.post('/update-procuringentity', function (req, res) {
         ]
     ).then(function (data) {
         res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
-        console.log("Update procuring entity: ", data);
+        console.log("Update "+req.body.table+": ", data);
     }).catch(function (error) {
         res.send("Error");
         console.log("ERROR: ",error);
     });
+});
+
+router.post('/org-fields',function(req,res){
+    console.log("localid ->",req.body.localid);
+    console.log("table ->",req.body.table);
+    
+    edca_db.one('select * from $1~ where contractingprocess_id = $2', [
+        req.body.table, 
+        req.body.localid
+    ]).then(function (data) {
+        res.render('modals/org-fields',{ data : data, table: req.body.table });
+    }).catch(function (error) {
+        console.log('ERROR: ', error);
+        res.send('ERROR');        
+    });
+    
 });
 
 // Update publisher
