@@ -30,16 +30,7 @@
             </div>
             <div class="modal-body">
                 <form id="updatepub_form">
-                    <input type="text" name="id" value="<%=(typeof publisher != "undefined")?publisher.id:''%>" hidden>
-                    <p><label>Nombre<!--Name--></label>
-                        <input name="name" class="form-control" value="<%= (typeof publisher != "undefined")?publisher.name:''%>"></p>
-                    <p><label>Esquema<!--Scheme--></label>
-                        <input name="scheme" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.scheme:''%>"></p>
-                    <p><label>UID</label>
-                        <input name="uid" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.uid:''%>"></p>
-                    <p><label>URI</label>
-                        <input name="uri" class="form-control" value="<%=(typeof publisher != "undefined")?publisher.uri:''%>"></p>
-                    <button class="btn btn-default">Guardar</button>
+                    <div id ="updatepub_fields"></div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -79,7 +70,6 @@
                 <h4 class="modal-title">Editar organizaciones</h4>
             </div>
             <div class="modal-body">
-                <input type="text" id="org-table" hidden>
                 <div><!-- contenidos --></div>
                 <!-- <p><button class="btn btn-default">Additional identifiers</button></p> -->
             </div>

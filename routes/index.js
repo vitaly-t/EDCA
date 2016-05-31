@@ -190,8 +190,7 @@ router.get('/main/:localid', isAuthenticated, function (req,res) {
                     t.one("select * from budget where contractingprocess_id = $1", localid),
                     t.one("select * from Tender where contractingprocess_id = $1", localid),
                     t.one("select * from Award where contractingprocess_id = $1", localid),
-                    t.one("select * from Contract where contractingprocess_id = $1", localid),
-                    t.one("select * from publisher where contractingprocess_id=$1",localid)
+                    t.one("select * from Contract where contractingprocess_id = $1", localid)
                 ]);
             })
             // using .spread(function(user, event)) is best here, if supported;
@@ -202,7 +201,6 @@ router.get('/main/:localid', isAuthenticated, function (req,res) {
                 console.log("Tender ->",data[3].id); //Tender
                 console.log("Award -> ",data[4].id); //Award
                 console.log("Contract -> ",data[5].id); //Contract
-                console.log("Publisher -> ",data[6].id);
 
                 res.render('main', {
                     user: req.user,
@@ -212,8 +210,7 @@ router.get('/main/:localid', isAuthenticated, function (req,res) {
                     budget: data[2],
                     tender: data[3],
                     award: data[4],
-                    contract: data[5],
-                    publisher: data[6]
+                    contract: data[5]
                 });
             })
             .catch(function (error) {
@@ -628,6 +625,14 @@ router.post('/update-publisher', function (req, res) {
     }).catch(function (error) {
         res.send("Error");
         console.log("ERROR: ",error);
+    });
+});
+
+router.post('/publisher', function (req, res) {
+    edca_db.one("select * from publisher where contractingprocess_id=$1",[req.body.localid]).then(function (data) {
+        res.render('modals/publisher',{data: data});
+    }).catch(function (error) {
+        console.log("ERROR: ", error);
     });
 });
 

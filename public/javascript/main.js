@@ -188,6 +188,11 @@ $('#myModalURL').on('show.bs.modal', function (event) {
     modal.find('#org_type').val(recipient);
 });
 
+$('#myModalEditPub').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    $('#updatepub_fields').load('/publisher/',{ localid: button.data('localid') });
+});
+
 $('#myModalNewOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     $('#neworg_fields').load('/neworg-fields/',{ localid: button.data('localid') ,table : button.data('table') });
@@ -226,7 +231,6 @@ $('#myModalNewAmendmentChange').on('show.bs.modal', function (event) {
 $('#myModalEditOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
-    modal.find('#org_table').val( button.data('table'));
     modal.find('.modal-body div').load( '/organization-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
     //button events
     var div = modal.find('.modal-body div');
