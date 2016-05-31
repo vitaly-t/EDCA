@@ -1,4 +1,3 @@
-
 /* CONTRATING PROCESS */
 drop table if exists ContractingProcess cascade;
 create table ContractingProcess (
@@ -210,6 +209,7 @@ create table TenderMilestone(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
 	tender_id int references Tender(id) on delete cascade,
+	milestoneid text,
 	title text,
 	description text,
 	duedate timestamp, 
@@ -512,7 +512,8 @@ create table ImplementationMilestone(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
 	contract_id int references Contract(id) on delete cascade,
-	implementation_id int references Implementation(id) on delete cascade, 
+	implementation_id int references Implementation(id) on delete cascade,
+	milestoneid text,
 	title text,
 	description text,
 	duedate timestamp, 

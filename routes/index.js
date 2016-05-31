@@ -491,10 +491,11 @@ router.post('/new-item',function (req,res) {
 });
 
 router.post('/new-milestone',function (req,res) {
-    edca_db.one('insert into $1~ (contractingprocess_id, title, description, duedate, date_modified, status) values ($2,$3,$4,$5,$6,$7) returning id',
+    edca_db.one('insert into $1~ (contractingprocess_id, milestoneid, title, description, duedate, date_modified, status) values ($2,$3,$4,$5,$6,$7,$8) returning id',
         [
             req.body.milestone_table,
             req.body.ocid,
+            req.body.milestoneid,
             req.body.title,
             req.body.description,
             (req.body.duedate!='')?req.body.duedate:null,
@@ -941,6 +942,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                 for (var i=0; i < arr.length;i++){
                     var milestone = { };
 
+                    if(checkValue(arr[i].milestoneid)){milestone.id = arr[i].milestoneid;}
                     if(checkValue(arr[i].title)){milestone.title = arr[i].title;}
                     if(checkValue(arr[i].description)){milestone.description = arr[i].description;}
                     if(checkValue(arr[i].duedate)){milestone.dueDate = arr[i].duedate;}
