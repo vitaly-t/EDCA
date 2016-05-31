@@ -7,8 +7,15 @@
     </div>
 
     <div class="panel-body">
+        <p><label>Tipo:</label> <%= data[i].document_type%></p>
+        <p><label>ID:</label> <%= data[i].documentid %></p>
         <p><label>Descripción:<!--Description--> </label> <%= data[i].description %></p>
         <p><label>URL: <!--URL:--></label> <%= data[i].url%></p>
+        <p><label>Fecha de publicación:</label> <%= data[i].date_published %></p>
+        <p><label>Fecha de modificación:</label> <%= data[i].date_modified %></p>
+        <p><label>Formato:</label> <%= data[i].format %></p>
+        <p><label>Idioma:</label> <%= data[i].language %></p>
+
         <button data-table="<%= table %>" data-id = "<%= data[i].id %>" class="btn btn-default">Eliminar</button></p>
     </div>
 

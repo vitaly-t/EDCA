@@ -30,7 +30,8 @@ drop table if exists PlanningDocuments cascade;
 create table PlanningDocuments (
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id) on delete cascade,	
-	planning_id int references planning(id) on delete cascade, 
+	planning_id int references planning(id) on delete cascade,
+	documentid text,
 	document_type text,
 	title text, 
 	description text, 
@@ -125,7 +126,8 @@ create table TenderDocuments (
 	id serial primary key, 
 	contractingprocess_id int references contractingprocess(id) on delete cascade, 
 	tender_id int references Tender(id) on delete cascade, 
-	document_type text, 
+	document_type text,
+	documentid text,
 	title text, 
 	description text, 
 	url text, 
@@ -217,18 +219,19 @@ create table TenderMilestone(
 
 drop table if exists TenderMilestoneDocuments cascade;
 create table TenderMilestoneDocuments(
-	id serial primary key, 
-	contractingprocess_id int references contractingprocess(id) on delete cascade, 
-	tender_id int references Tender(id) on delete cascade, 
+id serial primary key,
+	contractingprocess_id int references contractingprocess(id) on delete cascade,
+	tender_id int references Tender(id) on delete cascade,
 	milestone_id int references TenderMilestone(id) on delete cascade,
-	document_type text, 
-	title text, 
-	description text, 
-	url text, 
-	date_published timestamp, 
-	date_modified timestamp, 
-	format text, 
-	language text 
+	document_type text,
+    documentid text,
+	title text,
+	description text,
+	url text,
+	date_published timestamp,
+	date_modified timestamp,
+	format text,
+	language text
 );
 
 drop table if exists TenderItem cascade;
@@ -304,7 +307,8 @@ create table AwardDocuments(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
 	award_id int references Award(id), 
-	document_type text, 
+	document_type text,
+	documentid text,
 	title text, 
 	description text, 
 	url text, 
@@ -413,7 +417,8 @@ create table ContractDocuments(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,  
 	contract_id int references Contract(id) on delete cascade,
-	document_type text, 
+	document_type text,
+	 documentid text,
 	title text, 
 	description text, 
 	url text, 
@@ -466,7 +471,8 @@ create table ImplementationDocuments(
 	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
 	contract_id int references Contract(id) on delete cascade,
 	implementation_id int references Implementation(id) on delete cascade,
-	document_type text, 
+	document_type text,
+	documentid text,
 	title text, 
 	description text, 
 	url text, 
@@ -514,19 +520,20 @@ create table ImplementationMilestone(
 	status text
 );
 
+
 drop table if exists ImplementationMilestoneDocuments cascade;
 create table ImplementationMilestoneDocuments(
 	id serial primary key,
-	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
+	contractingprocess_id int references ContractingProcess(id) on delete cascade,
 	contract_id int references Contract(id) on delete cascade,
 	implementation_id int references Implementation(id) on delete cascade,
-	document_type text, 
-	title text, 
-	description text, 
-	url text, 
-	date_published timestamp, 
-	date_modified timestamp, 
-	format text, 
-	language text 
+	document_type text,
+	documentid text,
+	title text,
+	description text,
+	url text,
+	date_published timestamp,
+	date_modified timestamp,
+	format text,
+	language text
 );
-

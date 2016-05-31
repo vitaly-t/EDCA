@@ -400,11 +400,12 @@ router.post('/update-contract', function (req, res) {
 
 // New document
 router.post('/new-document', function(req,res){
-    edca_db.one('insert into $1~ (contractingprocess_id, document_type, title, description, url, date_published, date_modified, format, language) values ($2,$3,$4,$5,$6,$7,$8,$9,$10) returning id',
+    edca_db.one('insert into $1~ (contractingprocess_id, document_type, documentid, title, description, url, date_published, date_modified, format, language) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11) returning id',
         [
             req.body.table,
             req.body.ocid,
             req.body.document_type,
+            req.body.documentid,
             req.body.title,
             req.body.description,
             req.body.url,
