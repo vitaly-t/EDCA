@@ -894,7 +894,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                 for (var i=0; i < array.length; i++ ){
                     var document = { };
 
-                    if(checkValue(array[i].id)){document.id = array[i].id;}
+                    if(checkValue(array[i].documentid)){document.documentid = array[i].documentid;}
                     if(checkValue(array[i].document_type)){document.documentType = array[i].document_type;}
                     if(checkValue(array[i].title)){document.title = array[i].title;}
                     if(checkValue(array[i].description)){document.description = array[i].description;}
