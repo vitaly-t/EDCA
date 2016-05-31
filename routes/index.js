@@ -851,6 +851,10 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                     if( checkValue(array[i].identifier_legalname) ){organization.identifier.legalName = array[i].identifier_legalname;}
                     if( checkValue(array[i].identifier_uri) ){organization.identifier.uri = array[i].identifier_uri;}
 
+                    if (JSON.stringify(organization.identifier) === JSON.stringify({})){
+                        delete organization['identifier'];
+                    }
+
                     //additionalIdentifiers:[ ],
 
                     if( checkValue(array[i].name) ){organization.name = array[i].name;}
@@ -862,12 +866,20 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                     if( checkValue(array[i].address_postalcode) ){organization.address.postalCode = array[i].address_postalcode;}
                     if( checkValue(array[i].address_countryname) ){organization.address.countryName = array[i].address_countryname;}
 
+                    if (JSON.stringify(organization.address) === JSON.stringify({})){
+                        delete organization['address'];
+                    }
+
                     organization.contactPoint = {};
                     if( checkValue(array[i].contactpoint_name) ){organization.contactPoint.name = array[i].contactpoint_name;}
                     if( checkValue(array[i].contactpoint_email) ){organization.contactPoint.email = array[i].contactpoint_email;}
                     if( checkValue(array[i].contactpoint_telephone) ){organization.contactPoint.telephone = array[i].contactpoint_telephone;}
                     if( checkValue(array[i].contactpoint_faxnumber) ){organization.contactPoint.faxNumber = array[i].contactpoint_faxnumber;}
                     if( checkValue(array[i].contactpoint_url) ){organization.contactPoint.url = array[i].contactpoint_url;}
+
+                    if (JSON.stringify(organization.contactPoint) === JSON.stringify({})){
+                        delete organization['contactPoint'];
+                    }
 
                     organizations.push(organization);
 
@@ -1079,7 +1091,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             }
 
             // Tender -> procuring entity
-            release.tender.procuringEntity = getOrganizations( [ data[0].procuringentity ]);
+            release.tender.procuringEntity = (getOrganizations( [ data[0].procuringentity ]))[0];
 
             if( data[5].length > 0) {
                 release.tender.documents = getDocuments(data[5]);
@@ -1125,7 +1137,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             }
 
             //BUYER
-            release.buyer = getOrganizations( [ data[0].buyer ]);
+            release.buyer = (getOrganizations( [ data[0].buyer ]) )[0];
 
             //AWARDS
             var award =  { };
@@ -1218,6 +1230,17 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
 
             if(checkValue(data[0].contract.amendment_rationale)){contract.amendment.rationale = data[0].contract.amendment_rationale;}
 
+            //Limpiar contract
+            if (JSON.stringify(contract.period) === JSON.stringify({})){
+                delete contract['period'];
+            }
+            if (JSON.stringify(contract.value) === JSON.stringify({})){
+                delete contract['value'];
+            }
+            if (JSON.stringify(contract.amendment) === JSON.stringify({})){
+                delete contract['amendment'];
+            }
+
             //IMPLEMENTATION
             contract.implementation = { };
             if (data[14].length > 0) {
@@ -1232,7 +1255,15 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                 contract.implementation.documents = getDocuments(data[8]);
             }
 
-            release.contracts = [ contract ];
+            //limpiar implementation
+            if (JSON.stringify(contract.implementation) === JSON.stringify({})){
+                delete contract['implementation'];
+            }
+
+            if (JSON.stringify(contract) !== JSON.stringify({})){
+                release.contracts = [ contract ];
+            }
+
             release.language = 'es';
 
             if (type =="release-record"){
