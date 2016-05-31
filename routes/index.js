@@ -836,34 +836,40 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
 
         }).then(function (data) {
 
+            function checkValue( x ) {
+                return ( x != null && x != '' && typeof x != "undefined");
+            }
+
             function getOrganizations(orgarray){
                 var organizations = [];
                 for ( var i=0; i < orgarray.length; i++){
+                    var organization={};
 
-                    organizations.push ({
-                        identifier: {
-                            scheme: orgarray[i].identifier_scheme,
-                            id: orgarray[i].identifier_id,
-                            legalName: orgarray[i].identifier_legalname,
-                            uri: orgarray[i].identifier_uri
-                        },
-                        //additionalIdentifiers:[ ],
-                        name: orgarray[i].name,
-                        address: {
-                            address: orgarray[i].address_streetaddres,
-                            locality: orgarray[i].address_locality,
-                            region: orgarray[i].address_region,
-                            postalCode: orgarray[i].address_postalcode,
-                            countryName: orgarray[i].address_countryname
-                        },
-                        contactPoint:{
-                            name: orgarray[i].contactpoint_name,
-                            email: orgarray[i].contactpoint_email,
-                            telephone: orgarray[i].contactpoint_telephone,
-                            faxNumber: orgarray[i].contactpoint_faxnumber,
-                            url: orgarray[i].contactpount_faxnumber
-                        }
-                    });
+                    organization.identifier = {};
+                    if( checkValue(orgarray[i].identifier_scheme)  ){organization.identifier.scheme = orgarray[i].identifier_scheme;}
+                    if( checkValue(orgarray[i].identifier_id) ){organization.identifier.id = orgarray[i].identifier_id;}
+                    if( checkValue(orgarray[i].identifier_legalname) ){organization.identifier.legalName = orgarray[i].identifier_legalname;}
+                    if( checkValue(orgarray[i].identifier_uri) ){organization.identifier.uri = orgarray[i].identifier_uri;}
+
+                    //additionalIdentifiers:[ ],
+
+                    if( checkValue(orgarray[i].name) ){organization.name = orgarray[i].name;}
+
+                    organization.address = {};
+                    if( checkValue(orgarray[i].address_streetaddress) ){organization.address.streetAddress = orgarray[i].address_streetaddress;}
+                    if( checkValue(orgarray[i].address_locality) ){organization.address.locality = orgarray[i].address_locality;}
+                    if( checkValue(orgarray[i].address_region) ){organization.address.region = orgarray[i].address_region;}
+                    if( checkValue(orgarray[i].address_postalcode) ){organization.address.postalCode = orgarray[i].address_postalcode;}
+                    if( checkValue(orgarray[i].address_countryname) ){organization.address.countryName = orgarray[i].address_countryname;}
+
+                    organization.contactPoint = {};
+                    if( checkValue(orgarray[i].contactpoint_name) ){organization.contactPoint.name = orgarray[i].contactpoint_name;}
+                    if( checkValue(orgarray[i].contactpoint_email) ){organization.contactPoint.email = orgarray[i].contactpoint_email;}
+                    if( checkValue(orgarray[i].contactpoint_telephone) ){organization.contactPoint.telephone = orgarray[i].contactpoint_telephone;}
+                    if( checkValue(orgarray[i].contactpoint_faxnumber) ){organization.contactPoint.faxNumber = orgarray[i].contactpoint_faxnumber;}
+                    if( checkValue(orgarray[i].contactpoint_url) ){organization.contactPoint.url = orgarray[i].contactpoint_url;}
+
+                    organizations.push(organization);
 
                 }
                 return organizations;
@@ -979,21 +985,24 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             };
 
             //PLANNING
-            release.planning = {
-                budget: {
-                    source: data[0].budget.budget_source,
-                    id: data[0].budget.budget_budgetid,
-                    description: data[0].budget.budget_description,
-                    amount: {
-                        amount: Number(data[0].budget.budget_amount),
-                        currency: data[0].budget.budget_currency
-                    },
-                    project: data[0].budget.budget_project,
-                    projectID: data[0].budget.budget_projectid,
-                    uri: data[0].budget.budget_uri
-                },
-                rationale: data[0].planning.rationale
-            };
+            release.planning = { };
+
+            release.planning.budget = { };
+            if (checkValue(data[0].budget.budget_source)){release.planning.budget.source = data[0].budget.budget_source;}
+            if (checkValue(data[0].budget.budget_budgetid)){release.planning.budget.id = data[0].budget.budget_budgetid;}
+            if (checkValue(data[0].budget.budget_description)){release.planning.budget.description = data[0].budget.budget_description;}
+
+            release.planning.budget.amount = { };
+            if (checkValue(data[0].budget.budget_amount)){release.planning.budget.amount.amount = Number(data[0].budget.budget_amount);}
+            if (checkValue(data[0].budget.budget_currency)){release.planning.budget.amount.currency = data[0].budget.budget_currency;}
+
+
+            if (checkValue(data[0].budget.budget_project)){release.planning.budget.project = data[0].budget.budget_project;}
+            if (checkValue(data[0].budget.budget_projectid)){release.planning.budget.projectID = data[0].budget.budget_projectid;}
+            if (checkValue(data[0].budget.budget_uri)){release.planning.budget.uri = data[0].budget.budget_uri;}
+
+            if (checkValue(data[0].planning.rationale)){release.planning.rationale = data[0].planning.rationale;}
+
 
             //planning documents
             if (data[4].length > 0){
@@ -1001,135 +1010,89 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             }
 
             //TENDER
-            release.tender = {
-                id: data[0].tender.tenderid,
-                title: data[0].tender.title,
-                description: data[0].tender.description,
-                status: data[0].tender.status
-            };
+            release.tender = { };
+            if(checkValue(data[0].tender.tenderid)){release.tender.id = data[0].tender.tenderid;}
+            if(checkValue(data[0].tender.title)){release.tender.title = data[0].tender.title;}
+            if(checkValue(data[0].tender.description)){release.tender.description = data[0].tender.description;}
+            if(checkValue(data[0].tender.status)){release.tender.status = data[0].tender.status;}
 
+            //Tender -> items
             if (data[9].length > 0) {
                 release.tender.items = getItems(data[9]);
             }
-            release.tender.minValue = {
-                amount: Number (data[0].tender.minvalue_amount),
-                currency: data[0].tender.minvalue_currency
-            };
 
-            release.tender.value = {
-                amount: Number (data[0].tender.value_amount),
-                currency: data[0].tender.value_currency
-            };
+            release.tender.minValue = { };
+            if(checkValue(data[0].tender.minvalue_amount)){release.tender.minValue.amount = Number (data[0].tender.minvalue_amount);}
+            if(checkValue(data[0].tender.minvalue_currency)){release.tender.minValue.currency = data[0].tender.minvalue_currency;}
 
-            release.tender.procurementMethod = data[0].tender.procurementmenthod;
-            release.tender.procurementMethodRationale = data[0].tender.procurementMethod_rationale;
+            release.tender.value = { };
+            if(checkValue(data[0].tender.value_amount)){release.tender.value.amount = Number (data[0].tender.value_amount);}
+            if(checkValue(data[0].tender.value_currency)){release.tender.value.currency = data[0].tender.value_currency;}
 
-            release.tender.awardCriteria = data[0].tender.awardcriteria;
-            release.tender.awardCriteriaDetails = data[0].tender.awardcriteria_details;
-            release.tender.submissionMethod = data[0].tender.submissionMethod;
-            release.tender.submissionMethodDetails = data[0].tender.submissionMethod_details;
-            release.tender.tenderPeriod = {
-                startDate: data[0].tender.tenderperiod_startdate,
-                endDate: data[0].tender.tenderperiod_enddate
-            };
-            release.tender.enquiryPeriod = {
-                startDate: data[0].tender.enquiryperiod_startdate,
-                endDate: data[0].tender.enquiryperiod_enddate
-            };
-            release.tender.hasEnquiries = (data[0].tender.hasenquiries == 0) ? true : false;
-            release.tender.eligibilityCriteria = data[0].tender.eligibilitycriteria;
-            release.tender.awardPeriod = {
-                startDate: data[0].tender.tenderperiod_startdate,
-                endDate: data[0].tender.tenderperiod_enddate
-            };
-            release.tender.numberOfTenderers = data[0].tender.numberoftenderers;
+            if(checkValue(data[0].tender.procurementmenthod)){release.tender.procurementMethod = data[0].tender.procurementmenthod;}
+            if(checkValue(data[0].tender.procurementMethod_rationale)){release.tender.procurementMethodRationale = data[0].tender.procurementMethod_rationale;}
+            if(checkValue(data[0].tender.awardcriteria)){release.tender.awardCriteria = data[0].tender.awardcriteria;}
+            if(checkValue(data[0].tender.awardcriteria_details)){release.tender.awardCriteriaDetails = data[0].tender.awardcriteria_details;}
+            if(checkValue(data[0].tender.submissionMethod)){release.tender.submissionMethod = data[0].tender.submissionMethod;}
+            if(checkValue(data[0].tender.submissionMethod_details)){release.tender.submissionMethodDetails = data[0].tender.submissionMethod_details;}
+
+            release.tender.tenderPeriod = { };
+            if(checkValue(data[0].tender.tenderperiod_startdate)){release.tender.tenderPeriod.startDate = data[0].tender.tenderperiod_startdate;}
+            if(checkValue(data[0].tender.tenderperiod_enddate)){release.tender.tenderPeriod.endDate = data[0].tender.tenderperiod_enddate;}
+
+
+            release.tender.enquiryPeriod = { };
+            if(checkValue(data[0].tender.enquiryperiod_startdate)){release.tender.enquiryPeriod.startDate = data[0].tender.enquiryperiod_startdate;}
+            if(checkValue(data[0].tender.enquiryperiod_enddate)){release.tender.enquiryPeriod.endDate = data[0].tender.enquiryperiod_enddate;}
+
+            if(checkValue(data[0].tender.hasenquiries)){release.tender.hasEnquiries = (data[0].tender.hasenquiries == 0) ? true : false;}
+            if(checkValue(data[0].tender.eligibilitycriteria)){release.tender.eligibilityCriteria = data[0].tender.eligibilitycriteria;}
+
+            release.tender.awardPeriod = { };
+            if(checkValue(data[0].tender.tenderperiod_startdate)){release.tender.awardPeriod.startDate = data[0].tender.tenderperiod_startdate;}
+            if(checkValue(data[0].tender.tenderperiod_enddate)){release.tender.awardPeriod.endDate = data[0].tender.tenderperiod_enddate;}
+
+            if(checkValue(data[0].tender.numberoftenderers)){release.tender.numberOfTenderers = data[0].tender.numberoftenderers;}
 
             if (data[1].length > 0) {
                 release.tender.tenderers = getOrganizations(data[1]);
             }
 
-
             // Tender -> procuring entity
-            release.tender.procuringEntity= {
-                identifier: {
-                    scheme: data[0].procuringentity.identifier_scheme,
-                    id: data[0].procuringentity.identifier_id,
-                    legalName: data[0].procuringentity.identifier_legalname,
-                    uri: data[0].procuringentity.identifier_uri
-                },
-                //additionalIdentifiers: [ ],
-                name: data[0].procuringentity.name,
-                address: {
-                    streetAddress: data[0].procuringentity.address_streetaddress,
-                    locality: data[0].procuringentity.address_locality,
-                    region: data[0].procuringentity.address_region,
-                    postalCode: data[0].procuringentity.address_postalcode,
-                    countryName: data[0].procuringentity.address_countryname
-                },
-                contactPoint: {
-                    name: data[0].procuringentity.contactpoint_name,
-                    email: data[0].procuringentity.contactpoint_email,
-                    telephone: data[0].procuringentity.contactpoint_telephone,
-                    faxNumber: data[0].procuringentity.contactpoint_faxnumber,
-                    url: data[0].procuringentity.contactpoint_url
-                }
-            };
+            release.tender.procuringEntity = getOrganizations( [ data[0].procuringentity ]);
 
             if( data[5].length > 0) {
                 release.tender.documents = getDocuments(data[5]);
             }
             if (data[12].length > 0 ) {
-                relese.tender.milestones = getMilestones(data[12]);
+                release.tender.milestones = getMilestones(data[12]);
             }
 
-            release.tender.amendment = {
-                date: data[0].tender.amendment_date
-            };
+            release.tender.amendment = { };
+            if(checkValue(data[0].tender.amendment_date)){release.tender.amendment.date = data[0].tender.amendment_date;}
+
 
             if( data[15].length > 0 ) {
                 release.tender.amendment.changes = getAmendmentChanges(data[15]);
             }
 
-            release.tender.amendment.rationale = data[0].tender.amendment_rationale;
+            if (checkValue(data[0].tender.amendment_rationale)){release.tender.amendment.rationale = data[0].tender.amendment_rationale;}
 
             //BUYER
-            release.buyer = {
-                identifier: {
-                    scheme: data[0].buyer.identifier_scheme,
-                    id: data[0].buyer.identifier_id,
-                    legalName: data[0].buyer.identifier_legalname,
-                    uri: data[0].buyer.identifier_uri
-                },
-                //additionalIdentifiers: [ ],
-                name: data[0].buyer.name,
-                address: {
-                    streetAddress: data[0].buyer.address_streetaddress,
-                    locality: data[0].buyer.address_locality,
-                    region: data[0].buyer.address_region,
-                    postalCode: data[0].buyer.address_postalcode,
-                    countryName: data[0].buyer.address_contryname
-                },
-                contactPoint: {
-                    name: data[0].buyer.contactpoint_name,
-                    email: data[0].buyer.contactpoint_email,
-                    telephone: data[0].buyer.contactpoint_telephone,
-                    faxNumber: data[0].buyer.contactpoint_faxnumber,
-                    url: data[0].buyer.contactpoint_url
-                }
-            };
+            release.buyer = getOrganizations( [ data[0].buyer ]);
 
             //AWARDS
-            var award = {
-                    id: data[0].award.awardid,
-                    title: data[0].award.title,
-                    description: data[0].award.description,
-                    status: data[0].award.status,
-                    date: data[0].award.award_date,
-                    value: {
-                        amount: Number(data[0].award.value_amount),
-                        currency: data[0].award.value_currency
-                    }
-                };
+            var award =  { };
+            if(checkValue(data[0].award.awardid)){award.id = data[0].award.awardid;}
+            if(checkValue(data[0].award.title)){award.title = data[0].award.title;}
+            if(checkValue(data[0].award.description)){award.description = data[0].award.description;}
+            if(checkValue(data[0].award.status)){award.status = data[0].award.status;}
+            if(checkValue(data[0].award.award_date)){award.date = data[0].award.award_date;}
+
+            award.value = { };
+            if(checkValue(data[0].award.value_amount)){award.value.amount = Number(data[0].award.value_amount);}
+            if(checkValue(data[0].award.value_currency)){award.value.currency = data[0].award.value_currency;}
+
 
             if (data[2].length > 0) {
                 award.suppliers = getOrganizations(data[2]); //pueden pertenecer a diferentes awards
@@ -1139,83 +1102,78 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                 award.items = getItems(data[10]);
             }
 
-            award.contractPeriod = {
-                startDate: data[0].award.contractperiod_startdate,
-                endDate: data[0].award.contractperiod_enddate,
-            };
+            award.contractPeriod = { };
+            if(checkValue(data[0].award.contractperiod_startdate)){award.contractPeriod.startDate = data[0].award.contractperiod_startdate;}
+            if(checkValue(data[0].award.contractperiod_enddate)){award.contractPeriod.endDate = data[0].award.contractperiod_enddate;}
 
             if (data[6].length > 0) {
                 award.documents = getDocuments(data[6]);
             }
 
+            award.amendment = { };
+            if(checkValue(data[0].award.amendment_date)){award.amendment.date = data[0].award.amendment_date;}
 
-            award.amendment = {
-                date: data[0].award.amendment_date
-            };
 
             if (data[16].length > 0) {
                 award.amendment.changes = getAmendmentChanges(data[16]);
             }
 
-            award.amendment.rationale = data[0].award.amendment_rationale;
+            if(checkValue(data[0].award.amendment_rationale)){award.amendment.rationale = data[0].award.amendment_rationale;}
 
             release. awards = [ award ];
 
             //CONTRACTS
-            var contract = { //pueden ser varios
-                id: data[0].contract.contractid,
-                awardID: String(data[0].contract.awardid),
-                title: data[0].contract.title,
-                description: data[0].contract.description,
-                status: data[0].contract.status,
-                period: {
-                    startDate: data[0].contract.period_startdate,
-                    endDate: data[0].contract.period_enddate
-                },
-                value: data[0].contract.value
-            };
+            var contract = { };//pueden ser varios
+
+            if(checkValue(data[0].contract.contractid)){contract.id = data[0].contract.contractid;}
+            if(checkValue(data[0].contract.awardid)){contract.awardID = String(data[0].contract.awardid);}
+            if(checkValue(data[0].contract.title)){contract.title = data[0].contract.title;}
+            if(checkValue(data[0].contract.description)){contract.description = data[0].contract.description;}
+            if(checkValue(data[0].contract.status)){contract.status = data[0].contract.status;}
+
+            contract.period = { };
+            if(checkValue(data[0].contract.period_startdate)){contract.period.startDate = data[0].contract.period_startdate;}
+            if(checkValue(data[0].contract.period_enddate)){contract.period.endDate = data[0].contract.period_enddate;}
+
+            contract.value = { };
+            if(checkValue(data[0].contract.value_amount)){contract.value.amount = data[0].contract.value_amount;}
+            if(checkValue(data[0].contract.value_currency)){contract.value.currency = data[0].contract.value_currency;}
 
             if (data[11].length > 0) {
                 contract.items = getItems(data[11]);
             }
-            contract.dateSigned = data[0].contract.datesigned;
+
+            if(checkValue(data[0].contract.datesigned)){contract.dateSigned = data[0].contract.datesigned;}
 
             if (data[7].length > 0) {
                 contract.documents = getDocuments(data[7]);
             }
 
-            contract.amendment = {
-                date: data[0].contract.amendment_date
-            };
+            contract.amendment = { };
+
+            if(checkValue(data[0].contract.amendment_date)){contract.amendment.date = data[0].contract.amendment_date;}
 
             if (data[17].length > 0) {
                 contract.amendment.changes = getAmendmentChanges(data[17]);
             }
-            contract.amendment.rationale = data[0].contract.amendment_rationale;
+
+            if(checkValue(data[0].contract.amendment_rationale)){contract.amendment.rationale = data[0].contract.amendment_rationale;}
 
             //IMPLEMENTATION
+            contract.implementation = { };
             if (data[14].length > 0) {
-                contract.implementation = {
-                    transactions: getTransactions(data[14])
-                };
+                contract.implementation.transactions = getTransactions(data[14]);
             }
 
             if (data[13].length > 0) {
-                if (typeof contract.implementation == 'undefined'){
-                    contract.implementation = { };
-                }
                 contract.implementation.milestones = getMilestones(data[13]);
             }
 
             if (data[8].length > 0) {
-                if (typeof contract.implementation == 'undefined'){
-                    contract.implementation = { };
-                }
                 contract.implementation.documents = getDocuments(data[8]);
             }
 
             release.contracts = [ contract ];
-
             release.language = 'es';
 
             if (type =="release-record"){
