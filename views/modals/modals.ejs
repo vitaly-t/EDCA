@@ -130,6 +130,8 @@
                 <form id ="newitem_form">
                     <input type="text" id = "item_table" name = "item_table" hidden>
                     <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
+                    <p><label>ID<!--Description--></label>
+                        <input class="form-control" type="text" name="itemid" required></p>
                     <p><label>Descripción<!--Description--></label>
                         <input class="form-control" type="text" name="description" required></p>
                     <hr>

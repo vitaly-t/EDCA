@@ -467,11 +467,12 @@ router.post('/neworg-fields', function (req,res) {
 });
 
 router.post('/new-item',function (req,res) {
-    edca_db.one('insert into $1~ (contractingprocess_id, description, classification_scheme, classification_id, classification_description, classification_uri,' +
-        ' unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6,$7,$8,$9,$10) returning id',
+    edca_db.one('insert into $1~ (contractingprocess_id, itemid, description, classification_scheme, classification_id, classification_description, classification_uri,' +
+        ' unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11) returning id',
         [
             req.body.item_table,
             req.body.ocid,
+            req.body.itemid,
             req.body.description,
             req.body.classification_scheme,
             req.body.classification_id,
@@ -914,7 +915,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                 var items =[];
                 for (var i=0; i < arr.length;i++){
                     var item = { };
-                    if(checkValue(arr[i].id)){item.id = arr[i].id;}
+                    if(checkValue(arr[i].itemid)){item.id = arr[i].itemid;}
                     if(checkValue(arr[i].description)){item.description = arr[i].description;}
                     //additionalClasifications: [ ],
 
