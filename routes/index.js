@@ -470,8 +470,8 @@ router.post('/new-item',function (req,res) {
     edca_db.one('insert into $1~ (contractingprocess_id, itemid, description, classification_scheme, classification_id, classification_description, classification_uri,' +
         ' unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11) returning id',
         [
-            req.body.item_table,
-            req.body.ocid,
+            req.body.table,
+            req.body.localid,
             req.body.itemid,
             req.body.description,
             req.body.classification_scheme,
@@ -489,6 +489,10 @@ router.post('/new-item',function (req,res) {
         console.log('ERROR: ', error);
         res.send('ERROR');
     });
+});
+
+router.post('/newitem-fields', function (req,res) {
+    res.render('modals/newitem-fields', { localid: req.body.localid , table : req.body.table });
 });
 
 router.post('/new-milestone',function (req,res) {

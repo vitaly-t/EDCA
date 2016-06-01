@@ -128,33 +128,7 @@
             </div>
             <div class="modal-body">
                 <form id ="newitem_form">
-                    <input type="text" id = "item_table" name = "item_table" hidden>
-                    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <p><label>ID<!--Description--></label>
-                        <input class="form-control" type="text" name="itemid" required></p>
-                    <p><label>Descripción<!--Description--></label>
-                        <input class="form-control" type="text" name="description" required></p>
-                    <hr>
-                    <h4>Clasificación</h4>
-                    <p><label>Esquema <!--Classification scheme--></label>
-                        <input class="form-control" type="text" name="classification_scheme"></p>
-                    <p><label>ID<!--Classification id--></label>
-                        <input class="form-control" type="text" name="classification_id"></p>
-                    <p><label>Descripción<!--Classification description--></label>
-                        <input class="form-control" type="text" name="classification_description"></p>
-                    <p><label>URI<!--Classification uri--></label>
-                        <input class="form-control" type="text" name="classification_uri"></p>
-                    <hr>
-                    <p><label>Cantidad<!--Quantity--></label>
-                        <input class="form-control" type="number" name="quantity"></p>
-                    <p><label>Nombre de unidad<!--Unit name--></label>
-                        <input class="form-control" type="text" name="unit_name"></p>
-                    <p><label>Valor unitario: Monto<!--Unit value amount--></label>
-                        <input class="form-control" type="number" name="unit_value_amount"  step="0.01" required></p>
-                    <p><label>Valor unitario: Divisa<!--Unit value currency--></label>
-                        <input class="form-control" type="text" name="unit_value_currency"></p>
-
-                    <button class="btn btn-default">Guardar</button>
+                    <div id = "newitem_fields"></div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -204,14 +178,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <p>
-                            <label>Fecha de vencimiento<!--Due date--></label>
-                            <input type="text" id="newmilestone_date1" class="form-control" name="duedate">
+                                <label>Fecha de vencimiento<!--Due date--></label>
+                                <input type="text" id="newmilestone_date1" class="form-control" name="duedate">
                             </p>
                         </div>
                         <div class="col-sm-6">
                             <p>
-                            <label>Fecha de modificación<!--Date modified--></label>
-                            <input type="text" id="newmilestone_date2" class="form-control" name="date_modified">
+                                <label>Fecha de modificación<!--Date modified--></label>
+                                <input type="text" id="newmilestone_date2" class="form-control" name="date_modified">
                             </p>
                         </div>
                     </div>

@@ -213,7 +213,7 @@ $('#myModalNewDoc').on('show.bs.modal', function (event) {
 $('#myModalNewItem').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
-    modal.find('#item_table').val( button.data('itemtable') );
+    modal.find('#newitem_fields').load('/newitem-fields', {localid : button.data('localid'), table: button.data('table')});
 });
 
 $('#myModalNewMilestone').on('show.bs.modal', function (event) {
