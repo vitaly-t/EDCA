@@ -152,7 +152,7 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
 
 // Tooltips
 $(document).ready(function(){
-  $('[tooltip="crear_proceso"]').tooltip();
+  $('[data-tooltip="crear_proceso"]').tooltip();
 });
 
 

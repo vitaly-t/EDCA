@@ -55,12 +55,12 @@
                     <h3 class="panel-title"><strong>Proceso de contratación</strong></h3>
                 </div>
                 <div class="panel-body">
-                    <a href="/new-process" class="btn btn-default"  tooltip="crear_proceso" title="Iniciar un nuevo proceso de contratación">Nuevo <i class="fa fa-pencil"></i></a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2" tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
+                    <a href="/new-process" class="btn btn-default"  data-tooltip="crear_proceso" title="Iniciar un nuevo proceso de contratación">Nuevo <i class="fa fa-pencil"></i></a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
                         Buscar <i class="fa fa-search"></i></button>
                     <% if (typeof cp != "undefined"){%>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tooltip="crear_proceso" title="Seleccionar tipo de processo que se desea publicar.">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="crear_proceso" title="Seleccionar tipo de processo que se desea publicar.">
                             Publicar <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
