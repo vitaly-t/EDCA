@@ -559,8 +559,8 @@ router.post('/newtransaction-fields', function (req,res) {
 // new amendment change
 router.post('/new-amendment-change', function (req, res) {
     edca_db.one('insert into $1~ (contractingprocess_id, property, former_value) values ($2,$3,$4) returning id',[
-        req.body.amendmentchanges_table,
-        req.body.ocid,
+        req.body.table,
+        req.body.localid,
         req.body.property,
         req.body.former_value
     ]).then(function (data) {
@@ -572,6 +572,9 @@ router.post('/new-amendment-change', function (req, res) {
     });
 });
 
+router.post('/newamendmentchange-fields', function (req,res) {
+    res.render('modals/newamendmentchange-fields', { localid: req.body.localid, table : req.body.table });
+});
 
 // Update buyer, procuring entity
 router.post('/update-organization', function (req, res) {

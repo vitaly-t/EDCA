@@ -48,13 +48,6 @@ $('#release_package').on('click',function (event) {
     window.open('/publish/release-record/'+$(this).data('id')+"/document.json");
 });
 
-$('#newamendmentchange_form').submit(function (event) {
-    $.post('/new-amendment-change',$(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
-});
-
 // buscar proceso por fecha
 $("#searchprocessbydate_form").submit(function ( event ) {
     $('#searchprocess_result').load('/search-process-by-date/', $(this).serializeArray());
@@ -230,7 +223,15 @@ $('#myModalNewMilestone').on('show.bs.modal', function (event) {
 $('#myModalNewAmendmentChange').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
-    modal.find('#amendmentchanges_table').val( button.data('changestable') );
+    modal.find('#newamendmentchange_fields').load('/newamendmentchange-fields', {localid : button.data('localid'), table: button.data('table') }, function () {
+        $('#newamendmentchange_form').submit(function (event) {
+            $.post('/new-amendment-change',$(this).serialize()).done(function (data) {
+                alert(data);
+            });
+            event.preventDefault();
+        });
+    });
+    //modal.find('#amendmentchanges_table').val( button.data('changestable') );
 });
 
 $('#myModalEditOrg').on('show.bs.modal', function (event) {

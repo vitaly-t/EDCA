@@ -226,16 +226,7 @@
                 <h4 class="modal-title">Nuevo </h4>
             </div>
             <div class="modal-body">
-                <form id ="newamendmentchange_form">
-                    <input type="text" id = "amendmentchanges_table" name = "amendmentchanges_table" hidden>
-                    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-
-                    <p><label>Propiedad<!--Property--></label>
-                        <input class="form-control" type="text" name="property" required>  </p>
-                    <p><label>Valor anterior<!--Former value--></label>
-                        <input class="form-control" type="text" name="former_value" required> </p>
-                    <button class="btn btn-default">Guardar</button>
-                </form>
+                <div id="newamendmentchange_fields"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
