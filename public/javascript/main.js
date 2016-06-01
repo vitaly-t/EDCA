@@ -48,14 +48,6 @@ $('#release_package').on('click',function (event) {
     window.open('/publish/release-record/'+$(this).data('id')+"/document.json");
 });
 
-// Edit publisher
-$('#updatepub_form').submit(function (event) {
-    $.post('/update-publisher/', $(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
-});
-
 $('#newamendmentchange_form').submit(function (event) {
     $.post('/new-amendment-change',$(this).serialize()).done(function (data) {
         alert(data);
@@ -83,18 +75,17 @@ $( "#planning_form" ).submit(function( event ) {
     event.preventDefault();
 });
 
-
-//Update buyer - procuring entity
-$( "#updatesingleorg_form" ).submit(function( event ) {
-    $.post('/update-organization/', $(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
-});
-
 $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
-    $('#updatesingleorg_fields').load('/org-fields/',{ localid: button.data('localid') ,table : button.data('table') });
+    $('#updatesingleorg_fields').load('/org-fields/',{ localid: button.data('localid') ,table : button.data('table') }, function () {
+        //Update buyer - procuring entity event
+        $( "#updatesingleorg_form" ).submit(function( event ) {
+            $.post('/update-organization/', $(this).serialize()).done(function (data) {
+                alert(data);
+            });
+            event.preventDefault();
+        });
+    });
 });
 
 //update ocid
@@ -135,7 +126,15 @@ $('#myModalURL').on('show.bs.modal', function (event) {
 
 $('#myModalEditPub').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
-    $('#updatepub_fields').load('/publisher/',{ localid: button.data('localid') });
+    $('#updatepub_fields').load('/publisher/',{ localid: button.data('localid') }, function () {
+        // Edit publisher submit event
+        $('#updatepub_form').submit(function (event) {
+            $.post('/update-publisher/', $(this).serialize()).done(function (data) {
+                alert(data);
+            });
+            event.preventDefault();
+        });
+    });
 });
 
 $('#myModalNewOrg').on('show.bs.modal', function (event) {
