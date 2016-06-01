@@ -21,13 +21,6 @@ $(function () {
         format: 'YYYY-MM-DD HH:mm:ss'//'DD/MM/YYYY HH:mm:ss'
     });
 
-    //¿?
-    /*
-    $('#newitem_date1, #newitem_date2').datetimepicker({
-        locale: 'es',
-        format: 'YYYY-MM-DD HH:mm:ss'
-    });*/
-
     $('#datetimepicker1').datetimepicker({
         format: 'YYYY-MM-DD',
         useCurrent: false,
