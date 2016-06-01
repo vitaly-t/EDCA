@@ -522,7 +522,7 @@ router.post('/new-transaction', function (req,res) {
         'providerorganization_scheme,providerorganization_id,providerorganization_legalname,providerorganization_uri,' +
         'receiverorganization_scheme,receiverorganization_id,receiverorganization_legalname,receiverorganization_uri, uri) ' +
         'values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) returning id',[
-        req.body.ocid,
+        req.body.localid,
         req.body.source,
         (req.body.implementation_date != '')?req.body.implementation_date:null,
         req.body.value_amount,
@@ -546,6 +546,10 @@ router.post('/new-transaction', function (req,res) {
         console.log('ERROR: ', error);
         res.send('ERROR');
     });
+});
+
+router.post('/newtransaction-fields', function (req,res) {
+    res.render('modals/newtransaction-fields', { localid: req.body.localid });
 });
 
 // new amendment change

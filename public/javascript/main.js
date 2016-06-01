@@ -31,11 +31,6 @@ $(function () {
         format: 'YYYY-MM-DD HH:mm:ss'
     });
 
-    $('#newtrans_date1').datetimepicker({
-        locale: 'es',
-        format: 'YYYY-MM-DD HH:mm:ss'
-    });
-
     $('#datetimepicker1').datetimepicker({
         format: 'YYYY-MM-DD',
         useCurrent: false,
@@ -214,6 +209,17 @@ $('#myModalNewItem').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
     modal.find('#newitem_fields').load('/newitem-fields', {localid : button.data('localid'), table: button.data('table')});
+});
+
+$('#myModalNewTransaction').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    modal.find('#newtransaction_fields').load('/newtransaction-fields', {localid : button.data('localid')}, function () {
+        $('#newtrans_date1').datetimepicker({
+            locale: 'es',
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
+    });
 });
 
 $('#myModalNewMilestone').on('show.bs.modal', function (event) {
