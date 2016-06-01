@@ -150,6 +150,12 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
     });
 });
 
+// Tooltips
+$(document).ready(function(){
+  $('[tooltip="crear_proceso"]').tooltip();
+});
+
+
 $('#myModalNewDoc').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
