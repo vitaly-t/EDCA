@@ -92,7 +92,7 @@ function getMString ( fecha ){
                     Hitos <!--Milestones--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-toggle="modal" data-milestonetable="tendermilestone" data-target="#myModalNewMilestone">Nuevo</a></li>
+                    <li><a href="#" data-toggle="modal" data-table="tendermilestone" data-localid="<%= cp.id %>" data-target="#myModalNewMilestone">Nuevo</a></li>
                     <li><a href="#" data-toggle="modal" data-table="tendermilestone" data-ocid="<%=cp.id%>" data-target="#myModalEditMilestones">Editar</a></li>
                 </ul>
             </div>
@@ -561,7 +561,7 @@ function getMString ( fecha ){
                     Hitos <!--Milestones--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-toggle="modal" data-milestonetable="implementationmilestone" data-target="#myModalNewMilestone">Nuevo</a></li>
+                    <li><a href="#" data-toggle="modal" data-table="implementationmilestone" data-localid="<%= cp.id %>" data-target="#myModalNewMilestone">Nuevo</a></li>
                     <li><a href="#" data-toggle="modal" data-table="implementationmilestone" data-ocid="<%=cp.id%>" data-target="#myModalEditMilestones">Editar</a></li>
                 </ul>
             </div>

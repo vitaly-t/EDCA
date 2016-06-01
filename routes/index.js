@@ -498,8 +498,8 @@ router.post('/newitem-fields', function (req,res) {
 router.post('/new-milestone',function (req,res) {
     edca_db.one('insert into $1~ (contractingprocess_id, milestoneid, title, description, duedate, date_modified, status) values ($2,$3,$4,$5,$6,$7,$8) returning id',
         [
-            req.body.milestone_table,
-            req.body.ocid,
+            req.body.table,
+            req.body.localid,
             req.body.milestoneid,
             req.body.title,
             req.body.description,
@@ -515,6 +515,10 @@ router.post('/new-milestone',function (req,res) {
         res.send('ERROR');
     });
 
+});
+
+router.post('/newmilestone-fields', function (req,res) {
+    res.render('modals/newmilestone-fields', { localid: req.body.localid , table : req.body.table });
 });
 
 router.post('/new-transaction', function (req,res) {

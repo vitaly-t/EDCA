@@ -21,15 +21,12 @@ $(function () {
         format: 'YYYY-MM-DD HH:mm:ss'//'DD/MM/YYYY HH:mm:ss'
     });
 
+    //¿?
+    /*
     $('#newitem_date1, #newitem_date2').datetimepicker({
         locale: 'es',
         format: 'YYYY-MM-DD HH:mm:ss'
-    });
-
-    $('#newmilestone_date1, #newmilestone_date2').datetimepicker({
-        locale: 'es',
-        format: 'YYYY-MM-DD HH:mm:ss'
-    });
+    });*/
 
     $('#datetimepicker1').datetimepicker({
         format: 'YYYY-MM-DD',
@@ -56,14 +53,6 @@ $('#release').on('click',function (event) {
 
 $('#release_package').on('click',function (event) {
     window.open('/publish/release-record/'+$(this).data('id')+"/document.json");
-});
-
-// New milestone
-$('#newmilestone_form').submit(function (event) {
-    $.post('/new-milestone/', $(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
 });
 
 // Edit publisher
@@ -224,7 +213,20 @@ $('#myModalNewTransaction').on('show.bs.modal', function (event) {
 $('#myModalNewMilestone').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
-    modal.find('#milestone_table').val( button.data('milestonetable') );
+    modal.find('#newmilestone_fields').load('/newmilestone-fields',{localid: button.data('localid'), table : button.data('table')}, function () {
+        // Submit new milestone event
+        $('#newmilestone_form').submit(function (event) {
+            $.post('/new-milestone/', $(this).serialize()).done(function (data) {
+                alert(data);
+            });
+            event.preventDefault();
+        });
+        //datepickers
+        $('#newmilestone_date1, #newmilestone_date2').datetimepicker({
+            locale: 'es',
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
+    });
 });
 
 $('#myModalNewAmendmentChange').on('show.bs.modal', function (event) {

@@ -50,7 +50,6 @@
             </div>
             <div class="modal-body">
                     <div id="neworg_fields"></div>
-                    <button type="submit" class="btn btn-default">Crear</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -160,33 +159,7 @@
                 <h4 class="modal-title">Nuevo </h4>
             </div>
             <div class="modal-body">
-                <form id ="newmilestone_form">
-                    <input type="text" name="ocid" value = "<%= (typeof cp != "undefined" )? cp.id : "" %>" hidden>
-                    <input type="text" id = "milestone_table" name = "milestone_table" hidden>
-                    <p><label>ID</label>
-                        <input type="text" class="form-control" name="milestoneid" required></p>
-                    <p><label>Título <!--Title--></label>
-                        <input type="text" class="form-control" name="title" required></p>
-                    <p><label>Descripción<!--Description--></label>
-                        <input type="text" class="form-control" name="description" required></p>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <p>
-                                <label>Fecha de vencimiento<!--Due date--></label>
-                                <input type="text" id="newmilestone_date1" class="form-control" name="duedate">
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p>
-                                <label>Fecha de modificación<!--Date modified--></label>
-                                <input type="text" id="newmilestone_date2" class="form-control" name="date_modified">
-                            </p>
-                        </div>
-                    </div>
-                    <p><label>Estatus<!--Status--></label>
-                        <input type="text" class="form-control" name="status"></p>
-                    <button class="btn btn-default">Guardar</button>
-                </form>
+                <div id="newmilestone_fields"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
