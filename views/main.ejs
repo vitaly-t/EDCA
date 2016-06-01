@@ -71,15 +71,15 @@
                             <li><a href="#" data-localid="<%= cp.id %>" data-toggle="modal" data-target="#myModalEditPub">Publisher</a></li>
                         </ul>
                     </div>
-                    <p>
+
                     <form id ="updateocid_form">
-                        <input name="localid" type="text" value="<%= (typeof cp != "undefined" )? cp.id : ''%>" hidden>
-                        <p>
-                        <label>Identificador de proceso</label>
-                        <input type="text" name='ocid' class="form-control" value="<%= (cp.ocid != null)? cp.ocid : '' %>" placeholder="OCID"></p>
+                        <br>
+                        <input type="text" name="localid" value="<%= (typeof cp != "undefined" )? cp.id : ''%>" hidden>
+                        <p><label>Identificador de proceso</label>
+                        <input type="text" name='ocid' class="form-control" value="<%= cp.ocid %>" placeholder="OCID"></p>
                         <button class="btn btn-default">Guardar</button>
                     </form>
-                    </p>
+
                     <%}%>
                 </div>
             </div>
@@ -126,12 +126,12 @@
 
 
     <% if (typeof error!= "undefined"){%>
-    <p>
     <div class="alert alert-danger alert-dismissible" role="alert">
+        <p>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Atención:</strong> <%= error %>
+        </p>
     </div>
-    </p>
     <%}%>
 
 
