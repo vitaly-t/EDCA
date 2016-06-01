@@ -483,7 +483,7 @@ router.post('/new-item',function (req,res) {
             req.body.unit_value_currency
         ]
     ).then(function (data) {
-        console.log("New milestone: ", data);
+        console.log("New item: ", data);
         res.send('Datos registrados');
     }).catch(function (error) {
         console.log('ERROR: ', error);

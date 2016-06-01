@@ -58,22 +58,6 @@ $('#release_package').on('click',function (event) {
     window.open('/publish/release-record/'+$(this).data('id')+"/document.json");
 });
 
-// Crear organización
-$('#neworg_form').submit(function (event) {
-    $.post('/new-organization/', $(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
-});
-
-// Nuevo docto
-$('#newdoc_form').submit(function (event) {
-    $.post('/new-document/', $(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
-});
-
 // New milestone
 $('#newmilestone_form').submit(function (event) {
     $.post('/new-milestone/', $(this).serialize()).done(function (data) {
@@ -82,25 +66,9 @@ $('#newmilestone_form').submit(function (event) {
     event.preventDefault();
 });
 
-// New item
-$('#newitem_form').submit(function (event) {
-    $.post('/new-item/', $(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
-});
-
-// Edit publisher 
+// Edit publisher
 $('#updatepub_form').submit(function (event) {
     $.post('/update-publisher/', $(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
-});
-
-//new transaction
-$('#newtransaction_form').submit(function (event) {
-    $.post('/new-transaction', $(this).serialize()).done(function(data){
         alert(data);
     });
     event.preventDefault();
@@ -190,17 +158,32 @@ $('#myModalEditPub').on('show.bs.modal', function (event) {
 
 $('#myModalNewOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
-    $('#neworg_fields').load('/neworg-fields/',{ localid: button.data('localid') ,table : button.data('table') });
+    $('#neworg_fields').load('/neworg-fields/',{ localid: button.data('localid') ,table : button.data('table') }, function () {
+        //submit new organization event (tenderers, providers)
+        $('#neworg_form').submit(function (event) {
+            $.post('/new-organization/', $(this).serialize()).done(function (data) {
+                alert(data);
+            });
+            event.preventDefault();
+        });
+    });
 });
 
 $('#myModalNewDoc').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
     modal.find('#newdoc_fields').load('/newdoc-fields', { localid: button.data('localid'), table: button.data('table') }, function () {
-        //Date pickers
+        //Date picker
         $('#newdoc_date1, #newdoc_date2').datetimepicker({
             locale: 'es',
             format: 'YYYY-MM-DD HH:mm:ss'
+        });
+        //submit new document event
+        $('#newdoc_form').submit(function (event) {
+            $.post('/new-document/', $(this).serialize()).done(function (data) {
+                alert(data);
+            });
+            event.preventDefault();
         });
     });
 });
@@ -208,16 +191,32 @@ $('#myModalNewDoc').on('show.bs.modal', function (event) {
 $('#myModalNewItem').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
-    modal.find('#newitem_fields').load('/newitem-fields', {localid : button.data('localid'), table: button.data('table')});
+    modal.find('#newitem_fields').load('/newitem-fields', {localid : button.data('localid'), table: button.data('table')}, function () {
+        //submit new item event
+        $('#newitem_form').submit(function (event) {
+            $.post('/new-item/', $(this).serialize()).done(function (data) {
+                alert(data);
+            });
+            event.preventDefault();
+        });
+    });
 });
 
 $('#myModalNewTransaction').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
     modal.find('#newtransaction_fields').load('/newtransaction-fields', {localid : button.data('localid')}, function () {
+        //datepicker
         $('#newtrans_date1').datetimepicker({
             locale: 'es',
             format: 'YYYY-MM-DD HH:mm:ss'
+        });
+        //submit new transaction event
+        $('#newtransaction_form').submit(function (event) {
+            $.post('/new-transaction', $(this).serialize()).done(function(data){
+                alert(data);
+            });
+            event.preventDefault();
         });
     });
 });
