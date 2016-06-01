@@ -49,16 +49,39 @@
 <div class="container all-container">
 
     <div class="row">
-        <div class="col-sm-6">
+        <% if (typeof cp != "undefined"){%>
+        <div class="col-sm-5">
+            <div class="panel panel-default pill-container">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Identificador de proceso</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <form id ="updateocid_form">
+                        <input type="text" name="localid" value="<%= (typeof cp != "undefined" )? cp.id : ''%>" hidden>
+                        <p>
+                            <input type="text" name='ocid' class="form-control" value="<%= cp.ocid %>" placeholder="OCID">
+                        </p>
+                        <button class="btn btn-default">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <%}%>
+
+        <div class="col-sm-7">
             <div class="panel panel-default pill-container">
                 <div class="panel-heading">
                     <h3 class="panel-title"><strong>Proceso de contratación</strong></h3>
                 </div>
                 <div class="panel-body">
-                    <a href="/new-process" class="btn btn-default"  data-tooltip="crear_proceso" title="Iniciar un nuevo proceso de contratación">Nuevo <i class="fa fa-pencil"></i></a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
+                    <a href="/new-process" class="btn btn-default" data-tooltip="crear_proceso" title="Iniciar un nuevo proceso de contratación">Nuevo <i class="fa fa-pencil"></i></a>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
                         Buscar <i class="fa fa-search"></i></button>
+
                     <% if (typeof cp != "undefined"){%>
+                    <button type="button" class="btn btn-default" data-localid="<%= cp.id %>" data-table="buyer" data-toggle="modal" data-target="#myModalEditSingleOrg">
+                        Comprador <!--Buyer--> <i class="fa fa-user"></i></button>
+
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="crear_proceso" title="Seleccionar tipo de processo que se desea publicar.">
                             Publicar <span class="caret"></span>
@@ -71,57 +94,10 @@
                             <li><a href="#" data-localid="<%= cp.id %>" data-toggle="modal" data-target="#myModalEditPub">Publisher</a></li>
                         </ul>
                     </div>
-
-                    <form id ="updateocid_form">
-                        <br>
-                        <input type="text" name="localid" value="<%= (typeof cp != "undefined" )? cp.id : ''%>" hidden>
-                        <p><label>Identificador de proceso</label>
-                        <input type="text" name='ocid' class="form-control" value="<%= cp.ocid %>" placeholder="OCID"></p>
-                        <button class="btn btn-default">Guardar</button>
-                    </form>
-
                     <%}%>
                 </div>
             </div>
         </div>
-
-        <% if (typeof cp != "undefined"){%>
-        <div class="col-sm-6">
-            <div class="panel panel-default pill-container">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Organizaciones</strong></h3>
-                </div>
-                <div class="panel-body">
-
-                    <p>
-                    <button type="button" class="btn btn-primary" data-localid="<%= cp.id %>" data-table="buyer" data-toggle="modal" data-target="#myModalEditSingleOrg">Comprador <!--Buyer--> <i class="fa fa-user"></i></button>
-                    <button type="button" class="btn btn-primary" data-localid="<%= cp.id %>" data-table="procuringentity" data-toggle="modal" data-target="#myModalEditSingleOrg">Contratante <!--Procuring E.--> <i class="fa fa-user"></i></button>
-                    </p>
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Licitantes<!-- Tenderers--> <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-toggle="modal" data-localid = "<%= cp.id%>" data-table="tenderer" data-target="#myModalNewOrg">Nuevo</a></li>
-                            <li><a href="#" data-toggle="modal" data-ocid="<%=cp.id%>" data-table="tenderer" data-target="#myModalEditOrg">Editar</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Proveedores <!--Suppliers--> <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-toggle="modal" data-localid="<%= cp.id %>" data-table="supplier" data-target="#myModalNewOrg">Nuevo</a></li>
-                            <li><a href="#" data-toggle="modal" data-ocid="<%=cp.id%>" data-table="supplier" data-target="#myModalEditOrg">Editar</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <%}%>
     </div>
 
 

@@ -39,6 +39,14 @@ $(function () {
 
 });
 
+//update ocid
+$("#updateocid_form").submit(function (event) {
+    $.post('/update-ocid',$(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
+
 //publish
 $('#release').on('click',function (event) {
     window.open('/publish/release/'+ $(this).data('id')+"/document.json" );
@@ -68,6 +76,30 @@ $( "#planning_form" ).submit(function( event ) {
     event.preventDefault();
 });
 
+//Update tender
+$("#tender_form").submit(function(event){
+    $.post('/update-tender/', $(this).serialize()).done(function(data){
+        alert(data);
+    });
+    event.preventDefault();
+});
+
+//update award
+$("#award_form").submit(function(event){
+    $.post('/update-award/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
+
+//update contract
+$("#contract_form").submit(function(event){
+    $.post('/update-contract/', $(this).serialize()).done(function (data) {
+        alert(data);
+    });
+    event.preventDefault();
+});
+
 $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     $('#updatesingleorg_fields').load('/org-fields/',{ localid: button.data('localid') ,table : button.data('table') }, function () {
@@ -79,35 +111,6 @@ $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
             event.preventDefault();
         });
     });
-});
-
-//update ocid
-$("#updateocid_form").submit(function (event) {
-    $.post('/update-ocid',$(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
-});
-
-$("#tender_form").submit(function(event){
-    $.post('/update-tender/', $(this).serialize()).done(function(data){
-        alert(data);
-    });
-    event.preventDefault();
-});
-
-$("#award_form").submit(function(event){
-    $.post('/update-award/', $(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
-});
-
-$("#contract_form").submit(function(event){
-    $.post('/update-contract/', $(this).serialize()).done(function (data) {
-        alert(data);
-    });
-    event.preventDefault();
 });
 
 $('#myModalURL').on('show.bs.modal', function (event) {
@@ -147,7 +150,6 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
 $(document).ready(function(){
   $('[data-tooltip="crear_proceso"]').tooltip();
 });
-
 
 $('#myModalNewDoc').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
@@ -224,6 +226,7 @@ $('#myModalNewAmendmentChange').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
     modal.find('#newamendmentchange_fields').load('/newamendmentchange-fields', {localid : button.data('localid'), table: button.data('table') }, function () {
+        //submit new amendment change event
         $('#newamendmentchange_form').submit(function (event) {
             $.post('/new-amendment-change',$(this).serialize()).done(function (data) {
                 alert(data);
@@ -231,7 +234,6 @@ $('#myModalNewAmendmentChange').on('show.bs.modal', function (event) {
             event.preventDefault();
         });
     });
-    //modal.find('#amendmentchanges_table').val( button.data('changestable') );
 });
 
 $('#myModalEditOrg').on('show.bs.modal', function (event) {

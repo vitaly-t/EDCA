@@ -78,6 +78,18 @@ function getMString ( fecha ){
             <h3>2. LICITACIÓN</h3>
 
             <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Licitantes<!-- Tenderers--> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-toggle="modal" data-localid = "<%= cp.id%>" data-table="tenderer" data-target="#myModalNewOrg">Nuevo</a></li>
+                    <li><a href="#" data-toggle="modal" data-ocid="<%=cp.id%>" data-table="tenderer" data-target="#myModalEditOrg">Editar</a></li>
+                </ul>
+            </div>
+
+            <button type="button" class="btn btn-primary" data-localid="<%= cp.id %>" data-table="procuringentity" data-toggle="modal" data-target="#myModalEditSingleOrg">Contratante <!--Procuring E.--> <i class="fa fa-user"></i></button>
+
+            <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="crear_proceso" title="Aquí se pueden agregar los diversos documentos que pertenecen a la fase de licitación.">
                     Documentos<!-- Documents--> <span class="caret"></span>
                 </button>
@@ -289,6 +301,16 @@ function getMString ( fecha ){
         <div class="well well-lg">
             <h3>3. ADJUDICACIÓN</h3>
             <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof award != "undefined")? award.contractingprocess_id:''%>" >
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Proveedores <!--Suppliers--> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-toggle="modal" data-localid="<%= cp.id %>" data-table="supplier" data-target="#myModalNewOrg">Nuevo</a></li>
+                    <li><a href="#" data-toggle="modal" data-ocid="<%=cp.id%>" data-table="supplier" data-target="#myModalEditOrg">Editar</a></li>
+                </ul>
+            </div>
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
