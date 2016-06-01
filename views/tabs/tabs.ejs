@@ -107,15 +107,6 @@ function getMString ( fecha ){
                 </ul>
             </div>
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Cambios de enmienda<!--Amendmendt changes--> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" data-toggle="modal" data-changestable="tenderamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-table="tenderamendmentchanges" data-ocid="<%=cp.id%>" data-target="#myModalEditChanges">Editar</a></li>
-                </ul>
-            </div>
             <hr>
 
             <form id="tender_form" role="form" >
@@ -263,6 +254,18 @@ function getMString ( fecha ){
                 </p>
 
                 <h3>2.1 ENMIENDA <!--AMENDMENT--></h3>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cambios de enmienda<!--Amendmendt changes--> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-changestable="tenderamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
+                        <li><a href="#" data-toggle="modal" data-table="tenderamendmentchanges" data-ocid="<%=cp.id%>" data-target="#myModalEditChanges">Editar</a></li>
+                    </ul>
+                </div>
+                <hr>
+
                 <div style="position:relative;">
                     <p>
                         <label>Fecha <!--Date--></label>
@@ -307,15 +310,6 @@ function getMString ( fecha ){
                 </ul>
             </div>
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Cambios de enmienda <!--Amendment changes--> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" data-toggle="modal" data-changestable="awardamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-table="awardamendmentchanges" data-ocid="<%=cp.id%>" data-target="#myModalEditChanges">Editar</a></li>
-                </ul>
-            </div>
             <hr>
 
             <form id="award_form" role="form">
@@ -381,6 +375,16 @@ function getMString ( fecha ){
                 </div>
 
                 <h3>3.1 ENMIENDA <!-- AMENDMENT--></h3>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cambios de enmienda <!--Amendment changes--> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-changestable="awardamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
+                        <li><a href="#" data-toggle="modal" data-table="awardamendmentchanges" data-ocid="<%=cp.id%>" data-target="#myModalEditChanges">Editar</a></li>
+                    </ul>
+                </div>
+                <hr>
                 <div style="position: relative">
                     <p>
                         <label>Fecha<!--Amendment date--></label>
@@ -425,16 +429,6 @@ function getMString ( fecha ){
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-itemtable="contractitem" data-target="#myModalNewItem">Nuevo</a></li>
                     <li><a href="#" data-toggle="modal" data-table="contractitem" data-ocid="<%= cp.id%>" data-target="#myModalEditItem">Editar</a></li>
-                </ul>
-            </div>
-
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Cambios de enmienda<!--Amendment changes--> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" data-toggle="modal" data-changestable="contractamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-table="contractamendmentchanges" data-ocid="<%=cp.id%>" data-target="#myModalEditChanges">Editar</a></li>
                 </ul>
             </div>
 
@@ -507,6 +501,16 @@ function getMString ( fecha ){
                 </div>
 
                 <h3>4.1 ENMIENDA<!-- AMENDMENT --></h3>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cambios de enmienda<!--Amendment changes--> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-changestable="contractamendmentchanges" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
+                        <li><a href="#" data-toggle="modal" data-table="contractamendmentchanges" data-ocid="<%=cp.id%>" data-target="#myModalEditChanges">Editar</a></li>
+                    </ul>
+                </div>
+                <hr>
                 <div style="position: relative">
                     <p>
                         <label>Fecha <!--Amendment date--></label>
