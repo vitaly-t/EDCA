@@ -337,16 +337,16 @@ function getMString ( fecha ){
             <form id="award_form" role="form">
                 <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof award != "undefined")? award.contractingprocess_id :''%>" >
 
-                <p><label data-tooltip="crear_proceso" title=''>ID</label>
+                <p><label data-tooltip="crear_proceso" title='Clave del fallo que adjudica el contrato'>ID</label>
                     <input type="text" class="form-control" name="awardid" value="<%= award.awardid %>" required>
                 </p>
-                <p><label data-tooltip="crear_proceso" title=''>Título<!--Title--></label>
+                <p><label data-tooltip="crear_proceso" title='Nombre asignado al fallo de la adjudicación'>Título<!--Title--></label>
                     <input type="text" name="title" class="form-control" value = "<%= (typeof award != "undefined")? award.title:''%>" >
                 </p>
-                <p><label data-tooltip="crear_proceso" title=''>Descripción<!--Description--></label>
+                <p><label data-tooltip="crear_proceso" title='Descripción de la adjudicación del contrato'>Descripción<!--Description--></label>
                     <input type="text" name="description" class="form-control" value = "<%= (typeof award != "undefined")? award.description:''%>" >
                 </p>
-                <p><label data-tooltip="crear_proceso" title=''>Estatus<!--Status--></label>
+                <p><label data-tooltip="crear_proceso" title='Estado actual de la adjudicación del contrato'>Estatus<!--Status--></label>
                     <select class="form-control" name="status">
                         <option value="none" <%= (award.status == 'none')?'selected':''%> >Ninguno</option>
                         <option value="pending" <%= (award.status == 'pending')?'selected':''%> >Pendiente</option>
@@ -357,7 +357,7 @@ function getMString ( fecha ){
                 </p>
 
                 <div style="position: relative">
-                    <label data-tooltip="crear_proceso" title=''>Fecha<!--Date--></label>
+                    <label data-tooltip="crear_proceso" title='Fecha en que se adjudicó el contrato'>Fecha<!--Date--></label>
                     <p>
                         <input type="text" id ="adju_date1" name="award_date" class="form-control"
                                 <%if(typeof award !="undefined"){%>
@@ -367,18 +367,18 @@ function getMString ( fecha ){
                 </div>
 
                 <p>
-                    <label data-tooltip="crear_proceso" title=''>Valor: Monto<!--Value amount--></label>
+                    <label data-tooltip="crear_proceso" title='Valor total de la adjudicación'>Valor: Monto<!--Value amount--></label>
                     <input type="number" step="0.01" class="form-control" name="value_amount" value = "<%= (typeof award != "undefined")? award.value_amount:''%>" required>
                 </p>
                 <p>
-                    <label data-tooltip="crear_proceso" title=''>Valor: Divisa<!--Value currency--></label>
+                    <label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa<!--Value currency--></label>
                     <input type="text" class="form-control" name="value_currency" value = "<%= (typeof award != "undefined")? award.value_currency:''%>" >
                 </p>
 
                 <div class="row">
                     <div class="col-sm-6">
                         <p>
-                            <label data-tooltip="crear_proceso" title=''>Periodo de contrato: Fecha inicial<!--Contract period start date--></label>
+                            <label data-tooltip="crear_proceso" title='Fecha de inicio del contrato'>Periodo de contrato: Fecha inicial<!--Contract period start date--></label>
                             <input type="text" id ="adju_date2" name="contractperiod_startdate" class="form-control"
                                     <%if (typeof award != "undefined"){%>
                                    value = "<%= ( award.contractperiod_startdate != null)? getMString(award.contractperiod_startdate):''%>"
@@ -387,7 +387,7 @@ function getMString ( fecha ){
                     </div>
                     <div class="col-sm-6">
                         <p>
-                            <label data-tooltip="crear_proceso" title=''>Periodo de contrato: Fecha final<!--Contract period end date--></label>
+                            <label data-tooltip="crear_proceso" title='Fecha de finalización del contrato'>Periodo de contrato: Fecha final<!--Contract period end date--></label>
                             <input type="text" id = "adju_date3" name="contractperiod_enddate" class="form-control"
                                     <%if(typeof award != "undefined"){%>
                                    value = "<%= (award.contractperiod_enddate != null)? getMString(award.contractperiod_enddate):''%>"
@@ -399,7 +399,7 @@ function getMString ( fecha ){
                 <h3>3.1 ENMIENDA <!-- AMENDMENT--></h3>
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Cambios de enmienda <!--Amendment changes--> <span class="caret"></span>
+                        Cambios <!--Amendment changes--> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="#" data-toggle="modal" data-table="awardamendmentchanges" data-localid="<%= cp.id %>" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
@@ -409,7 +409,7 @@ function getMString ( fecha ){
                 <hr>
                 <div style="position: relative">
                     <p>
-                        <label data-tooltip="crear_proceso" title=''>Fecha<!--Amendment date--></label>
+                        <label data-tooltip="crear_proceso" title='Fecha en que se realiza la modificación a la adjudicación.'>Fecha<!--Amendment date--></label>
                         <input type="text" class="form-control" id="adju_date4" name="amendment_date"
                                 <%if(typeof award != "undefined"){%>
                                value = "<%= (award.amendment_date != null)? getMString(award.amendment_date):''%>"
@@ -418,7 +418,7 @@ function getMString ( fecha ){
                 </div>
 
                 <p>
-                    <label data-tooltip="crear_proceso" title=''>Fundamento <!--Amendment rationale--></label>
+                    <label data-tooltip="crear_proceso" title='Justificación de la modificación que se realiza a la adjudicación.'>Fundamento <!--Amendment rationale--></label>
                     <input type="text" class="form-control" name="amendment_rationale" value = "<%= (typeof award != "undefined")? award.amendment_rationale:''%>" >
                 </p>
 
@@ -459,22 +459,22 @@ function getMString ( fecha ){
             <form id="contract_form" role="form">
 
                 <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof contract != "undefined")? contract.contractingprocess_id :''%>" >
-                <p><label data-tooltip="crear_proceso" title=''>ID</label>
+                <p><label data-tooltip="crear_proceso" title=Clave única que identifica el contrato. Dicha clave no puede ser modificada durante el proceso de contratación.''>ID</label>
                     <input type="text" class="form-control" name="contractid" value="<%= contract.contractid %>" required>
                 </p>
-                <p><label data-tooltip="crear_proceso" title=''>ID de adjudicación<!--Award ID--></label>
+                <p><label data-tooltip="crear_proceso" title='Clave del fallo que adjudica el contrato'>ID de adjudicación<!--Award ID--></label>
                     <input class="form-control" type="text" name="awardid" value = "<%= (typeof contract != "undefined")? contract.awardid:''%>" required>
                 </p>
                 <p>
-                    <label data-tooltip="crear_proceso" title=''>Título <!--Title--></label>
+                    <label data-tooltip="crear_proceso" title='Título o nombre que se le asigna al contrato'>Título <!--Title--></label>
                     <input type="text" class="form-control" name = "title" value = "<%= (typeof contract != "undefined")? contract.title:''%>" >
                 </p>
                 <p>
-                    <label data-tooltip="crear_proceso" title=''>Descripción <!--Description--></label>
+                    <label data-tooltip="crear_proceso" title='Descripción del contrato'>Descripción <!--Description--></label>
                     <input type="text" class="form-control" name = "description" value = "<%= (typeof contract != "undefined")? contract.description:''%>" >
                 </p>
                 <p>
-                    <label data-tooltip="crear_proceso" title=''>Estatus <!--Status--></label>
+                    <label data-tooltip="crear_proceso" title='Estado actual del contrato'>Estatus <!--Status--></label>
                     <select class="form-control" name="status">
                         <option value="none" <%= (contract.status == 'none')?'selected':''%> >Ninguno</option>
                         <option value="pending" <%= (contract.status == 'pending')?'selected':''%> >Pendiente</option>
@@ -487,7 +487,7 @@ function getMString ( fecha ){
                 <div class="row">
                     <div class="col-sm-6">
                         <p>
-                            <label data-tooltip="crear_proceso" title=''>Periodo: Fecha inicial<!--Period start date--></label>
+                            <label data-tooltip="crear_proceso" title='Fecha de inicio del contrato'>Periodo: Fecha inicial<!--Period start date--></label>
                             <input type="text" id= "cont_date1" name  = "period_startdate" class="form-control"
                                     <%if (typeof contract != "undefined"){%>
                                    value = "<%= (contract.period_startdate != null)? getMString(contract.period_startdate):''%>"
@@ -496,7 +496,7 @@ function getMString ( fecha ){
                     </div>
                     <div class="col-sm-6">
                         <p>
-                            <label data-tooltip="crear_proceso" title=''>Periodo: Fecha final <!--Period end date--></label>
+                            <label data-tooltip="crear_proceso" title='Fecha de finalización del contrato'>Periodo: Fecha final <!--Period end date--></label>
                             <input type="text" id= "cont_date2" class="form-control" name= "period_enddate"
                                     <%if(typeof contract != "undefined"){%>
                                    value = "<%= (contract.period_enddate != null)? getMString(contract.period_enddate):''%>"
@@ -505,16 +505,16 @@ function getMString ( fecha ){
                     </div>
                 </div>
 
-                <p><label data-tooltip="crear_proceso" title=''>Valor: Monto<!--Value amount--></label>
+                <p><label data-tooltip="crear_proceso" title='Valor total del contrato. En el caso de contratos marcos se referirá a un valor estimado o valor máximo del contrato'>Valor: Monto<!--Value amount--></label>
                     <input type="number" step="0.01" class="form-control" name="value_amount" value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>" required>
                 </p>
-                <p><label data-tooltip="crear_proceso" title=''>Valor: Divisa<!--Value currency--></label>
+                <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa<!--Value currency--></label>
                     <input type="text" class="form-control" name="value_currency" value = "<%= (typeof contract != "undefined")? contract.value_currency:''%>" >
                 </p>
 
                 <div style="position: relative">
                     <p>
-                        <label data-tooltip="crear_proceso" title=''>Fecha de firma<!--Date signed--></label>
+                        <label data-tooltip="crear_proceso" title='Fecha en la que fue firmado el contrato o se recibió la última firma.'>Fecha de firma<!--Date signed--></label>
                         <input type="text" id="cont_date3" class="form-control" name="datesigned"
                                 <% if (typeof contract != "undefined"){%>
                                value = "<%= (contract.datesigned != null)? getMString(contract.datesigned):''%>"
@@ -525,7 +525,7 @@ function getMString ( fecha ){
                 <h3>4.1 ENMIENDA<!-- AMENDMENT --></h3>
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Cambios de enmienda<!--Amendment changes--> <span class="caret"></span>
+                        Cambios<!--Amendment changes--> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="#" data-toggle="modal" data-table="contractamendmentchanges" data-localid="<%= cp.id %>" data-target="#myModalNewAmendmentChange">Nuevo</a></li>
