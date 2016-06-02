@@ -36,35 +36,35 @@ function getMString ( fecha ){
             <hr>
 
             <form id="planning_form" >
-                <p> <label>Fundamento<!--Rationale--></label>
+                <p> <label data-tooltip="crear_proceso" title='Texto que describe los motivos de la contratación. No se limita al "fundamento legal", es decir, a aquella normatividad que permite realizar la contratación, sino que además debe señalarse la necesidad a la que responde el proceso de contratación. Se puede fundamentar en la planeación estratégica y sectorial de la institución que ejecuta el proyecto.'>Fundamento<!--Rationale--></label>
                     <input type="text" class="form-control" name="rationale" value = "<%=(typeof planning!= "undefined")? planning.rationale : ''%>" >
                 </p>
 
                 <h3>1.1 PRESUPUESTO <!--BUDGET--></h3>
                 <input type="text" name="contractingprocess_id" value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>" hidden>
                 <!-- Falta el id de planning -->
-                <p><label>Origen presupuestario<!--Budget source--></label>
+                <p><label data-tooltip="crear_proceso" title='Dato que señala la fuente de la que provienen los recursos económicos para la contratación. Este dato puede conducir a otros paquetes de datos que provean mayor detalle sobre los recursos económicos que sustentan la contratación. Por ejemplo, la desagregación del presupuesto asignado.'>Origen presupuestario<!--Budget source--></label>
                     <input class="form-control" name="budget_source" value = "<%= (typeof budget != "undefined")? budget.budget_source:''%>" >
                 </p>
-                <p><label>ID</label>
+                <p><label data-tooltip="crear_proceso" title='Identificador de la fuente presupuestaria que provee recursos económicos para la contratación.'>ID</label>
                     <input class="form-control" name="budget_budgetid" value="<%= budget.budget_budgetid %>">
                 </p>
-                <p><label>Descripción <!--Budget description--></label>
+                <p><label data-tooltip="crear_proceso" title='Descripción de la fuente presupuestaria. Puede referirse al título o al nombre de la fuente presupuestaria que provee los recursos económicos necesarios para el proyecto de contratación.'>Descripción <!--Budget description--></label>
                     <input class="form-control" name="budget_description" value = "<%= (typeof budget != "undefined")? budget.budget_description:''%>" >
                 </p>
-                <p><label>Monto <!--Budget amount--></label>
+                <p><label data-tooltip="crear_proceso" title='Valor asignado en la fuente presupuestaria a la contratación.'>Monto <!--Budget amount--></label>
                     <input class="form-control" type="number" name="budget_amount" value = "<%= (typeof budget != "undefined")? budget.budget_amount:'' %>" required>
                 </p>
-                <p><label>Divisa <!--Budget currency--></label>
+                <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Divisa <!--Budget currency--></label>
                     <input class="form-control" name="budget_currency" value = "<%= (typeof budget != "undefined")? budget.budget_currency:'' %>" >
                 </p>
-                <p><label>Proyecto<!--Budget project--></label>
+                <p><label data-tooltip="crear_proceso" title='Nombre del proyecto relacionado con la contratación y que provee de recursos financieros para su ejecución (en caso de aplicar). Un proyecto provee mayor desagregación sobre el financiamiento que la fuente presupuestaria.'>Proyecto<!--Budget project--></label>
                     <input class="form-control" name="budget_project" value = "<%= (typeof budget != "undefined")? budget.budget_project:'' %>" >
                 </p>
-                <p><label>ID de proyecto <!--Budget projectID--></label>
+                <p><label data-tooltip="crear_proceso" title='Clave que identifica el proyecto presupuestario del que el proceso de contratación forma parte o mediante el cuál es financiado (en caso de ser aplicable).'>ID de proyecto <!--Budget projectID--></label>
                     <input class="form-control" name="budget_projectid" value = "<%= (typeof budget != "undefined")? budget.budget_projectid:"" %>" >
                 </p>
-                <p><label>URI</label>
+                <p><label data-tooltip="crear_proceso" title='Enlace o liga a un registro digital (o base de datos) que contenga la información sobre el presupuesto asociado con la contratación.'>URI</label>
                     <input class="form-control" name="budget_uri" value = "<%= (typeof budget != "undefined")? budget.budget_uri:'' %>" >
                 </p>
                 <button type="submit" class="btn btn-default">Guardar</button>
