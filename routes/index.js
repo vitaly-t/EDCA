@@ -1329,12 +1329,19 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
     //end_parsed will be emitted once parsing finished
     converter.on("end_parsed", function (jsonArray) {
         console.log(jsonArray); //here is your result jsonarray
+
+       // require('fs').unlink(req.file.path);
     });
 
-    //console.log(req.file.buffer);
+    console.log(req.file);
     require('fs').createReadStream(req.file.path).pipe(converter);
 
-    res.send('OK');
+    res.redirect('/main/'+ req.body.localid);
+});
+
+
+router.post('/uploadfile-fields', function (req,res) {
+    res.render('modals/uploadfile-fields', { localid: req.body.localid, stage: req.body.stage });
 });
 
 module.exports = router;

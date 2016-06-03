@@ -39,6 +39,12 @@ $(function () {
 
 });
 
+
+// Tooltips
+$(document).ready(function(){
+    $('[data-tooltip="crear_proceso"]').tooltip();
+});
+
 //update ocid
 $("#updateocid_form").submit(function (event) {
     $.post('/update-ocid',$(this).serialize()).done(function (data) {
@@ -99,24 +105,7 @@ $("#contract_form").submit(function(event){
     });
     event.preventDefault();
 });
-/*
-$('#uploadfile_form').submit(function (event) {
-    var fd = new FormData();
-    fd.append( 'datafile', input.files[0] );
 
-    $.ajax({
-        url: '/upload-stage',
-        type: 'POST',
-        processData: false,
-        contentType: false,
-        data :  { 'datafile':fd},
-        success: function(data){
-            alert(data);
-        }
-    });
-    event.preventDefault();
-});
-*/
 $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     $('#updatesingleorg_fields').load('/org-fields/',{ localid: button.data('localid') ,table : button.data('table') }, function () {
@@ -128,13 +117,6 @@ $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
             event.preventDefault();
         });
     });
-});
-
-$('#myModalURL').on('show.bs.modal', function (event) {
-    var button    = $(event.relatedTarget);
-    var recipient = button.data('org');
-    var modal     = $(this);
-    modal.find('#org_type').val(recipient);
 });
 
 $('#myModalEditPub').on('show.bs.modal', function (event) {
@@ -161,11 +143,6 @@ $('#myModalNewOrg').on('show.bs.modal', function (event) {
             event.preventDefault();
         });
     });
-});
-
-// Tooltips
-$(document).ready(function(){
-  $('[data-tooltip="crear_proceso"]').tooltip();
 });
 
 $('#myModalNewDoc').on('show.bs.modal', function (event) {
@@ -360,4 +337,10 @@ $('#myModalEditMilestones').on('show.bs.modal', function (event) {
             }
         });
     });
+});
+
+$('#myModalImportData').on('show.bs.modal', function (event) {
+    var button    = $(event.relatedTarget);
+    var modal     = $(this);
+    modal.find('#uploadfile_fields').load ('/uploadfile-fields', { localid : button.data('localid'), stage: button.data('stage') });
 });
