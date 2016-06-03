@@ -254,17 +254,17 @@
 </div>
 
 <!-- modal para cargar desde url -->
-<div class="modal fade" id="myModalURL" tabindex="-1" role="dialog" aria-labelledby="modalURL">
+<div class="modal fade" id="myModalImportData" tabindex="-1" role="dialog" aria-labelledby="modalImportData">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Carga desde url</h4>
+                <h4 class="modal-title">Importar datos</h4>
             </div>
             <div class="modal-body">
-                <form>
-                    <p><label>URL</label>
-                        <input id="urlProc" class="form-control" type="text" name="description">
+                <form id="uploadfile_form" enctype="multipart/form-data" method="post" action="/upload-stage">
+                    <p><label>Seleccione un archivo</label>
+                        <input type="file" name="datafile" class="form-control">
                     </p>
                     <button class="btn btn-default">Guardar</button>
                 </form>

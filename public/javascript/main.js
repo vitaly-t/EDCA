@@ -99,7 +99,24 @@ $("#contract_form").submit(function(event){
     });
     event.preventDefault();
 });
+/*
+$('#uploadfile_form').submit(function (event) {
+    var fd = new FormData();
+    fd.append( 'datafile', input.files[0] );
 
+    $.ajax({
+        url: '/upload-stage',
+        type: 'POST',
+        processData: false,
+        contentType: false,
+        data :  { 'datafile':fd},
+        success: function(data){
+            alert(data);
+        }
+    });
+    event.preventDefault();
+});
+*/
 $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     $('#updatesingleorg_fields').load('/org-fields/',{ localid: button.data('localid') ,table : button.data('table') }, function () {

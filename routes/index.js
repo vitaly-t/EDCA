@@ -1315,4 +1315,26 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
     });
 });
 
+
+var path  = require('path');
+var multer = require('multer');
+var upload = multer({ dest: path.join(__dirname, './uploads')});
+
+//Converter Class
+var Converter = require("csvtojson").Converter;
+var converter = new Converter({});
+
+router.post('/upload-stage', upload.single('datafile'), function (req, res) {
+
+    //end_parsed will be emitted once parsing finished
+    converter.on("end_parsed", function (jsonArray) {
+        console.log(jsonArray); //here is your result jsonarray
+    });
+
+    //console.log(req.file.buffer);
+    require('fs').createReadStream(req.file.path).pipe(converter);
+
+    res.send('OK');
+});
+
 module.exports = router;
