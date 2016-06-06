@@ -1096,7 +1096,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             if(checkValue(data[0].tender.enquiryperiod_startdate)){release.tender.enquiryPeriod.startDate = data[0].tender.enquiryperiod_startdate;}
             if(checkValue(data[0].tender.enquiryperiod_enddate)){release.tender.enquiryPeriod.endDate = data[0].tender.enquiryperiod_enddate;}
 
-            if(checkValue(data[0].tender.hasenquiries)){release.tender.hasEnquiries = (data[0].tender.hasenquiries == 0) ? true : false;}
+            if(checkValue(data[0].tender.hasenquiries)){release.tender.hasEnquiries = (data[0].tender.hasenquiries > 0) ? true : false;}
             if(checkValue(data[0].tender.eligibilitycriteria)){release.tender.eligibilityCriteria = data[0].tender.eligibilitycriteria;}
 
             release.tender.awardPeriod = { };
@@ -1401,7 +1401,8 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
         } else if (req.body.stage == 'tender'){
             /*
             INVITACION_LICITACION,
-            IDENTIFICADOR_LICITACION,
+            IDENTIFICADOR_LICITACION, -> tenderid
+
             TITULO_LICITACION, -> title
             DESCRIPCION_LICITACION, -> description
             ESTATUS_LICITACION, -> status
@@ -1410,23 +1411,29 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             VALOR, -> value_amount
             MONEDA_VALOR, -> value_currency
             METODO_ADQUISICION, -> procurementmethod
+
             CARACTER_ADQUISICION,
             FORMA_PROCESO_ADQUISICION,
+
             JUSTIFICACION_METODO, -> procurementmethod_rationale
             CRITERIO_ADJUDICACION, -> awardcriteria
             DETALLES_CRITERIO_ADJUDICACION, -> awardcriteria_details
             METODO_RECEPCION, -> submissionmethod
             DETALLES_METODO_RECEPCION, -> submissionmethod_details
-            PERIODO_RECEPCION_PROPUESTAS,
-            FECHA_INICIO_ACLARACIONES,
-            FECHA_CIERRE_ACLARACIONES,
-            TUVO_ACLARACIONES,
+
+            PERIODO_RECEPCION_PROPUESTAS, -> tender period startdate
+            FECHA_INICIO_ACLARACIONES, -> enquiry period startdate
+            FECHA_CIERRE_ACLARACIONES, -> enquiry period enddate
+            TUVO_ACLARACIONES, -> has enquiries
+
             TUVO_TESTIGO_SOCIAL,
             IDENTIFICADOR_TESTIGO_SOCIAL,
             NOMBRE_TESTIGO_SOCIAL,
-            CRITERIOS_ELIGIBILIDAD,
-            PERIODO_ADJUDICACION,
+
+            CRITERIOS_ELIGIBILIDAD, -> eligibility criteria
+            PERIODO_ADJUDICACION, -> awardperiod_startdate
             NUMERO_PARTICIPANTES, -> numberoftenderers
+
             NUMERO_PARTICIPANTES_INHABILITADOS,
             ENTIDAD_CONTRATACION,
             AVISO_LICITACION,
@@ -1451,22 +1458,37 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             URL_PARTICIPANTES,
             URL_INHABILITACIONES
             */
-            edca_db.one('update tender set title = $2, description  = $3, minvalue_amount = $4, minvalue_currency= $5, value_amount = $6, value_currency = $7, procurementmethod = $8, procurementmethod_rationale= $9,' +
-                'awardcriteria = $10, awardcriteria_details = $11, submissionmethod = $12, submissionmethod_details = $13 where contractingprocess_id = $1 returning id as tender_id',
+            edca_db.one('update tender set tenderid =$2, title = $3, description  = $4, status = $5,  minvalue_amount = $6, minvalue_currency= $7, value_amount = $8, value_currency = $9, ' +
+                'procurementmethod = $10, procurementmethod_rationale= $11, awardcriteria = $12, awardcriteria_details = $13, submissionmethod = $14, submissionmethod_details = $15, ' +
+                'tenderperiod_startdate = $16 , enquiryperiod_startdate = $17, enquiryperiod_enddate = $18, hasenquiries = $19, ' +
+                'eligibilitycriteria = $20, awardperiod_startdate = $21, numberoftenderers = $22' +
+                ' where contractingprocess_id = $1 returning id as tender_id',
                 [
                     req.body.localid,
+                    jsonArray[0].IDENTIFICADOR_LICITACION,
                     jsonArray[0].TITULO_LICITACION,
                     jsonArray[0].DESCRIPCION_LICITACION,
+                    'active', //jsonArray[0].ESTATUS_LICITACION
                     Number(jsonArray[0].VALOR_MINIMO),
                     jsonArray[0].MONEDA_VALOR_MINIMO,
                     Number(jsonArray[0].VALOR),
                     jsonArray[0].MONEDA_VALOR,
+
                     jsonArray[0].METODO_ADQUISICION,
                     jsonArray[0].JUSTIFICACION_METODO,
                     jsonArray[0].CRITERIO_ADJUDICACION,
                     jsonArray[0].DETALLES_CRITERIO_ADJUDICACION,
                     jsonArray[0].METODO_RECEPCION,
-                    jsonArray[0].DETALLES_METODO_RECEPCION
+                    jsonArray[0].DETALLES_METODO_RECEPCION,
+
+                    jsonArray[0].PERIODO_RECEPCION_PROPUESTAS,
+                    jsonArray[0].FECHA_INICIO_ACLARACIONES,
+                    jsonArray[0].FECHA_CIERRE_ACLARACIONES,
+                    Number(jsonArray[0].TUVO_ACLARACIONES),
+
+                    jsonArray[0].CRITERIOS_ELEGIBILIDAD,
+                    jsonArray[0].PERIODO_ADJUDICACION,
+                    Number (jsonArray[0].NUMERO_PARTICIPANTES)
                 ]).then(function (data) {
                 console.log('Tender stage loaded: ', data);
                 //require('fs').unlink(req.file.path);
@@ -1492,13 +1514,13 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             NUMERO_INCONFORMIDADES_RECHAZADAS
             */
 
-            edca_db.one('update award set awardid = $2, title = $3, description = $4, award_date = $5, value_amount = $6, value_currency = $7 where contractingprocess_id = $1 returning id as award_id',
+            edca_db.one('update award set awardid = $2, title = $3, description = $4, status = $5, award_date = $6, value_amount = $7, value_currency = $8 where contractingprocess_id = $1 returning id as award_id',
                 [
                     req.body.localid,
-                    jsonArray[0].IDENTIFICADOR_LICITACION,
+                    jsonArray[0].IDENTIFICADOR_ADJUDICACION,
                     jsonArray[0].TITULO_ADJUDICACION,
                     jsonArray[0].DESCRIPCION_ADJUDICACION,
-                    //jsonArray[0].ESTATUS,
+                    'active',//jsonArray[0].ESTATUS,
                     jsonArray[0].FECHA_ADJUDICACION,
                     Number(jsonArray[0].VALOR_ADJUDICACION),
                     jsonArray[0].MONEDA_ADJUDICACION
@@ -1514,12 +1536,12 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
 
         } else if (req.body.stage == 'contract'){
 
-            /*IDENTIFICADOR_ADJUDICACION,
+            /*IDENTIFICADOR_ADJUDICACION, -> awardid
             IDENTIFICADOR_CONTRATO, -> contractid
             IDENTIFICADOR_ADJUDICACION_CONTRATO,
             TITULO_CONTRATO, -> title
             DESCRIPCION_CONTRATO, -> description
-            ESTATUS_CONTRATO,
+            ESTATUS_CONTRATO, -> status
             PERIODO_CONTRATO_INICIO,-> period_startdate
             PERIODO_CONTRATO_FINAL, -> period_enddate
             VALOR_CONTRATO, -> value_amount
@@ -1536,12 +1558,15 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             URL_ANEXOS_CONTRATO,
             URL_GARANTIAS_ANTICIPO,
             URL_GARANTIAS_CUMPLIMIENTO*/
-            edca_db.one('update contract set contractid =$2, title = $3, description=$4, period_startdate=$5, period_enddate=$6, value_amount=$7, datesigned=$8 where contractingprocess_id = $1 returning id as contract_id',
+            edca_db.one('update contract set awardid =$2, contractid = $3 ,title = $4, description=$5, status = $6, period_startdate=$7, period_enddate=$8, value_amount=$9,' +
+                ' datesigned=$10 where contractingprocess_id = $1 returning id as contract_id',
                 [
                     req.body.localid,
+                    jsonArray[0].IDENTIFICADOR_ADJUDICACION,
                     jsonArray[0].IDENTIFICADOR_CONTRATO,
                     jsonArray[0].TITULO_CONTRATO,
                     jsonArray[0].DESCRIPCION_CONTRATO,
+                    'active',//jsonArray[0].ESTATUS,
                     jsonArray[0].PERIODO_CONTRATO_INICIO,
                     jsonArray[0].PERIODO_CONTRATO_FINAL,
                     Number(jsonArray[0].VALOR_CONTRATO),
