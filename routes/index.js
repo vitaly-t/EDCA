@@ -1315,28 +1315,230 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
     });
 });
 
-
 var path  = require('path');
 var multer = require('multer');
 var upload = multer({ dest: path.join(__dirname, './uploads')});
 
 //Converter Class
 var Converter = require("csvtojson").Converter;
-var converter = new Converter({});
 
 router.post('/upload-stage', upload.single('datafile'), function (req, res) {
 
-    //end_parsed will be emitted once parsing finished
-    converter.on("end_parsed", function (jsonArray) {
-        console.log(jsonArray); //here is your result jsonarray
+    console.log("Uploaded file: ", req.file);
 
-       // require('fs').unlink(req.file.path);
+    var converter = new Converter({});
+
+    converter.on("error",function(errMsg,errData){
+        //do error handling here
+        console.log('Error: ', errMsg);
+        console.log('Data: ', errData);
     });
 
-    console.log(req.file);
-    require('fs').createReadStream(req.file.path).pipe(converter);
 
-    res.redirect('/main/'+ req.body.localid);
+    //end_parsed will be emitted once parsing finished
+    converter.on("end_parsed", function (jsonArray) {
+        //console.log(jsonArray); //here is your result jsonarray
+
+        if (req.body.stage == 'planning'){
+
+            /*
+            INVITACION_LICITACION
+            DESCRIPCION_CONTRATO
+            FUENTE_PRESUPUESTARIA -> budget source
+            IDENTIFICADOR_PRESUPUESTO -> budget id
+            DESCRIPCION_PRESUPUESTO -> budget description
+            MONTO_ASIGNADO -> budget amount
+            MONEDA -> budget currency
+            PROYECTO_PRESUPUESTARIO,
+            IDENTIFICADOR_PROYECTO_PRESUPUESTARIO,
+            URI_PRESUPUESTO,FUNDAMENTO,
+            EVALUACION_NECESIDADES,
+            PLAN_PROYECTO,PLAN_CONTRATACION,
+            ESTUDIO_FACTIBILIDAD,
+            ESTUDIO_MERCADO,
+            URL_ESTUDIO_FACTIBILIDAD,
+            URL_PLAN_CONTRATACION,
+            URL_EVALUACION_NECESIDADES,
+            URL_ESTUDIO_MERCADO
+            */
+
+            edca_db.one('update budget set budget_source = $2, budget_budgetid = $3, budget_description = $4, budget_amount = $5, budget_currency = $6 where contractingprocess_id = $1 returning id as budget_id', [
+                req.body.localid,
+                jsonArray[0].FUENTE_PRESUPUESTARIA,
+                jsonArray[0].IDENTIFICADOR_PRESUPUESTO,
+                jsonArray[0].DESCRIPCION_PRESUPUESTO,
+                Number(jsonArray[0].MONTO_ASIGNADO),
+                jsonArray[0].MONEDA
+            ]).then(function (data) {
+                console.log('PLanning stage loaded: ', data);
+                //require('fs').unlink(req.file.path);
+                res.redirect('/main/'+ req.body.localid);
+            }).catch(function (error) {
+                console.log('ERROR: ',error);
+                res.redirect('/main/'+ req.body.localid);
+            });
+
+        } else if (req.body.stage == 'tender'){
+            /*
+            INVITACION_LICITACION,
+            IDENTIFICADOR_LICITACION,
+            TITULO_LICITACION, -> title
+            DESCRIPCION_LICITACION, -> description
+            ESTATUS_LICITACION, -> status
+            VALOR_MINIMO, -> minvalue_amount
+            MONEDA_VALOR_MINIMO, -> minvalue_currency
+            VALOR, -> value_amount
+            MONEDA_VALOR, -> value_currency
+            METODO_ADQUISICION, -> procurementmethod
+            CARACTER_ADQUISICION,
+            FORMA_PROCESO_ADQUISICION,
+            JUSTIFICACION_METODO, -> procurementmethod_rationale
+            CRITERIO_ADJUDICACION, -> awardcriteria
+            DETALLES_CRITERIO_ADJUDICACION, -> awardcriteria_details
+            METODO_RECEPCION, -> submissionmethod
+            DETALLES_METODO_RECEPCION, -> submissionmethod_details
+            PERIODO_RECEPCION_PROPUESTAS,
+            FECHA_INICIO_ACLARACIONES,
+            FECHA_CIERRE_ACLARACIONES,
+            TUVO_ACLARACIONES,
+            TUVO_TESTIGO_SOCIAL,
+            IDENTIFICADOR_TESTIGO_SOCIAL,
+            NOMBRE_TESTIGO_SOCIAL,
+            CRITERIOS_ELIGIBILIDAD,
+            PERIODO_ADJUDICACION,
+            NUMERO_PARTICIPANTES, -> numberoftenderers
+            NUMERO_PARTICIPANTES_INHABILITADOS,
+            ENTIDAD_CONTRATACION,
+            AVISO_LICITACION,
+            AVISO_AUDIENCIA_PUBLICA,
+            DOCUMENTOS_LICITACION,
+            CRITERIOS_ELEGIBILIDAD_PUBLICADO,
+            ESPECIFICACIONES_TECNICAS,
+            CRITERIOS_EVALUACION,
+            ACLARACIONES,
+            PRESELECCION_PARTICIPANTES,
+            PARTICIPANTES,
+            DECLARACION_INTERESES,
+            INHABILITACIONES,
+            URL_DETALLES_CRITERIO_ADJUDICACION,
+            URL_AVISO_LICITACION,
+            URL_AVISO_AUDIENCIA_PUBLICA,
+            URL_DOCUMENTOS_LICITACION,
+            URL_CRITERIOS_ELEGIBILIDAD,
+            URL_ESPECIFICACIONES_TECNICAS,
+            URL_CRITERIOS_EVALUACION,
+            URL_ACLARACIONES,
+            URL_PARTICIPANTES,
+            URL_INHABILITACIONES
+            */
+            edca_db.one('update tender set title = $2, description  = $3, minvalue_amount = $4, minvalue_currency= $5, value_amount = $6, value_currency = $7, procurementmethod = $8, procurementmethod_rationale= $9,' +
+                'awardcriteria = $10, awardcriteria_details = $11, submissionmethod = $12, submissionmethod_details = $13 where contractingprocess_id = $1 returning id as tender_id',[
+                req.body.localid,
+                jsonArray[0].TITULO_LICITACION,
+                jsonArray[0].DESCRIPCION_LICITACION,
+                Number(jsonArray[0].VALOR_MINIMO),
+                jsonArray[0].MONEDA_VALOR_MINIMO,
+                Number(jsonArray[0].VALOR),
+                jsonArray[0].MONEDA_VALOR,
+                jsonArray[0].METODO_ADQUISICION,
+                jsonArray[0].JUSTIFICACION_METODO,
+                jsonArray[0].CRITERIO_ADJUDICACION,
+                jsonArray[0].DETALLES_CRITERIO_ADJUDICACION,
+                jsonArray[0].METODO_RECEPCION,
+                jsonArray[0].DETALLES_METODO_RECEPCION
+            ]).then(function (data) {
+                console.log('Tender stage loaded: ', data);
+                //require('fs').unlink(req.file.path);
+                res.redirect('/main/'+ req.body.localid);
+            }).catch(function (error) {
+                console.log("ERROR: ", error);
+                res.redirect('/main/'+ req.body.localid);
+            });
+
+        } else if (req.body.stage == 'award') {
+
+            /*
+            IDENTIFICADOR_LICITACION,
+            IDENTIFICADOR_ADJUDICACION, -> award id
+            TITULO_ADJUDICACION, -> title
+            DESCRIPCION_ADJUDICACION, -> description
+            ESTATUS_ADJUDICACION, -> status
+            FECHA_ADJUDICACION, -> award_date
+            VALOR_ADJUDICACION, -> value_amount
+            MONEDA_ADJUDICACION, -> value_currency
+            NUMERO_INCONFORMIDADES_RECIBIDAS,
+            NUMERO_INCONFORMIDADES_PROCESDENTES,
+            NUMERO_INCONFORMIDADES_RECHAZADAS
+            */
+
+            edca_db.one('update award set awardid = $2, title = $3, description = $4, award_date = $5, value_amount = $6, value_currency = $7 where contractingprocess_id = $1 returning id as award_id',[
+                req.body.localid,
+                jsonArray[0].IDENTIFICADOR_LICITACION,
+                jsonArray[0].TITULO_ADJUDICACION,
+                jsonArray[0].DESCRIPCION_ADJUDICACION,
+                //jsonArray[0].ESTATUS,
+                jsonArray[0].FECHA_ADJUDICACION,
+                Number(jsonArray[0].VALOR_ADJUDICACION),
+                jsonArray[0].MONEDA_ADJUDICACION
+
+            ]).then(function (data) {
+                console.log('Award stage loaded: ', data);
+                //require('fs').unlink(req.file.path);
+                res.redirect('/main/'+ req.body.localid);
+            }).catch(function (error) {
+                console.log("ERROR: ", error);
+                res.redirect('/main/'+ req.body.localid);
+            });
+
+        } else if (req.body.stage == 'contract'){
+
+            /*IDENTIFICADOR_ADJUDICACION,
+            IDENTIFICADOR_CONTRATO, -> contractid
+            IDENTIFICADOR_ADJUDICACION_CONTRATO,
+            TITULO_CONTRATO, -> title
+            DESCRIPCION_CONTRATO, -> description
+            ESTATUS_CONTRATO,
+            PERIODO_CONTRATO_INICIO,-> period_startdate
+            PERIODO_CONTRATO_FINAL, -> period_enddate
+            VALOR_CONTRATO, -> value_amount
+            FECHA_FIRMA_CONTRATO, -> datesigned
+            CONTRATO_FIRMADO,
+            CLAUSULAS,
+            CRONOGRAMA_CONTRATO,
+            ANEXOS_CONTRATO,
+            GARANTIAS_ANTICIPO,
+            GARANTIAS_CUMPLIMIENTO,
+            SUBCONTRATOS,
+            URL_CONTRATO_FIRMADO,
+            URL_CLAUSULAS,
+            URL_ANEXOS_CONTRATO,
+            URL_GARANTIAS_ANTICIPO,
+            URL_GARANTIAS_CUMPLIMIENTO*/
+            edca_db.one('update contract set contractid =$2, title = $3, description=$4, period_startdate=$5, period_enddate=$6, value_amount=$7, datesigned=$8 where contractingprocess_id = $1 returning id as contract_id',[
+                req.body.localid,
+                jsonArray[0].IDENTIFICADOR_CONTRATO,
+                jsonArray[0].TITULO_CONTRATO,
+                jsonArray[0].DESCRIPCION_CONTRATO,
+                jsonArray[0].PERIODO_CONTRATO_INICIO,
+                jsonArray[0].PERIODO_CONTRATO_FINAL,
+                Number(jsonArray[0].VALOR_CONTRATO),
+                jsonArray[0].FECHA_FIRMA_CONTRATO
+            ]).then(function (data) {
+                console.log('Award stage loaded: ', data);
+                //require('fs').unlink(req.file.path);
+                res.redirect('/main/'+ req.body.localid);
+            }).catch(function (error) {
+                console.log("ERROR: ", error);
+                res.redirect('/main/'+ req.body.localid);
+            });
+        }
+
+         //require('fs').unlink(req.file.path);
+        //res.redirect('/main/'+ req.body.localid);
+
+    });
+
+    require('fs').createReadStream(req.file.path).pipe(converter);
 });
 
 

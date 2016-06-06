@@ -292,7 +292,7 @@ function getMString ( fecha ){
                     <input type="text" name="amendment_rationale" class="form-control" value="<%=(typeof tender!= "undefined")?tender.amendment_rationale:''%>" >
                 </p>
                 <button type="submit" class="btn btn-default">Guardar</button>
-                <!--<a class="urLink" href="#" data-toggle="modal" data-stage="tender" data-target="#myModalURL"><li role="button" class="btn urLink">Cargar desde URL</li></a>-->
+                <button class="btn btn-default" type="button" data-toggle="modal" data-localid="<%= cp.id %>" data-stage="tender" data-target="#myModalImportData">Importar datos</button>
             </form>
         </div>
     </div>
@@ -423,7 +423,7 @@ function getMString ( fecha ){
                 </p>
 
                 <button type="submit" class="btn btn-default">Guardar</button>
-                <!--<a class="urLink" href="#" data-toggle="modal" data-stage="award" data-target="#myModalURL"><li role="button" class="btn urLink">Cargar desde URL</li></a>-->
+                <button class="btn btn-default" type="button" data-toggle="modal" data-localid="<%= cp.id %>" data-stage="award" data-target="#myModalImportData">Importar datos</button>
             </form>
         </div>
     </div>
@@ -549,7 +549,7 @@ function getMString ( fecha ){
                 </p>
 
                 <button type="submit" class="btn btn-default">Guardar</button>
-                <!--<a class="urLink" href="#" data-toggle="modal" data-stage="contract" data-target="#myModalURL"><li role="button" class="btn urLink">Cargar desde URL</li></a>-->
+                <button class="btn btn-default" type="button" data-toggle="modal" data-localid="<%= cp.id %>" data-stage="contract" data-target="#myModalImportData">Importar datos</button>
             </form>
         </div>
     </div>
