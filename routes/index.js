@@ -1349,9 +1349,10 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             DESCRIPCION_PRESUPUESTO -> budget description
             MONTO_ASIGNADO -> budget amount
             MONEDA -> budget currency
-            PROYECTO_PRESUPUESTARIO,
-            IDENTIFICADOR_PROYECTO_PRESUPUESTARIO,
-            URI_PRESUPUESTO,FUNDAMENTO,
+            PROYECTO_PRESUPUESTARIO, -> budget_project
+            IDENTIFICADOR_PROYECTO_PRESUPUESTARIO, -> budget_projectid
+            URI_PRESUPUESTO, -> budget uri
+            FUNDAMENTO, -> planning -> rationale
             EVALUACION_NECESIDADES,
             PLAN_PROYECTO,PLAN_CONTRATACION,
             ESTUDIO_FACTIBILIDAD,
@@ -1362,14 +1363,33 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             URL_ESTUDIO_MERCADO
             */
 
-            edca_db.one('update budget set budget_source = $2, budget_budgetid = $3, budget_description = $4, budget_amount = $5, budget_currency = $6 where contractingprocess_id = $1 returning id as budget_id', [
-                req.body.localid,
-                jsonArray[0].FUENTE_PRESUPUESTARIA,
-                jsonArray[0].IDENTIFICADOR_PRESUPUESTO,
-                jsonArray[0].DESCRIPCION_PRESUPUESTO,
-                Number(jsonArray[0].MONTO_ASIGNADO),
-                jsonArray[0].MONEDA
-            ]).then(function (data) {
+            edca_db.tx (function (t) {
+
+                return t.one('update planning set rationale = $2 where contractingprocess_id = $1 returning id as planning_id',
+                    [
+                        req.body.localid,
+                        jsonArray[0].FUNDAMENTO
+                    ]).then(function (data) {
+                    var budget = t.one('update budget set budget_source = $2, budget_budgetid = $3, budget_description = $4, budget_amount = $5, budget_currency = $6, budget_project = $7, budget_projectid = $8,' +
+                        'budget_uri = $9 where contractingprocess_id = $1 returning id as budget_id',
+                        [
+                            req.body.localid,
+                            jsonArray[0].FUENTE_PRESUPUESTARIA,
+                            jsonArray[0].IDENTIFICADOR_PRESUPUESTO,
+                            jsonArray[0].DESCRIPCION_PRESUPUESTO,
+                            Number(jsonArray[0].MONTO_ASIGNADO),
+                            jsonArray[0].MONEDA,
+                            jsonArray[0].PROYECTO_PRESUPUESTARIO,
+                            jsonArray[0].IDENTIFICADOR_PROYECTO_PRESUPUESTARIO,
+                            jsonArray[0].URI_PRESUPUESTO
+
+                        ]);
+
+                    return t.batch([data , budget]);
+                });
+
+
+            }).then(function (data) {
                 console.log('PLanning stage loaded: ', data);
                 //require('fs').unlink(req.file.path);
                 res.redirect('/main/'+ req.body.localid);
@@ -1432,21 +1452,22 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             URL_INHABILITACIONES
             */
             edca_db.one('update tender set title = $2, description  = $3, minvalue_amount = $4, minvalue_currency= $5, value_amount = $6, value_currency = $7, procurementmethod = $8, procurementmethod_rationale= $9,' +
-                'awardcriteria = $10, awardcriteria_details = $11, submissionmethod = $12, submissionmethod_details = $13 where contractingprocess_id = $1 returning id as tender_id',[
-                req.body.localid,
-                jsonArray[0].TITULO_LICITACION,
-                jsonArray[0].DESCRIPCION_LICITACION,
-                Number(jsonArray[0].VALOR_MINIMO),
-                jsonArray[0].MONEDA_VALOR_MINIMO,
-                Number(jsonArray[0].VALOR),
-                jsonArray[0].MONEDA_VALOR,
-                jsonArray[0].METODO_ADQUISICION,
-                jsonArray[0].JUSTIFICACION_METODO,
-                jsonArray[0].CRITERIO_ADJUDICACION,
-                jsonArray[0].DETALLES_CRITERIO_ADJUDICACION,
-                jsonArray[0].METODO_RECEPCION,
-                jsonArray[0].DETALLES_METODO_RECEPCION
-            ]).then(function (data) {
+                'awardcriteria = $10, awardcriteria_details = $11, submissionmethod = $12, submissionmethod_details = $13 where contractingprocess_id = $1 returning id as tender_id',
+                [
+                    req.body.localid,
+                    jsonArray[0].TITULO_LICITACION,
+                    jsonArray[0].DESCRIPCION_LICITACION,
+                    Number(jsonArray[0].VALOR_MINIMO),
+                    jsonArray[0].MONEDA_VALOR_MINIMO,
+                    Number(jsonArray[0].VALOR),
+                    jsonArray[0].MONEDA_VALOR,
+                    jsonArray[0].METODO_ADQUISICION,
+                    jsonArray[0].JUSTIFICACION_METODO,
+                    jsonArray[0].CRITERIO_ADJUDICACION,
+                    jsonArray[0].DETALLES_CRITERIO_ADJUDICACION,
+                    jsonArray[0].METODO_RECEPCION,
+                    jsonArray[0].DETALLES_METODO_RECEPCION
+                ]).then(function (data) {
                 console.log('Tender stage loaded: ', data);
                 //require('fs').unlink(req.file.path);
                 res.redirect('/main/'+ req.body.localid);
@@ -1471,17 +1492,18 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             NUMERO_INCONFORMIDADES_RECHAZADAS
             */
 
-            edca_db.one('update award set awardid = $2, title = $3, description = $4, award_date = $5, value_amount = $6, value_currency = $7 where contractingprocess_id = $1 returning id as award_id',[
-                req.body.localid,
-                jsonArray[0].IDENTIFICADOR_LICITACION,
-                jsonArray[0].TITULO_ADJUDICACION,
-                jsonArray[0].DESCRIPCION_ADJUDICACION,
-                //jsonArray[0].ESTATUS,
-                jsonArray[0].FECHA_ADJUDICACION,
-                Number(jsonArray[0].VALOR_ADJUDICACION),
-                jsonArray[0].MONEDA_ADJUDICACION
+            edca_db.one('update award set awardid = $2, title = $3, description = $4, award_date = $5, value_amount = $6, value_currency = $7 where contractingprocess_id = $1 returning id as award_id',
+                [
+                    req.body.localid,
+                    jsonArray[0].IDENTIFICADOR_LICITACION,
+                    jsonArray[0].TITULO_ADJUDICACION,
+                    jsonArray[0].DESCRIPCION_ADJUDICACION,
+                    //jsonArray[0].ESTATUS,
+                    jsonArray[0].FECHA_ADJUDICACION,
+                    Number(jsonArray[0].VALOR_ADJUDICACION),
+                    jsonArray[0].MONEDA_ADJUDICACION
 
-            ]).then(function (data) {
+                ]).then(function (data) {
                 console.log('Award stage loaded: ', data);
                 //require('fs').unlink(req.file.path);
                 res.redirect('/main/'+ req.body.localid);
@@ -1514,16 +1536,17 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             URL_ANEXOS_CONTRATO,
             URL_GARANTIAS_ANTICIPO,
             URL_GARANTIAS_CUMPLIMIENTO*/
-            edca_db.one('update contract set contractid =$2, title = $3, description=$4, period_startdate=$5, period_enddate=$6, value_amount=$7, datesigned=$8 where contractingprocess_id = $1 returning id as contract_id',[
-                req.body.localid,
-                jsonArray[0].IDENTIFICADOR_CONTRATO,
-                jsonArray[0].TITULO_CONTRATO,
-                jsonArray[0].DESCRIPCION_CONTRATO,
-                jsonArray[0].PERIODO_CONTRATO_INICIO,
-                jsonArray[0].PERIODO_CONTRATO_FINAL,
-                Number(jsonArray[0].VALOR_CONTRATO),
-                jsonArray[0].FECHA_FIRMA_CONTRATO
-            ]).then(function (data) {
+            edca_db.one('update contract set contractid =$2, title = $3, description=$4, period_startdate=$5, period_enddate=$6, value_amount=$7, datesigned=$8 where contractingprocess_id = $1 returning id as contract_id',
+                [
+                    req.body.localid,
+                    jsonArray[0].IDENTIFICADOR_CONTRATO,
+                    jsonArray[0].TITULO_CONTRATO,
+                    jsonArray[0].DESCRIPCION_CONTRATO,
+                    jsonArray[0].PERIODO_CONTRATO_INICIO,
+                    jsonArray[0].PERIODO_CONTRATO_FINAL,
+                    Number(jsonArray[0].VALOR_CONTRATO),
+                    jsonArray[0].FECHA_FIRMA_CONTRATO
+                ]).then(function (data) {
                 console.log('Award stage loaded: ', data);
                 //require('fs').unlink(req.file.path);
                 res.redirect('/main/'+ req.body.localid);
@@ -1533,7 +1556,7 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             });
         }
 
-         require('fs').unlink(req.file.path);
+        require('fs').unlink(req.file.path);
         //res.redirect('/main/'+ req.body.localid);
 
     });
