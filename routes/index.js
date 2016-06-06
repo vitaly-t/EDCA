@@ -1533,7 +1533,7 @@ router.post('/upload-stage', upload.single('datafile'), function (req, res) {
             });
         }
 
-         //require('fs').unlink(req.file.path);
+         require('fs').unlink(req.file.path);
         //res.redirect('/main/'+ req.body.localid);
 
     });
