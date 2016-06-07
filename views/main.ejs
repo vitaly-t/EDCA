@@ -76,7 +76,7 @@
                 <div class="panel-body">
                     <a href="/new-process" class="btn btn-default" data-tooltip="crear_proceso" title="Iniciar un nuevo proceso de contratación">Nuevo <i class="fa fa-pencil"></i></a>
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
-                        Buscar <i class="fa fa-search"></i></button>
+                      Buscar <i class="fa fa-search"></i></button>
 
                     <% if (typeof cp != "undefined"){%>
                     <button type="button" class="btn btn-default" data-localid="<%= cp.id %>" data-table="buyer" data-toggle="modal" data-tooltip="crear_proceso" title="Dependencia que publica este proceso de contratación." data-target="#myModalEditSingleOrg">
@@ -94,6 +94,7 @@
                             <li><a href="#" data-localid="<%= cp.id %>" data-toggle="modal" data-target="#myModalEditPub">Publisher</a></li>
                         </ul>
                     </div>
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#myModalManual" data-tooltip="crear_proceso" title="Abrir manual" href=""><i class="fa fa-book"></i></a>
                     <%}%>
                 </div>
             </div>
@@ -121,7 +122,9 @@
         <hr class="m-y-2">
         <p>Para obtener más información con respecto al formato que esta herramienta te proporcionará, presiona <b>saber más</b></p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="http://standard.open-contracting.org/latest/en/schema/release/#id1" role="button">Saber más</a>
+          <br>
+          <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalManual" href="">Manual <i class="fa fa-book"></i></a>
+          <a class="btn btn-primary btn-lg" href="http://standard.open-contracting.org/latest/en/schema/release/#id1" role="button">Saber más <i class="fa fa-rocket"></i></a>
         </p>
     </div>
     <%}%>
