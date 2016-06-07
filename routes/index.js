@@ -1325,15 +1325,14 @@ var Converter = require("csvtojson").Converter;
 router.post('/upload-stage', isAuthenticated, upload.single('datafile'), function (req, res) {
 
     console.log("Uploaded file: ", req.file);
-
     var converter = new Converter({});
+    require('fs').createReadStream(req.file.path).pipe(converter);
 
     converter.on("error",function(errMsg,errData){
         //do error handling here
         console.log('Error: ', errMsg);
         console.log('Data: ', errData);
     });
-
 
     //end_parsed will be emitted once parsing finished
     converter.on("end_parsed", function (jsonArray) {
@@ -1391,7 +1390,6 @@ router.post('/upload-stage', isAuthenticated, upload.single('datafile'), functio
 
             }).then(function (data) {
                 console.log('PLanning stage loaded: ', data);
-                //require('fs').unlink(req.file.path);
                 res.redirect('/main/'+ req.body.localid);
             }).catch(function (error) {
                 console.log('ERROR: ',error);
@@ -1491,7 +1489,6 @@ router.post('/upload-stage', isAuthenticated, upload.single('datafile'), functio
                     Number (jsonArray[0].NUMERO_PARTICIPANTES)
                 ]).then(function (data) {
                 console.log('Tender stage loaded: ', data);
-                //require('fs').unlink(req.file.path);
                 res.redirect('/main/'+ req.body.localid);
             }).catch(function (error) {
                 console.log("ERROR: ", error);
@@ -1527,7 +1524,6 @@ router.post('/upload-stage', isAuthenticated, upload.single('datafile'), functio
 
                 ]).then(function (data) {
                 console.log('Award stage loaded: ', data);
-                //require('fs').unlink(req.file.path);
                 res.redirect('/main/'+ req.body.localid);
             }).catch(function (error) {
                 console.log("ERROR: ", error);
@@ -1573,7 +1569,6 @@ router.post('/upload-stage', isAuthenticated, upload.single('datafile'), functio
                     jsonArray[0].FECHA_FIRMA_CONTRATO
                 ]).then(function (data) {
                 console.log('Award stage loaded: ', data);
-                //require('fs').unlink(req.file.path);
                 res.redirect('/main/'+ req.body.localid);
             }).catch(function (error) {
                 console.log("ERROR: ", error);
@@ -1582,13 +1577,8 @@ router.post('/upload-stage', isAuthenticated, upload.single('datafile'), functio
         }
 
         require('fs').unlink(req.file.path);
-        //res.redirect('/main/'+ req.body.localid);
-
     });
-
-    require('fs').createReadStream(req.file.path).pipe(converter);
 });
-
 
 router.post('/uploadfile-fields', function (req,res) {
     res.render('modals/uploadfile-fields', { localid: req.body.localid, stage: req.body.stage });
