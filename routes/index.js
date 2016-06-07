@@ -27,34 +27,34 @@ var User = require('../models/user');
 var bCrypt = require('bcrypt-nodejs');
 
 passport.use('login', new LocalStrategy(
-      {     passReqToCallback : true      },
-      function(req, username, password, done) {
+    {     passReqToCallback : true      },
+    function(req, username, password, done) {
         // check in mongo if a user with username exists or not
 
         User.findOne({ 'username' :  username },
             function(err, user) {
 
-              // In case of any error, return using the done method
-              if (err)
-                return done(err);
-              // Username does not exist, log the error and redirect back
-              if (!user){
-                console.log('User Not Found with username '+username);
-                return done(null, false, req.flash('message', 'Usuario no registrado'));
-              }
-              // User exists but wrong password, log the error
-              if (!isValidPassword(user, password)){
-                console.log('Contraseña no válida');
-                return done(null, false, req.flash('message', 'Contraseña no válida')); // redirect back to login page
-              }
-              // User and password both match, return user from done method
-              // which will be treated like success
-              return done(null, user);
+                // In case of any error, return using the done method
+                if (err)
+                    return done(err);
+                // Username does not exist, log the error and redirect back
+                if (!user){
+                    console.log('User Not Found with username '+username);
+                    return done(null, false, req.flash('message', 'Usuario no registrado'));
+                }
+                // User exists but wrong password, log the error
+                if (!isValidPassword(user, password)){
+                    console.log('Contraseña no válida');
+                    return done(null, false, req.flash('message', 'Contraseña no válida')); // redirect back to login page
+                }
+                // User and password both match, return user from done method
+                // which will be treated like success
+                return done(null, user);
             }
         );
 
-      }
-  ));
+    }
+));
 
 
 var isValidPassword = function(user, password){
@@ -117,26 +117,26 @@ var createHash = function(password){
 
 // Passport needs to be able to serialize and deserialize users to support persistent login sessions
 passport.serializeUser(function(user, done) {
-  console.log('serializing user: ');
-  console.log(user);
-  done(null, user._id);
+    console.log('serializing user: ');
+    console.log(user);
+    done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    //console.log('deserializing user:',user);
-    done(err, user);
-  });
+    User.findById(id, function(err, user) {
+        //console.log('deserializing user:',user);
+        done(err, user);
+    });
 });
 
 var isAuthenticated = function (req, res, next) {
-  // if user is authenticated in the session, call the next() to call the next request handler
-  // Passport adds this method to request object. A middleware is allowed to add properties to
-  // request and response objects
-  if (req.isAuthenticated())
-    return next();
-  // if the user is not authenticated then redirect him to the login page
-  res.redirect('/');
+    // if user is authenticated in the session, call the next() to call the next request handler
+    // Passport adds this method to request object. A middleware is allowed to add properties to
+    // request and response objects
+    if (req.isAuthenticated())
+        return next();
+    // if the user is not authenticated then redirect him to the login page
+    res.redirect('/');
 }
 
 var isNotAuthenticated = function (req, res, next) {
@@ -148,7 +148,7 @@ var isNotAuthenticated = function (req, res, next) {
 
 /* * * * * * * * * * * RUTAS * * * * * * * * * * * * * */
 
-  /* GET home page. */
+/* GET home page. */
 router.get('/', isNotAuthenticated, function (req, res, next) {
     res.render('index', {title: 'Contrataciones abiertas', message: req.flash('message')});
 });
@@ -156,21 +156,21 @@ router.get('/', isNotAuthenticated, function (req, res, next) {
 
 /* Handle Login POST */
 router.post('/login', passport.authenticate('login', {
-  successRedirect: '/main',
-  failureRedirect: '/',
-  failureFlash : true
+    successRedirect: '/main',
+    failureRedirect: '/',
+    failureFlash : true
 }));
 
 /* Handle Logout */
 router.get('/signout', function(req, res) {
-  req.logout();
-  res.redirect('/');
+    req.logout();
+    res.redirect('/');
 });
 
 
 /* GET main page. */
 router.get('/main', isAuthenticated, function(req, res, next) {
-  res.render('main', { user: req.user, title: 'Contrataciones abiertas' });
+    res.render('main', { user: req.user, title: 'Contrataciones abiertas' });
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -181,80 +181,80 @@ var edca_db  = pgp("postgres://tester:test@localhost/edca");
 router.get('/main/:localid', isAuthenticated, function (req,res) {
     var localid = req.params.localid;
 
-        edca_db.task(function (t) {
-                // this = t = transaction protocol context;
-                // this.ctx = transaction config + state context;
-                return t.batch([
-                    t.one("select * from ContractingProcess where id = $1", localid),
-                    t.one("select * from Planning where contractingprocess_id= $1", localid),
-                    t.one("select * from budget where contractingprocess_id = $1", localid),
-                    t.one("select * from Tender where contractingprocess_id = $1", localid),
-                    t.one("select * from Award where contractingprocess_id = $1", localid),
-                    t.one("select * from Contract where contractingprocess_id = $1", localid)
-                ]);
-            })
-            // using .spread(function(user, event)) is best here, if supported;
-            .then(function (data) {
-                console.log("Contracting process -> ",data[0].id); //CP
-                console.log("Planning ->",data[1].id); //planning
-                console.log("Budget ->",data[2].id); //budget
-                console.log("Tender ->",data[3].id); //Tender
-                console.log("Award -> ",data[4].id); //Award
-                console.log("Contract -> ",data[5].id); //Contract
+    edca_db.task(function (t) {
+        // this = t = transaction protocol context;
+        // this.ctx = transaction config + state context;
+        return t.batch([
+            t.one("select * from ContractingProcess where id = $1", localid),
+            t.one("select * from Planning where contractingprocess_id= $1", localid),
+            t.one("select * from budget where contractingprocess_id = $1", localid),
+            t.one("select * from Tender where contractingprocess_id = $1", localid),
+            t.one("select * from Award where contractingprocess_id = $1", localid),
+            t.one("select * from Contract where contractingprocess_id = $1", localid)
+        ]);
+    })
+    // using .spread(function(user, event)) is best here, if supported;
+        .then(function (data) {
+            console.log("Contracting process -> ",data[0].id); //CP
+            console.log("Planning ->",data[1].id); //planning
+            console.log("Budget ->",data[2].id); //budget
+            console.log("Tender ->",data[3].id); //Tender
+            console.log("Award -> ",data[4].id); //Award
+            console.log("Contract -> ",data[5].id); //Contract
 
-                res.render('main', {
-                    user: req.user,
-                    title: 'Contrataciones abiertas',
-                    cp: data[0],
-                    planning: data[1],
-                    budget: data[2],
-                    tender: data[3],
-                    award: data[4],
-                    contract: data[5]
-                });
-            })
-            .catch(function (error) {
-                console.log("Error", error);
-
-                res.render('main', {
-                    user: req.user,
-                    title: 'Contrataciones abiertas',
-                    error: 'Proceso de contratación no encontrado'
-                });
+            res.render('main', {
+                user: req.user,
+                title: 'Contrataciones abiertas',
+                cp: data[0],
+                planning: data[1],
+                budget: data[2],
+                tender: data[3],
+                award: data[4],
+                contract: data[5]
             });
+        })
+        .catch(function (error) {
+            console.log("Error", error);
+
+            res.render('main', {
+                user: req.user,
+                title: 'Contrataciones abiertas',
+                error: 'Proceso de contratación no encontrado'
+            });
+        });
 });
 
 // NUEVO PROCESO DE CONTRATACIÓN
-router.get('/new-process', function (req, res) {
+router.get('/new-process', isAuthenticated, function (req, res) {
     edca_db.tx(function (t) {
 
-            return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id")
-                .then(function (process) {
+        return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id")
+            .then(function (process) {
 
-                    var planning = t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id);
-                    var tender = t.one ("insert into Tender (ContractingProcess_id,status) values ($1, $2) returning id as tender_id", [process.id, 'none']);
-                    var contract = t.one ("insert into Contract (ContractingProcess_id, status) values ($1, $2) returning id", [process.id, 'none']);
+                var planning = t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id);
+                var tender = t.one ("insert into Tender (ContractingProcess_id,status) values ($1, $2) returning id as tender_id", [process.id, 'none']);
+                var contract = t.one ("insert into Contract (ContractingProcess_id, status) values ($1, $2) returning id", [process.id, 'none']);
 
-                    return t.batch([process = { id : process.id}, planning, tender, contract] );
+                return t.batch([process = { id : process.id}, planning, tender, contract] );
 
 
-                }).then(function (info) {
+            }).then(function (info) {
 
-                    var process= {process_id : info[0].id};
-                    var planning = {planning_id : info[1].id};
+                var process= {process_id : info[0].id};
+                var planning = {planning_id : info[1].id};
                     
-                    return t.batch([
-                        process, planning,
-                            t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id as budget_id", [info[0].id, info[1].id]),
-                            t.one("insert into Buyer (ContractingProcess_id) values ($1) returning id as buyer_id",[info[0].id]),
-                            t.one("insert into ProcuringEntity (contractingprocess_id, tender_id) values ($1, $2) returning id as procuringentity_id",[info[0].id, info[2].id]),
-                            t.one("insert into Award (ContractingProcess_id,status) values ($1, $2) returning id as award_id", [info[0].id, 'none']),
-                            t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id as implementation_id", [info[0].id, info[3].id]),
-                            t.one("insert into Publisher (ContractingProcess_id) values ($1) returning id as publisher_id", info[0].id)
-                        ])
+                return t.batch([
+                    process, planning,
+                    t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id as budget_id", [info[0].id, info[1].id]),
+                    t.one("insert into Buyer (ContractingProcess_id) values ($1) returning id as buyer_id",[info[0].id]),
+                    t.one("insert into ProcuringEntity (contractingprocess_id, tender_id) values ($1, $2) returning id as procuringentity_id",[info[0].id, info[2].id]),
+                    t.one("insert into Award (ContractingProcess_id,status) values ($1, $2) returning id as award_id", [info[0].id, 'none']),
+                    t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id as implementation_id", [info[0].id, info[3].id]),
+                    t.one("insert into Publisher (ContractingProcess_id) values ($1) returning id as publisher_id", info[0].id)
+                ])
 
-                });
-        })
+            });
+    })
         .then(function (data) {
             console.log(data);
             //res.json(data);
@@ -268,110 +268,110 @@ router.get('/new-process', function (req, res) {
 });
 
 /* Update Planning -> Budget */
-router.post('/update-planning', function (req, res) {
+router.post('/update-planning', isAuthenticated, function (req, res) {
 
-        edca_db.tx(function (t) {
-            var planning = this.one("update planning set rationale = $1 where ContractingProcess_id = $2 returning id", [req.body.rationale, req.body.contractingprocess_id]);
-            var budget = this.one("update budget set budget_source = $2, budget_budgetid =$3, budget_description= $4, budget_amount=$5, budget_currency=$6, budget_project=$7, budget_projectid=$8, budget_uri=$9" +
-                " where ContractingProcess_id=$1 returning id",
-                [
-                    req.body.contractingprocess_id,
-                    req.body.budget_source,
-                    req.body.budget_budgetid,
-                    req.body.budget_description,
-                    req.body.budget_amount,
-                    req.body.budget_currency,
-                    req.body.budget_project,
-                    req.body.budget_projectid,
-                    req.body.budget_uri
+    edca_db.tx(function (t) {
+        var planning = this.one("update planning set rationale = $1 where ContractingProcess_id = $2 returning id", [req.body.rationale, req.body.contractingprocess_id]);
+        var budget = this.one("update budget set budget_source = $2, budget_budgetid =$3, budget_description= $4, budget_amount=$5, budget_currency=$6, budget_project=$7, budget_projectid=$8, budget_uri=$9" +
+            " where ContractingProcess_id=$1 returning id",
+            [
+                req.body.contractingprocess_id,
+                req.body.budget_source,
+                req.body.budget_budgetid,
+                req.body.budget_description,
+                req.body.budget_amount,
+                req.body.budget_currency,
+                req.body.budget_project,
+                req.body.budget_projectid,
+                req.body.budget_uri
             ]);
             
-            return this.batch([planning, budget]);
+        return this.batch([planning, budget]);
 
-            }).then(function (data) {
-            res.send('La etapa de planeación ha sido actualizada');
-            console.log('Update planning: ',data);
-        }).catch(function (error) {
-            console.log("ERROR: ",error);
-            res.send('Error');
-        });
+    }).then(function (data) {
+        res.send('La etapa de planeación ha sido actualizada');
+        console.log('Update planning: ',data);
+    }).catch(function (error) {
+        console.log("ERROR: ",error);
+        res.send('Error');
+    });
 
 });
 
 /* Update Tender*/
-router.post('/update-tender', function (req, res) {
-        edca_db.one("update tender set tenderid =$2, title= $3, description=$4, status=$5, minvalue_amount=$6, minvalue_currency=$7, value_amount=$8, value_currency=$9, procurementmethod=$10," +
-            "procurementmethod_rationale=$11, awardcriteria=$12, awardcriteria_details=$13, submissionmethod=$14, submissionmethod_details=$15," +
-            "tenderperiod_startdate=$16, tenderperiod_enddate=$17, enquiryperiod_startdate=$18, enquiryperiod_enddate=$19 ,hasenquiries=$20, eligibilitycriteria=$21, awardperiod_startdate=$22," +
-            "awardperiod_enddate=$23, numberoftenderers=$24, amendment_date=$25, amendment_rationale=$26" +
-            " where ContractingProcess_id = $1 returning id", [
-            req.body.contractingprocess_id,
-            req.body.tenderid,
-            req.body.title,
-            req.body.description,
-            req.body.status,
-            req.body.minvalue_amount,
-            req.body.minvalue_currency,
-            req.body.value_amount,
-            req.body.value_currency,
-            req.body.procurementmethod,
-            req.body.procurementmethod_rationale,
-            req.body.awardcriteria,
-            req.body.awardcriteria_details,
-            req.body.submissionmethod,
-            req.body.submissionmethod_details,
-            (req.body.tenderperiod_startdate!='')?req.body.tenderperiod_startdate:null,
-            (req.body.tenderperiod_enddate!='')?req.body.tenderperiod_enddate:null,
-            (req.body.enquiryperiod_startdate!='')?req.body.enquiryperiod_startdate:null,
-            (req.body.enquiryperiod_enddate!='')?req.body.enquiryperiod_enddate:null,
-            req.body.hasenquiries,
-            req.body.eligibilitycriteria,
-            (req.body.awardperiod_startdate!='')?req.body.awardperiod_startdate:null,
-            (req.body.awardperiod_enddate!='')?req.body.awardperiod_enddate:null,
-            req.body.numberoftenderers,
-            (req.body.amendment_date!='')?req.body.amendment_date:null,
-            req.body.amendment_rationale
-        ]).then(
-            function (data) {
-                console.log("Update tender: ", data);
-                res.send("La etapa de licitación ha sido actualizada");
-            }).catch(function (error) {
-            res.send("ERROR");
-            console.log("ERROR: ",error);
-        });
+router.post('/update-tender',isAuthenticated, function (req, res) {
+    edca_db.one("update tender set tenderid =$2, title= $3, description=$4, status=$5, minvalue_amount=$6, minvalue_currency=$7, value_amount=$8, value_currency=$9, procurementmethod=$10," +
+        "procurementmethod_rationale=$11, awardcriteria=$12, awardcriteria_details=$13, submissionmethod=$14, submissionmethod_details=$15," +
+        "tenderperiod_startdate=$16, tenderperiod_enddate=$17, enquiryperiod_startdate=$18, enquiryperiod_enddate=$19 ,hasenquiries=$20, eligibilitycriteria=$21, awardperiod_startdate=$22," +
+        "awardperiod_enddate=$23, numberoftenderers=$24, amendment_date=$25, amendment_rationale=$26" +
+        " where ContractingProcess_id = $1 returning id", [
+        req.body.contractingprocess_id,
+        req.body.tenderid,
+        req.body.title,
+        req.body.description,
+        req.body.status,
+        req.body.minvalue_amount,
+        req.body.minvalue_currency,
+        req.body.value_amount,
+        req.body.value_currency,
+        req.body.procurementmethod,
+        req.body.procurementmethod_rationale,
+        req.body.awardcriteria,
+        req.body.awardcriteria_details,
+        req.body.submissionmethod,
+        req.body.submissionmethod_details,
+        (req.body.tenderperiod_startdate!='')?req.body.tenderperiod_startdate:null,
+        (req.body.tenderperiod_enddate!='')?req.body.tenderperiod_enddate:null,
+        (req.body.enquiryperiod_startdate!='')?req.body.enquiryperiod_startdate:null,
+        (req.body.enquiryperiod_enddate!='')?req.body.enquiryperiod_enddate:null,
+        req.body.hasenquiries,
+        req.body.eligibilitycriteria,
+        (req.body.awardperiod_startdate!='')?req.body.awardperiod_startdate:null,
+        (req.body.awardperiod_enddate!='')?req.body.awardperiod_enddate:null,
+        req.body.numberoftenderers,
+        (req.body.amendment_date!='')?req.body.amendment_date:null,
+        req.body.amendment_rationale
+    ]).then(
+        function (data) {
+            console.log("Update tender: ", data);
+            res.send("La etapa de licitación ha sido actualizada");
+        }).catch(function (error) {
+        res.send("ERROR");
+        console.log("ERROR: ",error);
+    });
 });
 
 /* Update Award */
-router.post('/update-award', function (req, res) {
-        edca_db.one("update award set awardid=$2, title= $3, description=$4,status=$5,award_date=$6,value_amount=$7,value_currency=$8,contractperiod_startdate=$9," +
-            "contractperiod_enddate=$10,amendment_date=$11,amendment_rationale=$12 " +
-            " where ContractingProcess_id = $1 returning id",
-            [
-                req.body.contractingprocess_id,
-                req.body.awardid,
-                req.body.title,
-                req.body.description,
-                req.body.status,
-                (req.body.award_date!='')?req.body.award_date:null,
-                req.body.value_amount,
-                req.body.value_currency,
-                (req.body.contractperiod_startdate!='')?req.body.contractperiod_startdate:null,
-                (req.body.contractperiod_enddate!='')?req.body.contractperiod_enddate:null,
-                (req.body.amendment_date!='')?req.body.amendment_date:null,
-                req.body.amendment_rationale
-            ]
-        ).then(
-            function (data) {
-                console.log("Update award: ", data);
-                res.send("La etapa de adjudicación ha sido actualizada");
-            }).catch(function (error) {
-            console.log("ERROR: ",error);
-            res.send("ERROR");
-        });
+router.post('/update-award',isAuthenticated, function (req, res) {
+    edca_db.one("update award set awardid=$2, title= $3, description=$4,status=$5,award_date=$6,value_amount=$7,value_currency=$8,contractperiod_startdate=$9," +
+        "contractperiod_enddate=$10,amendment_date=$11,amendment_rationale=$12 " +
+        " where ContractingProcess_id = $1 returning id",
+        [
+            req.body.contractingprocess_id,
+            req.body.awardid,
+            req.body.title,
+            req.body.description,
+            req.body.status,
+            (req.body.award_date!='')?req.body.award_date:null,
+            req.body.value_amount,
+            req.body.value_currency,
+            (req.body.contractperiod_startdate!='')?req.body.contractperiod_startdate:null,
+            (req.body.contractperiod_enddate!='')?req.body.contractperiod_enddate:null,
+            (req.body.amendment_date!='')?req.body.amendment_date:null,
+            req.body.amendment_rationale
+        ]
+    ).then(
+        function (data) {
+            console.log("Update award: ", data);
+            res.send("La etapa de adjudicación ha sido actualizada");
+        }).catch(function (error) {
+        console.log("ERROR: ",error);
+        res.send("ERROR");
+    });
 });
 
 /* Update Contract */
-router.post('/update-contract', function (req, res) {
+router.post('/update-contract', isAuthenticated, function (req, res) {
     edca_db.one("update contract set contractid=$2, awardid=$3, title=$4, description=$5, status=$6, period_startdate=$7, period_enddate=$8, value_amount=$9, value_currency=$10," +
         " datesigned=$11, amendment_date=$12, amendment_rationale=$13 " +
         " where ContractingProcess_id = $1 returning id", [
@@ -399,7 +399,7 @@ router.post('/update-contract', function (req, res) {
 });
 
 // New document
-router.post('/new-document', function(req,res){
+router.post('/new-document', isAuthenticated, function(req,res){
     edca_db.one('insert into $1~ (contractingprocess_id, document_type, documentid, title, description, url, date_published, date_modified, format, language) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11) returning id',
         [
             req.body.table,
@@ -428,7 +428,7 @@ router.post('/newdoc-fields', function (req,res) {
 });
 
 /* New organization */
-router.post('/new-organization', function (req, res) {
+router.post('/new-organization', isAuthenticated, function (req, res) {
     //falta pasar id de award y tender segun sea el caso
     edca_db.one("insert into $17~" +
         " (contractingprocess_id, identifier_scheme, identifier_id, identifier_legalname, identifier_uri, name, address_streetaddress," +
@@ -466,7 +466,7 @@ router.post('/neworg-fields', function (req,res) {
     res.render('modals/neworg-fields', { localid: req.body.localid , table : req.body.table });
 });
 
-router.post('/new-item',function (req,res) {
+router.post('/new-item',isAuthenticated,function (req,res) {
     edca_db.one('insert into $1~ (contractingprocess_id, itemid, description, classification_scheme, classification_id, classification_description, classification_uri,' +
         ' unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11) returning id',
         [
@@ -495,7 +495,7 @@ router.post('/newitem-fields', function (req,res) {
     res.render('modals/newitem-fields', { localid: req.body.localid , table : req.body.table });
 });
 
-router.post('/new-milestone',function (req,res) {
+router.post('/new-milestone', isAuthenticated,function (req,res) {
     edca_db.one('insert into $1~ (contractingprocess_id, milestoneid, title, description, duedate, date_modified, status) values ($2,$3,$4,$5,$6,$7,$8) returning id',
         [
             req.body.table,
@@ -521,7 +521,7 @@ router.post('/newmilestone-fields', function (req,res) {
     res.render('modals/newmilestone-fields', { localid: req.body.localid , table : req.body.table });
 });
 
-router.post('/new-transaction', function (req,res) {
+router.post('/new-transaction', isAuthenticated,function (req,res) {
     edca_db.one('insert into implementationtransactions (contractingprocess_id, source, implementation_date, value_amount, value_currency, ' +
         'providerorganization_scheme,providerorganization_id,providerorganization_legalname,providerorganization_uri,' +
         'receiverorganization_scheme,receiverorganization_id,receiverorganization_legalname,receiverorganization_uri, uri) ' +
@@ -557,7 +557,7 @@ router.post('/newtransaction-fields', function (req,res) {
 });
 
 // new amendment change
-router.post('/new-amendment-change', function (req, res) {
+router.post('/new-amendment-change',isAuthenticated, function (req, res) {
     edca_db.one('insert into $1~ (contractingprocess_id, property, former_value) values ($2,$3,$4) returning id',[
         req.body.table,
         req.body.localid,
@@ -577,7 +577,7 @@ router.post('/newamendmentchange-fields', function (req,res) {
 });
 
 // Update buyer, procuring entity
-router.post('/update-organization', function (req, res) {
+router.post('/update-organization', isAuthenticated, function (req, res) {
 
     edca_db.one("update $1~ set identifier_scheme= $3, identifier_id =$4, identifier_legalname=$5, identifier_uri=$6, name = $7, address_streetaddress=$8," +
         " address_locality=$9, address_region =$10, address_postalcode=$11, address_countryname=$12, contactpoint_name=$13, contactpoint_email=$14, contactpoint_telephone=$15," +
@@ -623,11 +623,11 @@ router.post('/org-fields',function(req,res){
         console.log('ERROR: ', error);
         res.send('ERROR');        
     });
-    
+
 });
 
 // Update publisher
-router.post('/update-publisher', function (req, res) {
+router.post('/update-publisher',isAuthenticated, function (req, res) {
 
     edca_db.one("update publisher set name=$2, scheme=$3, uid=$4, uri=$5 where id = $1 returning id",
         [
@@ -655,7 +655,7 @@ router.post('/publisher', function (req, res) {
 });
 
 //update OCID
-router.post('/update-ocid',function (req, res) {
+router.post('/update-ocid',isAuthenticated,function (req, res) {
     edca_db.one("update contractingprocess set ocid = $1 where id=$2 returning id",[ req.body.ocid, req.body.localid ]).then(function (data) {
         res.send("Identificador de proceso actualizado");
         console.log("Update ocid:", data);
@@ -776,7 +776,7 @@ router.post('/amendmentchange-list',function (req, res) {
 });
 
 
-router.post('/delete', function (req,res) {
+router.post('/delete', isAuthenticated,function (req,res) {
     console.log(req.body.id);
     console.log(req.body.table);
     edca_db.result('delete from $1~ where id = $2', [
@@ -1322,7 +1322,7 @@ var upload = multer({ dest: path.join(__dirname, './uploads')});
 //Converter Class
 var Converter = require("csvtojson").Converter;
 
-router.post('/upload-stage', upload.single('datafile'), function (req, res) {
+router.post('/upload-stage', isAuthenticated, upload.single('datafile'), function (req, res) {
 
     console.log("Uploaded file: ", req.file);
 
