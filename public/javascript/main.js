@@ -119,6 +119,78 @@ $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
     });
 });
 
+/*----- Manuales -----*/
+$("#manualEntry").hide();
+
+$("#textoPlaneacion").hide();
+$("#textoLicitacion").hide();
+$("#textoAdjudicacion").hide();
+$("#textoContratacion").hide();
+$("#textoImplementacion").hide();
+
+$("#creacionManual").click(function(){
+  $("#manualEntry").show(500);
+  $("#textoPlaneacion").hide();
+  $("#textoLicitacion").hide();
+  $("#textoAdjudicacion").hide();
+  $("#textoContratacion").hide();
+  $("#textoImplementacion").hide();
+});
+
+$("#publicacionManual").click(function(){
+  $("#manualEntry").hide(500);
+  $("#textoPlaneacion").hide();
+  $("#textoLicitacion").hide();
+  $("#textoAdjudicacion").hide();
+  $("#textoContratacion").hide();
+  $("#textoImplementacion").hide();
+});
+
+$("#manualPlan").click(function(){
+  $("#manualEntry").hide(500);
+  $("#textoLicitacion").hide();
+  $("#textoAdjudicacion").hide();
+  $("#textoContratacion").hide();
+  $("#textoImplementacion").hide();
+  $("#textoPlaneacion").show(500);
+});
+
+$("#manualLic").click(function(){
+  $("#manualEntry").hide(500);
+  $("#textoLicitacion").show(500);
+  $("#textoAdjudicacion").hide();
+  $("#textoContratacion").hide();
+  $("#textoImplementacion").hide();
+  $("#textoPlaneacion").hide();
+});
+
+$("#manualAdj").click(function(){
+  $("#manualEntry").hide(500);
+  $("#textoLicitacion").hide();
+  $("#textoAdjudicacion").show(500);
+  $("#textoContratacion").hide();
+  $("#textoImplementacion").hide();
+  $("#textoPlaneacion").hide();
+});
+
+$("#manualCont").click(function(){
+  $("#manualEntry").hide(500);
+  $("#textoLicitacion").hide();
+  $("#textoAdjudicacion").hide();
+  $("#textoContratacion").show(500);
+  $("#textoImplementacion").hide();
+  $("#textoPlaneacion").hide();
+});
+
+$("#manualImp").click(function(){
+  $("#manualEntry").hide(500);
+  $("#textoLicitacion").hide();
+  $("#textoAdjudicacion").hide();
+  $("#textoContratacion").hide();
+  $("#textoImplementacion").show(500);
+  $("#textoPlaneacion").hide();
+});
+/*----- Manuales -----*/
 
 $('#myModalEditPub').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal

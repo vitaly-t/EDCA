@@ -34,12 +34,18 @@
 .navbar-inverse .navbar-right {
     color: #FFFFFF;
     font-weight: bold;
+
 }
 
 .navbar-inverse{
     background: #212121;
     border: #4d4d4d;
     color: #FFFFFF;
+}
+
+.urlLink .manualLink{
+    color: #4d4d4d;
+    font-weight: bold;
 }
 
 .urLink{
