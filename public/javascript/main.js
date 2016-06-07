@@ -119,6 +119,7 @@ $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
     });
 });
 
+
 $('#myModalEditPub').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     $('#updatepub_fields').load('/publisher/',{ localid: button.data('localid') }, function () {
