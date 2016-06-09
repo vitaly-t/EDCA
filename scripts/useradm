@@ -1,0 +1,96 @@
+#!/usr/bin/env node
+
+if ( typeof process.argv[2] != 'undefined'){
+    var bcrypt = require ('bcrypt-nodejs');
+    var dbConfig = require('../db.js');
+    var mongoose = require('mongoose');
+    mongoose.connect(dbConfig.url);
+//var User = require('../models/user');
+
+    var db = mongoose.connection;
+
+    var User = mongoose.model('User',{
+        fullname: String,
+        username: String,
+        password: String,
+        email: String,
+        address: String
+    });
+
+    db.on('error', console.error.bind(console, 'connection error:'));
+
+    switch ( process.argv[2]){
+        case "add":
+            if (typeof process.argv[3] != 'undefined' && typeof process.argv[4] != 'undefined'){
+
+                User.findOne({'username': process.argv[3] }, function (err, user) {
+                    if (err) return console.error(err);
+
+                    if ( user ){
+                        console.log('User already exists with username: ', process.argv[3]);
+                        mongoose.disconnect();
+                    }else{
+                        var u = new User({
+                            'fullname':'Usuario EDCA',
+                            'username': process.argv[3],
+                            'password': bcrypt.hashSync(process.argv[4], bcrypt.genSaltSync(10), null),
+                            'email':'user@example.org',
+                            'address': 'Dirección'
+                        });
+
+                        u.save(function (err, u) {
+                            if (err) return console.error(err);
+                            console.log('add user:\n',u);
+                            mongoose.disconnect();
+                        });
+                    }
+                });
+            }else {
+                mongoose.disconnect();
+                console.log("Example:\n\t./useradm add <username> <password>");
+            }
+            break;
+        case "delete":
+            if (typeof process.argv[3] != 'undefined') {
+                console.log("Delete user:");
+                User.find({"username": process.argv[3]}, function(err, users){
+                    if (err) return console.error(err);
+                    console.log(users);
+                    for (var i =0; i< users.length ;i++){
+                        users[i].remove();
+                    }
+                    mongoose.disconnect();
+                });
+            }else {
+                mongoose.disconnect();
+                console.log('Example:\n\t./useradm delete <username>');
+            }
+            break;
+        case "chpwd":
+            if ( typeof process.argv[3] != 'undefined') {
+                console.log("Change user password");
+                mongoose.disconnect();
+            }else{
+                mongoose.disconnect();
+                console.log("Example:\n\t./useradm chpwd <username>");
+            }
+            break;
+        case "list":
+            console.log("User list:");
+            User.find(function (err, users) {
+                if (err) return console.error(err);
+                console.log(users);
+                mongoose.disconnect();
+            });
+            break;
+        default:
+            console.log ("Unrecognized option");
+            mongoose.disconnect();
+    }
+
+}else{
+    console.log("Usage: ./useradm <command>\n\twhere <command> is one of:\n" +
+        "\tadd, delete, chpwd, list");
+}
+
+

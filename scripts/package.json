@@ -1,11 +1,11 @@
 {
-  "name":"scripts",
-  "version":"0.0.1",
+  "name": "scripts",
+  "version": "0.0.1",
   "private": true,
-  "dependencies" : {
-    "pg-promise" : "*.*",
+  "dependencies": {
     "bcrypt-nodejs": "*.*",
-    "csvtojson": "*.*"
-
+    "csvtojson": "*.*",
+    "mongoose": "^4.4.20",
+    "pg-promise": "*.*"
   }
 }

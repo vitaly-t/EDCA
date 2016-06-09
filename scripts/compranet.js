@@ -66,7 +66,8 @@ if ( typeof process.argv[2] != 'undefined') {
         db.tx(function (t) {
 
             return t.one("insert into ContractingProcess (ocid, fecha_creacion, hora_creacion) values ($1, current_date, current_time) returning id", [
-                jsonObj.SIGLAS + "-E" + jsonObj.CODIGO_EXPEDIENTE+"-C"+jsonObj.CODIGO_CONTRATO
+                //jsonObj.SIGLAS + "-E" + jsonObj.CODIGO_EXPEDIENTE+"-C"+jsonObj.CODIGO_CONTRATO
+                jsonObj.SIGLAS+"-"+jsonObj.NUMERO_PROCEDIMIENTO
 
             ]).then(function (process) {
 
