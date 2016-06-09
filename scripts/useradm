@@ -67,12 +67,24 @@ if ( typeof process.argv[2] != 'undefined'){
             }
             break;
         case "chpwd":
-            if ( typeof process.argv[3] != 'undefined') {
-                console.log("Change user password");
-                mongoose.disconnect();
+            if ( typeof process.argv[3] != 'undefined' && typeof process.argv[4] != 'undefined') {
+                User.findOne({ 'username': process.argv[3] }, function(err, user){
+                    //error
+                    if ( user ){
+                        user.password = bcrypt.hashSync(process.argv[4], bcrypt.genSaltSync(10), null);
+                        user.save(function (err, user) {
+                            if (err) return console.error(err, user);
+                            console.log('Change user password:\n',user);
+                            mongoose.disconnect();
+                        });
+                    } else {
+                        console.log("User not found: " , process.argv[3] );
+                        mongoose.disconnect();
+                    }
+                });
             }else{
                 mongoose.disconnect();
-                console.log("Example:\n\t./useradm chpwd <username>");
+                console.log("Example:\n\t./useradm chpwd <username> <newpassword>");
             }
             break;
         case "list":
