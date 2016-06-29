@@ -522,11 +522,12 @@ router.post('/newmilestone-fields', function (req,res) {
 });
 
 router.post('/new-transaction', isAuthenticated,function (req,res) {
-    edca_db.one('insert into implementationtransactions (contractingprocess_id, source, implementation_date, value_amount, value_currency, ' +
+    edca_db.one('insert into implementationtransactions (contractingprocess_id, transactionid, source, implementation_date, value_amount, value_currency, ' +
         'providerorganization_scheme,providerorganization_id,providerorganization_legalname,providerorganization_uri,' +
         'receiverorganization_scheme,receiverorganization_id,receiverorganization_legalname,receiverorganization_uri, uri) ' +
-        'values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) returning id',[
+        'values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) returning id',[
         req.body.localid,
+        req.body.transactionid,
         req.body.source,
         (req.body.implementation_date != '')?req.body.implementation_date:null,
         req.body.value_amount,

@@ -491,6 +491,7 @@ create table ImplementationTransactions(
 	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
 	contract_id int references Contract(id) on delete cascade,
 	implementation_id int references Implementation(id) on delete cascade,
+    transactionid text,
 	source text,
 	implementation_date timestamp,
 	value_amount decimal, 
