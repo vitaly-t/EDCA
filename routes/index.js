@@ -175,7 +175,17 @@ router.get('/main', isAuthenticated, function(req, res, next) {
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 var pgp      = require("pg-promise")();
-var edca_db  = pgp("postgres://tester:test@localhost/edca");
+
+var edca_db;
+
+if ( typeof process.env.EDCA_DB != "undefined" ){
+    console.log("EDCA_DB: ", process.env.EDCA_DB);
+    edca_db = pgp( process.env.EDCA_DB );
+} else {
+    console.log("Warning: EDCA_DB env variable is not set\n " +
+        " defaulting to -> postgres://tester:test@localhost/edca")
+    edca_db = pgp("postgres://tester:test@localhost/edca");
+}
 
 /* GET main page with data */
 router.get('/main/:localid', isAuthenticated, function (req,res) {
