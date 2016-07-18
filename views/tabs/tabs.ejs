@@ -155,9 +155,19 @@ function getMString ( fecha ){
                 <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa <!--Value currency--></label>
                     <input type="text" class="form-control" name = "value_currency" value = "<%= (typeof tender != "undefined")? tender.value_currency:''%>" >
                 </p>
-                <p><label data-tooltip="crear_proceso" title='Nombre del tipo de procedimiento que se utiliza para la contratación.'>Método de adquisición<!--Procurement method--></label>
-                    <input type="text" class="form-control" name= "procurementmethod" value = "<%= (typeof tender != "undefined")? tender.procurementmethod:''%>" >
+
+                <p>
+                    <label data-tooltip="crear_proceso" title='Nombre del tipo de procedimiento que se utiliza para la contratación.'>Método de adquisición<!--Procurement method--></label>
+
+                    <select name = "procurementmethod" class="form-control">
+                        <option value ="">No aplica</option>
+                        <option value="Adjudicación directa" <%= tender.procurementmethod == 'Adjudicación directa'?'selected':''%> >Adjudicación directa</option>
+                        <option value="Convenio de colaboración" <%= tender.procurementmethod == 'Convenio de colaboración'?'selected':'' %> >Convenio de colaboración</option>
+                        <option value="Invitación a cuando menos tres personas" <%= tender.procurementmethod == 'Invitación a cuando menos tres personas'?'selected':''%> >Invitación a cuando menos tres personas</option>
+                        <option value="Licitación pública" <%= tender.procurementmethod=='Licitación pública'?'selected':'' %> >Licitación pública</option>
+                    </select>
                 </p>
+
                 <p><label data-tooltip="crear_proceso" title='Descripción de las razones por las cuáles se seleccionó el tipo de prodecimiento que se sigue para la contratación.'>Fundamento de método de adquisición<!--Procurement method rationale--></label>
                     <input type="text" class="form-control" name= "procurementmethod_rationale" value = "<%= (typeof tender != "undefined")? tender.procurementmethod_rationale:''%>" >
                 </p>
