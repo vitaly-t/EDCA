@@ -26,8 +26,9 @@ var LocalStrategy   = require('passport-local').Strategy;
 var User = require('../models/user');
 var bCrypt = require('bcrypt-nodejs');
 
-passport.use('login', new LocalStrategy(
-    {     passReqToCallback : true      },
+passport.use('login', new LocalStrategy({
+        passReqToCallback : true
+    },
     function(req, username, password, done) {
         // check in mongo if a user with username exists or not
 
@@ -289,7 +290,7 @@ router.post('/update-planning', isAuthenticated, function (req, res) {
                 req.body.budget_source,
                 req.body.budget_budgetid,
                 req.body.budget_description,
-                req.body.budget_amount,
+                ( isNaN(req.body.budget_amount) ?null:req.body.budget_amount),
                 req.body.budget_currency,
                 req.body.budget_project,
                 req.body.budget_projectid,
@@ -320,9 +321,9 @@ router.post('/update-tender',isAuthenticated, function (req, res) {
         req.body.title,
         req.body.description,
         req.body.status,
-        req.body.minvalue_amount,
+        (isNaN(req.body.minvalue_amount)?null:req.body.minvalue_amount),
         req.body.minvalue_currency,
-        req.body.value_amount,
+        (isNaN(req.body.value_amount)?null:req.body.value_amount),
         req.body.value_currency,
         req.body.procurementmethod,
         req.body.procurementmethod_rationale,
@@ -363,7 +364,7 @@ router.post('/update-award',isAuthenticated, function (req, res) {
             req.body.description,
             req.body.status,
             (req.body.award_date!='')?req.body.award_date:null,
-            req.body.value_amount,
+            (isNaN(req.body.value_amount)?null:req.body.value_amount),
             req.body.value_currency,
             (req.body.contractperiod_startdate!='')?req.body.contractperiod_startdate:null,
             (req.body.contractperiod_enddate!='')?req.body.contractperiod_enddate:null,
@@ -393,7 +394,7 @@ router.post('/update-contract', isAuthenticated, function (req, res) {
         req.body.status,
         (req.body.period_startdate!='')?req.body.period_startdate:null,
         (req.body.period_enddate!='')?req.body.period_enddate:null,
-        (req.body.value_amount!='')?req.body.value_amount:null,
+        (isNaN(req.body.value_amount)?null:req.body.value_amount),
         req.body.value_currency,
         (req.body.datesigned!='')?req.body.datesigned:null,
         (req.body.amendment_date!='')?req.body.amendment_date:null,
@@ -489,7 +490,7 @@ router.post('/new-item',isAuthenticated,function (req,res) {
             req.body.classification_description,
             req.body.classification_uri,
             req.body.unit_name,
-            req.body.unit_value_amount,
+            (isNaN(req.body.unit_value_amount)?null:req.body.unit_value_amount),
             req.body.unit_value_currency
         ]
     ).then(function (data) {
@@ -540,7 +541,7 @@ router.post('/new-transaction', isAuthenticated,function (req,res) {
         req.body.transactionid,
         req.body.source,
         (req.body.implementation_date != '')?req.body.implementation_date:null,
-        req.body.value_amount,
+        (isNaN(req.body.value_amount)?null:req.body.value_amount),
         req.body.value_currency,
 
         req.body.providerorganization_scheme,
