@@ -22,6 +22,14 @@
         </div>
     </div>
     <p><label>Estatus<!--Status--></label>
-        <input type="text" class="form-control" name="status"></p>
+
+        <select class="form-control" name="status">
+            <option value="">Ninguno</option>
+            <option value="Met">Concretada</option>
+            <option value="notMet">No concretada</option>
+            <option value="partiallyMet">Parcialmente concretada</option>
+        </select>
+
+    </p>
     <button class="btn btn-default">Guardar</button>
 </form>
