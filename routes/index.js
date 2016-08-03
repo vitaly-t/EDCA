@@ -922,7 +922,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
                 for (var i=0; i < array.length; i++ ){
                     var document = { };
 
-                    if(checkValue(array[i].documentid)){document.documentid = array[i].documentid;}
+                    if(checkValue(array[i].documentid)){document.id = array[i].documentid;}
                     if(checkValue(array[i].document_type)){document.documentType = array[i].document_type;}
                     if(checkValue(array[i].title)){document.title = array[i].title;}
                     if(checkValue(array[i].description)){document.description = array[i].description;}
@@ -1237,7 +1237,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             if(checkValue(data[0].contract.period_enddate)){contract.period.endDate = data[0].contract.period_enddate;}
 
             contract.value = { };
-            if(checkValue(data[0].contract.value_amount)){contract.value.amount = data[0].contract.value_amount;}
+            if(checkValue(data[0].contract.value_amount)){contract.value.amount = Number(data[0].contract.value_amount);}
             if(checkValue(data[0].contract.value_currency)){contract.value.currency = data[0].contract.value_currency;}
 
             if (data[11].length > 0) {
