@@ -49,6 +49,8 @@
 <div class="container all-container">
 
     <div class="row">
+
+
         <% if (typeof cp != "undefined"){%>
         <div class="col-sm-5">
             <div class="panel panel-default pill-container">
@@ -56,7 +58,7 @@
                     <h3 class="panel-title"><strong>Identificador de proceso</strong></h3>
                 </div>
                 <div class="panel-body">
-                    <form id ="updateocid_form">
+                    <form id ="updateocid_form" >
                         <input type="text" name="localid" value="<%= (typeof cp != "undefined" )? cp.id : ''%>" hidden>
                         <p>
                             <input type="text" name='ocid' class="form-control" value="<%= cp.ocid %>" placeholder="OCID">
@@ -68,19 +70,18 @@
         </div>
         <%}%>
 
-        <div class="col-sm-7">
+        <% if (typeof cp != "undefined"){%>
+        <div class="col-sm-3">
             <div class="panel panel-default pill-container">
+
                 <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Proceso de contratación</strong></h3>
+                    <h3 class="panel-title"><strong>Herramientas</strong></h3>
                 </div>
                 <div class="panel-body">
-                    <a href="/new-process" class="btn btn-default" data-tooltip="crear_proceso" title="Iniciar un nuevo proceso de contratación">Nuevo <i class="fa fa-pencil"></i></a>
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
-                      Buscar <i class="fa fa-search"></i></button>
 
-                    <% if (typeof cp != "undefined"){%>
-                    <button type="button" class="btn btn-default" data-localid="<%= cp.id %>" data-table="buyer" data-toggle="modal" data-tooltip="crear_proceso" title="Dependencia que publica este proceso de contratación." data-target="#myModalEditSingleOrg">
-                        Comprador <!--Buyer--> <i class="fa fa-user"></i></button>
+                    <p>
+                        <button type="button" class="btn btn-default" data-localid="<%= cp.id %>" data-table="buyer" data-toggle="modal" data-tooltip="crear_proceso" title="Dependencia que publica este proceso de contratación." data-target="#myModalEditSingleOrg">
+                            Comprador <!--Buyer--> <i class="fa fa-user"></i></button>
 
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="crear_proceso" title="Seleccionar tipo de processo que se desea publicar.">
@@ -94,8 +95,42 @@
                             <li><a href="#" data-localid="<%= cp.id %>" data-toggle="modal" data-target="#myModalEditPub">Publisher</a></li>
                         </ul>
                     </div>
-                    <a class="btn btn-primary" data-toggle="modal" data-target="#myModalManual" data-tooltip="crear_proceso" title="Abrir manual" href=""><i class="fa fa-book"></i></a>
-                    <%}%>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <%}%>
+
+
+        <div class="col-sm-4">
+            <div class="panel panel-default pill-container">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Procesos de contratación</strong></h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <form id = "newprocessform" class="form-inline">
+                                <p>
+                                <button class="btn btn-default" type="submit">Nuevo <i class="fa fa-warning"></i></button>
+                                </p>
+                            </form>
+
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
+                                    Buscar <i class="fa fa-search"></i></button>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <p>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#myModalManual" data-tooltip="crear_proceso" title="Abrir manual" href="">Manual <i class="fa fa-book"></i></button>
+                            </p>
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -105,8 +140,8 @@
     <% if (typeof error!= "undefined"){%>
     <div class="alert alert-danger alert-dismissible" role="alert">
         <p>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Atención:</strong> <%= error %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Atención:</strong> <%= error %>
         </p>
     </div>
     <%}%>

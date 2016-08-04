@@ -43,6 +43,19 @@ $(function () {
 // Tooltips
 $(document).ready(function(){
     $('[data-tooltip="crear_proceso"]').tooltip();
+
+    $('#newprocessform').submit(function (e) {
+
+        if ( confirm('¿Está seguro de crear un nuevo proceso de contratación?')) {
+
+            $.post('/new-process').done(function (data) {
+                alert("Se ha creado un nuevo proceso de contratación");
+                window.location.href = data.url;
+            });
+        }
+
+        e.preventDefault();
+    });
 });
 
 //update ocid

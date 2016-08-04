@@ -236,7 +236,7 @@ router.get('/main/:localid', isAuthenticated, function (req,res) {
 });
 
 // NUEVO PROCESO DE CONTRATACIÓN
-router.get('/new-process', isAuthenticated, function (req, res) {
+router.post('/new-process', isAuthenticated, function (req, res) {
     edca_db.tx(function (t) {
 
         return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id")
@@ -269,7 +269,8 @@ router.get('/new-process', isAuthenticated, function (req, res) {
         .then(function (data) {
             console.log(data);
             //res.json(data);
-            res.redirect('/main/'+data[0].process_id);
+            //res.redirect('/main/'+data[0].process_id);
+            res.json( { url: '/main/'+data[0].process_id } );
 
         })
         .catch(function (error) {
@@ -668,7 +669,7 @@ router.post('/publisher', function (req, res) {
 
 //update OCID
 router.post('/update-ocid',isAuthenticated,function (req, res) {
-    edca_db.one("update contractingprocess set ocid = $1 where id=$2 returning id",[ req.body.ocid, req.body.localid ]).then(function (data) {
+    edca_db.one("update contractingprocess set ocid = trim($1) where id=$2 returning id",[ req.body.ocid, req.body.localid ]).then(function (data) {
         res.send("Identificador de proceso actualizado");
         console.log("Update ocid:", data);
     }).catch(function (error) {
