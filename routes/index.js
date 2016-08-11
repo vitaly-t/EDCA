@@ -803,12 +803,10 @@ router.post('/delete', isAuthenticated,function (req,res) {
     });
 });
 
-router.get('/publish/:type/:localid/:outputname', function (req,res) {
-    var localid = req.params.localid;
-    var type = req.params.type;
+function getOCDSJSON( localid , type ) {
 
     //queries principales
-    edca_db.tx(function (t) {
+     return edca_db.task(function (t) {
 
         return t.one("Select * from contractingprocess where id = $1", [localid]).then(function (cp) { //0
 
@@ -1319,14 +1317,24 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
 
         })
 
-    }).then(function (data) {
-        console.log("Done ;)");
-        res.json(data);
-    }).catch(function (error) {
-        console.log("ERROR: ",error);
-        res.send(error);
     });
+
+}
+
+
+router.get('/publish/:type/:localid/:outputname', function (req,res) {
+    var localid = req.params.localid;
+    var type = req.params.type;
+
+
+    getOCDSJSON( Number(req.params.localid) , req.params.type ).then(function (data) {
+        res.send(data);
+    }).catch(function (error) {
+        return (error);
+    });
+
 });
+
 
 var path  = require('path');
 var multer = require('multer');
