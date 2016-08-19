@@ -515,11 +515,13 @@ function getOCDSJSON( localid , type ) {
                         uri: data[3].uri
                     },
                     license: "",
-                    publicationPolicy: ""
+                    publicationPolicy: "",
+localid : localid 
                 });
             }
 
-            return release;
+            release.localid = localid;
+	    return release ;
 
         })
 
@@ -529,8 +531,10 @@ function getOCDSJSON( localid , type ) {
 
 
 
-var localid = 100;
 
+var max = 222;
+
+for (var localid = 1 ; localid <= max ;localid++){
 getOCDSJSON( localid, 'release-record').then(function (data) {
     //console.log(data.releases[0].ocid, " -> done "+localid);
     //console.log(data);
@@ -538,10 +542,13 @@ getOCDSJSON( localid, 'release-record').then(function (data) {
 
     var ocid = data.releases[0].ocid.replace(/\//g,"_").trim();
 
-    console.log('localid -> '+localid+' OCID -> '+ ocid);
+    console.log(' OCID -> '+ ocid);
 
     //var file = "json/contrato_"+ ( typeof data.releases[0].ocid != 'undefined'?data.releases[0].ocid.replace(/\//g,"_"):'' ).trim()+".json";
-    var file = "output/"+ ocid  +"_"+localid+".json";
+    var file = "output/"+ ocid  +"_"+data.localid+".json";
+
+    delete data.localid;
+    
     jsonfile.writeFileSync(file, data, {spaces: 2}, function(err) {
         console.error("error: ", err);
     });
@@ -549,3 +556,4 @@ getOCDSJSON( localid, 'release-record').then(function (data) {
 }).catch(function (error) {
     console.log("ERROR: ",error);
 });
+}
