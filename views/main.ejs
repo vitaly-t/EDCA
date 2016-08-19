@@ -61,7 +61,7 @@
                     <form id ="updateocid_form" >
                         <input type="text" name="localid" value="<%= (typeof cp != "undefined" )? cp.id : ''%>" hidden>
                         <p>
-                            <input type="text" name='ocid' class="form-control" value="<%= cp.ocid %>" placeholder="OCID">
+                            <input type="text" name='ocid' class="form-control" value="<%= cp.ocid %>" placeholder="OCID" required>
                         </p>
                         <button class="btn btn-default">Actualizar</button>
                     </form>
