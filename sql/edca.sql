@@ -4,7 +4,8 @@ create table ContractingProcess (
 	id serial primary key,
     ocid text,
 	fecha_creacion date,
-	hora_creacion time
+	hora_creacion time,
+	stage integer
 	);
 
 drop table if exists Publisher cascade;

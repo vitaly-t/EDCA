@@ -239,7 +239,7 @@ router.get('/main/:localid', isAuthenticated, function (req,res) {
 router.post('/new-process', isAuthenticated, function (req, res) {
     edca_db.tx(function (t) {
 
-        return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion) values (current_date, current_time) returning id")
+        return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, ocid, stage ) values (current_date, current_time, concat('NUEVA_CONTRATACION_', current_date,'_', current_time), 0) returning id")
             .then(function (process) {
 
                 var planning = t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id);
