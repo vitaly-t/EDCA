@@ -480,7 +480,7 @@ router.post('/neworg-fields', function (req,res) {
 
 router.post('/new-item',isAuthenticated,function (req,res) {
     edca_db.one('insert into $1~ (contractingprocess_id, itemid, description, classification_scheme, classification_id, classification_description, classification_uri,' +
-        ' unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11) returning id',
+        ' quantity, unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) returning id',
         [
             req.body.table,
             req.body.localid,
@@ -490,6 +490,7 @@ router.post('/new-item',isAuthenticated,function (req,res) {
             req.body.classification_id,
             req.body.classification_description,
             req.body.classification_uri,
+            (isNaN(req.body.quantity)?null:req.body.quantity),
             req.body.unit_name,
             (isNaN(req.body.unit_value_amount)?null:req.body.unit_value_amount),
             req.body.unit_value_currency
@@ -676,7 +677,7 @@ router.post('/update-ocid',isAuthenticated,function (req, res) {
         console.log("ERROR: ", error);
         res.send('ERROR');
     });
-})
+});
 
 //buscar por periodo
 router.post('/search-process-by-date', function (req, res) {
