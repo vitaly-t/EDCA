@@ -21,6 +21,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "eonasdan-bootstrap-datetimepicker": "^4.17.37",
-    "font-awesome": "fontawesome#^4.6.1"
+    "font-awesome": "fontawesome#^4.6.1",
+    "protobuf": "^5.0.1"
   }
 }

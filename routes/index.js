@@ -1323,12 +1323,28 @@ function getOCDSJSON( localid , type ) {
 }
 
 
+
+//Protocol buffers
+//var ProtoBuf = require("protobufjs");
+
 router.get('/publish/:type/:localid/:outputname', function (req,res) {
     var localid = req.params.localid;
     var type = req.params.type;
 
 
     getOCDSJSON( Number(req.params.localid) , req.params.type ).then(function (data) {
+
+
+        /*
+        var builder = ProtoBuf.loadProtoFile("../models/proto/release.proto"),
+            OCDS = builder.build("OCDS"),
+            Release = OCDS.Release.r;
+
+        var r = new Car(data);
+        var buffer = r.encode();
+        */
+
+
         res.send(data);
     }).catch(function (error) {
         console.log(error);
