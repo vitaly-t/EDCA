@@ -151,7 +151,7 @@ var isNotAuthenticated = function (req, res, next) {
 
 /* GET home page. */
 router.get('/', isNotAuthenticated, function (req, res, next) {
-    res.render('index', {title: 'Contrataciones abiertas', message: req.flash('message')});
+    res.render('index', {title: 'Contrataciones Abiertas', message: req.flash('message')});
 });
 
 
@@ -171,7 +171,7 @@ router.get('/signout', function(req, res) {
 
 /* GET main page. */
 router.get('/main', isAuthenticated, function(req, res, next) {
-    res.render('main', { user: req.user, title: 'Contrataciones abiertas' });
+    res.render('main', { user: req.user, title: 'Contrataciones Abiertas' });
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -184,7 +184,7 @@ if ( typeof process.env.EDCA_DB != "undefined" ){
     edca_db = pgp( process.env.EDCA_DB );
 } else {
     console.log("Warning: EDCA_DB env variable is not set\n " +
-        " defaulting to -> postgres://tester:test@localhost/edca")
+        " defaulting to -> postgres://tester:test@localhost/edca");
     edca_db = pgp("postgres://tester:test@localhost/edca");
 }
 
@@ -1331,6 +1331,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
     getOCDSJSON( Number(req.params.localid) , req.params.type ).then(function (data) {
         res.send(data);
     }).catch(function (error) {
+        console.log(error);
         return (error);
     });
 

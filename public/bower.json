@@ -1,0 +1,26 @@
+{
+  "name": "EDCA",
+  "homepage": "https://github.com/mxabierto/EDCA",
+  "authors": [
+    "Mario Torres <mario291187@gmail.com>"
+  ],
+  "description": "Contrataciones Abiertas",
+  "main": "",
+  "keywords": [
+    "Contrataciones",
+    "Abiertas"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "font-awesome": "fontawesome#^4.6.1"
+  }
+}
