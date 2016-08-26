@@ -1340,7 +1340,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             OCDS = builder.build("OCDS"),
             Release = OCDS.Release.r;
 
-        var r = new Car(data);
+        var r = new Release(data);
         var buffer = r.encode();
         */
 
