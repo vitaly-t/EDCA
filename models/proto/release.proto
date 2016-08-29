@@ -1,6 +1,123 @@
 package OCDS.Release;
 
-message Release {
 
+message Release {
+    // Blocks
+    message Organization {
+        optional Identifier identifier = 1;
+        repeated Identifier additionalIdentifiers = 2 ;
+
+    }
+
+    message Identifier {
+
+    }
+
+    message Item {
+        optional string id = 1;
+        optional string title = 2;
+        optional string description = 3;
+        optional Classification classification = 4;
+        repeated Classification classifications = 5;
+        optional int64 quantity = 6;
+        optional string unit = 7;
+    }
+
+    message Classification {
+        optional string scheme = 1;
+        optional string id = 2;
+        optional string description = 3 ;
+        optional string uri = 4;
+    }
+
+    message AmendmentChange {
+
+    }
+
+    message Document {
+        required string id = 1 ;
+        optional string documentType = 2;
+        optional string title = 3;
+        optional string description = 4;
+        optional string url = 5;
+        optional string datePublished = 6;
+        optional string dataModified = 7;
+        optional string format = 8;
+        optional string language = 9;
+    }
+
+    message Award {
+
+    }
+
+    message Contract {
+        message Implementation {
+
+        }
+    }
+
+
+
+    // release
+
+
+    required string ocid = 1 ;
+    required string id = 2 ;
+    required string date = 3;
+    repeated string tag = 4;
+    optional string initiationType = 5;
+
+
+    message planning {
+        message budget {
+            optional string source = 1;
+            optional string id = 2;
+            optional string description = 3;
+
+            message amount {
+                optional int64 amount = 1;
+                optional string currency = 2;
+            }
+
+            optional string project= 4;
+            optional string projectID = 5;
+            optional string uri = 6;
+
+        }
+        optional string rationale = 1;
+        repeated Document Documents = 2;
+    }
+
+    message tender {
+        optional string id = 1;
+        optional string title = 2;
+        optional string description = 3;
+        optional string status = 4;
+        repeated Item items = 5;
+        message minValue {
+            optional float amount = 1;
+            optional string currency = 2;
+        }
+
+        message value {
+            optional float amount = 1;
+            optional string currency = 2;
+        }
+
+        optional string procurementMethod = 6;
+        optional string procurementMethodRationale = 7;
+
+        optional awardCrite
+
+
+
+
+
+
+    }
+
+    optional Organization buyer = 4;
+    repeated Award awards = 5 ;
+    repeated Contract contracts = 6;
 
 }
