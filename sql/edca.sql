@@ -308,7 +308,7 @@ drop table if exists AwardDocuments cascade;
 create table AwardDocuments(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade,
-	award_id int references Award(id), 
+	award_id int references Award(id) on delete cascade, 
 	document_type text,
 	documentid text,
 	title text, 
@@ -326,7 +326,7 @@ drop table if exists Supplier cascade;
 create table Supplier(
 	id serial primary key,
 	contractingprocess_id int references ContractingProcess(id) on delete cascade, 
-	award_id int references Award(id),
+	award_id int references Award(id) on delete cascade,
 	name text,
 	identifier_scheme text,
 	identifier_id text,
