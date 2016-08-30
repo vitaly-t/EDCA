@@ -359,7 +359,7 @@ create table SupplierAdditionalIdentifiers(
 drop table if exists AwardItem cascade;
 create table AwardItem(
 	id serial primary key,
-	contractingprocess_id int references ContractingProcess(id),
+	contractingprocess_id int references ContractingProcess(id) on delete cascade,
 	award_id int references Award(id) on delete cascade,
 	itemid text,
 	description text,
