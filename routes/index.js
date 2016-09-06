@@ -179,6 +179,18 @@ var pgp      = require("pg-promise")();
 
 var edca_db;
 
+// Linked postgresql docker container
+if ( typeof process.env.POSTGRES_PORT_5432_TCP_ADDR != "undefined" ) {
+  process.env.EDCA_DB = 'postgres://';
+  process.env.EDCA_DB += process.env.POSTGRES_USER || 'postgres';
+  process.env.EDCA_DB += ':';
+  process.env.EDCA_DB += process.env.POSTGRES_ENV_POSTGRES_PASSWORD || '';
+  process.env.EDCA_DB += '@';
+  process.env.EDCA_DB += process.env.POSTGRES_PORT_5432_TCP_ADDR;
+  process.env.EDCA_DB += '/';
+  process.env.EDCA_DB += process.env.POSTGRES_DB || 'postgres';
+}
+
 if ( typeof process.env.EDCA_DB != "undefined" ){
     console.log("EDCA_DB: ", process.env.EDCA_DB);
     edca_db = pgp( process.env.EDCA_DB );
@@ -253,7 +265,7 @@ router.post('/new-process', isAuthenticated, function (req, res) {
 
                 var process= {process_id : info[0].id};
                 var planning = {planning_id : info[1].id};
-                    
+
                 return t.batch([
                     process, planning,
                     t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id as budget_id", [info[0].id, info[1].id]),
@@ -297,7 +309,7 @@ router.post('/update-planning', isAuthenticated, function (req, res) {
                 req.body.budget_projectid,
                 req.body.budget_uri
             ]);
-            
+
         return this.batch([planning, budget]);
 
     }).then(function (data) {
@@ -627,15 +639,15 @@ router.post('/update-organization', isAuthenticated, function (req, res) {
 router.post('/org-fields',function(req,res){
     console.log("localid ->",req.body.localid);
     console.log("table ->",req.body.table);
-    
+
     edca_db.one('select * from $1~ where contractingprocess_id = $2', [
-        req.body.table, 
+        req.body.table,
         req.body.localid
     ]).then(function (data) {
         res.render('modals/org-fields',{ data : data, table: req.body.table });
     }).catch(function (error) {
         console.log('ERROR: ', error);
-        res.send('ERROR');        
+        res.send('ERROR');
     });
 
 });
