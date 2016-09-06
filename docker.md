@@ -19,5 +19,11 @@ docker run \
 -dP mxabierto/edca
 ```
 
+### Crear schema:
+```
+docker run -it --rm -v `pwd`/sql:/sql --link postgres:postgres postgres /bin/bash
+psql -h postgres -U postgres < /sql/edca.sql
+```
+
 ### Ejecutar comandos:
 `docker exec -it edca scripts/useradm add USERNAME PASSWORD`
