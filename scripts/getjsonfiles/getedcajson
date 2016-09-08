@@ -532,28 +532,37 @@ localid : localid
 
 
 
-var max = 222;
+var max = 300;
 
 for (var localid = 1 ; localid <= max ;localid++){
-getOCDSJSON( localid, 'release-record').then(function (data) {
-    //console.log(data.releases[0].ocid, " -> done "+localid);
-    //console.log(data);
-    //var file = "json/"+ data.releases[0].ocid.replace(/\//g,"_")+".json";
 
-    var ocid = data.releases[0].ocid.replace(/\//g,"_").trim();
+    edca_db.one("select $1 as id, count(1) as count from contractingprocess where id = $1", [localid]).then(function (data) {
+        if ( data.count > 0){
 
-    console.log(' OCID -> '+ ocid);
+            getOCDSJSON( data.id, "release-record").then(function (data) {
 
-    //var file = "json/contrato_"+ ( typeof data.releases[0].ocid != 'undefined'?data.releases[0].ocid.replace(/\//g,"_"):'' ).trim()+".json";
-    var file = "output/"+ ocid  +"_"+data.localid+".json";
+                var ocid = data.releases[0].ocid.replace(/\//g,"_").trim();
 
-    delete data.localid;
-    
-    jsonfile.writeFileSync(file, data, {spaces: 2}, function(err) {
-        console.error("error: ", err);
+                console.log(' OCID -> '+ ocid);
+                var file = "output/"+ ocid  +"_"+data.localid+".json";
+
+                delete data.localid;
+
+                jsonfile.writeFileSync(file, data, {spaces: 2}, function(err) {
+                    console.error("error: ", err);
+                });
+
+            }).catch(function (error) {
+                console.log("ERROR: ",error);
+            });
+
+        }else{
+            console.log ( "Registro inexistente: ", data.id );
+        }
+
+    }).catch(function (error) {
+        console.log(error);
     });
 
-}).catch(function (error) {
-    console.log("ERROR: ",error);
-});
+
 }
