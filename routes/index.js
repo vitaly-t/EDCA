@@ -201,19 +201,18 @@ if ( typeof process.env.EDCA_DB != "undefined" ){
 }
 
 /* GET main page with data */
-router.get('/main/:localid', isAuthenticated, function (req,res) {
-    var localid = req.params.localid;
+router.get('/main/:contractingprocess_id', isAuthenticated, function (req,res) {
 
     edca_db.task(function (t) {
         // this = t = transaction protocol context;
         // this.ctx = transaction config + state context;
         return t.batch([
-            t.one("select * from ContractingProcess where id = $1", localid),
-            t.one("select * from Planning where contractingprocess_id= $1", localid),
-            t.one("select * from budget where contractingprocess_id = $1", localid),
-            t.one("select * from Tender where contractingprocess_id = $1", localid),
-            t.one("select * from Award where contractingprocess_id = $1", localid),
-            t.one("select * from Contract where contractingprocess_id = $1", localid)
+            t.one("select * from ContractingProcess where id = $1",  [req.params.contractingprocess_id]),
+            t.one("select * from Planning where contractingprocess_id= $1", [req.params.contractingprocess_id]),
+            t.one("select * from budget where contractingprocess_id = $1", [req.params.contractingprocess_id]),
+            t.one("select * from Tender where contractingprocess_id = $1", [req.params.contractingprocess_id]),
+            t.one("select * from Award where contractingprocess_id = $1", [req.params.contractingprocess_id]),
+            t.one("select * from Contract where contractingprocess_id = $1", [req.params.contractingprocess_id])
         ]);
     })
     // using .spread(function(user, event)) is best here, if supported;
