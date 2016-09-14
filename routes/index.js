@@ -138,14 +138,14 @@ var isAuthenticated = function (req, res, next) {
         return next();
     // if the user is not authenticated then redirect him to the login page
     res.redirect('/');
-}
+};
 
 var isNotAuthenticated = function (req, res, next) {
     if (req.isUnauthenticated())
         return next();
     // if the user is authenticated then redirect him to the main page
     res.redirect('/main');
-}
+};
 
 /* * * * * * * * * * * RUTAS * * * * * * * * * * * * * */
 
@@ -254,12 +254,11 @@ router.post('/new-process', isAuthenticated, function (req, res) {
         return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, ocid, stage ) values (current_date, current_time, concat('NUEVA_CONTRATACION_', current_date,'_', current_time), 0) returning id")
             .then(function (process) {
 
-                var planning = t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id);
-                var tender = t.one ("insert into Tender (ContractingProcess_id,status) values ($1, $2) returning id as tender_id", [process.id, 'none']);
-                var contract = t.one ("insert into Contract (ContractingProcess_id, status) values ($1, $2) returning id", [process.id, 'none']);
-
-                return t.batch([process = { id : process.id}, planning, tender, contract] );
-
+                return t.batch([process = { id : process.id},
+                    t.one("insert into Planning (ContractingProcess_id) values ($1) returning id", process.id),
+                    t.one ("insert into Tender (ContractingProcess_id,status) values ($1, $2) returning id as tender_id", [process.id, 'none']),
+                    t.one ("insert into Contract (ContractingProcess_id, status) values ($1, $2) returning id", [process.id, 'none'])
+                ]);
 
             }).then(function (info) {
 
@@ -277,18 +276,15 @@ router.post('/new-process', isAuthenticated, function (req, res) {
                 ])
 
             });
-    })
-        .then(function (data) {
-            console.log(data);
-            //res.json(data);
-            //res.redirect('/main/'+data[0].process_id);
-            res.json( { url: '/main/'+data[0].process_id } );
 
-        })
-        .catch(function (error) {
-            res.json({"id": 0});
-            console.log("ERROR: ", error);
-        });
+    }).then(function (data) {
+        console.log(data);
+        res.json( { url: '/main/'+data[0].process_id } );
+
+    }).catch(function (error) {
+        res.json({"id": 0});
+        console.log("ERROR: ", error);
+    });
 });
 
 /* Update Planning -> Budget */
@@ -323,6 +319,49 @@ router.post('/update-planning', isAuthenticated, function (req, res) {
 });
 
 /* Update Tender*/
+/*
+function dateCol(name) {
+    return {
+        name: name,
+        init: function (value) {
+            return value != '' ? value : null;
+        }
+    };
+}
+
+function numericCol(name){
+    return {
+        name : name,
+        init: function (value) {
+            return !isNaN( value) ? +value : null;
+        }
+    }
+}
+
+// Reusable ColumnSet:
+var csUpdateTender = new pgp.helpers.ColumnSet(['tenderid','title', 'description', 'status', numericCol('minvalue_amount'), 'minvalue_currency', numericCol('value_amount'),'value_currency',
+    'procurementmethod', 'procurementmethod_rationale', 'awardcriteria', 'awardcriteria_details', 'submissionmethod', 'submissionmethod_details',
+    dateCol('tenderperiod_startdate'), dateCol('tenderperiod_enddate'), dateCol('enquiryperiod_startdate', dateCol('enquiryperiod_enddate',
+        'hasenquiries', 'eligibilitycriteria', dateCol('awardperiod_startdate'), dateCol('awardperiod_enddate'), numericCol('numberoftenderers'),
+        dateCol('amendment_date'), 'amendment_rationale'
+    ))], {table: 'tender'});
+
+router.post('/update-tender', isAuthenticated, function (req, res) {
+    var query = pgp.helpers.update(req.body, csUpdateTender) + " where ContractingProcess_id = "
+        + req.body.contractingprocess_id + " returning id";
+
+    console.log(req.body);
+
+    edca_db.one(query).then(function (data) {
+        console.log("Update tender: ", data);
+        res.send("La etapa de licitación ha sido actualizada");
+    }).catch(function (error) {
+        res.send("ERROR");
+        console.log("ERROR: ", error);
+    });
+});
+*/
+
 router.post('/update-tender',isAuthenticated, function (req, res) {
     edca_db.one("update tender set tenderid =$2, title= $3, description=$4, status=$5, minvalue_amount=$6, minvalue_currency=$7, value_amount=$8, value_currency=$9, procurementmethod=$10," +
         "procurementmethod_rationale=$11, awardcriteria=$12, awardcriteria_details=$13, submissionmethod=$14, submissionmethod_details=$15," +
@@ -364,6 +403,7 @@ router.post('/update-tender',isAuthenticated, function (req, res) {
         console.log("ERROR: ",error);
     });
 });
+
 
 /* Update Award */
 router.post('/update-award',isAuthenticated, function (req, res) {
@@ -476,8 +516,7 @@ router.post('/new-organization', isAuthenticated, function (req, res) {
             req.body.contactpoint_faxnumber,
             req.body.contactpoint_url,
             req.body.table
-        ]
-    ).then(function (data) {
+        ]).then(function (data) {
         res.send('La organización ha sido registrada'); // envía la respuesta y presentala en un modal
         console.log("Create organization: ", data);
     }).catch(function (error) {
@@ -506,8 +545,7 @@ router.post('/new-item',isAuthenticated,function (req,res) {
             req.body.unit_name,
             (isNaN(req.body.unit_value_amount)?null:req.body.unit_value_amount),
             req.body.unit_value_currency
-        ]
-    ).then(function (data) {
+        ]).then(function (data) {
         console.log("New item: ", data);
         res.send('Datos registrados');
     }).catch(function (error) {
@@ -531,8 +569,7 @@ router.post('/new-milestone', isAuthenticated,function (req,res) {
             (req.body.duedate!='')?req.body.duedate:null,
             (req.body.date_modified!='')?req.body.date_modified:null,
             req.body.status
-        ]
-    ).then(function (data) {
+        ]).then(function (data) {
         console.log("New milestone: ", data);
         res.send('Datos registrados');
     }).catch(function (error) {
