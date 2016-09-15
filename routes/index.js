@@ -854,7 +854,7 @@ router.post('/delete', isAuthenticated,function (req,res) {
 
 
 //Protocol buffers
-//var ProtoBuf = require("protobufjs");
+var ProtoBuf = require("protobufjs");
 
 var ocds = require('../io/ocds');
 
@@ -865,16 +865,33 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
 
     ocds.getOCDSJSON( Number(req.params.localid) , req.params.type, edca_db ).then(function (data) {
 
+        delete data.localid;
 
-        /*
         var builder = ProtoBuf.loadProtoFile("../models/proto/release.proto"),
             OCDS = builder.build("OCDS"),
-            Release = OCDS.Release.r;
+            ReleasePackage = OCDS.ReleasePackages.ReleasePackage;
 
-        var r = new Release(data);
-        var buffer = r.encode();
-        */
+       // var rp = new ReleasePackage(data);
 
+        var obj = {
+            uri : "1",
+            publishedDate : "2",
+            releases : [
+
+            ],
+            publisher : {
+                name : "juan"
+            },
+            license : '',
+            publicationPolicy : ''
+        };
+
+        //var rp = new ReleasePackage(obj);
+        //var buffer = rp.encode();
+
+        //console.log(buffer);
+        //socket
+        //send buffer
 
         res.send(data);
     }).catch(function (error) {
