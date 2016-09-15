@@ -867,7 +867,7 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
 
         delete data.localid;
 
-        var builder = ProtoBuf.loadProtoFile("../models/proto/release.proto"),
+        var builder = ProtoBuf.loadProtoFile("../models/proto/ocds.proto"),
             OCDS = builder.build("OCDS"),
             ReleasePackage = OCDS.ReleasePackages.ReleasePackage;
 
