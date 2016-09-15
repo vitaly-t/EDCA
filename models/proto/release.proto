@@ -14,7 +14,7 @@ message Release {
         optional string streetAddress =1;
         optional string locality = 2;
         optional string region = 3;
-        optional string postalcode = 4;
+        optional string postalCode = 4;
         optional string countryName = 5;
     }
 
@@ -85,7 +85,7 @@ message Release {
     }
 
     message Value {
-        optional double value = 1;
+        optional double amount = 1;
         optional string currency = 2;
     }
 
@@ -121,7 +121,7 @@ message Release {
 
         optional Budget budget = 1;
         optional string rationale = 2;
-        repeated Document Documents = 3;
+        repeated Document documents = 3;
     }
 
     message Tender {
@@ -144,7 +144,7 @@ message Release {
         optional string eligibilityCriteria = 17;
         optional Period awardPeriod = 18;
         optional uint32 numberOfTenderers = 19;
-        repeated Organization Tenderers = 20;
+        repeated Organization tenderers = 20;
         optional Organization procuringEntity = 21;
         repeated Document documents = 22;
         repeated Milestone milestones = 23;
@@ -162,14 +162,16 @@ message Release {
         repeated Item items = 8;
         optional Period contractPeriod = 9;
         repeated Document documents = 10;
-        message amendment {
-            optional string date = 1;
-            repeated AmendmentChange changes = 2;
-            optional string rationale = 3;
-        }
+        optional Amendment amendment = 11;
     }
 
     message Contract {
+        message Implementation {
+            repeated Transaction transactions =1;
+            repeated Milestone milestones = 2;
+            repeated Document documents = 3;
+        }
+
         optional string id = 1;
         optional string awardID = 2;
         optional string title = 3;
@@ -180,17 +182,10 @@ message Release {
         repeated Item items = 8;
         optional string dateSigned = 9;
         repeated Document documents = 10;
-        message amendment {
-            optional string date = 1;
-            repeated AmendmentChange changes = 2;
-            optional string rational = 3;
-        }
-        message Implementation {
-            repeated Transaction transactions =1;
-            repeated Milestone milestones = 2;
-            repeated Document documents = 3;
-        }
+        optional Amendment amendment = 11;
+        optional Implementation implementation = 12;
     }
+
 
     // release
     optional string ocid = 1 ;

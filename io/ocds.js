@@ -66,6 +66,10 @@ module.exports = {
                 return ( x != null && x != '' && typeof x != "undefined");
             }
 
+            function dateString( obj ) {
+                return obj instanceof Date ? obj.toISOString() : obj
+            }
+
             function getOrganizations(array){
                 var organizations = [];
                 for ( var i=0; i < array.length; i++){
@@ -124,8 +128,8 @@ module.exports = {
                     if(checkValue(array[i].title)){document.title = array[i].title;}
                     if(checkValue(array[i].description)){document.description = array[i].description;}
                     if(checkValue(array[i].url)){document.url = array[i].url;}
-                    if(checkValue(array[i].date_published)){document.datePublished = array[i].date_published;}
-                    if(checkValue(array[i].date_modified)){document.dateModified = array[i].date_modified;}
+                    if(checkValue(array[i].date_published)){document.datePublished = dateString(array[i].date_published);}
+                    if(checkValue(array[i].date_modified)){document.dateModified = dateString(array[i].date_modified);}
                     if(checkValue(array[i].format)){document.format = array[i].format;}
                     if(checkValue(array[i].language)){document.language = array[i].language;}
 
@@ -169,8 +173,8 @@ module.exports = {
                     if(checkValue(arr[i].milestoneid)){milestone.id = arr[i].milestoneid;}
                     if(checkValue(arr[i].title)){milestone.title = arr[i].title;}
                     if(checkValue(arr[i].description)){milestone.description = arr[i].description;}
-                    if(checkValue(arr[i].duedate)){milestone.dueDate = arr[i].duedate;}
-                    if(checkValue(arr[i].date_modified)){milestone.dateModified = arr[i].date_modified;}
+                    if(checkValue(arr[i].duedate)){milestone.dueDate = dateString(arr[i].duedate);}
+                    if(checkValue(arr[i].date_modified)){milestone.dateModified = dateString(arr[i].date_modified);}
                     if(checkValue(arr[i].status)){milestone.status = arr[i].status;}
 
                     milestones.push(milestone);
@@ -185,7 +189,7 @@ module.exports = {
                     var transaction = { };
 
                     if(checkValue(arr[i].source)){transaction.source = arr[i].source;}
-                    if(checkValue(arr[i].date)){transaction.date = arr[i].date;}
+                    if(checkValue(arr[i].date)){transaction.date = dateString(arr[i].date);}
 
                     transaction.value = { };
                     if(checkValue(arr[i].value_amount)){transaction.value.amount = Number(arr[i].value_amount);}
@@ -222,11 +226,12 @@ module.exports = {
                 return changes;
             }
 
+
             //RELEASE METADATA
             var release = {
                 ocid: String(data[0].cp.ocid),
                 id: "RELEASE_" + data[0].cp.ocid + "_" + (new Date()).toISOString(),
-                date: data[0].cp.fecha_creacion,
+                date: dateString( data[0].cp.fecha_creacion ),
                 tag: ["contract"],
                 initiationType: "tender"
             };
@@ -296,20 +301,20 @@ module.exports = {
             if(checkValue(data[0].tender.submissionMethod_details)){release.tender.submissionMethodDetails = data[0].tender.submissionMethod_details;}
 
             release.tender.tenderPeriod = { };
-            if(checkValue(data[0].tender.tenderperiod_startdate)){release.tender.tenderPeriod.startDate = data[0].tender.tenderperiod_startdate;}
-            if(checkValue(data[0].tender.tenderperiod_enddate)){release.tender.tenderPeriod.endDate = data[0].tender.tenderperiod_enddate;}
+            if(checkValue(data[0].tender.tenderperiod_startdate)){release.tender.tenderPeriod.startDate = dateString(data[0].tender.tenderperiod_startdate);}
+            if(checkValue(data[0].tender.tenderperiod_enddate)){release.tender.tenderPeriod.endDate = dateString(data[0].tender.tenderperiod_enddate);}
 
 
             release.tender.enquiryPeriod = { };
-            if(checkValue(data[0].tender.enquiryperiod_startdate)){release.tender.enquiryPeriod.startDate = data[0].tender.enquiryperiod_startdate;}
-            if(checkValue(data[0].tender.enquiryperiod_enddate)){release.tender.enquiryPeriod.endDate = data[0].tender.enquiryperiod_enddate;}
+            if(checkValue(data[0].tender.enquiryperiod_startdate)){release.tender.enquiryPeriod.startDate = dateString(data[0].tender.enquiryperiod_startdate);}
+            if(checkValue(data[0].tender.enquiryperiod_enddate)){release.tender.enquiryPeriod.endDate = dateString(data[0].tender.enquiryperiod_enddate);}
 
             if(checkValue(data[0].tender.hasenquiries)){release.tender.hasEnquiries = (data[0].tender.hasenquiries > 0);}
             if(checkValue(data[0].tender.eligibilitycriteria)){release.tender.eligibilityCriteria = data[0].tender.eligibilitycriteria;}
 
             release.tender.awardPeriod = { };
-            if(checkValue(data[0].tender.tenderperiod_startdate)){release.tender.awardPeriod.startDate = data[0].tender.tenderperiod_startdate;}
-            if(checkValue(data[0].tender.tenderperiod_enddate)){release.tender.awardPeriod.endDate = data[0].tender.tenderperiod_enddate;}
+            if(checkValue(data[0].tender.tenderperiod_startdate)){release.tender.awardPeriod.startDate = dateString(data[0].tender.tenderperiod_startdate);}
+            if(checkValue(data[0].tender.tenderperiod_enddate)){release.tender.awardPeriod.endDate = dateString(data[0].tender.tenderperiod_enddate);}
 
             if(checkValue(data[0].tender.numberoftenderers)){release.tender.numberOfTenderers = data[0].tender.numberoftenderers;}
 
@@ -328,7 +333,7 @@ module.exports = {
             }
 
             release.tender.amendment = { };
-            if(checkValue(data[0].tender.amendment_date)){release.tender.amendment.date = data[0].tender.amendment_date;}
+            if(checkValue(data[0].tender.amendment_date)){release.tender.amendment.date = dateString(data[0].tender.amendment_date);}
 
 
             if( data[15].length > 0 ) {
@@ -372,7 +377,7 @@ module.exports = {
             if(checkValue(data[0].award.title)){award.title = data[0].award.title;}
             if(checkValue(data[0].award.description)){award.description = data[0].award.description;}
             if(checkValue(data[0].award.status)){award.status = data[0].award.status;}
-            if(checkValue(data[0].award.award_date)){award.date = data[0].award.award_date;}
+            if(checkValue(data[0].award.award_date)){award.date = dateString(data[0].award.award_date);}
 
             award.value = { };
             if(checkValue(data[0].award.value_amount)){award.value.amount = Number(data[0].award.value_amount);}
@@ -388,15 +393,15 @@ module.exports = {
             }
 
             award.contractPeriod = { };
-            if(checkValue(data[0].award.contractperiod_startdate)){award.contractPeriod.startDate = data[0].award.contractperiod_startdate;}
-            if(checkValue(data[0].award.contractperiod_enddate)){award.contractPeriod.endDate = data[0].award.contractperiod_enddate;}
+            if(checkValue(data[0].award.contractperiod_startdate)){award.contractPeriod.startDate = dateString(data[0].award.contractperiod_startdate);}
+            if(checkValue(data[0].award.contractperiod_enddate)){award.contractPeriod.endDate = dateString(data[0].award.contractperiod_enddate);}
 
             if (data[6].length > 0) {
                 award.documents = getDocuments(data[6]);
             }
 
             award.amendment = { };
-            if(checkValue(data[0].award.amendment_date)){award.amendment.date = data[0].award.amendment_date;}
+            if(checkValue(data[0].award.amendment_date)){award.amendment.date = dateString(data[0].award.amendment_date);}
 
 
             if (data[16].length > 0) {
@@ -430,8 +435,8 @@ module.exports = {
             if(checkValue(data[0].contract.status)){contract.status = data[0].contract.status;}
 
             contract.period = { };
-            if(checkValue(data[0].contract.period_startdate)){contract.period.startDate = data[0].contract.period_startdate;}
-            if(checkValue(data[0].contract.period_enddate)){contract.period.endDate = data[0].contract.period_enddate;}
+            if(checkValue(data[0].contract.period_startdate)){contract.period.startDate = dateString(data[0].contract.period_startdate);}
+            if(checkValue(data[0].contract.period_enddate)){contract.period.endDate = dateString(data[0].contract.period_enddate);}
 
             contract.value = { };
             if(checkValue(data[0].contract.value_amount)){contract.value.amount = Number(data[0].contract.value_amount);}
@@ -441,7 +446,7 @@ module.exports = {
                 contract.items = getItems(data[11]);
             }
 
-            if(checkValue(data[0].contract.datesigned)){contract.dateSigned = data[0].contract.datesigned;}
+            if(checkValue(data[0].contract.datesigned)){contract.dateSigned = dateString(data[0].contract.datesigned);}
 
             if (data[7].length > 0) {
                 contract.documents = getDocuments(data[7]);
@@ -449,7 +454,7 @@ module.exports = {
 
             contract.amendment = { };
 
-            if(checkValue(data[0].contract.amendment_date)){contract.amendment.date = data[0].contract.amendment_date;}
+            if(checkValue(data[0].contract.amendment_date)){contract.amendment.date = dateString(data[0].contract.amendment_date);}
 
             if (data[17].length > 0) {
                 contract.amendment.changes = getAmendmentChanges(data[17]);

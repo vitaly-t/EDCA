@@ -871,24 +871,17 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
             OCDS = builder.build("OCDS"),
             ReleasePackage = OCDS.ReleasePackages.ReleasePackage;
 
-       // var rp = new ReleasePackage(data);
 
-        var obj = {
-            uri : "1",
-            publishedDate : "2",
-            releases : [
+        /*
+        delete data.releases[0].planning;
+        delete data.releases[0].tender;
+        delete data.releases[0].buyer;
+        delete data.releases[0].awards;
+        delete data.releases[0].contracts;
+*/
 
-            ],
-            publisher : {
-                name : "juan"
-            },
-            license : '',
-            publicationPolicy : ''
-        };
-
-        //var rp = new ReleasePackage(obj);
+        //var rp = new ReleasePackage(data);
         //var buffer = rp.encode();
-
         //console.log(buffer);
         //socket
         //send buffer
