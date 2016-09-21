@@ -430,3 +430,10 @@ $('#myModalImportData').on('show.bs.modal', function (event) {
     var modal     = $(this);
     modal.find('#uploadfile_fields').load ('/uploadfile-fields', { localid : button.data('localid'), stage: button.data('stage') });
 });
+
+$('#blockchain').click( function () {
+    $.post( "/publish/blockchain", { contractingprocess_id : $(this).data("id")}, function (data) {
+
+        alert("Se ha publicado el proceso: "+ data.ocid );
+    });
+});

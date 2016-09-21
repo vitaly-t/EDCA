@@ -854,7 +854,7 @@ router.post('/delete', isAuthenticated,function (req,res) {
 
 
 //Protocol buffers
-var ProtoBuf = require("protobufjs");
+//var ProtoBuf = require("protobufjs");
 
 var ocds = require('../io/ocds');
 
@@ -891,6 +891,79 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
         console.log(error);
         return (error);
     });
+
+});
+
+var PROTO_PATH = '../models/proto/helloworld.proto';
+
+var grpc = require("grpc");
+//var record1 = grpc.load(PROTO_PATH).helloworld;//record1;
+var hello_proto = grpc.load(PROTO_PATH).helloworld;//record1;
+var sha3_512 = require('js-sha3').sha3_512;
+
+router.post ('/publish/blockchain', function (req, res){
+
+    //var client = new record1.SaveToBlockchain('localhost:50051',
+
+    /*
+    var client = new hello_proto.sayHello('localhost:50051',
+        grpc.credentials.createInsecure());
+
+    client.sayHello({name : "mario"}, function(err, response) {
+
+        console.log(response);
+
+
+    });**/
+
+    res.json ( { ocid:"El proceso ha sido guardado" } );
+
+    /*
+
+    ocds.getOCDSJSON( Number(req.body.contractingprocess_id) , "release-package", edca_db ).then(function (data) {
+
+        delete data.localid;
+
+        var buff = new Buffer( JSON.stringify(data) ).toString('base64');
+
+        console.log( "Buffer BASE64: ", buff );
+
+*/
+
+
+
+        /*client.AddRecord ({
+            headers : {
+                type : "",
+                version : "1.0" ,
+                uuid : "",
+                timestamp : (new Date()).getTime(),
+                payload_hash : "",
+                source_hash : "",
+                metadata_hash : ""
+            },
+            source : {
+                id : "",
+                address : "",
+                certificate :"",
+                metadata : ""
+            },
+            hash : "", //¿hash de que?
+            payload : buff,
+            metadata : "",
+            signature : ""
+        }, function(err, response) {
+
+            console.log(response);
+            res.json ( { ocid: data.ocid, response : response.RecordReceipt } );
+
+        });*/
+
+        /*
+    }).catch(function (error) {
+        console.log(error);
+        return (error);
+    });*/
 
 });
 
