@@ -432,8 +432,7 @@ $('#myModalImportData').on('show.bs.modal', function (event) {
 });
 
 $('#blockchain').click( function () {
-    $.post( "/publish/blockchain", { contractingprocess_id : $(this).data("id")}, function (data) {
-
-        alert("Se ha publicado el proceso: "+ data.ocid );
+    $.post( "/publish/rpc", { contractingprocess_id : $(this).data("id")}, function (data) {
+        alert(data.message);
     });
 });

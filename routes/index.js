@@ -894,29 +894,64 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
 
 });
 
-var PROTO_PATH = '../models/proto/helloworld.proto';
 
-var grpc = require("grpc");
-//var record1 = grpc.load(PROTO_PATH).helloworld;//record1;
-var hello_proto = grpc.load(PROTO_PATH).helloworld;//record1;
 var sha3_512 = require('js-sha3').sha3_512;
 
-router.post ('/publish/blockchain', function (req, res){
+var PROTO_PATH = '../models/proto/record1.proto';
+var grpc = require('grpc');
+var proto = grpc.load(PROTO_PATH).record1;
 
-    //var client = new record1.SaveToBlockchain('localhost:50051',
+router.post ('/publish/rpc', function (req, res){
 
-    /*
-    var client = new hello_proto.sayHello('localhost:50051',
+    var client1  = new proto.SaveToBlockchain('localhost:50051',
         grpc.credentials.createInsecure());
 
-    client.sayHello({name : "mario"}, function(err, response) {
+    ocds.getOCDSJSON( Number(req.body.contractingprocess_id) , "release-package", edca_db ).then(function (data) {
 
-        console.log(response);
+        delete data.localid;
+        var buff = new Buffer( JSON.stringify(data) ).toString('base64');
+
+        client1.addRecord({
+            headers : {
+                type : "Release Package",
+                version : "1.0", //OCDS scheme version
+                uuid : data.ocid,
+                timestamp : (new Date()).getTime(),
+                payload_hash : "",
+                source_hash : "",
+                metadata_hash : ""
+            },
+            source : {
+                id : "",
+                address : "",
+                certificate :"",
+                metadata : ""
+            },
+            hash : "",
+            payload : buff, // base64 encoded JSON string
+            metadata : "",
+            signature : ""
+        }, function (err, response) {
+            console.log(response);
+            res.json ( {
+                status : "Ok",
+                message:"El proceso ha sido guardado" } );
+        });
 
 
-    });**/
 
-    res.json ( { ocid:"El proceso ha sido guardado" } );
+    }).catch(function (error) {
+        console.log(error);
+
+        res.json({
+            status : "ERROR",
+            message: "Ha ocurrido un error"
+        })
+
+    });
+
+
+
 
     /*
 
