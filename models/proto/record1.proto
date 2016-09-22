@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package record1;
 
-service SaveToBlockchain {
+service SendRPC {
     rpc AddRecord (Record) returns (RecordReceipt){}
 }
 
