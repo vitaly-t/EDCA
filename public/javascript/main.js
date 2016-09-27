@@ -246,6 +246,8 @@ $('#myModalEditOrg').on('show.bs.modal', function (event) {
     });
 });
 
+
+/*
 $('#myModalEditTransactions').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
@@ -262,7 +264,7 @@ $('#myModalEditTransactions').on('show.bs.modal', function (event) {
             }
         });
     });
-});
+});*/
 
 $('#myModalEditItem').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
@@ -302,7 +304,7 @@ $('#myModalEditDocuments').on('show.bs.modal', function (event) {
 });
 
 $('#genericModal').on('show.bs.modal', function (event) {
-   var button = $(event.relatedTarget);
+    var button = $(event.relatedTarget);
     var modal = $(this);
 
     switch ( button.data('action') ){
@@ -430,6 +432,19 @@ $('#genericModal').on('show.bs.modal', function (event) {
         case "edit_transactions":
             modal.find('.modal-title').text('Editar transacciones');
             modal.find('#modal_content').html("");
+            modal.find('#modal_content').load( '/transaction-list/' ,{ ocid: button.data('contractingprocess_id'), table : button.data('table') }, function () {
+                //button events
+                var div = modal.find('#modal_content');
+                div.find('.btn').click(function () {
+                    var b = $(this);
+                    $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
+                        alert(data.msg);
+                        if ( data.status == 0 ){
+                            b.parent().parent().remove();
+                        }
+                    });
+                });
+            });
             break;
         case "edit_documents":
             modal.find('.modal-title').text('Editar documentos');
