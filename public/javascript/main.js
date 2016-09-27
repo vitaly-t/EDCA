@@ -301,24 +301,6 @@ $('#myModalEditDocuments').on('show.bs.modal', function (event) {
     });
 });
 
-$('#myModalEditChanges').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var modal = $(this);
-    modal.find('.modal-body div').load( '/amendmentchange-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
-    //button events
-    var div = modal.find('.modal-body div');
-    div.off('click','.btn');
-    div.on('click', '.btn', function (event) {
-        var b = $(this);
-        $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
-            alert(data.msg);
-            if ( data.status == 0 ){
-                b.parent().parent().remove();
-            }
-        });
-    });
-});
-
 $('#myModalEditMilestones').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
@@ -342,11 +324,13 @@ $('#genericModal').on('show.bs.modal', function (event) {
     var modal = $(this);
 
     switch ( button.data('action') ){
+        //import data from csv files
         case "import_data":
             modal.find('.modal-title').text('Importar datos');
             modal.find('#modal_content').html("");
             modal.find('#modal_content').load ('/uploadfile-fields', { localid : button.data('contractingprocess_id'), stage: button.data('stage') });
             break;
+        //add new elements
         case "new_item":
             modal.find('.modal-title').text('Nuevo artículo');
             modal.find('#modal_content').load('/newitem-fields', {localid : button.data('contractingprocess_id'), table: button.data('table')}, function () {
@@ -438,6 +422,44 @@ $('#genericModal').on('show.bs.modal', function (event) {
                     event.preventDefault();
                 });
             });
+            break;
+        //edit elements
+        case "edit_changes":
+            modal.find('.modal-title').text('Editar cambios de enmienda');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load( '/amendmentchange-list/' ,{ ocid: button.data('contractingprocess_id'), table : button.data('table') }, function () {
+                //button events
+                var div = modal.find('#modal_content');
+                div.find('.btn').click(function () {
+                    var b = $(this);
+                    $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
+                        alert(data.msg);
+                        if ( data.status == 0 ){
+                            b.parent().parent().remove();
+                        }
+                    });
+                });
+            });
+            break;
+        case "edit_items":
+            modal.find('.modal-title').text('Editar artículos');
+            modal.find('#modal_content').html("");
+            break;
+        case "edit_transactions":
+            modal.find('.modal-title').text('Editar transacciones');
+            modal.find('#modal_content').html("");
+            break;
+        case "edit_documents":
+            modal.find('.modal-title').text('Editar documentos');
+            modal.find('#modal_content').html("");
+            break;
+        case "edit_milestones":
+            modal.find('.modal-title').text('Editar hitos');
+            modal.find('#modal_content').html("");
+            break;
+        case "edit_organizations":
+            modal.find('.modal-title').text('Nueva organización');
+            modal.find('#modal_content').html("");
             break;
     }
 });
