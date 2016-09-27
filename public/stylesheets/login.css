@@ -42,7 +42,7 @@ body{
     color: #FFFFFF;
     font-weight:bold;
 }
-
+/*
 .navbar-inverse .navbar-brand {
     color: #FFFFFF;
     font-weight: bold;
@@ -66,14 +66,7 @@ body{
     font-weight:bold;
 }
 
-.login-text{
-    font-size-base: 20px;
-    color: #FFFFFF;
-}
 
-.login-buffer{
-    margin-top:100px;
-}
 
 .top-buffer .navbar-brand {
     color: #FFFFFF;
@@ -86,7 +79,6 @@ body{
 .all-container{
         max-width: 1070px;
 }
-
 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     color:#FFFFFF;
@@ -102,6 +94,16 @@ body{
     background: #00cc99;
     color: #FFFFFF;
     margin-top:0px;
+}*/
+
+.login-text{
+    font-size-base: 20px;
+    color: #FFFFFF;
+}
+
+.login-buffer{
+    margin-top:100px;
+    margin-bottom: 200px;
 }
 
 .btn-primary {
