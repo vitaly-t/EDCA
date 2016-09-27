@@ -115,7 +115,7 @@ function getMString ( fecha ){
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-action="new_item" data-table="tenderitem" data-contractingprocess_id="<%= cp.id %>" data-target="#genericModal">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-table="tenderitem" data-ocid="<%= cp.id%>" data-target="#myModalEditItem">Editar</a></li>
+                    <li><a href="#" data-toggle="modal" data-action="edit_items" data-table="tenderitem" data-contractingprocess_id="<%= cp.id%>" data-target="#genericModal">Editar</a></li>
                 </ul>
             </div>
 
@@ -338,7 +338,7 @@ function getMString ( fecha ){
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-action="new_item" data-table="awarditem" data-contractingprocess_id="<%= cp.id %>" data-target="#genericModal">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-table="awarditem" data-ocid="<%= cp.id%>" data-target="#myModalEditItem">Editar</a></li>
+                    <li><a href="#" data-toggle="modal" data-action="edit_items" data-table="awarditem" data-contractingprocess_id="<%= cp.id%>" data-target="#genericModal">Editar</a></li>
                 </ul>
             </div>
 
@@ -460,7 +460,7 @@ function getMString ( fecha ){
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-action="new_item" data-table="contractitem" data-contractingprocess_id="<%= cp.id %>" data-target="#genericModal">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-table="contractitem" data-ocid="<%= cp.id%>" data-target="#myModalEditItem">Editar</a></li>
+                    <li><a href="#" data-toggle="modal" data-action="edit_items" data-table="contractitem" data-contractingprocess_id="<%= cp.id%>" data-target="#genericModal">Editar</a></li>
                 </ul>
             </div>
 
@@ -469,7 +469,7 @@ function getMString ( fecha ){
             <form id="contract_form" role="form">
 
                 <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof contract != "undefined")? contract.contractingprocess_id :''%>" >
-                <p><label data-tooltip="crear_proceso" title=Clave única que identifica el contrato. Dicha clave no puede ser modificada durante el proceso de contratación.''>ID</label>
+                <p><label data-tooltip="crear_proceso" title="Clave única que identifica el contrato. Dicha clave no puede ser modificada durante el proceso de contratación.">ID</label>
                     <input type="text" class="form-control" name="contractid" value="<%= contract.contractid %>" required>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Clave del fallo que adjudica el contrato'>ID de adjudicación<!--Award ID--></label>

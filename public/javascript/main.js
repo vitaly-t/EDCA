@@ -246,45 +246,6 @@ $('#myModalEditOrg').on('show.bs.modal', function (event) {
     });
 });
 
-
-/*
-$('#myModalEditTransactions').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var modal = $(this);
-    modal.find('.modal-body div').load( '/transaction-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
-    //button events
-    var div = modal.find('.modal-body div');
-    div.off('click','.btn');
-    div.on('click', '.btn', function (event) {
-        var b = $(this);
-        $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
-            alert(data.msg);
-            if ( data.status == 0 ){
-                b.parent().parent().remove();
-            }
-        });
-    });
-});*/
-
-$('#myModalEditItem').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var modal = $(this);
-    modal.find('#item_table').val( button.data('table'));
-    modal.find('.modal-body div').load( '/item-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
-    //button events
-    var div = modal.find('.modal-body div');
-    div.off('click','.btn');
-    div.on('click', '.btn', function (event) {
-        var b = $(this);
-        $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
-            alert(data.msg);
-            if ( data.status == 0 ){
-                b.parent().parent().remove();
-            }
-        });
-    });
-});
-
 $('#myModalEditDocuments').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
@@ -428,6 +389,18 @@ $('#genericModal').on('show.bs.modal', function (event) {
         case "edit_items":
             modal.find('.modal-title').text('Editar artículos');
             modal.find('#modal_content').html("");
+            modal.find('#modal_content').load( '/item-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
+            //button events
+            var div = modal.find('#modal_content');
+            div.find('.btn').click(function () {
+                var b = $(this);
+                $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
+                    alert(data.msg);
+                    if ( data.status == 0 ){
+                        b.parent().parent().remove();
+                    }
+                });
+            });
             break;
         case "edit_transactions":
             modal.find('.modal-title').text('Editar transacciones');
