@@ -67,15 +67,15 @@ $("#updateocid_form").submit(function (event) {
 });
 
 //OCDS JSON, publish
-$('#release').on('click',function (event) {
+$('#release').click(function () {
     window.open('/publish/release/'+ $(this).data('id')+"/document.json" );
 });
 
-$('#release_package').on('click',function (event) {
+$('#release_package').click(function () {
     window.open('/publish/release-record/'+$(this).data('id')+"/document.json");
 });
 
-$('#blockchain').click( function () {
+$('#blockchain').click(function () {
     $.post( "/publish/rpc", { contractingprocess_id : $(this).data("id")}, function (data) {
         alert(data.message);
     });
