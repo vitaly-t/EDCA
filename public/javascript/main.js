@@ -66,7 +66,7 @@ $("#updateocid_form").submit(function (event) {
     event.preventDefault();
 });
 
-//publish
+//OCDS JSON, publish
 $('#release').on('click',function (event) {
     window.open('/publish/release/'+ $(this).data('id')+"/document.json" );
 });
@@ -74,6 +74,13 @@ $('#release').on('click',function (event) {
 $('#release_package').on('click',function (event) {
     window.open('/publish/release-record/'+$(this).data('id')+"/document.json");
 });
+
+$('#blockchain').click( function () {
+    $.post( "/publish/rpc", { contractingprocess_id : $(this).data("id")}, function (data) {
+        alert(data.message);
+    });
+});
+
 
 // buscar proceso por fecha
 $("#searchprocessbydate_form").submit(function ( event ) {
@@ -119,18 +126,7 @@ $("#contract_form").submit(function(event){
     event.preventDefault();
 });
 
-$('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    $('#updatesingleorg_fields').load('/org-fields/',{ localid: button.data('localid') ,table : button.data('table') }, function () {
-        //Update buyer - procuring entity event
-        $( "#updatesingleorg_form" ).submit(function( event ) {
-            $.post('/update-organization/', $(this).serialize()).done(function (data) {
-                alert(data);
-            });
-            event.preventDefault();
-        });
-    });
-});
+
 
 /*----- Manuales -----*/
 $("#manualEntry").hide();
@@ -203,7 +199,21 @@ $("#manualImp").click(function(){
   $("#textoImplementacion").show(500);
   $("#textoPlaneacion").hide();
 });
-/*----- Manuales -----*/
+/*----- Fin Manuales -----*/
+
+
+$('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    $('#updatesingleorg_fields').load('/org-fields/',{ localid: button.data('localid') ,table : button.data('table') }, function () {
+        //Update buyer - procuring entity event
+        $( "#updatesingleorg_form" ).submit(function( event ) {
+            $.post('/update-organization/', $(this).serialize()).done(function (data) {
+                alert(data);
+            });
+            event.preventDefault();
+        });
+    });
+});
 
 $('#myModalEditPub').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
@@ -211,104 +221,6 @@ $('#myModalEditPub').on('show.bs.modal', function (event) {
         // Edit publisher submit event
         $('#updatepub_form').submit(function (event) {
             $.post('/update-publisher/', $(this).serialize()).done(function (data) {
-                alert(data);
-            });
-            event.preventDefault();
-        });
-    });
-});
-
-$('#myModalNewOrg').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
-    $('#neworg_fields').load('/neworg-fields/',{ localid: button.data('localid') ,table : button.data('table') }, function () {
-        //submit new organization event (tenderers, providers)
-        $('#neworg_form').submit(function (event) {
-            $.post('/new-organization/', $(this).serialize()).done(function (data) {
-                alert(data);
-            });
-            event.preventDefault();
-        });
-    });
-});
-
-$('#myModalNewDoc').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var modal = $(this);
-    modal.find('#newdoc_fields').load('/newdoc-fields', { localid: button.data('localid'), table: button.data('table') }, function () {
-        //Date picker
-        $('#newdoc_date1, #newdoc_date2').datetimepicker({
-            locale: 'es',
-            format: 'YYYY-MM-DD HH:mm:ss'
-        });
-        //submit new document event
-        $('#newdoc_form').submit(function (event) {
-            $.post('/new-document/', $(this).serialize()).done(function (data) {
-                alert(data);
-            });
-            event.preventDefault();
-        });
-    });
-});
-
-$('#myModalNewItem').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var modal = $(this);
-    modal.find('#newitem_fields').load('/newitem-fields', {localid : button.data('localid'), table: button.data('table')}, function () {
-        //submit new item event
-        $('#newitem_form').submit(function (event) {
-            $.post('/new-item/', $(this).serialize()).done(function (data) {
-                alert(data);
-            });
-            event.preventDefault();
-        });
-    });
-});
-
-$('#myModalNewTransaction').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var modal = $(this);
-    modal.find('#newtransaction_fields').load('/newtransaction-fields', {localid : button.data('localid')}, function () {
-        //datepicker
-        $('#newtrans_date1').datetimepicker({
-            locale: 'es',
-            format: 'YYYY-MM-DD HH:mm:ss'
-        });
-        //submit new transaction event
-        $('#newtransaction_form').submit(function (event) {
-            $.post('/new-transaction', $(this).serialize()).done(function(data){
-                alert(data);
-            });
-            event.preventDefault();
-        });
-    });
-});
-
-$('#myModalNewMilestone').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var modal = $(this);
-    modal.find('#newmilestone_fields').load('/newmilestone-fields',{localid: button.data('localid'), table : button.data('table')}, function () {
-        // Submit new milestone event
-        $('#newmilestone_form').submit(function (event) {
-            $.post('/new-milestone/', $(this).serialize()).done(function (data) {
-                alert(data);
-            });
-            event.preventDefault();
-        });
-        //datepickers
-        $('#newmilestone_date1, #newmilestone_date2').datetimepicker({
-            locale: 'es',
-            format: 'YYYY-MM-DD HH:mm:ss'
-        });
-    });
-});
-
-$('#myModalNewAmendmentChange').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var modal = $(this);
-    modal.find('#newamendmentchange_fields').load('/newamendmentchange-fields', {localid : button.data('localid'), table: button.data('table') }, function () {
-        //submit new amendment change event
-        $('#newamendmentchange_form').submit(function (event) {
-            $.post('/new-amendment-change',$(this).serialize()).done(function (data) {
                 alert(data);
             });
             event.preventDefault();
@@ -425,14 +337,107 @@ $('#myModalEditMilestones').on('show.bs.modal', function (event) {
     });
 });
 
-$('#myModalImportData').on('show.bs.modal', function (event) {
-    var button    = $(event.relatedTarget);
-    var modal     = $(this);
-    modal.find('#uploadfile_fields').load ('/uploadfile-fields', { localid : button.data('localid'), stage: button.data('stage') });
-});
+$('#genericModal').on('show.bs.modal', function (event) {
+   var button = $(event.relatedTarget);
+    var modal = $(this);
 
-$('#blockchain').click( function () {
-    $.post( "/publish/rpc", { contractingprocess_id : $(this).data("id")}, function (data) {
-        alert(data.message);
-    });
+    switch ( button.data('action') ){
+        case "import_data":
+            modal.find('.modal-title').text('Importar datos');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load ('/uploadfile-fields', { localid : button.data('contractingprocess_id'), stage: button.data('stage') });
+            break;
+        case "new_item":
+            modal.find('.modal-title').text('Nuevo artículo');
+            modal.find('#modal_content').load('/newitem-fields', {localid : button.data('contractingprocess_id'), table: button.data('table')}, function () {
+                //submit new item event
+                $('#newitem_form').submit(function (event) {
+                    $.post('/new-item/', $(this).serialize()).done(function (data) {
+                        alert(data);
+                    });
+                    event.preventDefault();
+                });
+            });
+            break;
+        case "new_milestone":
+            modal.find('.modal-title').text('Nuevo hito');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load('/newmilestone-fields',{localid: button.data('contractingprocess_id'), table : button.data('table')}, function () {
+                // Submit new milestone event
+                $('#newmilestone_form').submit(function (event) {
+                    $.post('/new-milestone/', $(this).serialize()).done(function (data) {
+                        alert(data);
+                    });
+                    event.preventDefault();
+                });
+                //datepickers
+                $('#newmilestone_date1, #newmilestone_date2').datetimepicker({
+                    locale: 'es',
+                    format: 'YYYY-MM-DD HH:mm:ss'
+                });
+            });
+            break;
+        case "new_document":
+            modal.find('.modal-title').text('Nuevo documento');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load('/newdoc-fields', { localid: button.data('contractingprocess_id'), table: button.data('table') }, function () {
+                //Date picker
+                $('#newdoc_date1, #newdoc_date2').datetimepicker({
+                    locale: 'es',
+                    format: 'YYYY-MM-DD HH:mm:ss'
+                });
+                //submit new document event
+                $('#newdoc_form').submit(function (event) {
+                    $.post('/new-document/', $(this).serialize()).done(function (data) {
+                        alert(data);
+                    });
+                    event.preventDefault();
+                });
+            });
+            break;
+        case "new_change":
+            modal.find('.modal-title').text('Nuevo cambio de enmienda');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load('/newamendmentchange-fields', {localid : button.data('contractingprocess_id'), table: button.data('table') }, function () {
+                //submit new amendment change event
+                $('#newamendmentchange_form').submit(function (event) {
+                    $.post('/new-amendment-change',$(this).serialize()).done(function (data) {
+                        alert(data);
+                    });
+                    event.preventDefault();
+                });
+            });
+            break;
+        case "new_transaction":
+            modal.find('.modal-title').text('Nueva transacción');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load('/newtransaction-fields', {localid : button.data('contractingprocess_id')}, function () {
+                //datepicker
+                $('#newtrans_date1').datetimepicker({
+                    locale: 'es',
+                    format: 'YYYY-MM-DD HH:mm:ss'
+                });
+                //submit new transaction event
+                $('#newtransaction_form').submit(function (event) {
+                    $.post('/new-transaction', $(this).serialize()).done(function(data){
+                        alert(data);
+                    });
+                    event.preventDefault();
+                });
+            });
+            break;
+        case "new_organization":
+            modal.find('.modal-title').text('Nueva organización');
+            modal.find('#modal_content').html("");
+            $('#modal_content').load('/neworg-fields/',{ localid: button.data('contractingprocess_id') ,table : button.data('table') }, function () {
+                //submit new organization event (tenderers, providers)
+                $('#neworg_form').submit(function (event) {
+                    $.post('/new-organization/', $(this).serialize()).done(function (data) {
+                        alert(data);
+                    });
+                    event.preventDefault();
+                });
+            });
+            break;
+    }
 });
