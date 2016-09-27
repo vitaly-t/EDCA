@@ -246,24 +246,6 @@ $('#myModalEditOrg').on('show.bs.modal', function (event) {
     });
 });
 
-$('#myModalEditDocuments').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var modal = $(this);
-    modal.find('.modal-body div').load( '/document-list/' ,{ ocid: button.data('ocid'), table : button.data('table') });
-    //button events
-    var div = modal.find('.modal-body div');
-    div.off('click','.btn');
-    div.on('click', '.btn', function (event) {
-        var b = $(this);
-        $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
-            alert(data.msg);
-            if ( data.status == 0 ){
-                b.parent().parent().remove();
-            }
-        });
-    });
-});
-
 $('#genericModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
@@ -422,6 +404,19 @@ $('#genericModal').on('show.bs.modal', function (event) {
         case "edit_documents":
             modal.find('.modal-title').text('Editar documentos');
             modal.find('#modal_content').html("");
+            modal.find('#modal_content').load( '/document-list/' ,{ ocid: button.data('contractingprocess_id'), table : button.data('table') }, function(){
+                //button events
+                var div = modal.find('#modal_content');
+                div.find('.btn').click(function () {
+                    var b = $(this);
+                    $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
+                        alert(data.msg);
+                        if ( data.status == 0 ){
+                            b.parent().parent().remove();
+                        }
+                    });
+                });
+            });
             break;
         case "edit_milestones":
             modal.find('.modal-title').text('Editar hitos');
