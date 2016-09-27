@@ -105,7 +105,7 @@ function getMString ( fecha ){
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-action="new_milestone" data-table="tendermilestone" data-contractingprocess_id="<%= cp.id %>" data-target="#genericModal">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-table="tendermilestone" data-ocid="<%=cp.id%>" data-target="#myModalEditMilestones">Editar</a></li>
+                    <li><a href="#" data-toggle="modal" data-action="edit_milestones" data-table="tendermilestone" data-contractingprocess_id="<%=cp.id%>" data-target="#genericModal">Editar</a></li>
                 </ul>
             </div>
 
@@ -594,7 +594,7 @@ function getMString ( fecha ){
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-action="new_milestone" data-table="implementationmilestone" data-contractingprocess_id="<%= cp.id %>" data-target="#genericModal">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-table="implementationmilestone" data-ocid="<%=cp.id%>" data-target="#myModalEditMilestones">Editar</a></li>
+                    <li><a href="#" data-toggle="modal" data-action="edit_milestones" data-table="implementationmilestone" data-contractingprocess_id="<%=cp.id%>" data-target="#genericModal">Editar</a></li>
                 </ul>
             </div>
         </div>
