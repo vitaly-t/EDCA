@@ -215,19 +215,6 @@ $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
     });
 });
 
-$('#myModalEditPub').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
-    $('#updatepub_fields').load('/publisher/',{ localid: button.data('localid') }, function () {
-        // Edit publisher submit event
-        $('#updatepub_form').submit(function (event) {
-            $.post('/update-publisher/', $(this).serialize()).done(function (data) {
-                alert(data);
-            });
-            event.preventDefault();
-        });
-    });
-});
-
 $('#myModalEditOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var modal = $(this);
@@ -435,9 +422,24 @@ $('#genericModal').on('show.bs.modal', function (event) {
                 });
             });
             break;
-        case "edit_organizations":
-            modal.find('.modal-title').text('Nueva organización');
+        case "edit_publisher":
+            modal.find('.modal-title').text('Editar');
             modal.find('#modal_content').html("");
+            modal.find('#modal_content').load('/publisher/',{ localid: button.data('contractingprocess_id') }, function () {
+                // Edit publisher submit event
+                $('#updatepub_form').submit(function (event) {
+                    $.post('/update-publisher/', $(this).serialize()).done(function (data) {
+                        alert(data);
+                    });
+                    event.preventDefault();
+                });
+            });
+            break;
+        case "edit_organizations":
+            modal.find('.modal-title').text('Editar organizaciones');
+            modal.find('#modal_content').html("");
+            break;
+        case "edit_organization":
             break;
     }
 });
