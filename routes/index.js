@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var path  = require('path');
+
 //passport db
 var dbConfig = require('../db.js');
 var mongoose = require('mongoose');
@@ -897,7 +899,8 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
 
 var sha3_512 = require('js-sha3').sha3_512;
 
-var PROTO_PATH = '../models/proto/record1.proto';
+var PROTO_PATH = path.join(__dirname,'../models/proto/record1.proto');
+
 var grpc = require('grpc');
 var proto = grpc.load(PROTO_PATH).record1;
 
@@ -952,7 +955,6 @@ router.post ('/publish/rpc', function (req, res){
 });
 
 
-var path  = require('path');
 var multer = require('multer');
 var upload = multer({ dest: path.join(__dirname, './uploads')});
 
