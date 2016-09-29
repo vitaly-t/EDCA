@@ -475,12 +475,12 @@ module.exports = {
                     deleteNullProperties(publisher, true);
 
                     return ({
-                        uri: "",
+                        uri: "http://datos.gob.mx/busca/organization/gacm",
                         publishedDate: (new Date).toISOString(),//getMString(new Date()),
                         releases : [ release ],
                         publisher: publisher,
-                        license: "",
-                        publicationPolicy: "",
+                        license: "http://datos.gob.mx/libreusomx",
+                        publicationPolicy: "http://dof.gob.mx/nota_detalle.php?codigo=5391143&fecha=04/05/2015",
                         localid : localid
                     });
                 }
