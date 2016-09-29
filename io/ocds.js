@@ -94,10 +94,6 @@ module.exports = {
                         if( checkValue(array[i].identifier_legalname) ){organization.identifier.legalName = array[i].identifier_legalname;}
                         if( checkValue(array[i].identifier_uri) ){organization.identifier.uri = array[i].identifier_uri;}
 
-                        if (JSON.stringify(organization.identifier) === JSON.stringify({})){
-                            delete organization['identifier'];
-                        }
-
                         //additionalIdentifiers:[ ],
 
                         if( checkValue(array[i].name) ){organization.name = array[i].name;}
@@ -109,10 +105,6 @@ module.exports = {
                         if( checkValue(array[i].address_postalcode) ){organization.address.postalCode = array[i].address_postalcode;}
                         if( checkValue(array[i].address_countryname) ){organization.address.countryName = array[i].address_countryname;}
 
-                        if (JSON.stringify(organization.address) === JSON.stringify({})){
-                            delete organization['address'];
-                        }
-
                         organization.contactPoint = {};
                         if( checkValue(array[i].contactpoint_name) ){organization.contactPoint.name = array[i].contactpoint_name;}
                         if( checkValue(array[i].contactpoint_email) ){organization.contactPoint.email = array[i].contactpoint_email;}
@@ -120,9 +112,7 @@ module.exports = {
                         if( checkValue(array[i].contactpoint_faxnumber) ){organization.contactPoint.faxNumber = array[i].contactpoint_faxnumber;}
                         if( checkValue(array[i].contactpoint_url) ){organization.contactPoint.url = array[i].contactpoint_url;}
 
-                        if (JSON.stringify(organization.contactPoint) === JSON.stringify({})){
-                            delete organization['contactPoint'];
-                        }
+                        deleteNullProperties(organization, true);
 
                         organizations.push(organization);
 
@@ -145,6 +135,8 @@ module.exports = {
                         if(checkValue(array[i].date_modified)){document.dateModified = dateString(array[i].date_modified);}
                         if(checkValue(array[i].format)){document.format = array[i].format;}
                         if(checkValue(array[i].language)){document.language = array[i].language;}
+
+                        deleteNullProperties(document, true);
 
                         documents.push(document);
                     }
@@ -173,6 +165,8 @@ module.exports = {
                         if(checkValue(arr[i].unit_value_amount)){item.unit.value.amount = Number(arr[i].unit_value_amount);}
                         if(checkValue(arr[i].unit_value_currency)){item.unit.value.currency = arr[i].unit_value_currency;}
 
+                        deleteNullProperties(item, true);
+
                         items.push(item);
                     }
                     return items;
@@ -189,6 +183,8 @@ module.exports = {
                         if(checkValue(arr[i].duedate)){milestone.dueDate = dateString(arr[i].duedate);}
                         if(checkValue(arr[i].date_modified)){milestone.dateModified = dateString(arr[i].date_modified);}
                         if(checkValue(arr[i].status)){milestone.status = arr[i].status;}
+
+                        deleteNullProperties(milestone, true);
 
                         milestones.push(milestone);
                     }
@@ -222,6 +218,8 @@ module.exports = {
                         if(checkValue(arr[i].receiverorganization_uri)){transaction.receiverOrganization.uri = arr[i].receiverorganization_uri;}
 
                         if(checkValue(arr[i].uri)){transaction.uri = arr[i].uri;}
+
+                        deleteNullProperties(transaction, true);
 
                         transactions.push(transaction);
                     }
