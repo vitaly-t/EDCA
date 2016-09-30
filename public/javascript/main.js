@@ -448,7 +448,7 @@ $('#genericModal').on('show.bs.modal', function (event) {
                 // Edit publisher submit event
                 $('#uri_form').submit(function (event) {
                     $.post('/update-uris/', $(this).serialize()).done(function (data) {
-                        alert(data);
+                        alert(data.status);
                     });
                     event.preventDefault();
                 });

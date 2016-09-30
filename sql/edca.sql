@@ -5,7 +5,10 @@ create table ContractingProcess (
     ocid text,
 	fecha_creacion date,
 	hora_creacion time,
-	stage integer
+	stage integer,
+	uri text,
+	publicationpolicy text,
+	license text
 	);
 
 drop table if exists Publisher cascade;
