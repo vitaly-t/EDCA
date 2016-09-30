@@ -332,6 +332,26 @@ router.post('/uris',isAuthenticated, function(req, res){
 
 });
 
+router.post('/update-uris',isAuthenticated, function (req, res) {
+    edca_db.one("update contractingprocess set uri =$1, publicationpolicy = $2, license = $3 where id = $4 returning id", [
+        req.body.uri,
+        req.body.publicationpolicy,
+        req.body.license,
+        req.body.id
+    ]).then(function (data) {
+        res.json({
+            status: "Ok",
+            data : data
+        });
+    }).catch(function (error) {
+        console.log(error);
+        res.json({
+            status: "Error",
+            data: error
+        });
+    });
+});
+
 /* Update Tender*/
 /*
 function dateCol(name) {

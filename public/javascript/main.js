@@ -441,5 +441,18 @@ $('#genericModal').on('show.bs.modal', function (event) {
             break;
         case "edit_organization":
             break;
+        case "edit_uris":
+            modal.find('.modal-title').text('Editar URIs de publicación');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load('/uris/',{ id: button.data('contractingprocess_id') }, function () {
+                // Edit publisher submit event
+                $('#uri_form').submit(function (event) {
+                    $.post('/update-uris/', $(this).serialize()).done(function (data) {
+                        alert(data);
+                    });
+                    event.preventDefault();
+                });
+            });
+            break;
     }
 });
