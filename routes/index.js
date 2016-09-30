@@ -319,6 +319,19 @@ router.post('/update-planning', isAuthenticated, function (req, res) {
 
 });
 
+
+router.post('/uris',isAuthenticated, function(req, res){
+    var id = Math.abs ( req.body.id );
+
+    edca_db.one("select * from contractingprocess where id = $1",[ id ]).then(function (data) {
+        res.render('modals/uri', { contractingprocess : data });
+    }).catch(function (error) {
+        console.log(error);
+        res.render("<p>Error</p>");
+    })
+
+});
+
 /* Update Tender*/
 /*
 function dateCol(name) {
