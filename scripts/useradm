@@ -4,6 +4,7 @@ if ( typeof process.argv[2] != 'undefined'){
     var bcrypt = require ('bcrypt-nodejs');
     var dbConfig = require('../db.js');
     var mongoose = require('mongoose');
+    mongoose.Promise = require('bluebird');
     mongoose.connect(dbConfig.url);
 //var User = require('../models/user');
 
