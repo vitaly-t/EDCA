@@ -503,7 +503,7 @@ router.post('/new-document', isAuthenticated, function(req,res){
             req.body.table,
             req.body.ocid,
             req.body.document_type,
-            req.body.documentid,
+            "doc-"+(new Date().getTime()),//req.body.documentid,
             req.body.title,
             req.body.description,
             req.body.url,
@@ -569,7 +569,7 @@ router.post('/new-item',isAuthenticated,function (req,res) {
         [
             req.body.table,
             req.body.localid,
-            req.body.itemid,
+            "item-"+(new Date().getTime()),//req.body.itemid,
             req.body.description,
             req.body.classification_scheme,
             req.body.classification_id,
@@ -597,7 +597,7 @@ router.post('/new-milestone', isAuthenticated,function (req,res) {
         [
             req.body.table,
             req.body.localid,
-            req.body.milestoneid,
+            "milestone-"+(new Date().getTime()),//req.body.milestoneid,
             req.body.title,
             req.body.description,
             (req.body.duedate!='')?req.body.duedate:null,
