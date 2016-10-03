@@ -623,7 +623,7 @@ router.post('/new-transaction', isAuthenticated,function (req,res) {
         'receiverorganization_scheme,receiverorganization_id,receiverorganization_legalname,receiverorganization_uri, uri) ' +
         'values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) returning id',[
         req.body.localid,
-        req.body.transactionid,
+        "milestone-"+(new Date().getTime()),//req.body.transactionid,
         req.body.source,
         (req.body.implementation_date != '')?req.body.implementation_date:null,
         (isNaN(req.body.value_amount)?null:req.body.value_amount),
