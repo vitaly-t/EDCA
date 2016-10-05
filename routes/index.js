@@ -288,6 +288,15 @@ router.post('/new-process', isAuthenticated, function (req, res) {
     });
 });
 
+
+function dateCol( date ) {
+    return (date == '')?null:date;
+}
+
+function numericCol( number ){
+    return (isNaN(number))?null:number;
+}
+
 /* Update Planning -> Budget */
 router.post('/update-planning', isAuthenticated, function (req, res) {
 
@@ -300,7 +309,7 @@ router.post('/update-planning', isAuthenticated, function (req, res) {
                 req.body.budget_source,
                 req.body.budget_budgetid,
                 req.body.budget_description,
-                ( isNaN(req.body.budget_amount) ?null:req.body.budget_amount),
+                numericCol(req.body.budget_amount),
                 req.body.budget_currency,
                 req.body.budget_project,
                 req.body.budget_projectid,
@@ -353,48 +362,6 @@ router.post('/update-uris',isAuthenticated, function (req, res) {
 });
 
 /* Update Tender*/
-/*
-function dateCol(name) {
-    return {
-        name: name,
-        init: function (value) {
-            return value != '' ? value : null;
-        }
-    };
-}
-
-function numericCol(name){
-    return {
-        name : name,
-        init: function (value) {
-            return !isNaN( value) ? +value : null;
-        }
-    }
-}
-
-// Reusable ColumnSet:
-var csUpdateTender = new pgp.helpers.ColumnSet(['tenderid','title', 'description', 'status', numericCol('minvalue_amount'), 'minvalue_currency', numericCol('value_amount'),'value_currency',
-    'procurementmethod', 'procurementmethod_rationale', 'awardcriteria', 'awardcriteria_details', 'submissionmethod', 'submissionmethod_details',
-    dateCol('tenderperiod_startdate'), dateCol('tenderperiod_enddate'), dateCol('enquiryperiod_startdate', dateCol('enquiryperiod_enddate',
-        'hasenquiries', 'eligibilitycriteria', dateCol('awardperiod_startdate'), dateCol('awardperiod_enddate'), numericCol('numberoftenderers'),
-        dateCol('amendment_date'), 'amendment_rationale'
-    ))], {table: 'tender'});
-
-router.post('/update-tender', isAuthenticated, function (req, res) {
-    var query = pgp.helpers.update(req.body, csUpdateTender) + " where ContractingProcess_id = "
-        + req.body.contractingprocess_id + " returning id";
-
-    console.log(req.body);
-
-    edca_db.one(query).then(function (data) {
-        console.log("Update tender: ", data);
-        res.send("La etapa de licitación ha sido actualizada");
-    }).catch(function (error) {
-        res.send("ERROR");
-        console.log("ERROR: ", error);
-    });
-});
-*/
 
 router.post('/update-tender',isAuthenticated, function (req, res) {
     edca_db.one("update tender set tenderid =$2, title= $3, description=$4, status=$5, minvalue_amount=$6, minvalue_currency=$7, value_amount=$8, value_currency=$9, procurementmethod=$10," +
@@ -407,9 +374,9 @@ router.post('/update-tender',isAuthenticated, function (req, res) {
         req.body.title,
         req.body.description,
         req.body.status,
-        (isNaN(req.body.minvalue_amount)?null:req.body.minvalue_amount),
+        numericCol(req.body.minvalue_amount),
         req.body.minvalue_currency,
-        (isNaN(req.body.value_amount)?null:req.body.value_amount),
+        numericCol(req.body.value_amount),
         req.body.value_currency,
         req.body.procurementmethod,
         req.body.procurementmethod_rationale,
@@ -417,16 +384,16 @@ router.post('/update-tender',isAuthenticated, function (req, res) {
         req.body.awardcriteria_details,
         req.body.submissionmethod,
         req.body.submissionmethod_details,
-        (req.body.tenderperiod_startdate!='')?req.body.tenderperiod_startdate:null,
-        (req.body.tenderperiod_enddate!='')?req.body.tenderperiod_enddate:null,
-        (req.body.enquiryperiod_startdate!='')?req.body.enquiryperiod_startdate:null,
-        (req.body.enquiryperiod_enddate!='')?req.body.enquiryperiod_enddate:null,
+        dateCol(req.body.tenderperiod_startdate),
+        dateCol(req.body.tenderperiod_enddate),
+        dateCol(req.body.enquiryperiod_startdate),
+        dateCol(req.body.enquiryperiod_enddate),
         req.body.hasenquiries,
         req.body.eligibilitycriteria,
-        (req.body.awardperiod_startdate!='')?req.body.awardperiod_startdate:null,
-        (req.body.awardperiod_enddate!='')?req.body.awardperiod_enddate:null,
-        req.body.numberoftenderers,
-        (req.body.amendment_date!='')?req.body.amendment_date:null,
+        dateCol(req.body.awardperiod_startdate),
+        dateCol(req.body.awardperiod_enddate),
+        numericCol(req.body.numberoftenderers),
+        dateCol(req.body.amendment_date),
         req.body.amendment_rationale
     ]).then(
         function (data) {
@@ -450,12 +417,12 @@ router.post('/update-award',isAuthenticated, function (req, res) {
             req.body.title,
             req.body.description,
             req.body.status,
-            (req.body.award_date!='')?req.body.award_date:null,
-            (isNaN(req.body.value_amount)?null:req.body.value_amount),
+            dateCol(req.body.award_date),
+            numericCol(req.body.value_amount),
             req.body.value_currency,
-            (req.body.contractperiod_startdate!='')?req.body.contractperiod_startdate:null,
-            (req.body.contractperiod_enddate!='')?req.body.contractperiod_enddate:null,
-            (req.body.amendment_date!='')?req.body.amendment_date:null,
+            dateCol(req.body.contractperiod_startdate),
+            dateCol(req.body.contractperiod_enddate),
+            dateCol(req.body.amendment_date),
             req.body.amendment_rationale
         ]
     ).then(
@@ -479,12 +446,12 @@ router.post('/update-contract', isAuthenticated, function (req, res) {
         req.body.title,
         req.body.description,
         req.body.status,
-        (req.body.period_startdate!='')?req.body.period_startdate:null,
-        (req.body.period_enddate!='')?req.body.period_enddate:null,
-        (isNaN(req.body.value_amount)?null:req.body.value_amount),
+        dateCol(req.body.period_startdate),
+        dateCol(req.body.period_enddate),
+        numericCol(req.body.value_amount),
         req.body.value_currency,
-        (req.body.datesigned!='')?req.body.datesigned:null,
-        (req.body.amendment_date!='')?req.body.amendment_date:null,
+        dateCol(req.body.datesigned),
+        dateCol(req.body.amendment_date),
         req.body.amendment_rationale
     ]).then(
         function (data) {
@@ -507,8 +474,8 @@ router.post('/new-document', isAuthenticated, function(req,res){
             req.body.title,
             req.body.description,
             req.body.url,
-            (req.body.date_published!='')?req.body.date_published:null,
-            (req.body.date_modified!='')?req.body.date_modified:null,
+            dateCol(req.body.date_published),
+            dateCol(req.body.date_modified),
             req.body.format,
             req.body.language
         ]).then(function (data) {
@@ -575,9 +542,9 @@ router.post('/new-item',isAuthenticated,function (req,res) {
             req.body.classification_id,
             req.body.classification_description,
             req.body.classification_uri,
-            (isNaN(req.body.quantity)?null:req.body.quantity),
+            numericCol(req.body.quantity),
             req.body.unit_name,
-            (isNaN(req.body.unit_value_amount)?null:req.body.unit_value_amount),
+            numericCol(req.body.unit_value_amount),
             req.body.unit_value_currency
         ]).then(function (data) {
         console.log("New item: ", data);
@@ -600,8 +567,8 @@ router.post('/new-milestone', isAuthenticated,function (req,res) {
             "milestone-"+(new Date().getTime()),//req.body.milestoneid,
             req.body.title,
             req.body.description,
-            (req.body.duedate!='')?req.body.duedate:null,
-            (req.body.date_modified!='')?req.body.date_modified:null,
+            dateCol(req.body.duedate),
+            dateCol(req.body.date_modified),
             req.body.status
         ]).then(function (data) {
         console.log("New milestone: ", data);
@@ -625,8 +592,8 @@ router.post('/new-transaction', isAuthenticated,function (req,res) {
         req.body.localid,
         "milestone-"+(new Date().getTime()),//req.body.transactionid,
         req.body.source,
-        (req.body.implementation_date != '')?req.body.implementation_date:null,
-        (isNaN(req.body.value_amount)?null:req.body.value_amount),
+        dateCol(req.body.implementation_date),
+        numericCol(req.body.value_amount),
         req.body.value_currency,
 
         req.body.providerorganization_scheme,
