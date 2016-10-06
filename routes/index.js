@@ -869,9 +869,9 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
 
         delete data.localid;
 
-       // var builder = ProtoBuf.loadProtoFile("../models/proto/ocds.proto"),
-         //   OCDS = builder.build("OCDS"),
-           // ReleasePackage = OCDS.ReleasePackages.ReleasePackage;
+        // var builder = ProtoBuf.loadProtoFile("../models/proto/ocds.proto"),
+        //   OCDS = builder.build("OCDS"),
+        // ReleasePackage = OCDS.ReleasePackages.ReleasePackage;
 
 
         /*
@@ -888,10 +888,12 @@ router.get('/publish/:type/:localid/:outputname', function (req,res) {
         //socket
         //send buffer
 
-        res.send(data);
+        res.json(data);
     }).catch(function (error) {
         console.log(error);
-        return (error);
+        res.json ({
+            message: "El proceso "+localid+" no existe"
+        });
     });
 
 });
