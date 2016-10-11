@@ -546,3 +546,13 @@ create table ImplementationMilestoneDocuments(
 	format text,
 	language text
 );
+
+drop table if exists currency cascade;
+create table currency (
+id serial primary key,
+entity text,
+currency text,
+alphabetic_code varchar(3),
+numeric_code varchar(3),
+minor_unit integer
+);
