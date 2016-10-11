@@ -705,10 +705,16 @@ router.post('/update-organization', isAuthenticated, function (req, res) {
             req.body.contactpoint_url
         ]
     ).then(function (data) {
-        res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
+        res.json({
+            status: 'Ok',
+            description: 'Los datos han sido actualizados'
+        }); // envía la respuesta y presentala en un modal
         console.log("Update "+req.body.table+": ", data);
     }).catch(function (error) {
-        res.send("Error");
+        res.json({
+            status: "Error",
+            description: "Ha ocurrido un error al actualizar los datos de la organización"
+        });
         console.log("ERROR: ",error);
     });
 });

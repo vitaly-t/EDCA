@@ -204,11 +204,13 @@ $("#manualImp").click(function(){
 
 $('#myModalEditSingleOrg').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
+    var modal = $(this);
     $('#updatesingleorg_fields').load('/org-fields/',{ localid: button.data('localid') ,table : button.data('table') }, function () {
         //Update buyer - procuring entity event
         $( "#updatesingleorg_form" ).submit(function( event ) {
             $.post('/update-organization/', $(this).serialize()).done(function (data) {
-                alert(data);
+                alert(data.description);
+                if (data.status == 'Ok'){modal.modal('hide');}
             });
             event.preventDefault();
         });
