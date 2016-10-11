@@ -350,15 +350,16 @@ router.post('/update-uris',isAuthenticated, function (req, res) {
         req.body.license,
         req.body.id
     ]).then(function (data) {
+        console.log('Update URIs: ', data);
         res.json({
             status: "Ok",
-            data : data
+            description: "Los datos han sido actualizados",
         });
     }).catch(function (error) {
         console.log(error);
         res.json({
             status: "Error",
-            data: error
+            description: "Ha ocurrido un error"
         });
     });
 });
@@ -481,12 +482,18 @@ router.post('/new-document', isAuthenticated, function(req,res){
             req.body.format,
             req.body.language
         ]).then(function (data) {
-        res.send("Se ha creado un nuevo documento");
+        res.json({
+            status: 'Ok',
+            description:"Se ha creado un nuevo documento"
+        });
         console.log("new "+ req.body.table + ": ", data);
 
     }).catch(function (error) {
-        res.send('ERROR');
-        console.log("ERROR: ", error)
+        res.json({
+            status : "Error",
+            description: "Ha ocurrido un error"
+        });
+        console.log("Error: ", error);
     });
 });
 
@@ -520,10 +527,16 @@ router.post('/new-organization', isAuthenticated, function (req, res) {
             req.body.contactpoint_url,
             req.body.table
         ]).then(function (data) {
-        res.send('La organización ha sido registrada'); // envía la respuesta y presentala en un modal
+        res.json({
+            status: 'Ok',
+            description: 'La organización ha sido registrada'
+        }); // envía la respuesta y presentala en un modal
         console.log("Create organization: ", data);
     }).catch(function (error) {
-        res.send("Error");
+        res.json({
+            status: "Error",
+            description : "Ha ocurrido un error al registrar la organización"
+        });
         console.log("ERROR: ",error);
     });
 });
@@ -550,10 +563,16 @@ router.post('/new-item',isAuthenticated,function (req,res) {
             req.body.unit_value_currency
         ]).then(function (data) {
         console.log("New item: ", data);
-        res.send('Datos registrados');
+        res.json({
+            status: 'Ok',
+            description:'Datos registrados'
+        });
     }).catch(function (error) {
         console.log('ERROR: ', error);
-        res.send('ERROR');
+        res.json({
+            status: 'Ok',
+            description: 'Ha ocurrido un error al registrar el hito'
+        });
     });
 });
 
@@ -574,10 +593,16 @@ router.post('/new-milestone', isAuthenticated,function (req,res) {
             req.body.status
         ]).then(function (data) {
         console.log("New milestone: ", data);
-        res.send('Datos registrados');
+        res.json({
+            status: 'Ok',
+            description: 'Se ha registrado un nuevo hito'
+        });
     }).catch(function (error) {
         console.log('ERROR: ', error);
-        res.send('ERROR');
+        res.json({
+            status : "Error",
+            description:'Ha ocurrido un error al registrar el hito'
+        });
     });
 
 });
@@ -611,10 +636,16 @@ router.post('/new-transaction', isAuthenticated,function (req,res) {
         req.body.uri
     ]).then(function (data) {
         console.log('New transaction: ', data);
-        res.send('Se ha creado una nueva transacción');
+        res.json({
+            status: 'Ok',
+            description: 'Se ha creado una nueva transacción'
+        });
     }).catch(function (error) {
         console.log('ERROR: ', error);
-        res.send('ERROR');
+        res.json({
+            status:'Error',
+            description: 'Ha ocurrido un error al registrar la transacción'
+        });
     });
 });
 
@@ -630,10 +661,16 @@ router.post('/new-amendment-change',isAuthenticated, function (req, res) {
         req.body.property,
         req.body.former_value
     ]).then(function (data) {
-        res.send('El cambio ha sido registrado');
+        res.json({
+            status : 'Ok',
+            description: 'El cambio ha sido registrado'
+        });
         console.log('New amendment change: ',data);
     }).catch(function (error) {
-        res.send('ERROR');
+        res.json({
+            status : 'Error',
+            description: 'Ha ocurrido un error al registrar el cambio'
+        });
         console.log('ERROR',error );
     });
 });
@@ -704,10 +741,16 @@ router.post('/update-publisher',isAuthenticated, function (req, res) {
             req.body.uri
         ]
     ).then(function (data) {
-        res.send('Los datos han sido actualizados'); // envía la respuesta y presentala en un modal
+        res.json({
+            status : 'Ok',
+            description : 'Los datos han sido actualizados'
+        }); // envía la respuesta y presentala en un modal
         console.log("Update publisher", data);
     }).catch(function (error) {
-        res.send("Error");
+        res.json({
+            status: "Error",
+            description: "Ha ocurrido un error"
+        });
         console.log("ERROR: ",error);
     });
 });

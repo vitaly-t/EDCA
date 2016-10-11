@@ -251,7 +251,8 @@ $('#genericModal').on('show.bs.modal', function (event) {
                 //submit new item event
                 $('#newitem_form').submit(function (event) {
                     $.post('/new-item/', $(this).serialize()).done(function (data) {
-                        alert(data);
+                        alert(data.description);
+                        if (data.status == 'Ok'){modal.modal('hide');}
                     });
                     event.preventDefault();
                 });
@@ -264,7 +265,8 @@ $('#genericModal').on('show.bs.modal', function (event) {
                 // Submit new milestone event
                 $('#newmilestone_form').submit(function (event) {
                     $.post('/new-milestone/', $(this).serialize()).done(function (data) {
-                        alert(data);
+                        alert(data.description);
+                        if (data.status == 'Ok'){ modal.modal('hide');}
                     });
                     event.preventDefault();
                 });
@@ -287,7 +289,8 @@ $('#genericModal').on('show.bs.modal', function (event) {
                 //submit new document event
                 $('#newdoc_form').submit(function (event) {
                     $.post('/new-document/', $(this).serialize()).done(function (data) {
-                        alert(data);
+                        alert(data.description);
+                        if (data.status == 'Ok'){ modal.modal('hide');}
                     });
                     event.preventDefault();
                 });
@@ -300,7 +303,8 @@ $('#genericModal').on('show.bs.modal', function (event) {
                 //submit new amendment change event
                 $('#newamendmentchange_form').submit(function (event) {
                     $.post('/new-amendment-change',$(this).serialize()).done(function (data) {
-                        alert(data);
+                        alert(data.description);
+                        if ( data.status == 'Ok' ){modal.modal('hide');}
                     });
                     event.preventDefault();
                 });
@@ -318,7 +322,8 @@ $('#genericModal').on('show.bs.modal', function (event) {
                 //submit new transaction event
                 $('#newtransaction_form').submit(function (event) {
                     $.post('/new-transaction', $(this).serialize()).done(function(data){
-                        alert(data);
+                        alert(data.description);
+                        if (data.status == 'Ok'){ modal.modal('hide');}
                     });
                     event.preventDefault();
                 });
@@ -328,10 +333,11 @@ $('#genericModal').on('show.bs.modal', function (event) {
             modal.find('.modal-title').text('Nueva organización');
             modal.find('#modal_content').html("");
             $('#modal_content').load('/neworg-fields/',{ localid: button.data('contractingprocess_id') ,table : button.data('table') }, function () {
-                //submit new organization event (tenderers, providers)
+                //submit new organization event (tenderers, suppliers)
                 $('#neworg_form').submit(function (event) {
                     $.post('/new-organization/', $(this).serialize()).done(function (data) {
-                        alert(data);
+                        alert(data.description);
+                        if (data.status == 'Ok'){ modal.modal('hide');}
                     });
                     event.preventDefault();
                 });
@@ -429,7 +435,8 @@ $('#genericModal').on('show.bs.modal', function (event) {
                 // Edit publisher submit event
                 $('#updatepub_form').submit(function (event) {
                     $.post('/update-publisher/', $(this).serialize()).done(function (data) {
-                        alert(data);
+                        alert( data.description );
+                        if ( data.status == 'Ok'){ modal.modal('hide');}
                     });
                     event.preventDefault();
                 });
@@ -448,7 +455,8 @@ $('#genericModal').on('show.bs.modal', function (event) {
                 // Edit publisher submit event
                 $('#uri_form').submit(function (event) {
                     $.post('/update-uris/', $(this).serialize()).done(function (data) {
-                        alert(data.status);
+                        alert(data.description);
+                        if (data.status == 'Ok'){ modal.modal('hide');}
                     });
                     event.preventDefault();
                 });
