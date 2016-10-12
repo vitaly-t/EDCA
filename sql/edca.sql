@@ -549,10 +549,21 @@ create table ImplementationMilestoneDocuments(
 
 drop table if exists currency cascade;
 create table currency (
-id serial primary key,
-entity text,
-currency text,
-alphabetic_code varchar(3),
-numeric_code varchar(3),
-minor_unit integer
+    id serial primary key,
+    entity text,
+    currency text,
+    alphabetic_code text,
+    numeric_code text,
+    minor_unit text
 );
+
+insert into currency("entity","currency","alphabetic_code","numeric_code","minor_unit") values
+('MEXICO','Mexican Peso','MXN','484','2'),
+('MEXICO','Mexican Unidad de Inversion (UDI)','MXV','979','2'),
+('UNITED ARAB EMIRATES (THE)','UAE Dirham','AED','784','2'),
+('UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND (THE)','Pound Sterling','GBP','826','2'),
+('UNITED STATES MINOR OUTLYING ISLANDS (THE)','US Dollar','USD','840','2'),
+('UNITED STATES OF AMERICA (THE)','US Dollar','USD','840','2'),
+('UNITED STATES OF AMERICA (THE)','US Dollar (Next day)','USN','997','2');
+
+
