@@ -23,7 +23,16 @@
     <p><label>Valor unitario: Monto<!--Unit value amount--></label>
         <input class="form-control" type="number" name="unit_value_amount"  step="0.01" required></p>
     <p><label>Valor unitario: Divisa<!--Unit value currency--></label>
-        <input class="form-control" type="text" name="unit_value_currency"></p>
+        <select class="form-control" name="unit_value_currency">
+            <% for ( var i = 0; i < currencies.length; i++){ %>
+            <option value = "<%= currencies[i].alphabetic_code %>"
+            <%= currencies[i].alphabetic_code == 'MXN'? 'selected':null %>
+            >
+                <%= currencies[i].entity + ": " + currencies[i].currency+' - '+currencies[i].alphabetic_code%>
+            </option>
+            <%}%>
+        </select>
+        </p>
 
     <button class="btn btn-default">Guardar</button>
 </form>

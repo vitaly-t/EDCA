@@ -10,7 +10,19 @@
     <p><label>Valor: Monto<!--Value amount--></label>
         <input type="number" class="form-control" step="0.01" name="value_amount" required></p>
     <p><label>Valor: Divisa<!--Value currency--></label>
-        <input class="form-control" name="value_currency"></p>
+
+    <select class="form-control" name="value_currency">
+        <% for ( var i = 0; i < currencies.length; i++){ %>
+        <option value = "<%= currencies[i].alphabetic_code %>"
+                <%= currencies[i].alphabetic_code == 'MXN'? 'selected':null %>
+        >
+            <%= currencies[i].entity + ": " + currencies[i].currency+' - '+currencies[i].alphabetic_code%>
+        </option>
+        <%}%>
+    </select>
+    </p>
+
+
     <p><label>URI</label>
         <input class="form-control" name="uri"></p>
     <hr>

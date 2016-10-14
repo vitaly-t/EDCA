@@ -577,7 +577,11 @@ router.post('/new-item',isAuthenticated,function (req,res) {
 });
 
 router.post('/newitem-fields', function (req,res) {
-    res.render('modals/newitem-fields', { localid: req.body.localid , table : req.body.table });
+    edca_db.manyOrNone("select * from currency").then(function (data) {
+        res.render('modals/newitem-fields', {localid: req.body.localid, table: req.body.table, currencies: data});
+    }).catch (function (error) {
+        console.log(error);
+    })
 });
 
 router.post('/new-milestone', isAuthenticated,function (req,res) {
@@ -650,7 +654,11 @@ router.post('/new-transaction', isAuthenticated,function (req,res) {
 });
 
 router.post('/newtransaction-fields', function (req,res) {
-    res.render('modals/newtransaction-fields', { localid: req.body.localid });
+    edca_db.manyOrNone("select * from currency").then(function (data) {
+        res.render('modals/newtransaction-fields', { localid: req.body.localid, currencies: data });
+    }).catch(function (error) {
+        console.log(error);
+    });
 });
 
 // new amendment change
