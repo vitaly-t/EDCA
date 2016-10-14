@@ -56,7 +56,19 @@ function getMString ( fecha ){
                     <input class="form-control" type="number" step="0.01" name="budget_amount" value = "<%= (typeof budget != "undefined")? budget.budget_amount:'' %>" required>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Divisa <!--Budget currency--></label>
-                    <input class="form-control" name="budget_currency" value = "<%= (typeof budget != "undefined")? budget.budget_currency:'' %>" >
+                    <select class="form-control" name="budget_currency">
+                        <% for ( var i = 0; i < currencies.length; i++){ %>
+                        <option value = "<%= currencies[i].alphabetic_code %>"
+                                <% if (budget.budget_currency == null && currencies[i].alphabetic_code=='MXN' ) {%>
+                                <%= 'selected' %>
+                                <%} else if (currencies[i].alphabetic_code == budget.budget_currency){%>
+                                <%= 'selected' %>
+                                <%}%>
+                        >
+                            <%= currencies[i].currency+' - '+currencies[i].alphabetic_code%>
+                        </option>
+                        <%}%>
+                    </select>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Nombre del proyecto relacionado con la contratación y que provee de recursos financieros para su ejecución (en caso de aplicar). Un proyecto provee mayor desagregación sobre el financiamiento que la fuente presupuestaria.'>Proyecto<!--Budget project--></label>
                     <input class="form-control" name="budget_project" value = "<%= (typeof budget != "undefined")? budget.budget_project:'' %>" >
@@ -147,13 +159,40 @@ function getMString ( fecha ){
                     <input type="number" step="0.01" class="form-control" name = "minvalue_amount" value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>" required>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor mínimo: Divisa<!--Min value currency--></label>
-                    <input type="text" class="form-control" name="minvalue_currency" value = "<%= (typeof tender != "undefined")? tender.minvalue_currency:''%>" >
+
+                    <select class="form-control" name="minvalue_currency">
+                        <% for ( var i = 0; i < currencies.length; i++){ %>
+                        <option value = "<%= currencies[i].alphabetic_code %>"
+                                <% if (tender.minvalue_currency == null && currencies[i].alphabetic_code=='MXN' ) {%>
+                                <%= 'selected' %>
+                                <%} else if (currencies[i].alphabetic_code == tender.minvalue_currency){%>
+                                <%= 'selected' %>
+                                <%}%>
+                        >
+                            <%= currencies[i].currency+' - '+currencies[i].alphabetic_code%>
+                        </option>
+                        <%}%>
+                    </select>
+
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Valor máximo estimado de la licitación, expresado en monto y moneda.'>Valor: Monto<!--Value amount--></label>
                     <input type="number" step="0.01" class="form-control" name= "value_amount" value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>" required>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa <!--Value currency--></label>
-                    <input type="text" class="form-control" name = "value_currency" value = "<%= (typeof tender != "undefined")? tender.value_currency:''%>" >
+
+                    <select class="form-control" name="value_currency">
+                        <% for ( var i = 0; i < currencies.length; i++){ %>
+                        <option value = "<%= currencies[i].alphabetic_code %>"
+                                <% if (tender.value_currency == null && currencies[i].alphabetic_code=='MXN' ) {%>
+                                <%= 'selected' %>
+                                <%} else if (currencies[i].alphabetic_code == tender.value_currency){%>
+                                <%= 'selected' %>
+                                <%}%>
+                        >
+                            <%= currencies[i].currency+' - '+currencies[i].alphabetic_code%>
+                        </option>
+                        <%}%>
+                    </select>
                 </p>
 
                 <p>
@@ -382,7 +421,21 @@ function getMString ( fecha ){
                 </p>
                 <p>
                     <label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa<!--Value currency--></label>
-                    <input type="text" class="form-control" name="value_currency" value = "<%= (typeof award != "undefined")? award.value_currency:''%>" >
+
+                    <select class="form-control" name="value_currency">
+                        <% for ( var i = 0; i < currencies.length; i++){ %>
+                        <option value = "<%= currencies[i].alphabetic_code %>"
+                                <% if (award.value_currency == null && currencies[i].alphabetic_code=='MXN' ) {%>
+                                <%= 'selected' %>
+                                <%} else if (currencies[i].alphabetic_code == award.value_currency){%>
+                                <%= 'selected' %>
+                                <%}%>
+                        >
+                            <%= currencies[i].currency+' - '+currencies[i].alphabetic_code%>
+                        </option>
+                        <%}%>
+                    </select>
+
                 </p>
 
                 <div class="row">
@@ -519,7 +572,21 @@ function getMString ( fecha ){
                     <input type="number" step="0.01" class="form-control" name="value_amount" value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>" required>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa<!--Value currency--></label>
-                    <input type="text" class="form-control" name="value_currency" value = "<%= (typeof contract != "undefined")? contract.value_currency:''%>" >
+
+                    <select class="form-control" name="value_currency">
+                        <% for ( var i = 0; i < currencies.length; i++){ %>
+                        <option value = "<%= currencies[i].alphabetic_code %>"
+                                <% if (contract.value_currency == null && currencies[i].alphabetic_code=='MXN' ) {%>
+                                <%= 'selected' %>
+                                <%} else if (currencies[i].alphabetic_code == contract.value_currency){%>
+                                <%= 'selected' %>
+                                <%}%>
+                        >
+                            <%= currencies[i].currency+' - '+currencies[i].alphabetic_code%>
+                        </option>
+                        <%}%>
+                    </select>
+
                 </p>
 
                 <div style="position: relative">

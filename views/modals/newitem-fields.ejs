@@ -28,7 +28,7 @@
             <option value = "<%= currencies[i].alphabetic_code %>"
             <%= currencies[i].alphabetic_code == 'MXN'? 'selected':null %>
             >
-                <%= currencies[i].entity + ": " + currencies[i].currency+' - '+currencies[i].alphabetic_code%>
+                <%= currencies[i].currency+' - '+currencies[i].alphabetic_code%>
             </option>
             <%}%>
         </select>

@@ -214,7 +214,8 @@ router.get('/main/:contractingprocess_id', isAuthenticated, function (req,res) {
             t.one("select * from budget where contractingprocess_id = $1", [req.params.contractingprocess_id]),
             t.one("select * from Tender where contractingprocess_id = $1", [req.params.contractingprocess_id]),
             t.one("select * from Award where contractingprocess_id = $1", [req.params.contractingprocess_id]),
-            t.one("select * from Contract where contractingprocess_id = $1", [req.params.contractingprocess_id])
+            t.one("select * from Contract where contractingprocess_id = $1", [req.params.contractingprocess_id]),
+            t.manyOrNone("select distinct currency, alphabetic_code from currency order by currency")
         ]);
     })
     // using .spread(function(user, event)) is best here, if supported;
@@ -234,7 +235,8 @@ router.get('/main/:contractingprocess_id', isAuthenticated, function (req,res) {
                 budget: data[2],
                 tender: data[3],
                 award: data[4],
-                contract: data[5]
+                contract: data[5],
+                currencies : data[6]
             });
         })
         .catch(function (error) {
@@ -577,7 +579,7 @@ router.post('/new-item',isAuthenticated,function (req,res) {
 });
 
 router.post('/newitem-fields', function (req,res) {
-    edca_db.manyOrNone("select * from currency").then(function (data) {
+    edca_db.manyOrNone("select distinct currency, alphabetic_code from currency order by currency").then(function (data) {
         res.render('modals/newitem-fields', {localid: req.body.localid, table: req.body.table, currencies: data});
     }).catch (function (error) {
         console.log(error);
@@ -654,7 +656,7 @@ router.post('/new-transaction', isAuthenticated,function (req,res) {
 });
 
 router.post('/newtransaction-fields', function (req,res) {
-    edca_db.manyOrNone("select * from currency").then(function (data) {
+    edca_db.manyOrNone("select distinct currency, alphabetic_code from currency order by currency").then(function (data) {
         res.render('modals/newtransaction-fields', { localid: req.body.localid, currencies: data });
     }).catch(function (error) {
         console.log(error);
