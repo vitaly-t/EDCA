@@ -500,7 +500,12 @@ router.post('/new-document', isAuthenticated, function(req,res){
 });
 
 router.post('/newdoc-fields', function (req,res) {
-    res.render('modals/newdoc-fields',{localid: req.body.localid, table: req.body.table});
+
+    edca_db.manyOrNone("select * from language").then(function (data) {
+        res.render('modals/newdoc-fields',{localid: req.body.localid, table: req.body.table, languages: data });
+    }).catch(function (error) {
+        console.log(error);
+    });
 });
 
 /* New organization */

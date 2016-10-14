@@ -31,8 +31,11 @@
     <p><label>Idioma<!--Language--></label>
        <!-- <input type="text" class="form-control" name = "language">-->
     <select class="form-control" name = "language">
-        <option value="es">es - Español</option>
-        <option value="en">en - Inglés</option>
+        <% for ( var i=0; i< languages.length ;i++){ %>
+        <option value="<% languages[i].alpha2%>"  <%= languages[i].alpha2=='es'?'selected': null %>>
+            <%= languages[i].name +" - "+ languages[i].alpha2 %>
+        </option>
+        <%}%>
     </select>
     </p>
 
