@@ -3,7 +3,13 @@
     <input type="text" name="ocid" value = "<%= localid %>" hidden>
 
     <p><label>Tipo de documento<!--Document type--></label>
-        <input type="text" class="form-control" name = "document_type"></p>
+        <!--<input type="text" class="form-control" name = "document_type">-->
+        <select class="form-control" name="document_type">
+            <%for ( var i =0; i< documenttypes.length; i++){%>
+              <option value="<%= documenttypes[i].code %>"><%= documenttypes[i].title%></option>
+            <%}%>
+        </select>
+    </p>
    <!-- <p><label>ID</label>
         <input type="text" class="form-control" name = "documentid" required></p>-->
     <p><label>Título<!--Title--></label>

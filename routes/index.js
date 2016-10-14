@@ -501,8 +501,13 @@ router.post('/new-document', isAuthenticated, function(req,res){
 
 router.post('/newdoc-fields', function (req,res) {
 
-    edca_db.manyOrNone("select * from language").then(function (data) {
-        res.render('modals/newdoc-fields',{localid: req.body.localid, table: req.body.table, languages: data });
+    edca_db.task(function (t) {
+        return this.batch([
+            this.manyOrNone("select * from language"),
+            this.manyOrNone("select * from documenttype order by title")
+        ]);
+    }).then(function (data) {
+        res.render('modals/newdoc-fields',{localid: req.body.localid, table: req.body.table, languages: data[0], documenttypes: data[1] });
     }).catch(function (error) {
         console.log(error);
     });
