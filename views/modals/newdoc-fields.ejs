@@ -6,18 +6,18 @@
         <!--<input type="text" class="form-control" name = "document_type">-->
         <select class="form-control" name="document_type">
             <%for ( var i =0; i< documenttypes.length; i++){%>
-              <option value="<%= documenttypes[i].code %>"><%= documenttypes[i].title%></option>
+            <option value="<%= documenttypes[i].code %>"><%= documenttypes[i].title%></option>
             <%}%>
         </select>
     </p>
-   <!-- <p><label>ID</label>
+    <!-- <p><label>ID</label>
         <input type="text" class="form-control" name = "documentid" required></p>-->
     <p><label>Título<!--Title--></label>
         <input type="text" class="form-control" name = "title" required></p>
     <p><label>Descripción<!--Description--></label>
         <input type="text" class="form-control" name = "description" required></p>
     <p><label>URL</label>
-        <input type="text" class="form-control" name = "url"></p>
+        <input type="url" class="form-control" name = "url"></p>
     <div class="row">
         <div class="col-sm-6">
             <p>
@@ -35,14 +35,14 @@
     <p><label>Formato<!--Format--></label>
         <input type="text" class="form-control" name = "format"></p>
     <p><label>Idioma<!--Language--></label>
-       <!-- <input type="text" class="form-control" name = "language">-->
-    <select class="form-control" name = "language">
-        <% for ( var i=0; i< languages.length ;i++){ %>
-        <option value="<% languages[i].alpha2%>"  <%= languages[i].alpha2=='es'?'selected': null %>>
-            <%= languages[i].name +" - "+ languages[i].alpha2 %>
-        </option>
-        <%}%>
-    </select>
+        <!-- <input type="text" class="form-control" name = "language">-->
+        <select class="form-control" name = "language">
+            <% for ( var i=0; i< languages.length ;i++){ %>
+            <option value="<% languages[i].alpha2%>"  <%= languages[i].alpha2=='es'?'selected': null %>>
+                <%= languages[i].name +" - "+ languages[i].alpha2 %>
+            </option>
+            <%}%>
+        </select>
     </p>
 
     <button class="btn btn-default">Guardar</button>
