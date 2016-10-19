@@ -2,14 +2,14 @@
     <input name = "id" type="hidden" value="<%= contractingprocess.id %>">
     <p>
         <label>URI</label>
-        <input name="uri" class="form-control" type="text" value="<%= contractingprocess.uri %>">
+        <input type="url" name="uri" class="form-control" type="text" value="<%= contractingprocess.uri %>">
     </p>
-    <p><label>Politica de publicación</label>
-        <input name="publicationpolicy" class="form-control" type="text" value="<%= contractingprocess.publicationpolicy %>">
+    <p><label>Politica de publicación (URL)</label>
+        <input type="url" name="publicationpolicy" class="form-control" type="text" value="<%= contractingprocess.publicationpolicy %>">
     </p>
     <p>
-        <label>Licencia</label>
-        <input name="license" class="form-control" type="text" value="<%= contractingprocess.license %>">
+        <label>Licencia (URL)</label>
+        <input type="url" name="license" class="form-control" type="text" value="<%= contractingprocess.license %>">
     </p>
     <p>
         <button type="submit" class="btn btn-default">Guardar</button>
