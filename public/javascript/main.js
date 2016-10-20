@@ -467,6 +467,24 @@ $('#genericModal').on('show.bs.modal', function (event) {
         case "edit_user":
             modal.find('.modal-title').text('Actualizar información del usuario');
             modal.find('#modal_content').html("");
+            modal.find('#modal_content').load('/user-profile', { id : button.data('user_id')}, function () {
+                $('#form_update_user_profile').submit(function (event) {
+                    $.post('/update/user', $(this).serialize()).done(function (data) {
+                        alert(data.description);
+                        if (data.status == 'Ok'){ modal.modal('hide');}
+                    });
+                    event.preventDefault();
+                });
+/*
+                $('#form_update_user_password').submit(function (event) {
+                    $.post('/update/password', $(this).serialize()).done(function (data) {
+                        alert(data.description);
+                        if (data.status == 'Ok'){ modal.modal('hide');}
+                    });
+                    event.preventDefault();
+                });
+  */
+            });
             break;
     }
 });

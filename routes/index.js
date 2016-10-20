@@ -6,6 +6,7 @@ var path  = require('path');
 //passport db
 var dbConfig = require('../db.js');
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 mongoose.connect(dbConfig.url);
 
 // Configuring Passport
@@ -201,6 +202,38 @@ if ( typeof process.env.EDCA_DB != "undefined" ){
         " defaulting to -> postgres://tester:test@localhost/edca");
     edca_db = pgp("postgres://tester:test@localhost/edca");
 }
+
+
+router.post("/user-profile/", function (req, res) {
+    var id = req.body.id;
+    User.findOne({ '_id' : id }).then(function (data) {
+       res.render('modals/user-profile',{user: data});
+    });
+});
+
+router.post('/update/user/', function (req, res) {
+    var id = req.body.id;
+    var email = req.body.email;
+    var fullname = req.body.fullname;
+
+    User.findOne({ '_id' : id }).then(function (data) {
+        data.fullname = fullname;
+        data.email = email;
+        data.save();
+        res.json({
+            status : "Ok",
+            description: "Los datos han sido actualizados"
+        });
+    }).catch(function (data) {
+        console.log(data);
+        res.json({
+            status: "Error",
+            description: "Ha ocurrido un error"
+        })
+    });
+
+});
+
 
 /* GET main page with data */
 router.get('/main/:contractingprocess_id', isAuthenticated, function (req,res) {
