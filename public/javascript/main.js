@@ -44,8 +44,7 @@ $(function () {
 $(document).ready(function(){
     $('[data-tooltip="crear_proceso"]').tooltip();
 
-    $('#newprocessform').submit(function (e) {
-
+    $('#create_process').click(function () {
         if ( confirm('¿Está seguro de crear un nuevo proceso de contratación?')) {
 
             $.post('/new-process').done(function (data) {
@@ -53,8 +52,6 @@ $(document).ready(function(){
                 window.location.href = data.url;
             });
         }
-
-        e.preventDefault();
     });
 });
 

@@ -43,6 +43,16 @@
                 <li><a href="#">Blog</a></li>
                 <li><a href="#">Acerca</a></li>
                 <li><a href="/signout"><i class="fa fa-sign-out"></i> Salir</a></li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contrataciones <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-target="#myModal2" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
+                                Buscar <i class="fa fa-search"></i></a></li>
+                        <li id="create_process"><a href="#">Nueva <i class="fa fa-warning"></i></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#" data-toggle="modal" data-target="#myModalManual" data-tooltip="crear_proceso" title="Abrir manual" >Manual <i class="fa fa-book"></i></a></li>
+                    </ul>
+                </li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= user.fullname %> <span class="caret"></span></a>
@@ -72,9 +82,8 @@
 
     <div class="row">
 
-
         <% if (typeof cp != "undefined"){%>
-        <div class="col-sm-5">
+        <div class="col-sm-6">
             <div class="panel panel-default pill-container">
                 <div class="panel-heading">
                     <h3 class="panel-title"><strong>Identificador de proceso</strong></h3>
@@ -93,7 +102,7 @@
         <%}%>
 
         <% if (typeof cp != "undefined"){%>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="panel panel-default pill-container">
 
                 <div class="panel-heading">
@@ -101,63 +110,32 @@
                 </div>
                 <div class="panel-body">
 
-                    <p>
-                        <button type="button" class="btn btn-default" data-localid="<%= cp.id %>" data-table="buyer" data-toggle="modal" data-tooltip="crear_proceso" title="Dependencia que publica este proceso de contratación." data-target="#myModalEditSingleOrg">
-                            Comprador <!--Buyer--> <i class="fa fa-user"></i></button>
+                    <div class="row">
+                        <div class="col-sm-6" style="text-align: center">
+                            <button type="button" class="btn btn-default" data-localid="<%= cp.id %>" data-table="buyer" data-toggle="modal" data-tooltip="crear_proceso" title="Dependencia que publica este proceso de contratación." data-target="#myModalEditSingleOrg">
+                                Comprador <!--Buyer--> <i class="fa fa-user"></i></button>
+                        </div>
 
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="crear_proceso" title="Seleccionar tipo de processo que se desea publicar.">
-                            Publicar <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li id="release" data-id="<%=cp.id%>"><a href="#">Obtener JSON (Release)</a></li>
-                            <li id="release_package" data-id="<%=cp.id%>"><a href="#">Obtener JSON (Release package)</a></li>
-                            <li id="blockchain" data-id="<%= cp.id %>"> <a href="#">Enviar a registro distribuido</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#" data-action="edit_publisher" data-contractingprocess_id="<%= cp.id %>" data-toggle="modal" data-target="#genericModal">Publisher</a></li>
-                            <li><a href="#" data-action="edit_uris" data-contractingprocess_id="<%= cp.id %>" data-toggle="modal" data-target="#genericModal">URIs</a></li>
-                        </ul>
+                        <div class="col-sm-6" style="text-align: center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="crear_proceso" title="Seleccionar tipo de processo que se desea publicar.">
+                                    Publicar <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="release" data-id="<%=cp.id%>"><a href="#">Obtener JSON (Release)</a></li>
+                                    <li id="release_package" data-id="<%=cp.id%>"><a href="#">Obtener JSON (Release package)</a></li>
+                                    <li id="blockchain" data-id="<%= cp.id %>"> <a href="#">Enviar a registro distribuido</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#" data-action="edit_publisher" data-contractingprocess_id="<%= cp.id %>" data-toggle="modal" data-target="#genericModal">Publisher</a></li>
+                                    <li><a href="#" data-action="edit_uris" data-contractingprocess_id="<%= cp.id %>" data-toggle="modal" data-target="#genericModal">URIs</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    </p>
                 </div>
             </div>
         </div>
         <%}%>
-
-
-        <div class="col-sm-4">
-            <div class="panel panel-default pill-container">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Procesos de contratación</strong></h3>
-                </div>
-                <div class="panel-body">
-
-                    <div class="row">
-
-                        <div class="col-sm-6">
-                            <form id = "newprocessform" class="form-inline">
-                                <p>
-                                    <button class="btn btn-default" type="submit">Nuevo <i class="fa fa-warning"></i></button>
-                                </p>
-                            </form>
-
-                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
-                                Buscar <i class="fa fa-search"></i></button>
-
-
-                        </div>
-                        <div class="col-sm-6">
-                            <p>
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#myModalManual" data-tooltip="crear_proceso" title="Abrir manual" href="">Manual <i class="fa fa-book"></i></button>
-                            </p>
-                        </div>
-
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
     </div>
 
 
@@ -170,9 +148,9 @@
     </div>
     <%}%>
 
-
 <% if (typeof cp != "undefined") {%>
     <%-include tabs/tabs.ejs %>
+    <%- include modals/modals.ejs %>
     <%} else {%>
     <div id="jumbotron" class="jumbotron">
         <h1 class="display-3">¡Contrataciones abiertas!</h1>
@@ -181,17 +159,13 @@
         <hr class="m-y-2">
         <p>Para obtener más información con respecto al formato que esta herramienta te proporcionará, presiona <b>saber más</b></p>
         <p class="lead">
-          <br>
-          <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalManual" href="">Manual <i class="fa fa-book"></i></a>
-          <a class="btn btn-primary btn-lg" href="http://standard.open-contracting.org/latest/en/schema/release/#id1" role="button">Saber más <i class="fa fa-rocket"></i></a>
+            <br>
+            <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalManual" href="">Manual <i class="fa fa-book"></i></a>
+            <a class="btn btn-primary btn-lg" href="http://standard.open-contracting.org/latest/en/schema/release/#id1" role="button">Saber más <i class="fa fa-rocket"></i></a>
         </p>
     </div>
     <%}%>
 </div>
-
-<% if (typeof cp != "undefined") {%>
-<%- include modals/modals.ejs %>
-<%}%>
 
 <!-- modal genérico -->
 <div class="modal fade" id="genericModal" tabindex="-1" role="dialog" aria-labelledby="modal">
@@ -220,54 +194,54 @@
                 <h4 class="modal-title" id="myModalLabel2">Manual Contrataciones Abiertas</h4>
             </div>
             <div clas="modal-body">
-              <div class="panel panel-default">
+                <div class="panel panel-default">
                     <div class="panel-body">
                         <form>
-                          <p>
+                            <p>
                             <h4 style="color:#00cc99;font-weight:bold">Secciones</h4>
                             <br>
                             <ul>
-                              <li style="color:#4d4d4d;font-weight:bold" role="button" id="creacionManual">Creación</li>
-                              <br>
-                              <li style="color:#4d4d4d;font-weight:bold" role="button" id="publicacionManual">Publicación</li>
+                                <li style="color:#4d4d4d;font-weight:bold" role="button" id="creacionManual">Creación</li>
+                                <br>
+                                <li style="color:#4d4d4d;font-weight:bold" role="button" id="publicacionManual">Publicación</li>
                             </ul>
                             <ol id="manualEntry">
-                              <hr>
-                              <li style="color:#4d4d4d" role="button" id="manualPlan">Planeación</li>
-                              <br>
-                              <li style="color:#4d4d4d" role="button" id="manualLic">Licitación</li>
-                              <br>
-                              <li style="color:#4d4d4d" role="button" id="manualAdj">Adjudicación</li>
-                              <br>
-                              <li style="color:#4d4d4d" role="button" id="manualCont">Contratación</li>
-                              <br>
-                              <li style="color:#4d4d4d" role="button" id="manualImp">Implementación</li>
+                                <hr>
+                                <li style="color:#4d4d4d" role="button" id="manualPlan">Planeación</li>
+                                <br>
+                                <li style="color:#4d4d4d" role="button" id="manualLic">Licitación</li>
+                                <br>
+                                <li style="color:#4d4d4d" role="button" id="manualAdj">Adjudicación</li>
+                                <br>
+                                <li style="color:#4d4d4d" role="button" id="manualCont">Contratación</li>
+                                <br>
+                                <li style="color:#4d4d4d" role="button" id="manualImp">Implementación</li>
                             </ol>
-                          <div id="textoPlaneacion">
-                            <h3 style="color:#00cc99">Planeación</h3>
-                            Esta sección se utiliza para describir el trasfondo del proceso de contratación. Esto puede incluir detalles sobre el presupuesto, proyectos relacionados y documentación tal cómo: Evaluación de necesidades, Plan del proyecto, Plan de contratación, Estudio de factibilidad, etc.
-                          </div>
-                          <div id="textoLicitacion">
-                            <h3 style="color:#00cc99">Licitación</h3>
-                            Esta sección incluye los detalles del anunciamiento de que una dependencia requiere licitar algún bien en particular, ya sean materiales o servicios, y que desea establecer un contrato por los mismos.
-                          </div>
-                          <div id="textoAdjudicacion">
-                            <h3 style="color:#00cc99">Adjudicación</h3>
-                            Esta sección se utiliza para anunciar cualquier adjudicación que haya sido dada durante el proceso de esta licitación. Pueden existir múltiples adjudicaciones para un mismo proceso.
-                          </div>
-                          <div id="textoContratacion">
-                            <h3 style="color:#00cc99">Contratación</h3>
-                            Esta sección se utiliza para dar detalles sobre los contratos en los que se ha incurrido en este proceso. Todo contrato necesita estar relacionado con una adjudicación.
-                          </div>
-                          <div id="textoImplementacion">
-                            <h3 style="color:#00cc99">Implementación</h3>
-                            Esta sección describe los avances en cuanto a la implementación del proyecto.
-                          </div>
-                          </p>
+                            <div id="textoPlaneacion">
+                                <h3 style="color:#00cc99">Planeación</h3>
+                                Esta sección se utiliza para describir el trasfondo del proceso de contratación. Esto puede incluir detalles sobre el presupuesto, proyectos relacionados y documentación tal cómo: Evaluación de necesidades, Plan del proyecto, Plan de contratación, Estudio de factibilidad, etc.
+                            </div>
+                            <div id="textoLicitacion">
+                                <h3 style="color:#00cc99">Licitación</h3>
+                                Esta sección incluye los detalles del anunciamiento de que una dependencia requiere licitar algún bien en particular, ya sean materiales o servicios, y que desea establecer un contrato por los mismos.
+                            </div>
+                            <div id="textoAdjudicacion">
+                                <h3 style="color:#00cc99">Adjudicación</h3>
+                                Esta sección se utiliza para anunciar cualquier adjudicación que haya sido dada durante el proceso de esta licitación. Pueden existir múltiples adjudicaciones para un mismo proceso.
+                            </div>
+                            <div id="textoContratacion">
+                                <h3 style="color:#00cc99">Contratación</h3>
+                                Esta sección se utiliza para dar detalles sobre los contratos en los que se ha incurrido en este proceso. Todo contrato necesita estar relacionado con una adjudicación.
+                            </div>
+                            <div id="textoImplementacion">
+                                <h3 style="color:#00cc99">Implementación</h3>
+                                Esta sección describe los avances en cuanto a la implementación del proyecto.
+                            </div>
+                            </p>
                         </form>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                          <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
                         </div>
                     </div>
                 </div>
