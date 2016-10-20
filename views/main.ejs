@@ -37,12 +37,23 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"> <%= user.fullname %></a></li>
+                <!--<li><a href="#"> <%= user.fullname %></a></li>
                 <li><a href="#">Datos</a></li>
                 <li><a href="#">Herramientas</a></li>
                 <li><a href="#">Blog</a></li>
                 <li><a href="#">Acerca</a></li>
-                <li><a href="/signout"><i class="fa fa-sign-out"></i> Salir</a></li>
+                <li><a href="/signout"><i class="fa fa-sign-out"></i> Salir</a></li>-->
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= user.fullname %> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Actualizar información <i class="fa fa-user"></i></a></li>
+                        <li role="separator" class="divider"></li>
+                        <!--<li class="dropdown-header">Nav header</li>-->
+                        <li><a href="/signout">Salir <i class="fa fa-sign-out"></i></a></li>
+                    </ul>
+                </li>
+
             </ul>
         </div><!--/.nav-collapse -->
     </div>
