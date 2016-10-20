@@ -215,10 +215,12 @@ router.post('/update/user/', function (req, res) {
     var id = req.body.id;
     var email = req.body.email;
     var fullname = req.body.fullname;
+    var address= req.body.address;
 
     User.findOne({ '_id' : id }).then(function (data) {
         data.fullname = fullname;
         data.email = email;
+        data.address = address;
         data.save();
         res.json({
             status : "Ok",
