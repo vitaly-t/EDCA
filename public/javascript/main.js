@@ -46,7 +46,6 @@ $(document).ready(function(){
 
     $('#create_process').click(function () {
         if ( confirm('¿Está seguro de crear un nuevo proceso de contratación?')) {
-
             $.post('/new-process').done(function (data) {
                 alert("Se ha creado un nuevo proceso de contratación");
                 window.location.href = data.url;
@@ -135,66 +134,66 @@ $("#textoContratacion").hide();
 $("#textoImplementacion").hide();
 
 $("#creacionManual").click(function(){
-  $("#manualEntry").show(500);
-  $("#textoPlaneacion").hide();
-  $("#textoLicitacion").hide();
-  $("#textoAdjudicacion").hide();
-  $("#textoContratacion").hide();
-  $("#textoImplementacion").hide();
+    $("#manualEntry").show(500);
+    $("#textoPlaneacion").hide();
+    $("#textoLicitacion").hide();
+    $("#textoAdjudicacion").hide();
+    $("#textoContratacion").hide();
+    $("#textoImplementacion").hide();
 });
 
 $("#publicacionManual").click(function(){
-  $("#manualEntry").hide(500);
-  $("#textoPlaneacion").hide();
-  $("#textoLicitacion").hide();
-  $("#textoAdjudicacion").hide();
-  $("#textoContratacion").hide();
-  $("#textoImplementacion").hide();
+    $("#manualEntry").hide(500);
+    $("#textoPlaneacion").hide();
+    $("#textoLicitacion").hide();
+    $("#textoAdjudicacion").hide();
+    $("#textoContratacion").hide();
+    $("#textoImplementacion").hide();
 });
 
 $("#manualPlan").click(function(){
-  $("#manualEntry").hide(500);
-  $("#textoLicitacion").hide();
-  $("#textoAdjudicacion").hide();
-  $("#textoContratacion").hide();
-  $("#textoImplementacion").hide();
-  $("#textoPlaneacion").show(500);
+    $("#manualEntry").hide(500);
+    $("#textoLicitacion").hide();
+    $("#textoAdjudicacion").hide();
+    $("#textoContratacion").hide();
+    $("#textoImplementacion").hide();
+    $("#textoPlaneacion").show(500);
 });
 
 $("#manualLic").click(function(){
-  $("#manualEntry").hide(500);
-  $("#textoLicitacion").show(500);
-  $("#textoAdjudicacion").hide();
-  $("#textoContratacion").hide();
-  $("#textoImplementacion").hide();
-  $("#textoPlaneacion").hide();
+    $("#manualEntry").hide(500);
+    $("#textoLicitacion").show(500);
+    $("#textoAdjudicacion").hide();
+    $("#textoContratacion").hide();
+    $("#textoImplementacion").hide();
+    $("#textoPlaneacion").hide();
 });
 
 $("#manualAdj").click(function(){
-  $("#manualEntry").hide(500);
-  $("#textoLicitacion").hide();
-  $("#textoAdjudicacion").show(500);
-  $("#textoContratacion").hide();
-  $("#textoImplementacion").hide();
-  $("#textoPlaneacion").hide();
+    $("#manualEntry").hide(500);
+    $("#textoLicitacion").hide();
+    $("#textoAdjudicacion").show(500);
+    $("#textoContratacion").hide();
+    $("#textoImplementacion").hide();
+    $("#textoPlaneacion").hide();
 });
 
 $("#manualCont").click(function(){
-  $("#manualEntry").hide(500);
-  $("#textoLicitacion").hide();
-  $("#textoAdjudicacion").hide();
-  $("#textoContratacion").show(500);
-  $("#textoImplementacion").hide();
-  $("#textoPlaneacion").hide();
+    $("#manualEntry").hide(500);
+    $("#textoLicitacion").hide();
+    $("#textoAdjudicacion").hide();
+    $("#textoContratacion").show(500);
+    $("#textoImplementacion").hide();
+    $("#textoPlaneacion").hide();
 });
 
 $("#manualImp").click(function(){
-  $("#manualEntry").hide(500);
-  $("#textoLicitacion").hide();
-  $("#textoAdjudicacion").hide();
-  $("#textoContratacion").hide();
-  $("#textoImplementacion").show(500);
-  $("#textoPlaneacion").hide();
+    $("#manualEntry").hide(500);
+    $("#textoLicitacion").hide();
+    $("#textoAdjudicacion").hide();
+    $("#textoContratacion").hide();
+    $("#textoImplementacion").show(500);
+    $("#textoPlaneacion").hide();
 });
 /*----- Fin Manuales -----*/
 
