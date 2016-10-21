@@ -211,7 +211,7 @@ router.post("/user-profile/", function (req, res) {
     });
 });
 
-router.post('/update/user/', function (req, res) {
+router.post('/update/user/',isAuthenticated, function (req, res) {
     var id = req.body.id;
     var email = req.body.email;
     var fullname = req.body.fullname;
@@ -233,6 +233,42 @@ router.post('/update/user/', function (req, res) {
             description: "Ha ocurrido un error"
         })
     });
+
+});
+
+router.post('/update/password',isAuthenticated,function (req, res ) {
+
+    var user_id = req.body.user_id;
+    var old_pass = req.body.old_pass;
+    var new_pass = req.body.new_pass;
+    var confirm_pass = req.body.confirm_pass;
+
+    User.findOne({ '_id' : user_id }).then(function (user) {
+
+        if ( !isValidPassword(user, old_pass)){
+            res.json({
+                status : "Error",
+                description: "Contraseña incorrecta"
+            })
+        } else if ( isValidPassword(user, old_pass) && new_pass == confirm_pass ){
+
+            user.password =  bCrypt.hashSync( new_pass, bCrypt.genSaltSync(10), null);
+            user.save();
+
+            res.json({
+                status: "Ok",
+                description: "Contraseña actualizada"
+            });
+        } else if ( isValidPassword(user, old_pass) && new_pass != confirm_pass ){
+            res.json({
+                status : "Error",
+                description: "La nueva contraseña no coincide"
+            })
+        }
+
+    }).catch(function (error) {
+        console.log(error)
+    })
 
 });
 

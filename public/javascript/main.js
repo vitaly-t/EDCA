@@ -471,7 +471,6 @@ $('#genericModal').on('show.bs.modal', function (event) {
                     });
                     event.preventDefault();
                 });
-/*
                 $('#form_update_user_password').submit(function (event) {
                     $.post('/update/password', $(this).serialize()).done(function (data) {
                         alert(data.description);
@@ -479,7 +478,6 @@ $('#genericModal').on('show.bs.modal', function (event) {
                     });
                     event.preventDefault();
                 });
-  */
             });
             break;
     }

@@ -23,17 +23,18 @@
 <h4>Actualizar contraseña</h4>
 
 <form id="form_update_user_password">
+    <input name="user_id" type="text" value="<%= user._id %>" hidden>
     <p>
         <label>Contraseña actual</label>
-        <input type="password" class="form-control" required>
+        <input name = "old_pass" type="password" class="form-control" required>
     </p>
     <p>
         <label>Nueva contraseña</label>
-        <input type="password" class="form-control" required>
+        <input name= "new_pass" type="password" class="form-control" required>
     </p>
     <p>
         <label>Confirmar contraseña</label>
-        <input type="password" class="form-control" required>
+        <input name="confirm_pass" type="password" class="form-control" required>
     </p>
     <button type="submit" class="btn btn-default">Actualizar</button>
 </form>
