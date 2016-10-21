@@ -267,7 +267,11 @@ router.post('/update/password',isAuthenticated,function (req, res ) {
         }
 
     }).catch(function (error) {
-        console.log(error)
+        console.log(error);
+        res.json({
+            status : "Error",
+            description: "Ha ocurrido un error al actualizar la contraseña"
+        })
     })
 
 });
