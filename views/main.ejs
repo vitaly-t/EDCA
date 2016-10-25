@@ -37,12 +37,6 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <!--<li><a href="#"> <%= user.fullname %></a></li>
-                <li><a href="#">Datos</a></li>
-                <li><a href="#">Herramientas</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Acerca</a></li>
-                <li><a href="/signout"><i class="fa fa-sign-out"></i> Salir</a></li>-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contrataciones <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -63,28 +57,16 @@
                         <li><a href="/signout">Salir <i class="fa fa-sign-out"></i></a></li>
                     </ul>
                 </li>
-
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
 
-<!--
-<nav class="row top-buffer">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Contrataciones abiertas</a>
-        </div>
-    </div>
-</nav>
--->
-<div class="container all-container">
-
+<div class="container">
+    <% if (typeof cp != "undefined"){%>
     <div class="row">
-
-        <% if (typeof cp != "undefined"){%>
         <div class="col-sm-6">
-            <div class="panel panel-default pill-container">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><strong>Identificador de proceso</strong></h3>
                 </div>
@@ -99,17 +81,14 @@
                 </div>
             </div>
         </div>
-        <%}%>
 
-        <% if (typeof cp != "undefined"){%>
         <div class="col-sm-6">
-            <div class="panel panel-default pill-container">
-
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title"><strong>Herramientas</strong></h3>
                 </div>
-                <div class="panel-body">
 
+                <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-6" style="text-align: center">
                             <button type="button" class="btn btn-default" data-localid="<%= cp.id %>" data-table="buyer" data-toggle="modal" data-tooltip="crear_proceso" title="Dependencia que publica este proceso de contratación." data-target="#myModalEditSingleOrg">
@@ -135,9 +114,8 @@
                 </div>
             </div>
         </div>
-        <%}%>
     </div>
-
+    <%}%>
 
     <% if (typeof error!= "undefined"){%>
     <div class="alert alert-danger alert-dismissible" role="alert">
