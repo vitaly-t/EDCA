@@ -130,13 +130,17 @@
     <%- include tabs.ejs %>
     <%- include modals/modals.ejs %>
     <%} else {%>
-    <div id="jumbotron" class="jumbotron">
-        <h1 class="display-3">¡Contrataciones abiertas!</h1>
+    <div class="jumbotron">
+        <h1>Contrataciones abiertas</h1>
         <br>
-        <p class="lead">Con la plataforma de contrataciones abiertas el proceso de apertura es más sencillo.</p>
-        <hr class="m-y-2">
-        <p>Para obtener más información con respecto al formato que esta herramienta te proporcionará, presiona <b>
-                <a href="http://standard.open-contracting.org/latest/es/schema/release/#id1">aquí</a></b></p>
+        <p>Bienvenido al sistema de captura de datos de contrataciones abiertas. Esta herramienta facilita que entidades gubernamentales
+            abran los procesos de contratación pública que conducen, publicando la información correspondiente bajo el <a href="#">Estándar de Datos de Contrataciones Abiertas en México</a>.
+            Este estándar se compone de un conjunto de aproximadamente 500 datos de una contratación, desde su planeación hasta su implementación y evaluación. </p>
+
+        <p>
+            Presiona
+            <a href="http://standard.open-contracting.org/latest/es/schema/release/#id1">aquí</a>
+            para obtener más información sobre el Estándar de Datos de Contrataciones Abiertas.</p>
         <p>
             <button id = "nuevo_jumbo" class="btn btn-default">Nueva contratación <i class="fa fa-pencil"></i></button>
             <button class="btn btn-default" data-toggle="modal" data-target="#genericModal" data-action="search" data-user_id="<%= user.id %>">Buscar contratación <i class="fa fa-search"></i></button>
