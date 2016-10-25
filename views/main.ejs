@@ -38,6 +38,21 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+
+                <% if ( typeof cp != 'undefined'){%>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Herramientas <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li id="release" data-id="<%=cp.id%>"><a href="#">Obtener JSON (Release) <i class="fa fa-file-text"></i></a></li>
+                        <li id="release_package" data-id="<%=cp.id%>"><a href="#">Obtener JSON (Release package) <i class="fa fa-file-text"></i></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li id="blockchain" data-id="<%= cp.id %>"> <a href="#">Enviar a registro distribuido <i class="fa fa-cubes"></i></a></li>
+                    </ul>
+                </li>
+
+                <%}%>
+
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contrataciones <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -91,26 +106,19 @@
 
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-sm-6" style="text-align: center">
+                        <div class="col-sm-4">
                             <button type="button" class="btn btn-default" data-localid="<%= cp.id %>" data-table="buyer" data-toggle="modal" data-tooltip="crear_proceso" title="Dependencia que publica este proceso de contratación." data-target="#myModalEditSingleOrg">
                                 Comprador <!--Buyer--> <i class="fa fa-user"></i></button>
                         </div>
 
-                        <div class="col-sm-6" style="text-align: center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="crear_proceso" title="Seleccionar tipo de processo que se desea publicar.">
-                                    Publicar <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li id="release" data-id="<%=cp.id%>"><a href="#">Obtener JSON (Release)</a></li>
-                                    <li id="release_package" data-id="<%=cp.id%>"><a href="#">Obtener JSON (Release package)</a></li>
-                                    <li id="blockchain" data-id="<%= cp.id %>"> <a href="#">Enviar a registro distribuido</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#" data-action="edit_publisher" data-contractingprocess_id="<%= cp.id %>" data-toggle="modal" data-target="#genericModal">Publisher</a></li>
-                                    <li><a href="#" data-action="edit_uris" data-contractingprocess_id="<%= cp.id %>" data-toggle="modal" data-target="#genericModal">URIs</a></li>
-                                </ul>
-                            </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-default" data-action="edit_publisher" data-contractingprocess_id="<%= cp.id %>" data-toggle="modal" data-target="#genericModal">Publisher <i class="fa fa-user"></i> </button>
                         </div>
+
+                        <div class="col-sm-4">
+                            <button class="btn btn-default" data-action="edit_uris" data-contractingprocess_id="<%= cp.id %>" data-toggle="modal" data-target="#genericModal">URIs <i class="fa fa-link"></i> </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
