@@ -154,7 +154,7 @@ var isNotAuthenticated = function (req, res, next) {
 
 /* GET home page. */
 router.get('/', isNotAuthenticated, function (req, res, next) {
-    res.render('index', {title: 'Contrataciones Abiertas', message: req.flash('message')});
+    res.render('index', {title: 'Sistema de captura de datos de contrataciones abiertas en México', message: req.flash('message')});
 });
 
 
@@ -174,7 +174,7 @@ router.get('/signout', function(req, res) {
 
 /* GET main page. */
 router.get('/main', isAuthenticated, function(req, res, next) {
-    res.render('main', { user: req.user, title: 'Contrataciones Abiertas' });
+    res.render('main', { user: req.user, title: 'Sistema de captura de datos de contrataciones abiertas en México' });
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -304,7 +304,7 @@ router.get('/main/:contractingprocess_id', isAuthenticated, function (req,res) {
 
             res.render('main', {
                 user: req.user,
-                title: 'Contrataciones abiertas',
+                title: 'Sistema de captura de datos de contrataciones abiertas en México',
                 cp: data[0],
                 planning: data[1],
                 budget: data[2],
@@ -319,7 +319,7 @@ router.get('/main/:contractingprocess_id', isAuthenticated, function (req,res) {
 
             res.render('main', {
                 user: req.user,
-                title: 'Contrataciones abiertas',
+                title: 'Sistema de captura de datos de contrataciones abiertas en México',
                 error: 'Proceso de contratación no encontrado'
             });
         });
