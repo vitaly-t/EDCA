@@ -904,6 +904,10 @@ router.post('/search/', function (req, res) {
     res.render('modals/search');
 });
 
+router.get('/manual', function (req, res) {
+    res.render('modals/manual');
+});
+
 
 //get list of transactions
 router.post('/transaction-list',function (req, res) {
