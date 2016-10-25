@@ -900,6 +900,11 @@ router.post('/search-process-by-ocid',function(req, res){
 });
 
 
+router.post('/search/', function (req, res) {
+    res.render('modals/search');
+});
+
+
 //get list of transactions
 router.post('/transaction-list',function (req, res) {
     edca_db.manyOrNone('select * from implementationtransactions where contractingprocess_id=$1',[

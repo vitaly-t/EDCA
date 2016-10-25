@@ -44,7 +44,7 @@ $(function () {
 $(document).ready(function(){
     $('[data-tooltip="crear_proceso"]').tooltip();
 
-    $('#create_process').click(function () {
+    $('#create_process, #nuevo_jumbo').click(function () {
         if ( confirm('¿Está seguro de crear un nuevo proceso de contratación?')) {
             $.post('/new-process').done(function (data) {
                 alert("Se ha creado un nuevo proceso de contratación");
@@ -75,19 +75,6 @@ $('#blockchain').click(function () {
     $.post( "/publish/rpc", { contractingprocess_id : $(this).data("id")}, function (data) {
         alert(data.message);
     });
-});
-
-
-// buscar proceso por fecha
-$("#searchprocessbydate_form").submit(function ( event ) {
-    $('#searchprocess_result').load('/search-process-by-date/', $(this).serializeArray());
-    event.preventDefault();
-});
-
-//buscar por ocid
-$("#searchprocessbyocid_form").submit(function ( event ) {
-    $('#searchprocess_result').load('/search-process-by-ocid/', $(this).serializeArray());
-    event.preventDefault();
 });
 
 // UPDATE planning
@@ -476,6 +463,20 @@ $('#genericModal').on('show.bs.modal', function (event) {
                         alert(data.description);
                         if (data.status == 'Ok'){ modal.modal('hide');}
                     });
+                    event.preventDefault();
+                });
+            });
+            break;
+        case "search":
+            modal.find('.modal-title').text('Buscar contratación');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load('/search',{user_id : button.data('user_id')}, function () {
+                $('#searchprocessbyocid_form').submit(function (event) {
+                    $('#searchprocess_result').load('/search-process-by-ocid/', $(this).serializeArray());
+                    event.preventDefault();
+                });
+                $('#searchprocessbydate_form').submit(function (event) {
+                    $('#searchprocess_result').load('/search-process-by-date/', $(this).serializeArray());
                     event.preventDefault();
                 });
             });

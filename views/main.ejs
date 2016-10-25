@@ -46,7 +46,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contrataciones <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" data-toggle="modal" data-target="#myModal2" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
+                        <li><a href="#" data-toggle="modal" data-target="#genericModal" data-action="search" data-user_id = "<%= user.id %>" data-tooltip="crear_proceso" title="Buscar un proceso de contratación previamente inicializado.">
                                 Buscar <i class="fa fa-search"></i></a></li>
                         <li id="create_process"><a href="#">Nueva <i class="fa fa-warning"></i></a></li>
                         <li role="separator" class="divider"></li>
@@ -157,11 +157,12 @@
         <br>
         <p class="lead">Con la plataforma de contrataciones abiertas el proceso de apertura es más sencillo.</p>
         <hr class="m-y-2">
-        <p>Para obtener más información con respecto al formato que esta herramienta te proporcionará, presiona <b>saber más</b></p>
-        <p class="lead">
-            <br>
-            <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalManual" href="">Manual <i class="fa fa-book"></i></a>
-            <a class="btn btn-primary btn-lg" href="http://standard.open-contracting.org/latest/en/schema/release/#id1" role="button">Saber más <i class="fa fa-rocket"></i></a>
+        <p>Para obtener más información con respecto al formato que esta herramienta te proporcionará, presiona <b>
+                <a href="http://standard.open-contracting.org/latest/es/schema/release/#id1">aquí</a></b></p>
+        <p>
+            <button id = "nuevo_jumbo" class="btn btn-default">Nueva contratación <i class="fa fa-pencil"></i></button>
+            <button class="btn btn-default" data-toggle="modal" data-target="#genericModal" data-action="search" data-user_id="<%= user.id %>">Buscar contratación <i class="fa fa-search"></i></button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModalManual" href="">Manual <i class="fa fa-book"></i></button>
         </p>
     </div>
     <%}%>
@@ -245,74 +246,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- modal para buscar procesos de contratación -->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">Buscar proceso de contratación</h4>
-            </div>
-            <div class="modal-body">
-
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <form id="searchprocessbyocid_form">
-                            <p>
-                                <label>ID de proceso</label>
-                                <input type="text" name="ocid" title="ocid" class="form-control" required>
-                            </p>
-                            <button  type="submit" class="btn btn-default">Buscar</button>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <form id="searchprocessbydate_form">
-                            <div class="row">
-                                <div class='col-sm-6'>
-                                    <label>Fecha inicial</label>
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' name="fecha_inicial" class="form-control" required>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class='col-sm-6'>
-                                    <label>Fecha final</label>
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker2'>
-                                            <input type='text' name="fecha_final" class="form-control" required>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-default">Buscar</button>
-                        </form>
-                    </div>
-                </div>
-
-                <div style="max-height: 350px; overflow: auto;">
-                    <p><div id="searchprocess_result"></div></p>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!--<button type="button" class="btn btn-primary">Guardar cambios</button> -->
             </div>
         </div>
     </div>
