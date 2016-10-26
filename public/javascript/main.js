@@ -62,21 +62,6 @@ $("#updateocid_form").submit(function (event) {
     event.preventDefault();
 });
 
-/*
-//OCDS JSON, publish
-$('#release').click(function () {
-    $.get('/publish/release/'+ $(this).data('id')+'/document.json', function (data) {
-        alert(data);
-        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-        $('#release').attr('href',dataStr);
-    });
-    window.open('/publish/release/'+ $(this).data('id')+"/document.json" );
-});
-
-$('#release_package').click(function () {
-    window.open('/publish/release-record/'+$(this).data('id')+"/document.json");
-});*/
-
 $('#blockchain').click(function () {
     $.post( "/publish/rpc", { contractingprocess_id : $(this).data("id")}, function (data) {
         alert(data.message);
