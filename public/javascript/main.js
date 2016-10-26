@@ -384,10 +384,17 @@ $('#genericModal').on('show.bs.modal', function (event) {
                     event.preventDefault();
                 });
                 $('#form_update_user_password').submit(function (event) {
-                    $.post('/update/password', $(this).serialize()).done(function (data) {
-                        alert(data.description);
-                        if (data.status == 'Ok'){ modal.modal('hide');}
-                    });
+
+                    if ( $('input[name = new_pass]').val().length >= 8 ) {
+                        $.post('/update/password', $(this).serialize()).done(function (data) {
+                            alert(data.description);
+                            if (data.status == 'Ok') {
+                                modal.modal('hide');
+                            }
+                        });
+                    } else{
+                        alert('La contraseña debe tener una longitud de al menos 8 caracteres.');
+                    }
                     event.preventDefault();
                 });
             });
