@@ -350,7 +350,7 @@ $('#genericModal').on('show.bs.modal', function (event) {
         case "edit_organization":
             break;
         case "edit_uris":
-            modal.find('.modal-title').text('Editar URIs de publicación');
+            modal.find('.modal-title').text('Editar metadatos');
             modal.find('#modal_content').html("");
             modal.find('#modal_content').load('/uris/',{ id: button.data('contractingprocess_id') }, function () {
                 // Edit publisher submit event
