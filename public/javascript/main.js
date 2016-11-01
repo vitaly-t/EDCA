@@ -265,16 +265,17 @@ $('#genericModal').on('show.bs.modal', function (event) {
         case "edit_items":
             modal.find('.modal-title').text('Editar artículos');
             modal.find('#modal_content').html("");
-            modal.find('#modal_content').load( '/item-list/' ,{ ocid: button.data('contractingprocess_id'), table : button.data('table') });
-            //button events
-            var div = modal.find('#modal_content');
-            div.find('.btn').click(function () {
-                var b = $(this);
-                $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
-                    alert(data.msg);
-                    if ( data.status == 0 ){
-                        b.parent().parent().remove();
-                    }
+            modal.find('#modal_content').load( '/item-list/' ,{ ocid: button.data('contractingprocess_id'), table : button.data('table') }, function () {
+                //button events
+                var div = modal.find('#modal_content');
+                div.find('.btn').click(function () {
+                    var b = $(this);
+                    $.post('/delete', { id : b.data('id'), table: b.data('table') }).done(function(data){
+                        alert(data.msg);
+                        if ( data.status == 0 ){
+                            b.parent().parent().remove();
+                        }
+                    });
                 });
             });
             break;
