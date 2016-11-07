@@ -94,12 +94,13 @@ function getMString ( fecha ){
                     Licitantes<!-- Tenderers--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-toggle="modal" data-action="new_organization" data-contractingprocess_id = "<%= cp.id%>" data-table="tenderer" data-target="#genericModal">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-ocid="<%=cp.id%>" data-table="tenderer" data-target="#myModalEditOrg">Editar</a></li>
+                    <li><a href="#" data-toggle="modal" data-action="new_organization" data-contractingprocess_id = "<%= cp.id %>" data-table="tenderer" data-target="#genericModal">Nuevo</a></li>
+                    <li><a href="#" data-toggle="modal" data-action="edit_organizations" data-contractingprocess_id = "<%= cp.id %>" data-table="tenderer" data-target="#genericModal">Editar</a></li>
                 </ul>
             </div>
 
-            <button type="button" class="btn btn-primary" data-localid="<%= cp.id %>" data-table="procuringentity" data-toggle="modal" data-target="#myModalEditSingleOrg">Contratante <!--Procuring E.--> <i class="fa fa-user"></i></button>
+            <button type="button" class="btn btn-primary" data-action="edit_organization" data-contractingprocess_id="<%= cp.id %>" data-table="procuringentity" data-toggle="modal" data-target="#genericModal">
+                Contratante <!--Procuring E.--> <i class="fa fa-user"></i></button>
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-tooltip="crear_proceso" title="Aquí se pueden agregar los diversos documentos que pertenecen a la fase de licitación.">
@@ -357,7 +358,7 @@ function getMString ( fecha ){
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-action="new_organization" data-contractingprocess_id="<%= cp.id %>" data-table="supplier" data-target="#genericModal">Nuevo</a></li>
-                    <li><a href="#" data-toggle="modal" data-ocid="<%=cp.id%>" data-table="supplier" data-target="#myModalEditOrg">Editar</a></li>
+                    <li><a href="#" data-toggle="modal" data-action="edit_organizations" data-contractingprocess_id="<%= cp.id %>" data-table="supplier" data-target="#genericModal">Editar</a></li>
                 </ul>
             </div>
 
