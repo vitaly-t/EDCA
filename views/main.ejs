@@ -115,7 +115,10 @@
             </div>
         </div>
     </div>
-    <%}%>
+
+    <%- include tabs.ejs %>
+
+    <%} else {%>
 
     <% if (typeof error!= "undefined"){%>
     <div class="alert alert-danger alert-dismissible" role="alert">
@@ -126,9 +129,6 @@
     </div>
     <%}%>
 
-    <% if (typeof cp != "undefined") {%>
-    <%- include tabs.ejs %>
-    <%} else {%>
     <div class="jumbotron">
         <h1>Contrataciones abiertas</h1>
         <br>
