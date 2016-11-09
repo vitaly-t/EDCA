@@ -82,28 +82,25 @@
     <% if (typeof cp != "undefined"){%>
     <div class="row">
         <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Identificador de contratación</strong></h3>
-                </div>
-                <div class="panel-body">
-                    <form id ="updateocid_form" >
-                        <input type="text" name="localid" value="<%= cp.id %>" hidden>
-                        <p>
-                            <input type="text" name='ocid' class="form-control" value="<%= cp.ocid %>" placeholder="OCID" required>
-                        </p>
-                        <button class="btn btn-default">Actualizar</button>
-                    </form>
-                </div>
+            <div class="well">
+                <p>
+                    <strong>Identificador de contratación</strong></p>
+                <form id ="updateocid_form" >
+                    <input type="text" name="localid" value="<%= cp.id %>" hidden>
+                    <div class="input-group">
+                        <input type="text" name="ocid" class="form-control" placeholder="OCID" value="<%= cp.ocid %>" required>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-lg" type="submit"><i class="fa fa-save"></i></button>
+                        </span>
+                    </div>
+                </form>
             </div>
         </div>
 
         <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Contratación</strong></h3>
-                </div>
-                <div class="panel-body">
+            <div class="well">
+                <p><strong>Contratación</strong></p>
+                <p>
                     <button class="btn btn-default" data-action="edit_organization" data-contractingprocess_id="<%= cp.id %>" data-table="buyer" data-toggle="modal"
                             data-target="#genericModal">
                         Comprador <!--Buyer--> <i class="fa fa-user"></i></button>
@@ -111,7 +108,7 @@
                         Publisher <i class="fa fa-user"></i> </button>
                     <button class="btn btn-default" data-action="edit_uris" data-contractingprocess_id="<%= cp.id %>" data-toggle="modal" data-target="#genericModal">
                         Metadatos <i class="fa fa-link"></i> </button>
-                </div>
+                </p>
             </div>
         </div>
     </div>

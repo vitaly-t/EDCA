@@ -33,6 +33,8 @@
     color:#FFFFFF;
 }
 
+
+/*
 .top-buffer {
     background: #00cc99;
     color: #FFFFFF;
@@ -46,7 +48,7 @@
 .top-buffer .navbar-brand {
     color: #FFFFFF;
 }
-
+*/
 .pill-container{
     margin-top:20px;
 }
@@ -62,11 +64,12 @@
     color:#4d4d4d;
     }
 
+/*
 .navbar-inner {
     background: #00cc99;
     color: #FFFFFF;
     margin-top:0px;
-}
+}*/
 
 .btn-primary {
     background: #00cc99;
@@ -95,4 +98,8 @@
     color: #4d4d4d;
     background:#e0e0e0;
     box-shadow: none;
+}
+
+.well {
+    border: none;
 }
