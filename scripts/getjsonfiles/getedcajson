@@ -16,7 +16,7 @@ for (var localid = 1 ; localid <= max ;localid++){
     edca_db.one("select $1 as id, count(1) as count from contractingprocess where id = $1", [localid]).then(function (data) {
         if ( data.count > 0){
 
-            ocds.getOCDSJSON( data.id, "release-record", edca_db).then(function (data) {
+            ocds.getOCDSJSON( data.id, "release-package", edca_db).then(function (data) {
 
                 var ocid = data.releases[0].ocid.replace(/\//g,"_").trim();
 
