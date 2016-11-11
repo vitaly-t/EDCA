@@ -54,3 +54,10 @@ module.exports = mongoose.model('Release', {
     language : String
 });
 
+module.exports = mongoose.model('ReleasePackage', {
+
+});
+
+module.exports = mongoose.model('Record', {
+
+});
