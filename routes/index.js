@@ -204,10 +204,17 @@ if ( typeof process.env.EDCA_DB != "undefined" ){
 }
 
 
-router.post("/user-profile/", function (req, res) {
+router.post("/user-profile/", isAuthenticated, function (req, res) {
     var id = req.body.id;
     User.findOne({ '_id' : id }).then(function (data) {
        res.render('modals/user-profile',{user: data});
+    });
+});
+
+router.post("/change-password/", isAuthenticated, function (req, res) {
+    var id = req.body.id;
+    User.findOne({ '_id' : id }).then(function (data) {
+        res.render('modals/update-password',{user: data});
     });
 });
 

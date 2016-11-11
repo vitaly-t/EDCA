@@ -365,6 +365,33 @@ $('#genericModal').on('show.bs.modal', function (event) {
                     });
                     event.preventDefault();
                 });
+                /*$('#form_update_user_password').submit(function (event) {
+
+                    if ( $('input[name = new_pass]').val().length >= 8 ) {
+                        $.post('/update/password', $(this).serialize()).done(function (data) {
+                            alert(data.description);
+                            if (data.status == 'Ok') {
+                                modal.modal('hide');
+                            }
+                        });
+                    } else{
+                        alert('La contraseña debe tener una longitud de al menos 8 caracteres.');
+                    }
+                    event.preventDefault();
+                });*/
+            });
+            break;
+        case "update_password":
+            modal.find('.modal-title').text('Actualizar contraseña');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load('/change-password', { id : button.data('user_id')}, function () {
+                /*$('#form_update_user_profile').submit(function (event) {
+                    $.post('/update/user', $(this).serialize()).done(function (data) {
+                        alert(data.description);
+                        if (data.status == 'Ok'){ modal.modal('hide');}
+                    });
+                    event.preventDefault();
+                });*/
                 $('#form_update_user_password').submit(function (event) {
 
                     if ( $('input[name = new_pass]').val().length >= 8 ) {
@@ -380,6 +407,7 @@ $('#genericModal').on('show.bs.modal', function (event) {
                     event.preventDefault();
                 });
             });
+
             break;
         case "search":
             modal.find('.modal-title').text('Buscar contratación');
