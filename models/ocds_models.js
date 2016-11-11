@@ -61,3 +61,8 @@ module.exports = mongoose.model('ReleasePackage', {
 module.exports = mongoose.model('Record', {
 
 });
+
+
+module.exports = mongoose.model('RecordPackage',{
+
+});
