@@ -383,6 +383,10 @@ function numericCol( number ){
     return (isNaN(number))?null:number;
 }
 
+function stringCol( str ){
+    return ( str===''?null:str);
+}
+
 /* Update Planning -> Budget */
 router.post('/update-planning', isAuthenticated, function (req, res) {
 
@@ -460,7 +464,7 @@ router.post('/update-tender',isAuthenticated, function (req, res) {
         req.body.tenderid,
         req.body.title,
         req.body.description,
-        req.body.status,
+        stringCol(req.body.status),
         numericCol(req.body.minvalue_amount),
         req.body.minvalue_currency,
         numericCol(req.body.value_amount),
@@ -503,7 +507,7 @@ router.post('/update-award',isAuthenticated, function (req, res) {
             req.body.awardid,
             req.body.title,
             req.body.description,
-            req.body.status,
+            stringCol(req.body.status),
             dateCol(req.body.award_date),
             numericCol(req.body.value_amount),
             req.body.value_currency,
@@ -532,7 +536,7 @@ router.post('/update-contract', isAuthenticated, function (req, res) {
         req.body.awardid,
         req.body.title,
         req.body.description,
-        req.body.status,
+        stringCol(req.body.status),
         dateCol(req.body.period_startdate),
         dateCol(req.body.period_enddate),
         numericCol(req.body.value_amount),
