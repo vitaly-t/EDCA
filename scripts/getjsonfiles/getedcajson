@@ -9,9 +9,10 @@ var jsonfile = require('jsonfile');
 
 var ocds = require('../../io/ocds');
 
+var inicio = 223
 var max = 300;
 
-for (var localid = 1 ; localid <= max ;localid++){
+for (var localid = inicio ; localid <= max ;localid++){
 
     edca_db.one("select $1 as id, count(1) as count from contractingprocess where id = $1", [localid]).then(function (data) {
         if ( data.count > 0){
