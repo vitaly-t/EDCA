@@ -465,7 +465,7 @@ router.post('/update-tender',isAuthenticated, function (req, res) {
         req.body.minvalue_currency,
         numericCol(req.body.value_amount),
         req.body.value_currency,
-        req.body.procurementmethod,
+        stringCol(req.body.procurementmethod),
         req.body.procurementmethod_rationale,
         req.body.awardcriteria,
         req.body.awardcriteria_details,
