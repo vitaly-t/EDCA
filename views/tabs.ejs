@@ -148,7 +148,7 @@ function getMString ( fecha ){
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Etapa hasta la cuál ha avanzado el proceso de licitación.'>Estatus <!--Status--></label>
                     <select class="form-control" name="status">
-                        <option value="none" <%=(tender.status == null)? 'selected':''%> >Ninguno</option>
+                        <option value="" <%=(tender.status == null)? 'selected':''%> >Ninguno</option>
                         <option value="planned" <%=(tender.status == 'planned')? 'selected':''%> >Planeado</option>
                         <option value="active" <%=(tender.status == 'active')? 'selected':''%> >Activo</option>
                         <option value="cancelled" <%=(tender.status == 'cancelled')? 'selected':''%> >Cancelado</option>
@@ -398,7 +398,7 @@ function getMString ( fecha ){
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Estado actual de la adjudicación del contrato'>Estatus<!--Status--></label>
                     <select class="form-control" name="status">
-                        <option value="none" <%= (award.status == null)?'selected':''%> >Ninguno</option>
+                        <option value="" <%= (award.status == null)?'selected':''%> >Ninguno</option>
                         <option value="pending" <%= (award.status == 'pending')?'selected':''%> >Pendiente</option>
                         <option value="active" <%= (award.status == 'active')?'selected':''%> >Activo</option>
                         <option value="cancelled" <%= (award.status == 'cancelled')?'selected':''%> >Cancelado</option>
@@ -540,7 +540,7 @@ function getMString ( fecha ){
                 <p>
                     <label data-tooltip="crear_proceso" title='Estado actual del contrato'>Estatus <!--Status--></label>
                     <select class="form-control" name="status">
-                        <option value="none" <%= (contract.status == null)?'selected':''%> >Ninguno</option>
+                        <option value="" <%= (contract.status == null)?'selected':''%> >Ninguno</option>
                         <option value="pending" <%= (contract.status == 'pending')?'selected':''%> >Pendiente</option>
                         <option value="active" <%= (contract.status == 'active')?'selected':''%> >Activo</option>
                         <option value="cancelled" <%= (contract.status == 'cancelled')?'selected':''%> >Cancelado</option>
