@@ -202,7 +202,9 @@ function getMString ( fecha ){
                     <select name = "procurementmethod" class="form-control">
                         <option value ="">No aplica</option>
                         <option value="Adjudicación directa" <%= tender.procurementmethod == 'Adjudicación directa'?'selected':''%> >Adjudicación directa</option>
+                        <option value="Adhesión a licitación pública" <%= tender.procurementmethod == 'Adhesión a Licitación Pública'?'selected':''%> >Adjudicación directa</option>
                         <option value="Convenio de colaboración" <%= tender.procurementmethod == 'Convenio de colaboración'?'selected':'' %> >Convenio de colaboración</option>
+                        <option value="Contrato de fideicomiso" <%= tender.procurementmethod == 'Contrato de fideicomiso'?'selected':'' %> >Convenio de colaboración</option>
                         <option value="Invitación a cuando menos tres personas" <%= tender.procurementmethod == 'Invitación a cuando menos tres personas'?'selected':''%> >Invitación a cuando menos tres personas</option>
                         <option value="Licitación pública" <%= tender.procurementmethod=='Licitación pública'?'selected':'' %> >Licitación pública</option>
                     </select>
