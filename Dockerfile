@@ -9,7 +9,7 @@
 #   --name edca \
 #   -dP mxabierto/edca
 
-FROM mxabierto/nodejs
+FROM alpine:3.4
 
 MAINTAINER bcessa <ben@datos.mx>
 
@@ -17,14 +17,30 @@ WORKDIR /edca
 
 ADD . /edca
 
-# Install required modules
-RUN npm install --no-optional
-
-# Install bower components
+# Install nodejs
 RUN \
+  apk add nodejs --update-cache && \
+  npm install -g npm@latest && \
+  rm -rf \
+    /usr/share/man \
+    /tmp/* \
+    /var/cache/apk/* \
+    /root/.npm \
+    /root/.node-gyp \
+    /usr/lib/node_modules/npm/man \
+    /usr/lib/node_modules/npm/doc \
+    /usr/lib/node_modules/npm/html
+
+# Install dependencies
+RUN \
+  apk --no-cache add \
+    libc6-compat \
+    git
+
+# Install NPM modules and bower components
+RUN \
+  npm install --no-optional && \
   npm install -g bower && \
-  apk update && \
-  apk add git && \
   cd public && \
   bower --allow-root install
 
