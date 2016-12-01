@@ -432,10 +432,11 @@ router.post('/uris',isAuthenticated, function(req, res){
 });
 
 router.post('/update-uris',isAuthenticated, function (req, res) {
-    edca_db.one("update contractingprocess set uri =$1, publicationpolicy = $2, license = $3 where id = $4 returning id", [
+    edca_db.one("update contractingprocess set uri =$1, publicationpolicy = $2, license = $3, destino=$4 where id = $5 returning id", [
         req.body.uri,
         req.body.publicationpolicy,
         req.body.license,
+        req.body.destino,
         req.body.id
     ]).then(function (data) {
         console.log('Update URIs: ', data);
