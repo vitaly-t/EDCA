@@ -40,26 +40,35 @@ function getMString ( fecha ){
                     <input type="text" class="form-control" name="rationale" value = "<%=(typeof planning!= "undefined")? planning.rationale : ''%>" >
                 </p>
 
-                <h3>1.1 Información presupuestaria <!--BUDGET--></h3>
                 <p>
+                <h3>1.1 Información presupuestaria <!--BUDGET--></h3>
                 Registre la siguiente información sobre el presupuesto que sustenta la contratación pública.
                 </p>
 
                 <input type="text" name="contractingprocess_id" value ="<%= (typeof budget != "undefined")? budget.contractingprocess_id:''%>" hidden>
                 <!-- Falta el id de planning -->
-                <p><label data-tooltip="crear_proceso" title='Dato que señala la fuente de la que provienen los recursos económicos para la contratación. Este dato puede conducir a otros paquetes de datos que provean mayor detalle sobre los recursos económicos que sustentan la contratación. Por ejemplo, la desagregación del presupuesto asignado.'>Fuente de financiamiento<!--Budget source--></label>
+                <p>
+                    <label data-tooltip="crear_proceso" title='Dato que señala la fuente de la que provienen los recursos económicos para la contratación. Este dato puede conducir a otros paquetes de datos que provean mayor detalle sobre los recursos económicos que sustentan la contratación. Por ejemplo, la desagregación del presupuesto asignado.'>Fuente de financiamiento<!--Budget source--></label>
+                    <br>
+                    Nombre o dígitos que permiten identificar la fuente de financiamiento que sustenta la contratación
                     <input type="url" class="form-control" name="budget_source" value = "<%= (typeof budget != "undefined")? budget.budget_source:''%>" >
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Identificador de la fuente presupuestaria que provee recursos económicos para la contratación.'><!--ID--> Identificador de presupuesto</label>
+                    <br>
+                    Indique los siguientes dígitos sobre la clave presupuestaria relacionada con la contratación
                     <input class="form-control" name="budget_budgetid" value="<%= budget.budget_budgetid %>">
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Descripción de la fuente presupuestaria. Puede referirse al título o al nombre de la fuente presupuestaria que provee los recursos económicos necesarios para el proyecto de contratación.'>Descripción del presupuesto<!--Budget description--></label>
                     <input class="form-control" name="budget_description" value = "<%= (typeof budget != "undefined")? budget.budget_description:''%>" >
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Valor asignado en la fuente presupuestaria a la contratación.'>Monto aprobado<!--Budget amount--></label>
+                    <br>
+                    Especifique el monto que fue aprobado para la contratación
                     <input class="form-control" type="number" step="0.01" name="budget_amount" value = "<%= (typeof budget != "undefined")? budget.budget_amount:'' %>" required>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Divisa <!--Budget currency--></label>
+                    <br>
+                    Especifique la moneda o divisa del monto que fue aprobado para la contratación
                     <select class="form-control" name="budget_currency">
                         <% for ( var i = 0; i < currencies.length; i++){ %>
                         <option value = "<%= currencies[i].alphabetic_code %>"
@@ -81,6 +90,8 @@ function getMString ( fecha ){
                     <input class="form-control" name="budget_projectid" value = "<%= (typeof budget != "undefined")? budget.budget_projectid:"" %>" >
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Enlace o liga a un registro digital (o base de datos) que contenga la información sobre el presupuesto asociado con la contratación.'>Enlace a presupuesto<!--URI--></label>
+                    <br>
+                    Liga a un registro digital o base de datos del presupuesto relacionado con la contratación
                     <input type="url" class="form-control" name="budget_uri" value = "<%= (typeof budget != "undefined")? budget.budget_uri:'' %>" >
                 </p>
                 <button type="submit" class="btn btn-default">Guardar</button>
@@ -142,15 +153,23 @@ function getMString ( fecha ){
                 <input type="text" name="contractingprocess_id" hidden value ="<%= (typeof tender != "undefined")? tender.contractingprocess_id:''%>" >
 
                 <p><label data-tooltip="crear_proceso" title='Clave que identifica la licitación.'><!--ID--> Número de procedimiento</label>
+                    <br>
+                    Clave que identifica el procedimiento de contratación. En la APF, consiste en el número de procedimiento que genera CompraNet.
                     <input type="text" class="form-control" name="tenderid" value="<%= tender.tenderid %>" required>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Nombre asignado a la licitación.'>Título de la licitación<!--Title--></label>
+                    <br>
+                    Nombre que permite identificar el proceso de contratación. En la APF, puede ser el título o descripción del expediente registrado en CompraNet.
                     <input type="text" class="form-control" name="title" value = "<%= (typeof tender != "undefined")? tender.title:''%>" >
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Descripción de la licitación.'>Descripción<!--Description--></label>
+                    <br>
+                    Texto que describe el procedimiento de contratación. En la APF, puede ser la descripción del anuncio registrado en CompraNet.
                     <input type="text" class="form-control" name = "description" value = "<%= (typeof tender != "undefined")? tender.description:''%>" >
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Etapa hasta la cuál ha avanzado el proceso de licitación.'>Estatus <!--Status--></label>
+                    <br>
+                    Indique la etapa en la que se encuentra el proceso de licitación. Este campo se actualizará conforme avance el proceso de licitación.
                     <select class="form-control" name="status">
                         <option value="" <%=(tender.status == null)? 'selected':''%> >Ninguno</option>
                         <option value="planned" <%=(tender.status == 'planned')? 'selected':''%> >Planeado</option>
@@ -161,6 +180,8 @@ function getMString ( fecha ){
                     </select>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Valor mínimo estimado de la licitación, expresado en monto y moneda.'>Valor mínimo: Monto <!--Min value amount--></label>
+                    <br>
+                    Monto estimado del valor mínimo de la contratación
                     <input type="number" step="0.01" class="form-control" name = "minvalue_amount" value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>" required>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor mínimo: Divisa<!--Min value currency--></label>
@@ -181,6 +202,8 @@ function getMString ( fecha ){
 
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Valor máximo estimado de la licitación, expresado en monto y moneda.'>Valor: Monto<!--Value amount--></label>
+                    <br>
+                    Monto estimado del valor máximo de la contratación. En la APF consiste en el valor del techo presupuestal
                     <input type="number" step="0.01" class="form-control" name= "value_amount" value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>" required>
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa <!--Value currency--></label>
@@ -202,7 +225,8 @@ function getMString ( fecha ){
 
                 <p>
                     <label data-tooltip="crear_proceso" title='Nombre del tipo de procedimiento que se utiliza para la contratación.'>Tipo de procedimiento<!--Procurement method--></label>
-
+                    <br>
+                    Seleccione el tipo de procedimiento de contratación
                     <select name = "procurementmethod" class="form-control">
                         <option value ="">No aplica</option>
                         <option value="Adjudicación directa" <%= tender.procurementmethod == 'Adjudicación directa'?'selected':''%> >Adjudicación directa</option>
@@ -215,6 +239,8 @@ function getMString ( fecha ){
                 </p>
 
                 <p><label data-tooltip="crear_proceso" title='Descripción de las razones por las cuáles se seleccionó el tipo de prodecimiento que se sigue para la contratación.'>Justificación del tipo de procedimiento<!--Procurement method rationale--></label>
+                   <br>
+                    Texto que describe las razón principal por la que se seleccionó el tipo de procedimiento. En la APF, puede encontrarse dentro de la justificación de compra.
                     <input type="text" class="form-control" name= "procurementmethod_rationale" value = "<%= (typeof tender != "undefined")? tender.procurementmethod_rationale:''%>" >
                 </p>
                 <p><label data-tooltip="crear_proceso" title='Nombre del tipo de criterio que será utilizado en la evaluación de propuestas para la adjudicación del contrato'>Criterio de adjudicación<!--Award criteria--></label>
