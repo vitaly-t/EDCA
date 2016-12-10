@@ -9,7 +9,7 @@ var jsonfile = require('jsonfile');
 
 var ocds = require('../../io/ocds');
 
-var inicio = 223
+var inicio = 1
 var max = 300;
 
 for (var localid = inicio ; localid <= max ;localid++){
