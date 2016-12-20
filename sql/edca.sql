@@ -1,3 +1,14 @@
+drop database if exists edca;
+create database edca;
+
+drop user if exists tester;
+create user tester with password 'test';
+grant all privileges on database edca to tester;
+
+\c edca
+
+set role tester;
+
 /* CONTRATING PROCESS */
 drop table if exists ContractingProcess cascade;
 create table ContractingProcess (
