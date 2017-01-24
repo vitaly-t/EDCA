@@ -24,6 +24,16 @@ create table ContractingProcess (
 	license text
 	);
 
+/* Links de descarga para el tablero */
+drop table if exists links;
+create table links(
+    id serial primary key,
+    json text,
+    xlsx text,
+    pdf text,
+    contractingprocess_id integer references contractingprocess(id)
+    );
+
 drop table if exists Publisher cascade;
 create table Publisher (
 	id serial primary key,
