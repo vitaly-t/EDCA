@@ -22,7 +22,7 @@ for (var localid = inicio ; localid <= max ;localid++){
                 var ocid = data.releases[0].ocid.replace(/\//g,"_").trim();
 
                 console.log(' OCID -> '+ ocid);
-                var file = "output/"+ ocid  +"_"+data.localid+".json";
+                var file = "output/"+ ocid  +/*"_"+data.localid+*/".json";
 
                 delete data.localid;
 
