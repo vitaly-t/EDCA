@@ -75,8 +75,27 @@ create table Budget (
 	planning_id int references planning(id) on delete cascade, 
 	budget_source text,
 	budget_budgetid text,
+	/* campos de transparencia mexicana */
+	/*
+    identificador_ramo text,
+    identificador_unidad_responsable text,
+    identificador_modalidad text,
+    identificador_programa_presupuestario text,
+    identificador_capitulo text,
+    identificador_concepto text,
+    identificador_partida_generica text,
+    identificador_partida_especifica text,
+    denominacion_ramo text,
+    denominacion_unidad_responsable text,
+    denominacion_modalidad text,
+    denominacion_programa_presupuestario text,
+    denominacion_capitulo text,
+    denominacion_concepto text,
+    denominacion_partida_generica text,
+    descripcion_partida_específica text, */
+	/* ---- */
 	budget_description text, 
-	budget_amount decimal, 
+	budget_amount numeric,
 	budget_currency text, 
 	budget_project text, 
 	budget_projectID text, 
