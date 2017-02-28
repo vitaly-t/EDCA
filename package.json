@@ -27,6 +27,7 @@
     "passport-local": "*.*",
     "pg-promise": "*.*",
     "protobufjs": "^5.0.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "uuid": "^3.0.1"
   }
 }
