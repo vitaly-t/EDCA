@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const uuid = require('uuid/v4');
 
 var path  = require('path');
 
@@ -562,7 +563,7 @@ router.post('/new-document', isAuthenticated, function(req,res){
             req.body.table,
             req.body.ocid,
             req.body.document_type,
-            "doc-"+(new Date().getTime()),//req.body.documentid,
+            "doc-"+uuid(),//req.body.documentid,
             req.body.title,
             req.body.description,
             req.body.url,
@@ -650,7 +651,7 @@ router.post('/new-item',isAuthenticated,function (req,res) {
         [
             req.body.table,
             req.body.localid,
-            "item-"+(new Date().getTime()),//req.body.itemid,
+            "item-"+uuid(),//req.body.itemid,
             req.body.description,
             req.body.classification_scheme,
             req.body.classification_id,
@@ -688,7 +689,7 @@ router.post('/new-milestone', isAuthenticated,function (req,res) {
         [
             req.body.table,
             req.body.localid,
-            "milestone-"+(new Date().getTime()),//req.body.milestoneid,
+            "milestone-"+uuid(),//req.body.milestoneid,
             req.body.title,
             req.body.description,
             dateCol(req.body.duedate),
@@ -720,7 +721,7 @@ router.post('/new-transaction', isAuthenticated,function (req,res) {
         'receiverorganization_scheme,receiverorganization_id,receiverorganization_legalname,receiverorganization_uri, uri) ' +
         'values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) returning id',[
         req.body.localid,
-        "milestone-"+(new Date().getTime()),//req.body.transactionid,
+        "milestone-"+uuid(),//req.body.transactionid,
         req.body.source,
         dateCol(req.body.implementation_date),
         numericCol(req.body.value_amount),
