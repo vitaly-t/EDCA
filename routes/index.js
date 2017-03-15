@@ -4,6 +4,9 @@ const uuid = require('uuid/v4');
 
 var path  = require('path');
 
+// PostgreSQL database
+var db_conf = require('../db_conf');
+
 //passport db
 var dbConfig = require('../db.js');
 var mongoose = require('mongoose');
@@ -179,32 +182,6 @@ router.get('/main', isAuthenticated, function(req, res, next) {
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-var pgp      = require("pg-promise")();
-
-var edca_db;
-
-// Linked postgresql docker container
-if ( typeof process.env.POSTGRES_PORT_5432_TCP_ADDR != "undefined" ) {
-  process.env.EDCA_DB = 'postgres://';
-  process.env.EDCA_DB += process.env.POSTGRES_USER || 'postgres';
-  process.env.EDCA_DB += ':';
-  process.env.EDCA_DB += process.env.POSTGRES_ENV_POSTGRES_PASSWORD || '';
-  process.env.EDCA_DB += '@';
-  process.env.EDCA_DB += process.env.POSTGRES_PORT_5432_TCP_ADDR;
-  process.env.EDCA_DB += '/';
-  process.env.EDCA_DB += process.env.POSTGRES_DB || 'postgres';
-}
-
-if ( typeof process.env.EDCA_DB != "undefined" ){
-    console.log("EDCA_DB: ", process.env.EDCA_DB);
-    edca_db = pgp( process.env.EDCA_DB );
-} else {
-    console.log("Warning: EDCA_DB env variable is not set\n " +
-        " defaulting to -> postgres://tester:test@localhost/edca");
-    edca_db = pgp("postgres://tester:test@localhost/edca");
-}
-
-
 router.post("/user-profile/", isAuthenticated, function (req, res) {
     var id = req.body.id;
     User.findOne({ '_id' : id }).then(function (data) {
@@ -288,7 +265,7 @@ router.post('/update/password',isAuthenticated,function (req, res ) {
 /* GET main page with data */
 router.get('/main/:contractingprocess_id', isAuthenticated, function (req,res) {
 
-    edca_db.task(function (t) {
+    db_conf.edca_db.task(function (t) {
         // this = t = transaction protocol context;
         // this.ctx = transaction config + state context;
         return t.batch([
@@ -335,7 +312,7 @@ router.get('/main/:contractingprocess_id', isAuthenticated, function (req,res) {
 
 // NUEVO PROCESO DE CONTRATACIÓN
 router.post('/new-process', isAuthenticated, function (req, res) {
-    edca_db.tx(function (t) {
+    db_conf.edca_db.tx(function (t) {
         return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, ocid, stage ) values (current_date, current_time, concat('NUEVA_CONTRATACION_', current_date,'_', current_time), 0) returning id")
             .then(function (process) {
 
@@ -391,7 +368,7 @@ function stringCol( str ){
 /* Update Planning -> Budget */
 router.post('/update-planning', isAuthenticated, function (req, res) {
 
-    edca_db.tx(function (t) {
+    db_conf.edca_db.tx(function (t) {
         var planning = this.one("update planning set rationale = $1 where ContractingProcess_id = $2 returning id", [req.body.rationale, req.body.contractingprocess_id]);
         var budget = this.one("update budget set budget_source = $2, budget_budgetid =$3, budget_description= $4, budget_amount=$5, budget_currency=$6, budget_project=$7, budget_projectid=$8, budget_uri=$9" +
             " where ContractingProcess_id=$1 returning id",
@@ -423,7 +400,7 @@ router.post('/update-planning', isAuthenticated, function (req, res) {
 router.post('/uris',isAuthenticated, function(req, res){
     var id = Math.abs ( req.body.id );
 
-    edca_db.one("select * from contractingprocess where id = $1",[ id ]).then(function (data) {
+    db_conf.edca_db.one("select * from contractingprocess where id = $1",[ id ]).then(function (data) {
         res.render('modals/uri', { contractingprocess : data });
     }).catch(function (error) {
         console.log(error);
@@ -433,7 +410,7 @@ router.post('/uris',isAuthenticated, function(req, res){
 });
 
 router.post('/update-uris',isAuthenticated, function (req, res) {
-    edca_db.one("update contractingprocess set uri =$1, publicationpolicy = $2, license = $3, destino=$4 where id = $5 returning id", [
+    db_conf.edca_db.one("update contractingprocess set uri =$1, publicationpolicy = $2, license = $3, destino=$4 where id = $5 returning id", [
         req.body.uri,
         req.body.publicationpolicy,
         req.body.license,
@@ -457,7 +434,7 @@ router.post('/update-uris',isAuthenticated, function (req, res) {
 /* Update Tender*/
 
 router.post('/update-tender',isAuthenticated, function (req, res) {
-    edca_db.one("update tender set tenderid =$2, title= $3, description=$4, status=$5, minvalue_amount=$6, minvalue_currency=$7, value_amount=$8, value_currency=$9, procurementmethod=$10," +
+    db_conf.edca_db.one("update tender set tenderid =$2, title= $3, description=$4, status=$5, minvalue_amount=$6, minvalue_currency=$7, value_amount=$8, value_currency=$9, procurementmethod=$10," +
         "procurementmethod_rationale=$11, awardcriteria=$12, awardcriteria_details=$13, submissionmethod=$14, submissionmethod_details=$15," +
         "tenderperiod_startdate=$16, tenderperiod_enddate=$17, enquiryperiod_startdate=$18, enquiryperiod_enddate=$19 ,hasenquiries=$20, eligibilitycriteria=$21, awardperiod_startdate=$22," +
         "awardperiod_enddate=$23, numberoftenderers=$24, amendment_date=$25, amendment_rationale=$26" +
@@ -501,7 +478,7 @@ router.post('/update-tender',isAuthenticated, function (req, res) {
 
 /* Update Award */
 router.post('/update-award',isAuthenticated, function (req, res) {
-    edca_db.one("update award set awardid=$2, title= $3, description=$4,status=$5,award_date=$6,value_amount=$7,value_currency=$8,contractperiod_startdate=$9," +
+    db_conf.edca_db.one("update award set awardid=$2, title= $3, description=$4,status=$5,award_date=$6,value_amount=$7,value_currency=$8,contractperiod_startdate=$9," +
         "contractperiod_enddate=$10,amendment_date=$11,amendment_rationale=$12 " +
         " where ContractingProcess_id = $1 returning id",
         [
@@ -530,7 +507,7 @@ router.post('/update-award',isAuthenticated, function (req, res) {
 
 /* Update Contract */
 router.post('/update-contract', isAuthenticated, function (req, res) {
-    edca_db.one("update contract set contractid=$2, awardid=$3, title=$4, description=$5, status=$6, period_startdate=$7, period_enddate=$8, value_amount=$9, value_currency=$10," +
+    db_conf.edca_db.one("update contract set contractid=$2, awardid=$3, title=$4, description=$5, status=$6, period_startdate=$7, period_enddate=$8, value_amount=$9, value_currency=$10," +
         " datesigned=$11, amendment_date=$12, amendment_rationale=$13 " +
         " where ContractingProcess_id = $1 returning id", [
         req.body.contractingprocess_id,
@@ -558,7 +535,7 @@ router.post('/update-contract', isAuthenticated, function (req, res) {
 
 // New document
 router.post('/new-document', isAuthenticated, function(req,res){
-    edca_db.one('insert into $1~ (contractingprocess_id, document_type, documentid, title, description, url, date_published, date_modified, format, language) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11) returning id',
+    db_conf.edca_db.one('insert into $1~ (contractingprocess_id, document_type, documentid, title, description, url, date_published, date_modified, format, language) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11) returning id',
         [
             req.body.table,
             req.body.ocid,
@@ -589,7 +566,7 @@ router.post('/new-document', isAuthenticated, function(req,res){
 
 router.post('/newdoc-fields', function (req,res) {
 
-    edca_db.task(function (t) {
+    db_conf.edca_db.task(function (t) {
         return this.batch([
             this.manyOrNone("select * from language"),
             this.manyOrNone("select * from documenttype order by title")
@@ -604,7 +581,7 @@ router.post('/newdoc-fields', function (req,res) {
 /* New organization */
 router.post('/new-organization', isAuthenticated, function (req, res) {
     //falta pasar id de award y tender segun sea el caso
-    edca_db.one("insert into $17~" +
+    db_conf.edca_db.one("insert into $17~" +
         " (contractingprocess_id, identifier_scheme, identifier_id, identifier_legalname, identifier_uri, name, address_streetaddress," +
         " address_locality, address_region, address_postalcode, address_countryname, contactpoint_name, contactpoint_email, contactpoint_telephone," +
         " contactpoint_faxnumber, contactpoint_url) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16) returning id",
@@ -646,7 +623,7 @@ router.post('/neworg-fields', function (req,res) {
 });
 
 router.post('/new-item',isAuthenticated,function (req,res) {
-    edca_db.one('insert into $1~ (contractingprocess_id, itemid, description, classification_scheme, classification_id, classification_description, classification_uri,' +
+    db_conf.edca_db.one('insert into $1~ (contractingprocess_id, itemid, description, classification_scheme, classification_id, classification_description, classification_uri,' +
         ' quantity, unit_name, unit_value_amount, unit_value_currency) values ($2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) returning id',
         [
             req.body.table,
@@ -677,7 +654,7 @@ router.post('/new-item',isAuthenticated,function (req,res) {
 });
 
 router.post('/newitem-fields', function (req,res) {
-    edca_db.manyOrNone("select distinct currency, alphabetic_code from currency order by currency").then(function (data) {
+    db_conf.edca_db.manyOrNone("select distinct currency, alphabetic_code from currency order by currency").then(function (data) {
         res.render('modals/newitem-fields', {localid: req.body.localid, table: req.body.table, currencies: data});
     }).catch (function (error) {
         console.log(error);
@@ -685,7 +662,7 @@ router.post('/newitem-fields', function (req,res) {
 });
 
 router.post('/new-milestone', isAuthenticated,function (req,res) {
-    edca_db.one('insert into $1~ (contractingprocess_id, milestoneid, title, description, duedate, date_modified, status) values ($2,$3,$4,$5,$6,$7,$8) returning id',
+    db_conf.edca_db.one('insert into $1~ (contractingprocess_id, milestoneid, title, description, duedate, date_modified, status) values ($2,$3,$4,$5,$6,$7,$8) returning id',
         [
             req.body.table,
             req.body.localid,
@@ -716,12 +693,12 @@ router.post('/newmilestone-fields', function (req,res) {
 });
 
 router.post('/new-transaction', isAuthenticated,function (req,res) {
-    edca_db.one('insert into implementationtransactions (contractingprocess_id, transactionid, source, implementation_date, value_amount, value_currency, ' +
+    db_conf.edca_db.one('insert into implementationtransactions (contractingprocess_id, transactionid, source, implementation_date, value_amount, value_currency, ' +
         'providerorganization_scheme,providerorganization_id,providerorganization_legalname,providerorganization_uri,' +
         'receiverorganization_scheme,receiverorganization_id,receiverorganization_legalname,receiverorganization_uri, uri) ' +
         'values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) returning id',[
         req.body.localid,
-        "milestone-"+uuid(),//req.body.transactionid,
+        "transaction-"+uuid(),//req.body.transactionid,
         req.body.source,
         dateCol(req.body.implementation_date),
         numericCol(req.body.value_amount),
@@ -754,7 +731,7 @@ router.post('/new-transaction', isAuthenticated,function (req,res) {
 });
 
 router.post('/newtransaction-fields', function (req,res) {
-    edca_db.manyOrNone("select distinct currency, alphabetic_code from currency order by currency").then(function (data) {
+    db_conf.edca_db.manyOrNone("select distinct currency, alphabetic_code from currency order by currency").then(function (data) {
         res.render('modals/newtransaction-fields', { localid: req.body.localid, currencies: data });
     }).catch(function (error) {
         console.log(error);
@@ -763,7 +740,7 @@ router.post('/newtransaction-fields', function (req,res) {
 
 // new amendment change
 router.post('/new-amendment-change',isAuthenticated, function (req, res) {
-    edca_db.one('insert into $1~ (contractingprocess_id, property, former_value) values ($2,$3,$4) returning id',[
+    db_conf.edca_db.one('insert into $1~ (contractingprocess_id, property, former_value) values ($2,$3,$4) returning id',[
         req.body.table,
         req.body.localid,
         req.body.property,
@@ -790,7 +767,7 @@ router.post('/newamendmentchange-fields', function (req,res) {
 // Update buyer, procuring entity
 router.post('/update-organization', isAuthenticated, function (req, res) {
 
-    edca_db.one("update $1~ set identifier_scheme= $3, identifier_id =$4, identifier_legalname=$5, identifier_uri=$6, name = $7, address_streetaddress=$8," +
+    db_conf.edca_db.one("update $1~ set identifier_scheme= $3, identifier_id =$4, identifier_legalname=$5, identifier_uri=$6, name = $7, address_streetaddress=$8," +
         " address_locality=$9, address_region =$10, address_postalcode=$11, address_countryname=$12, contactpoint_name=$13, contactpoint_email=$14, contactpoint_telephone=$15," +
         " contactpoint_faxnumber=$16, contactpoint_url=$17 where ContractingProcess_id = $2 returning id",
         [
@@ -831,7 +808,7 @@ router.post('/org-fields',function(req,res){
     console.log("localid ->",req.body.localid);
     console.log("table ->",req.body.table);
 
-    edca_db.one('select * from $1~ where contractingprocess_id = $2', [
+    db_conf.edca_db.one('select * from $1~ where contractingprocess_id = $2', [
         req.body.table,
         req.body.localid
     ]).then(function (data) {
@@ -846,7 +823,7 @@ router.post('/org-fields',function(req,res){
 // Update publisher
 router.post('/update-publisher',isAuthenticated, function (req, res) {
 
-    edca_db.one("update publisher set name=$2, scheme=$3, uid=$4, uri=$5 where id = $1 returning id",
+    db_conf.edca_db.one("update publisher set name=$2, scheme=$3, uid=$4, uri=$5 where id = $1 returning id",
         [
             req.body.id,
             req.body.name,
@@ -870,7 +847,7 @@ router.post('/update-publisher',isAuthenticated, function (req, res) {
 });
 
 router.post('/publisher', function (req, res) {
-    edca_db.one("select * from publisher where contractingprocess_id=$1",[req.body.localid]).then(function (data) {
+    db_conf.edca_db.one("select * from publisher where contractingprocess_id=$1",[req.body.localid]).then(function (data) {
         res.render('modals/publisher',{data: data});
     }).catch(function (error) {
         console.log("ERROR: ", error);
@@ -879,7 +856,7 @@ router.post('/publisher', function (req, res) {
 
 //update OCID
 router.post('/update-ocid',isAuthenticated,function (req, res) {
-    edca_db.one("update contractingprocess set ocid = trim($1) where id=$2 returning id",[ req.body.ocid, req.body.localid ]).then(function (data) {
+    db_conf.edca_db.one("update contractingprocess set ocid = trim($1) where id=$2 returning id",[ req.body.ocid, req.body.localid ]).then(function (data) {
         res.send("Identificador de proceso actualizado");
         console.log("Update ocid:", data);
     }).catch(function (error) {
@@ -890,7 +867,7 @@ router.post('/update-ocid',isAuthenticated,function (req, res) {
 
 //buscar por periodo
 router.post('/search-process-by-date', function (req, res) {
-    edca_db.manyOrNone("select * from ContractingProcess where fecha_creacion >= $1 and fecha_creacion <= $2",[
+    db_conf.edca_db.manyOrNone("select * from ContractingProcess where fecha_creacion >= $1 and fecha_creacion <= $2",[
         req.body.fecha_inicial,
         req.body.fecha_final
     ]
@@ -904,7 +881,7 @@ router.post('/search-process-by-date', function (req, res) {
 });
 
 router.post('/search-process-by-ocid',function(req, res){
-    edca_db.manyOrNone("select * from ContractingProcess where ocid ilike '%$1#%' ",[ req.body.ocid ]).then(function (data) {
+    db_conf.edca_db.manyOrNone("select * from ContractingProcess where ocid ilike '%$1#%' ",[ req.body.ocid ]).then(function (data) {
         res.render('modals/process-list',{ data : data});
     }).catch(function (error) {
         console.log(error);
@@ -924,7 +901,7 @@ router.get('/manual', function (req, res) {
 
 //get list of transactions
 router.post('/transaction-list',function (req, res) {
-    edca_db.manyOrNone('select * from implementationtransactions where contractingprocess_id=$1',[
+    db_conf.edca_db.manyOrNone('select * from implementationtransactions where contractingprocess_id=$1',[
         req.body.ocid
     ]).then(function(data){
         console.log(data);
@@ -938,7 +915,7 @@ router.post('/transaction-list',function (req, res) {
 
 //get list of organizations
 router.post('/organization-list',function (req, res) {
-    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+    db_conf.edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
         req.body.table,
         req.body.ocid
     ]).then(function(data){
@@ -953,7 +930,7 @@ router.post('/organization-list',function (req, res) {
 
 //get list of items
 router.post('/item-list',function (req, res) {
-    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+    db_conf.edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
         req.body.table,
         req.body.ocid
     ]).then(function(data){
@@ -967,7 +944,7 @@ router.post('/item-list',function (req, res) {
 
 //get list of documents
 router.post('/document-list',function (req, res) {
-    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+    db_conf.edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
         req.body.table,
         req.body.ocid
     ]).then(function(data){
@@ -981,7 +958,7 @@ router.post('/document-list',function (req, res) {
 
 //get list of milestones
 router.post('/milestone-list',function (req, res) {
-    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+    db_conf.edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
         req.body.table,
         req.body.ocid
     ]).then(function(data){
@@ -995,7 +972,7 @@ router.post('/milestone-list',function (req, res) {
 
 //get list of amendment changes
 router.post('/amendmentchange-list',function (req, res) {
-    edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
+    db_conf.edca_db.manyOrNone('select * from $1~ where contractingprocess_id=$2',[
         req.body.table,
         req.body.ocid
     ]).then(function(data){
@@ -1011,7 +988,7 @@ router.post('/amendmentchange-list',function (req, res) {
 router.post('/delete', isAuthenticated,function (req,res) {
     console.log(req.body.id);
     console.log(req.body.table);
-    edca_db.result('delete from $1~ where id = $2', [
+    db_conf.edca_db.result('delete from $1~ where id = $2', [
         req.body.table,
         req.body.id
     ]).then(function (result) {
@@ -1171,7 +1148,7 @@ router.post('/upload-stage', isAuthenticated, upload.single('datafile'), functio
             URL_ESTUDIO_MERCADO
             */
 
-            edca_db.tx (function (t) {
+            db_conf.edca_db.tx (function (t) {
 
                 return t.one('update planning set rationale = $2 where contractingprocess_id = $1 returning id as planning_id',
                     [
@@ -1265,7 +1242,7 @@ router.post('/upload-stage', isAuthenticated, upload.single('datafile'), functio
             URL_PARTICIPANTES,
             URL_INHABILITACIONES
             */
-            edca_db.one('update tender set tenderid =$2, title = $3, description  = $4, status = $5,  minvalue_amount = $6, minvalue_currency= $7, value_amount = $8, value_currency = $9, ' +
+            db_conf.edca_db.one('update tender set tenderid =$2, title = $3, description  = $4, status = $5,  minvalue_amount = $6, minvalue_currency= $7, value_amount = $8, value_currency = $9, ' +
                 'procurementmethod = $10, procurementmethod_rationale= $11, awardcriteria = $12, awardcriteria_details = $13, submissionmethod = $14, submissionmethod_details = $15, ' +
                 'tenderperiod_startdate = $16 , enquiryperiod_startdate = $17, enquiryperiod_enddate = $18, hasenquiries = $19, ' +
                 'eligibilitycriteria = $20, awardperiod_startdate = $21, numberoftenderers = $22' +
@@ -1320,7 +1297,7 @@ router.post('/upload-stage', isAuthenticated, upload.single('datafile'), functio
             NUMERO_INCONFORMIDADES_RECHAZADAS
             */
 
-            edca_db.one('update award set awardid = $2, title = $3, description = $4, status = $5, award_date = $6, value_amount = $7, value_currency = $8 where contractingprocess_id = $1 returning id as award_id',
+            db_conf.edca_db.one('update award set awardid = $2, title = $3, description = $4, status = $5, award_date = $6, value_amount = $7, value_currency = $8 where contractingprocess_id = $1 returning id as award_id',
                 [
                     req.body.localid,
                     jsonArray[0].IDENTIFICADOR_ADJUDICACION,
@@ -1363,7 +1340,7 @@ router.post('/upload-stage', isAuthenticated, upload.single('datafile'), functio
             URL_ANEXOS_CONTRATO,
             URL_GARANTIAS_ANTICIPO,
             URL_GARANTIAS_CUMPLIMIENTO*/
-            edca_db.one('update contract set awardid =$2, contractid = $3 ,title = $4, description=$5, status = $6, period_startdate=$7, period_enddate=$8, value_amount=$9,' +
+            db_conf.edca_db.one('update contract set awardid =$2, contractid = $3 ,title = $4, description=$5, status = $6, period_startdate=$7, period_enddate=$8, value_amount=$9,' +
                 ' datesigned=$10 where contractingprocess_id = $1 returning id as contract_id',
                 [
                     req.body.localid,
