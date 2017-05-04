@@ -13,9 +13,9 @@ function getMString ( fecha ){
 
 <ul id="pills" class="nav nav-pills nav-justified">
     <li role="presentation" class="active"><a data-toggle="pill" href="#home" data-tooltip="crear_proceso" title="Esta sección se utiliza para describir el trasfondo del proceso de contratación. Esto puede incluir detalles sobre el presupuesto, proyectos relacionados y documentación tal cómo: Evaluación de necesidades, Plan del proyecto, Plan de contratación, Estudio de factibilidad, etc. ">1. PLANEACIÓN</a></li>
-    <li role="presentation"><a data-toggle="pill" href="#menu1" data-tooltip="crear_proceso" title="Esta secciónn incluye los detalles del anunciamiento de que una dependencia requiere licitar algún bien en particular, ya sean materiales o servicios, y que desea establecer un contrato por los mismos.">2. LICITACIÓN</a></li>
+    <li role="presentation"><a data-toggle="pill" href="#menu1" data-tooltip="crear_proceso" title="Esta secciónn incluye los detalles del anunciamiento de que una dependencia requiere licitar algún bien en particular, ya sean materiales o servicios, y que desea establecer un contrato por los mismos.">2. CONTRATACIÓN</a></li>
     <li role="presentation"><a data-toggle="pill" href="#menu2" data-tooltip="crear_proceso" title="Esta sección se utiliza para anunciar cualquier adjudicación que haya sido dada durante el proceso de esta licitación. Pueden existir múltiples adjudicaciones para un mismo proceso.">3. ADJUDICACIÓN</a></li>
-    <li role="presentation"><a data-toggle="pill" href="#menu3" data-tooltip="crear_proceso" title="Esta sección se utiliza para dar detalles sobre los contratos en los que se ha incurrido en este proceso. Todo contrato necesita estar relacionado con una adjudicación.">4. CONTRATACIÓN</a></li>
+    <li role="presentation"><a data-toggle="pill" href="#menu3" data-tooltip="crear_proceso" title="Esta sección se utiliza para dar detalles sobre los contratos en los que se ha incurrido en este proceso. Todo contrato necesita estar relacionado con una adjudicación.">4. CONTRATO</a></li>
     <li role="presentation"><a data-toggle="pill" href="#menu4" data-tooltip="crear_proceso" title="Esta sección describe los avances en cuanto a la implementación del proyecto.">5. IMPLEMENTACIÓN</a></li>
 </ul>
 <br>
@@ -81,7 +81,7 @@ function getMString ( fecha ){
 
                 <!-- budget currency -->
                 <p>
-                    <label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Divisa <!--Budget currency--></label>
+                    <label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Moneda <!--Budget currency--></label>
                     <br>
                     Especifique la moneda o divisa del monto que fue aprobado para la contratación
                     <select class="form-control" name="budget_currency">
@@ -164,7 +164,7 @@ function getMString ( fecha ){
 
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ítem <!--Items--> <span class="caret"></span>
+                    Ítems <!--Items--> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li><a href="#" data-toggle="modal" data-action="new_item" data-table="tenderitem" data-contractingprocess_id="<%= cp.id %>" data-target="#genericModal">Nuevo</a></li>
@@ -209,7 +209,7 @@ function getMString ( fecha ){
                     Monto estimado del valor mínimo de la contratación
                     <input type="number" step="0.01" class="form-control" name = "minvalue_amount" value = "<%= (typeof tender != "undefined")? tender.minvalue_amount:''%>" required>
                 </p>
-                <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor mínimo: Divisa<!--Min value currency--></label>
+                <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor mínimo: Moneda<!--Min value currency--></label>
 
                     <select class="form-control" name="minvalue_currency">
                         <% for ( var i = 0; i < currencies.length; i++){ %>
@@ -231,7 +231,7 @@ function getMString ( fecha ){
                     Monto estimado del valor máximo de la contratación. En la APF consiste en el valor del techo presupuestal
                     <input type="number" step="0.01" class="form-control" name= "value_amount" value = "<%= (typeof tender != "undefined")? tender.value_amount:''%>" required>
                 </p>
-                <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa <!--Value currency--></label>
+                <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Moneda <!--Value currency--></label>
 
                     <select class="form-control" name="value_currency">
                         <% for ( var i = 0; i < currencies.length; i++){ %>
@@ -478,7 +478,7 @@ function getMString ( fecha ){
                     <input type="number" step="0.01" class="form-control" name="value_amount" value = "<%= (typeof award != "undefined")? award.value_amount:''%>" required>
                 </p>
                 <p>
-                    <label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa<!--Value currency--></label>
+                    <label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Moneda<!--Value currency--></label>
 
                     <select class="form-control" name="value_currency">
                         <% for ( var i = 0; i < currencies.length; i++){ %>
@@ -629,7 +629,7 @@ function getMString ( fecha ){
                 <p><label data-tooltip="crear_proceso" title='Valor total del contrato. En el caso de contratos marcos se referirá a un valor estimado o valor máximo del contrato'>Valor: Monto<!--Value amount--></label>
                     <input type="number" step="0.01" class="form-control" name="value_amount" value = "<%= (typeof contract != "undefined")? contract.value_amount:''%>" required>
                 </p>
-                <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Divisa<!--Value currency--></label>
+                <p><label data-tooltip="crear_proceso" title='Moneda del monto asignado a la contratación en la fuente presupuestaria, expresado en tres letras según el formato ISO 4217.'>Valor: Moneda<!--Value currency--></label>
 
                     <select class="form-control" name="value_currency">
                         <% for ( var i = 0; i < currencies.length; i++){ %>
