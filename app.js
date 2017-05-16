@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//const dotenv = require('dotenv').config({path: path.join(__dirname, '.env')});
 
 
 app.use('/', routes);

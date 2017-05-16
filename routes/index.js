@@ -347,14 +347,14 @@ router.post('/new-process', isAuthenticated, function (req, res) {
         res.json( { url: '/main/'+data[0].contractingprocess.id } );
 
     }).catch(function (error) {
-        res.json({"id": 0});
         console.log("ERROR: ", error);
+        res.json({"id": 0});
     });
 });
 
 
 function dateCol( date ) {
-    return (date == '')?null:date;
+    return (date === '')?null:date;
 }
 
 function numericCol( number ){
