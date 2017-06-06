@@ -113,8 +113,9 @@ module.exports = {
                         if( checkValue(array[i].contactpoint_url) ){organization.contactPoint.url = array[i].contactpoint_url;}
 
                         deleteNullProperties(organization, true);
-
-                        organizations.push(organization);
+                        if ( organization !== null ) {
+                            organizations.push(organization);
+                        }
 
                     }
                     return organizations;
