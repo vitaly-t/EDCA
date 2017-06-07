@@ -31,7 +31,7 @@ create table links(
     json text,
     xlsx text,
     pdf text,
-    contractingprocess_id integer references contractingprocess(id)
+    contractingprocess_id integer references contractingprocess(id) on delete cascade
     );
 
 drop table if exists Publisher cascade;

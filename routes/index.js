@@ -984,6 +984,23 @@ router.post('/amendmentchange-list',function (req, res) {
     });
 });
 
+router.delete('/contractingprocess',isAuthenticated, function (req, res) {
+
+    db_conf.edca_db.one('delete from contractingprocess cascade where id = $1 returning id, ocid',[req.body.id]).then(function (cp) {
+        console.log('Successfully deleted contracting process -> ', JSON.stringify(cp));
+        res.json({
+            status: 'Ok',
+            id: cp.id,
+            ocid: cp.ocid
+        })
+    }).catch(function (error) {
+        res.json({
+            status: 'Error',
+            error: error
+        });
+    });
+
+});
 
 router.post('/delete', isAuthenticated,function (req,res) {
     console.log(req.body.id);
