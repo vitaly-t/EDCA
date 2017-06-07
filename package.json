@@ -26,6 +26,7 @@
     "passport": "*.*",
     "passport-local": "*.*",
     "pg-promise": "*.*",
+    "prompt": "^1.0.0",
     "protobufjs": "^5.0.1",
     "serve-favicon": "~2.3.0",
     "uuid": "^3.0.1"
