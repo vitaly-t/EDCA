@@ -26,4 +26,4 @@ psql -h postgres -U postgres < /sql/edca.sql
 ```
 
 ### Ejecutar comandos:
-`docker exec -it edca scripts/useradm add USERNAME PASSWORD`
+`docker exec -it edca useradm add USERNAME`
