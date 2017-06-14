@@ -1,44 +1,43 @@
 #!/usr/bin/env node
 
-
 var pgp = require('pg-promise')();
-//var edca_db = pgp('postgres://tester:test@fractal3.fractal-ware.com/edca');
 var edca_db = pgp('postgres://tester:test@localhost/edca');
-
 var jsonfile = require('jsonfile');
-
 var ocds = require('../../io/ocds');
 
-var inicio = 1
-var max = 300;
+var _data = [];
 
-for (var localid = inicio ; localid <= max ;localid++){
+edca_db.manyOrNone('select id from contractingprocess order by ocid').then(function(IDs) {
 
-    edca_db.one("select $1 as id, count(1) as count from contractingprocess where id = $1", [localid]).then(function (data) {
-        if ( data.count > 0){
-
-            ocds.getOCDSJSON( data.id, "release-package", edca_db).then(function (data) {
-
-                var ocid = data.releases[0].ocid.replace(/\//g,"_").trim();
-
-                console.log(' OCID -> '+ ocid);
-                var file = "output/"+ ocid  +/*"_"+data.localid+*/".json";
-
-                delete data.localid;
-
-                jsonfile.writeFileSync(file, data, {spaces: 2}, function(err) {
-                    console.error("error: ", err);
-                });
-
-            }).catch(function (error) {
-                console.log("ERROR: ",error);
-            });
-
-        }else{
-            console.log ( "Registro inexistente: ", data.id );
+    edca_db.task(function (t) {
+        for (var id of IDs) {
+            //console.log(id );
+            _data.push(ocds.getOCDSJSON(id.id , "release-package", edca_db));
         }
+
+        return this.batch(_data);
+
+    }).then(function (data) {
+        for (let i = 0; i < data.length; i++) {
+
+            var ocid = data[i].releases[0].ocid.replace(/\//g, "_").trim();
+
+            console.log('Writing JSON: OCID -> ' + ocid);
+            var file = "output/" + ocid +
+                //"_"+data.localid+
+                ".json";
+
+            delete data[i].localid;
+
+            jsonfile.writeFileSync(file, data, {spaces: 2}, function (err) {
+                console.error("error: ", err);
+            });
+        }
+
+        console.log('Success!!!');
+        pgp.end();
 
     }).catch(function (error) {
         console.log(error);
     });
-}
+});
