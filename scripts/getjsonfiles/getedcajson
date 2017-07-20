@@ -29,7 +29,7 @@ edca_db.manyOrNone('select id from contractingprocess order by ocid').then(funct
 
             delete data[i].localid;
 
-            jsonfile.writeFileSync(file, data, {spaces: 2}, function (err) {
+            jsonfile.writeFileSync(file, data[i], {spaces: 2}, function (err) {
                 console.error("error: ", err);
             });
         }
