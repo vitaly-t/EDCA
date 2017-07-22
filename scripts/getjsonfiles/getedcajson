@@ -12,7 +12,7 @@ edca_db.manyOrNone('select id from contractingprocess order by ocid').then(funct
     edca_db.task(function (t) {
         for (var id of IDs) {
             //console.log(id );
-            _data.push(ocds.getOCDSJSON(id.id , "release-package", edca_db));
+            _data.push(ocds.getOCDSJSON(id.id , "release-package", t));
         }
 
         return this.batch(_data);
