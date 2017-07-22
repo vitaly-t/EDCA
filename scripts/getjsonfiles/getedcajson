@@ -5,17 +5,16 @@ var edca_db = pgp('postgres://tester:test@localhost/edca');
 var jsonfile = require('jsonfile');
 var ocds = require('../../io/ocds');
 
-var _data = [];
-
 edca_db.manyOrNone('select id from contractingprocess order by ocid').then(function(IDs) {
 
     edca_db.task(function (t) {
+        var data = [];
         for (var id of IDs) {
             //console.log(id );
-            _data.push(ocds.getOCDSJSON(id.id , "release-package", t));
+            data.push(ocds.getOCDSJSON(id.id , "release-package", t));
         }
 
-        return this.batch(_data);
+        return this.batch(data);
 
     }).then(function (data) {
         for (let i = 0; i < data.length; i++) {
@@ -35,7 +34,7 @@ edca_db.manyOrNone('select id from contractingprocess order by ocid').then(funct
         }
 
         console.log('Success!!!');
-        pgp.end();
+        pgp.end(); // this is bad ;)
 
     }).catch(function (error) {
         console.log(error);
